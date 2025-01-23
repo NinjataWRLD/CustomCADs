@@ -1,4 +1,5 @@
 import axios, { AxiosError } from 'axios';
+import { refresh } from './identity/sign-in/requests';
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 const API_VERSION = process.env.NEXT_PUBLIC_API_VERSION ?? 'v1';
@@ -17,16 +18,17 @@ instance.interceptors.response.use(
 		if (!(error instanceof AxiosError)) {
 			return Promise.reject(error);
 		}
-
 		const { response, config } = error;
-		const refresh = '/identity/signin/refresh';
 
-		if (response?.status === 401 && config?.url !== refresh) {
+		if (
+			response?.status === 401 &&
+			config?.url !== '/identity/signin/refresh'
+		) {
 			try {
-				await instance.post(refresh);
+				await refresh();
 				return axios(config!);
-			} catch (refreshError) {
-				return Promise.reject(refreshError);
+			} catch (error) {
+				return Promise.reject(error);
 			}
 		}
 		return Promise.reject(error);
