@@ -1,0 +1,12 @@
+name: Continuous Integration pipeline
+
+on:
+  push:
+
+jobs:
+  lint:
+    uses: ./.github/workflows/lint.yml
+
+  unit_test:
+    needs: lint
+    uses: ./.github/workflows/unit-test.yml

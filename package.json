@@ -6,9 +6,10 @@
     "dev": "next dev --experimental-https -p 5173",
     "build": "next build",
     "start": "next start",
-    "test": "npx jest",
     "lint": "next lint",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "test": "npx jest",
+    "test:unit": "npx jest __test__/unit"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.64.2",

@@ -1,0 +1,22 @@
+name: Lint Next.js Project Action
+
+on: workflow_call
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.12.2'
+
+      - name: Install packages
+        run: npm install
+
+      - name: Lint project
+        run: npm run lint
