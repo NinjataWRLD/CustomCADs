@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { begun } from '@/api/orders/ongoing/designer/requests';
-import { Request } from '@/api/orders/ongoing/designer/types/begun';
+import { begun } from '@/api/orders/ongoing/designer';
+import { Request } from '@/api/orders/ongoing/designer/resources/all';
 
 const useGetBegunOngoingOrders = (params: Request) =>
 	useQuery({

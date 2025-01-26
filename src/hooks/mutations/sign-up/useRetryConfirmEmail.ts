@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
-import { retryConfirmEmail } from '@/api/identity/sign-up/requests';
-import { Request } from '@/api/identity/sign-up/types/retry-confirm-email';
+import { retryConfirmEmail } from '@/api/identity/sign-up';
+import { Request } from '@/api/identity/sign-up/resources/retry-confirm-email';
 
 const useRetryConfirmEmail = () =>
 	useMutation({

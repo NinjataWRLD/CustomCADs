@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
-import { delete_ } from '@/api/categories/categories/requests';
-import { Request } from '@/api/categories/categories/types/delete';
+import { delete_ } from '@/api/categories/categories';
+import { Request } from '@/api/categories/categories/resources/delete';
 
 const useDeleteCategory = () =>
 	useMutation({

@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
-import { create } from '@/api/carts/active/requests';
+import { create } from '@/api/carts/active';
 
 const useCreateActiveCart = () =>
 	useMutation({

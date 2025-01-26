@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
-import { edit } from '@/api/categories/categories/requests';
-import { Request } from '@/api/categories/categories/types/edit';
+import { edit } from '@/api/categories/categories';
+import { Request } from '@/api/categories/categories/resources/edit';
 
 const useEditCategory = () =>
 	useMutation({

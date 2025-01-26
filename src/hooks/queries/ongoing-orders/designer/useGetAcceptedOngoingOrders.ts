@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { accepted } from '@/api/orders/ongoing/designer/requests';
-import { Request } from '@/api/orders/ongoing/designer/types/accepted';
+import { accepted } from '@/api/orders/ongoing/designer';
+import { Request } from '@/api/orders/ongoing/designer/resources/all';
 
 const useGetAcceptedOngoingOrders = (params: Request) =>
 	useQuery({

@@ -1,11 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
-import { single } from '@/api/categories/categories/requests';
-import { Request } from '@/api/categories/categories/types/single';
+import { single } from '@/api/categories/categories';
+import { Request } from '@/api/categories/categories/resources/single';
 
-const useGetAccount = (params: Request) =>
+const useGetCategory = (params: Request) =>
 	useQuery({
 		queryKey: ['categories', 'single', params],
 		queryFn: async () => (await single(params)).data,
 	});
 
-export default useGetAccount;
+export default useGetCategory;

@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
-import { finish } from '@/api/orders/ongoing/designer/requests';
-import { Request } from '@/api/orders/ongoing/designer/types/finish';
+import { finish } from '@/api/orders/ongoing/designer';
+import { Request } from '@/api/orders/ongoing/designer/resources/finish';
 
 const useFinishOngoingOrder = () =>
 	useMutation({

@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
-import { refresh } from '@/api/identity/sign-in/requests';
+import { refresh } from '@/api/identity/sign-in';
 
 const useRefresh = () =>
 	useMutation({

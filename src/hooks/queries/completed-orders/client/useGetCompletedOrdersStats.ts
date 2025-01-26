@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { stats } from '@/api/orders/completed/client/requests';
+import { stats } from '@/api/orders/completed/client';
 
 const useGetCompletedOrdersStats = () =>
 	useQuery({

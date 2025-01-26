@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
-import { edit } from '@/api/catalog/products/creator/requests';
-import { Request } from '@/api/catalog/products/creator/types/edit';
+import { edit } from '@/api/catalog/products/creator';
+import { Request } from '@/api/catalog/products/creator/resources/edit';
 
 const useEditProduct = () =>
 	useMutation({

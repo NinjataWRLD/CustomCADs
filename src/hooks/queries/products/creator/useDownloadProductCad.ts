@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { downloadCad } from '@/api/catalog/products/creator/requests';
-import { Request } from '@/api/catalog/products/creator/types/download';
+import { downloadCad } from '@/api/catalog/products/creator';
+import { Request } from '@/api/catalog/products/creator/resources/download';
 
 const useDownloadProductCad = (params: Request) =>
 	useQuery({

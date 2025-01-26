@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
-import { delete_ } from '@/api/accounts/roles/requests';
-import { Request } from '@/api/accounts/roles/types/delete';
+import { delete_ } from '@/api/accounts/roles';
+import { Request } from '@/api/accounts/roles/resources/delete';
 
 const useDeleteRole = () =>
 	useMutation({

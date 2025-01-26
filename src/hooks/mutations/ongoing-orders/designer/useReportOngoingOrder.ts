@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
-import { report } from '@/api/orders/ongoing/designer/requests';
-import { Request } from '@/api/orders/ongoing/designer/types/report';
+import { report } from '@/api/orders/ongoing/designer';
+import { Request } from '@/api/orders/ongoing/designer/resources/status';
 
 const useReportOngoingOrder = () =>
 	useMutation({

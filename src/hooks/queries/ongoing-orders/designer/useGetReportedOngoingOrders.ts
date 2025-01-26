@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { reported } from '@/api/orders/ongoing/designer/requests';
-import { Request } from '@/api/orders/ongoing/designer/types/reported';
+import { reported } from '@/api/orders/ongoing/designer';
+import { Request } from '@/api/orders/ongoing/designer/resources/all';
 
 const useGetReportedOngoingOrders = (params: Request) =>
 	useQuery({

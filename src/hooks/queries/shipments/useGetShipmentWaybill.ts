@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { waybill } from '@/api/delivery/shipments/requests';
-import { Request } from '@/api/delivery/shipments/types/waybill';
+import { waybill } from '@/api/delivery/shipments';
+import { Request } from '@/api/delivery/shipments/resources/waybill';
 
 const useGetShipmentWaybill = (params: Request) =>
 	useQuery({

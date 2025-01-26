@@ -7,3 +7,5 @@ export interface Contact {
 	phone: string;
 	email: string;
 }
+
+export const SHIPMENTS_BASE_PATH = '/shipments';

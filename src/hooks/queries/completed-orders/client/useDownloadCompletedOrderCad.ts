@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { downloadCad } from '@/api/orders/completed/client/requests';
-import { Request } from '@/api/orders/completed/client/types/download';
+import { downloadCad } from '@/api/orders/completed/client';
+import { Request } from '@/api/orders/completed/client/resources/download';
 
 const useDownloadCompletedOrderCad = (params: Request) =>
 	useQuery({

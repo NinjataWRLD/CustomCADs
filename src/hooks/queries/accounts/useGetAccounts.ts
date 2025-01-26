@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { all } from '@/api/accounts/accounts/requests';
-import { Request } from '@/api/accounts/accounts/types/all';
+import { all } from '@/api/accounts/accounts';
+import { Request } from '@/api/accounts/accounts/resources/all';
 
 const useGetAccounts = (params: Request) =>
 	useQuery({

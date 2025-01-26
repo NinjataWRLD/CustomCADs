@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { finished } from '@/api/orders/ongoing/designer/requests';
-import { Request } from '@/api/orders/ongoing/designer/types/finished';
+import { finished } from '@/api/orders/ongoing/designer';
+import { Request } from '@/api/orders/ongoing/designer/resources/all';
 
 const useGetFinishedOngoingOrders = (params: Request) =>
 	useQuery({

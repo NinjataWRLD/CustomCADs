@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
-import { edit } from '@/api/orders/ongoing/client/requests';
-import { Request } from '@/api/orders/ongoing/client/types/edit';
+import { edit } from '@/api/orders/ongoing/client';
+import { Request } from '@/api/orders/ongoing/client/resources/edit';
 
 const useEditOngoingOrder = () =>
 	useMutation({

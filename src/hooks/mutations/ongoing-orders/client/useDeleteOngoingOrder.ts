@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
-import { delete_ } from '@/api/orders/ongoing/client/requests';
-import { Request } from '@/api/orders/ongoing/client/types/delete';
+import { delete_ } from '@/api/orders/ongoing/client';
+import { Request } from '@/api/orders/ongoing/client/resources/delete';
 
 const useDeleteOngoingOrder = () =>
 	useMutation({

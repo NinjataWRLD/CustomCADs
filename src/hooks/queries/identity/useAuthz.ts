@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { authz } from '@/api/identity/info/requests';
+import { authz } from '@/api/identity/info';
 
 const useAuthz = () =>
 	useQuery({

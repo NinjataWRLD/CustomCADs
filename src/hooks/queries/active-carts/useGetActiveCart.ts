@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { single } from '@/api/carts/active/requests';
+import { single } from '@/api/carts/active';
 
 const useGetActiveCart = () =>
 	useQuery({
