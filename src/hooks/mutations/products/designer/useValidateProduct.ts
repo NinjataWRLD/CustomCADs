@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
-import { validate } from '@/api/catalog/products/designer/requests';
-import { Request } from '@/api/catalog/products/designer/types/validate';
+import { validate } from '@/api/catalog/products/designer';
+import { Request } from '@/api/catalog/products/designer/resources/validate';
 
 const useValidateProduct = () =>
 	useMutation({

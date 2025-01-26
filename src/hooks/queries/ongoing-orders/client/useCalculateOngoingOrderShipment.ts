@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { calculateShipment } from '@/api/orders/ongoing/client/requests';
-import { Request } from '@/api/orders/ongoing/client/types/calculate-shipment';
+import { calculateShipment } from '@/api/orders/ongoing/client';
+import { Request } from '@/api/orders/ongoing/client/resources/calculate-shipment';
 
 const useCalculateOngoingOrderShipment = (params: Request) =>
 	useQuery({

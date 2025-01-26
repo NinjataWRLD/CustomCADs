@@ -10,3 +10,6 @@ export interface AccountResponse {
 	firstName?: string;
 	lastName?: string;
 }
+
+export const ACCOUNTS_BASE_PATH = '/account';
+export const ROLES_BASE_PATH = '/roles';

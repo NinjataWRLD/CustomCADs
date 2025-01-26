@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { all } from '@/api/delivery/shipments/requests';
-import { Request } from '@/api/delivery/shipments/types/all';
+import { all } from '@/api/delivery/shipments';
+import { Request } from '@/api/delivery/shipments/resources/all';
 
 const useGetShipments = (params: Request) =>
 	useQuery({

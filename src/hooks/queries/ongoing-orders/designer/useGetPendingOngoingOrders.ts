@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { pending } from '@/api/orders/ongoing/designer/requests';
-import { Request } from '@/api/orders/ongoing/designer/types/pending';
+import { pending } from '@/api/orders/ongoing/designer';
+import { Request } from '@/api/orders/ongoing/designer/resources/all';
 
 const useGetPendingOngoingOrders = (params: Request) =>
 	useQuery({

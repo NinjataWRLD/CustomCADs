@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { track } from '@/api/delivery/shipments/requests';
-import { Request } from '@/api/delivery/shipments/types/track';
+import { track } from '@/api/delivery/shipments';
+import { Request } from '@/api/delivery/shipments/resources/track';
 
 const useTrackShipment = (params: Request) =>
 	useQuery({

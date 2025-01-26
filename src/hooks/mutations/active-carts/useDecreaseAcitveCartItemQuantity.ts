@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
-import { decreaseItemQuantity } from '@/api/carts/active/requests';
-import { Request } from '@/api/carts/active/types/decrease-quantity';
+import { decreaseItemQuantity } from '@/api/carts/active';
+import { Request } from '@/api/carts/active/resources/change-quantity';
 
 const useDecreaseAcitveCartItemQuantity = () =>
 	useMutation({

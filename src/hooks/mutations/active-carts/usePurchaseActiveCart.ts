@@ -1,11 +1,11 @@
 import { useMutation } from '@tanstack/react-query';
-import { purchase } from '@/api/carts/active/requests';
-import { Request } from '@/api/carts/active/types/purchase';
+import { purchase } from '@/api/carts/active';
+import { Request } from '@/api/carts/active/resources/purchase';
 
-const useAddActiveCartItem = () =>
+const usePurchaseActiveCart = () =>
 	useMutation({
 		mutationKey: ['active-carts', 'purchase'],
 		mutationFn: async (req: Request) => (await purchase(req)).data,
 	});
 
-export default useAddActiveCartItem;
+export default usePurchaseActiveCart;

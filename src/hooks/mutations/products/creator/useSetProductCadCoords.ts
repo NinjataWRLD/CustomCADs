@@ -1,12 +1,12 @@
 import { useMutation } from '@tanstack/react-query';
-import { setCadCoords } from '@/api/catalog/products/creator/requests';
-import { Request } from '@/api/catalog/products/creator/types/set-coords';
+import { setCadCoords } from '@/api/catalog/products/creator';
+import { Request } from '@/api/catalog/products/creator/resources/set-coords';
 
-const useEditProduct = () =>
+const useSetProductCadCoords = () =>
 	useMutation({
 		mutationKey: ['products', 'creator', 'edit'],
 		mutationFn: async (params: Request) =>
 			(await setCadCoords(params)).data,
 	});
 
-export default useEditProduct;
+export default useSetProductCadCoords;

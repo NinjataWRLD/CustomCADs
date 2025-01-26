@@ -3,3 +3,5 @@ export interface CategoryResponse {
 	name: string;
 	description: string;
 }
+
+export const CATEGORY_BASE_PATH = '/category';

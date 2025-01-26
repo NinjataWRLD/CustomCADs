@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
-import { create } from '@/api/accounts/accounts/requests';
-import { Request } from '@/api/accounts/accounts/types/create';
+import { create } from '@/api/accounts/accounts';
+import { Request } from '@/api/accounts/accounts/resources/create';
 
 const useCreateAccount = () =>
 	useMutation({

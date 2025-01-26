@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
-import { create } from '@/api/orders/ongoing/client/requests';
-import { Request } from '@/api/orders/ongoing/client/types/create';
+import { create } from '@/api/orders/ongoing/client';
+import { Request } from '@/api/orders/ongoing/client/resources/create';
 
 const useCreateOngoingOrder = () =>
 	useMutation({

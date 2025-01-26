@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
-import { login } from '@/api/identity/sign-in/requests';
-import { Request } from '@/api/identity/sign-in/types/login';
+import { login } from '@/api/identity/sign-in';
+import { Request } from '@/api/identity/sign-in/resources/login';
 
 const useLogin = () =>
 	useMutation({

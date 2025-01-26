@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
-import { register } from '@/api/identity/sign-up/requests';
-import { Request } from '@/api/identity/sign-up/types/register';
+import { register } from '@/api/identity/sign-up';
+import { Request } from '@/api/identity/sign-up/resources/register';
 
 const useRegister = () =>
 	useMutation({

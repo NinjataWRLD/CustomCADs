@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { single } from '@/api/catalog/products/gallery/requests';
-import { Request } from '@/api/catalog/products/gallery/types/single';
+import { single } from '@/api/catalog/products/gallery';
+import { Request } from '@/api/catalog/products/gallery/resources/single';
 
 const useGetProduct = (params: Request) =>
 	useQuery({

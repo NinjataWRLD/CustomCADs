@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
-import { cancel } from '@/api/delivery/shipments/requests';
-import { Request } from '@/api/delivery/shipments/types/cancel';
+import { cancel } from '@/api/delivery/shipments';
+import { Request } from '@/api/delivery/shipments/resources/cancel';
 
 const useCancelShipment = () =>
 	useMutation({

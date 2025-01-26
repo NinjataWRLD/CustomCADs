@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { upload } from '@/api/catalog/products/creator/requests';
-import { Request } from '@/api/catalog/products/creator/types/upload';
+import { upload } from '@/api/catalog/products/creator';
+import { Request } from '@/api/catalog/products/creator/resources/upload';
 
 const useUploadProductFiles = (params: Request) =>
 	useQuery({

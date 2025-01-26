@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { downloadImage } from '@/api/catalog/products/creator/requests';
-import { Request } from '@/api/catalog/products/creator/types/download';
+import { downloadImage } from '@/api/catalog/products/creator';
+import { Request } from '@/api/catalog/products/creator/resources/download';
 
 const useDownloadProductImage = (params: Request) =>
 	useQuery({

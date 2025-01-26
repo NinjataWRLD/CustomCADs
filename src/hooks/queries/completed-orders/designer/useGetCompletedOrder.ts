@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { single } from '@/api/orders/completed/designer/requests';
-import { Request } from '@/api/orders/completed/designer/types/single';
+import { single } from '@/api/orders/completed/designer';
+import { Request } from '@/api/orders/completed/designer/resources/single';
 
 const useGetCompletedOrder = (params: Request) =>
 	useQuery({

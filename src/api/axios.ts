@@ -1,5 +1,5 @@
 import axios, { AxiosError } from 'axios';
-import { refresh } from './identity/sign-in/requests';
+import { refresh } from './identity/sign-in';
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 const API_VERSION = process.env.NEXT_PUBLIC_API_VERSION ?? 'v1';

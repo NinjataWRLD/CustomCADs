@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
-import { delete_ } from '@/api/accounts/accounts/requests';
-import { Request } from '@/api/accounts/accounts/types/delete';
+import { delete_ } from '@/api/accounts/accounts';
+import { Request } from '@/api/accounts/accounts/resources/delete';
 
 const useDeleteAccount = () =>
 	useMutation({

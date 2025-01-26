@@ -16,3 +16,7 @@ export interface PurchasedCartItem {
 	productId: string;
 	cartId: string;
 }
+
+export const ACTIVE_CART_BASE_PATH = '/carts/active';
+
+export const PURCHASED_CART_BASE_PATH = '/carts/purchased';

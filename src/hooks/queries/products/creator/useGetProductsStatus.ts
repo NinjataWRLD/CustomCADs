@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { stats } from '@/api/catalog/products/creator/requests';
+import { stats } from '@/api/catalog/products/creator';
 
 const useGetProductsStats = () =>
 	useQuery({

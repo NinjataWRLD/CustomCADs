@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { all } from '@/api/orders/ongoing/client/requests';
-import { Request } from '@/api/orders/ongoing/client/types/all';
+import { all } from '@/api/orders/ongoing/client';
+import { Request } from '@/api/orders/ongoing/client/resources/all';
 
 const useGetOngoingOrders = (params: Request) =>
 	useQuery({

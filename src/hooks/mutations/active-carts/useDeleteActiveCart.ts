@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
-import { delete_ } from '@/api/carts/active/requests';
+import { delete_ } from '@/api/carts/active';
 
 const useDeleteActiveCart = () =>
 	useMutation({

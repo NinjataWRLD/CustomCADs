@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { changeImage } from '@/api/catalog/products/creator/requests';
-import { Request } from '@/api/catalog/products/creator/types/change';
+import { changeImage } from '@/api/catalog/products/creator';
+import { Request } from '@/api/catalog/products/creator/resources/change';
 
 const useChangeProductImage = (params: Request) =>
 	useQuery({

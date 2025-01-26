@@ -1,11 +1,10 @@
 const func = (obj: object): string =>
 	Object.entries(obj)
+		.filter(([, value]) => value !== undefined && value !== null)
 		.map(
 			([key, value]) =>
-				value &&
 				`${encodeURIComponent(key)}=${encodeURIComponent(value)}`,
 		)
-		.filter((q) => q)
 		.join('&');
 
 export default func;

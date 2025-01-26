@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
-import { resetPassword } from '@/api/identity/sign-in/requests';
-import { Request } from '@/api/identity/sign-in/types/reset-password';
+import { resetPassword } from '@/api/identity/sign-in';
+import { Request } from '@/api/identity/sign-in/resources/reset-password';
 
 const useResetPassword = () =>
 	useMutation({

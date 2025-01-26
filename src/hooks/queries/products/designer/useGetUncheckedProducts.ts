@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { unchecked } from '@/api/catalog/products/designer/requests';
-import { Request } from '@/api/catalog/products/designer/types/all';
+import { unchecked } from '@/api/catalog/products/designer';
+import { Request } from '@/api/catalog/products/designer/resources/all';
 
 const useGetUncheckedProducts = (params: Request) =>
 	useQuery({

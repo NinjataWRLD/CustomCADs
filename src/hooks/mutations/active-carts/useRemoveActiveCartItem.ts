@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
-import { removeItem } from '@/api/carts/active/requests';
-import { Request } from '@/api/carts/active/types/remove-item';
+import { removeItem } from '@/api/carts/active';
+import { Request } from '@/api/carts/active/resources/remove-item';
 
 const useRemoveActiveCartItem = () =>
 	useMutation({

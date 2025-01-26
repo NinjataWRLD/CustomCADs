@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { all } from '@/api/carts/purchased/requests';
-import { Request } from '@/api/carts/purchased/types/all';
+import { all } from '@/api/carts/purchased';
+import { Request } from '@/api/carts/purchased/resources/all';
 
 const useGetPurchasedCarts = (params: Request) =>
 	useQuery({
