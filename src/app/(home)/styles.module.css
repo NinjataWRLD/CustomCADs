@@ -1,0 +1,110 @@
+.home {
+    position: relative;
+    height: 500vh;
+    color: hsl(0, 0%, 0%);
+}
+
+.main {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    background: linear-gradient(to bottom, rgba(76, 10, 76, 0.405), #0b0f16);
+}
+
+.section {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+        opacity 0.6s ease-out,
+        transform 0.6s ease-out;
+    color: white;
+}
+
+.section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.cover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        to right,
+        rgba(25, 3, 46, 0.263),
+        rgba(25, 3, 46, 0.088),
+        transparent
+    );
+    clip-path: polygon(0 1%, 100% 0, 100% 40%, 0 91%);
+}
+
+.box {
+    opacity: 0;
+    transform: translateX(20px);
+    transition:
+        opacity 0.6s ease-out,
+        transform 0.6s ease-out;
+}
+
+.box.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.box {
+    position: absolute;
+    top: 100px;
+    width: 100px;
+    height: 100px;
+    background-color: red;
+}
+
+.cards {
+    height: 70vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.models {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.payments {
+    display: flex;
+    flex-direction: column;
+}
+
+.payments h1,
+.models h1 {
+    text-align: center;
+    font-size: 2.3rem;
+    color: white;
+    text-shadow:
+        2px 2px 5px rgba(106, 13, 173, 0.7),
+        -2px -2px 5px rgba(160, 32, 240, 0.6),
+        0px 0px 15px rgba(75, 0, 130, 0.5);
+}
+
+.models h1 {
+    margin-bottom: 50px;
+}
+
+.payments .cards {
+    display: flex;
+    gap: 5rem;
+}
+
+.contacts {
+    height: 70vh;
+    color: white;
+    margin-top: 5%;
+}
