@@ -4,11 +4,7 @@ on:
   push:
 
 jobs:
-  install:
-    uses: ./.github/workflows/install.yml
-
   lint:
-    needs: install
     uses: ./.github/workflows/lint.yml
 
   unit_test:
