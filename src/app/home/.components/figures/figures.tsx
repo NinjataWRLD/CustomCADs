@@ -1,7 +1,6 @@
 import React from 'react';
+import faviconPic from '@/assets/favicons/favicon.svg';
 import styles from './figures.module.css';
-import Image from 'next/image';
-import customcadsPic from '/public/favicons/favicon.svg';
 
 const Figures: React.FC = () => {
 	return (
@@ -38,8 +37,8 @@ const Figures: React.FC = () => {
 				<div
 					className={`${styles['hero-figure-box']} ${styles['hero-figure-box-05']}`}
 				>
-					<Image
-						src={customcadsPic}
+					<img
+						src={faviconPic}
 						alt='CustomCADs'
 						width={0}
 						height={0}

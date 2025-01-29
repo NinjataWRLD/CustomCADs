@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import PopularModel from './popular-model';
 import BtnLink from '../button/button';
 import styles from './popular.module.css';

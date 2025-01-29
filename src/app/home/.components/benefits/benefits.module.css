@@ -9,7 +9,7 @@
 }
 
 .picture {
-    background-image: url('/assets/section2.png');
+    background-image: url('/src/assets/section2.png');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;

@@ -1,5 +1,5 @@
 import React from 'react';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import styles from './footer.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -32,7 +32,7 @@ const Footer: React.FC = () => {
 						models, and designer connections.
 					</p>
 					<p>
-						<Link href='/privacy-policy'>Privacy Policy</Link>
+						<Link to='/privacy-policy'>Privacy Policy</Link>
 					</p>
 				</div>
 				<div className={`${styles.links}`}>

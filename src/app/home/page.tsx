@@ -8,9 +8,9 @@ import Contacts from './.components/contacts/contacts';
 import Figures from './.components/figures/figures';
 import FiguresAnimation from './.components/figures/animation';
 import styles from './styles.module.css';
-import galleryPic from '/public/assets/cards/gallery.png';
-import customPic from '/public/assets/cards/custom.png';
-import printerPic from '/public/assets/cards/printer.png';
+import galleryPic from '@/assets/cards/gallery.png';
+import customPic from '@/assets/cards/custom.png';
+import printerPic from '@/assets/cards/printer.png';
 import { faCube, faPrint } from '@fortawesome/free-solid-svg-icons';
 import { faImages } from '@fortawesome/free-regular-svg-icons';
 

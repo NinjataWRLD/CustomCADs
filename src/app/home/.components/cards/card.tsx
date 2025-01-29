@@ -1,6 +1,5 @@
 import React, { forwardRef } from 'react';
-import Link from 'next/link';
-import Image, { StaticImageData } from 'next/image';
+import { Link } from 'react-router-dom';
 import styles from './card.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
@@ -13,7 +12,7 @@ interface CardProps {
 	desc1: string;
 	desc2: string;
 	desc3: string;
-	image: StaticImageData;
+	image: string;
 	link: string;
 }
 
@@ -34,7 +33,7 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
 						</span>
 					</div>
 
-					<Image
+					<img
 						src={image}
 						alt='image'
 						className={`${styles['card-bg']}`}
@@ -42,7 +41,7 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
 						height={0}
 					/>
 
-					<Link href={link} className={`${styles['card-button']}`}>
+					<Link to={link} className={`${styles['card-button']}`}>
 						Learn More{' '}
 						<FontAwesomeIcon icon={faArrowRight}></FontAwesomeIcon>
 					</Link>

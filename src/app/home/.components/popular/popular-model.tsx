@@ -1,6 +1,5 @@
 import React from 'react';
-import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { useNavigate } from 'react-router-dom';
 import styles from './popular.module.css';
 
 interface ModelProps {
@@ -18,16 +17,16 @@ interface ModelProps {
 }
 
 const PopularModel: React.FC<ModelProps> = ({ model }) => {
-	const router = useRouter();
+	const navigate = useNavigate();
 
 	const handleDetailsClick = () => {
-		router.push('/product');
+		navigate('/product');
 	};
 
 	return (
 		<div className={`${styles.model}`}>
 			<b></b>
-			<Image
+			<img
 				onClick={handleDetailsClick}
 				src={model.src}
 				alt='Model Picture'

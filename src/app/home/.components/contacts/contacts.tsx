@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import BtnLink from '../button/button';
 import styles from './contacts.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -54,7 +54,7 @@ const Contacts: React.FC = () => {
 		<div className={`${styles['contacts']}`}>
 			<h1>Candidate for a designer in our company!</h1>
 			<h2>
-				( Learn about roles <Link href='/roles'>here</Link> )
+				( Learn about roles <Link to='/roles'>here</Link> )
 			</h2>
 			<form onSubmit={handleSubmit}>
 				<div className={`${styles.first}`}>

@@ -1,15 +1,15 @@
 import React from 'react';
-import { useRouter } from 'next/navigation';
+import { useNavigate } from 'react-router-dom';
 import Sheet from './sheets/sheet';
 import styles from './benefits.module.css';
 
 const Benefits: React.FC = () => {
-	const router = useRouter();
+	const navigate = useNavigate();
 
 	return (
 		<div className={`${styles.container}`}>
 			<div
-				onClick={() => router.push('/gallery')}
+				onClick={() => navigate('/gallery')}
 				className={`${styles.picture}`}
 			></div>
 			<div className={`${styles.content}`}>
