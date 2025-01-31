@@ -1,6 +1,7 @@
-name: Lint Next.js Project Action
+name: Lint Project Action
 
-on: workflow_call
+on:
+  workflow_call:
 
 jobs:
   lint:
@@ -13,7 +14,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: '20.12.2'
+          node-version: '20.x'
 
       - name: Install packages
         run: npm install

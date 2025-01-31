@@ -1,4 +1,4 @@
-const func = (obj: object): string =>
+const objectToUrl = (obj: object): string =>
 	Object.entries(obj)
 		.filter(([, value]) => value !== undefined && value !== null)
 		.map(
@@ -7,4 +7,4 @@ const func = (obj: object): string =>
 		)
 		.join('&');
 
-export default func;
+export default objectToUrl;

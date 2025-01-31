@@ -1,8 +1,8 @@
 import axios, { AxiosError } from 'axios';
 import { refresh } from './identity/sign-in';
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
-const API_VERSION = process.env.NEXT_PUBLIC_API_VERSION ?? 'v1';
+const BASE_URL = import.meta.env.VITE_API_URL;
+const API_VERSION = import.meta.env.VITE_API_VERSION ?? 'v1';
 
 const instance = axios.create({
 	baseURL: `${BASE_URL}/api/${API_VERSION}`,

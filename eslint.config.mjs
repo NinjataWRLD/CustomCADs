@@ -45,7 +45,6 @@ const possibleErrors = {
     'no-template-curly-in-string': 'warn',
     'no-this-before-super': 'warn',
     'no-unreachable': 'warn',
-    'no-useless-assignment': 'warn',
     'use-isnan': 'warn',
 };
 
@@ -87,8 +86,8 @@ const suggestions = {
 
 const eslintConfig = [
     ...compat.extends(
-        'next/core-web-vitals',
-        'next/typescript',
+        'plugin:@typescript-eslint/recommended',
+        'plugin:react-hooks/recommended',
         'plugin:prettier/recommended',
     ),
     {
