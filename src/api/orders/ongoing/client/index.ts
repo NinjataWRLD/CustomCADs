@@ -3,6 +3,7 @@ import * as createResources from './resources/create';
 import * as statsResources from './resources/stats';
 import * as recentResources from './resources/recent';
 import * as singleResources from './resources/single';
+import * as sortingsResources from './resources/sortings';
 import * as editResources from './resources/edit';
 import * as allResources from './resources/all';
 import * as deleteResources from './resources/delete';
@@ -31,6 +32,9 @@ export const all = async (req: allResources.Request) =>
 
 export const single = async (req: singleResources.Request) =>
 	await axios.get<singleResources.Response>(singleResources.url(req));
+
+export const sortings = async () =>
+	await axios.get<sortingsResources.Response>(sortingsResources.url());
 
 export const calculateShipment = async (req: caluclateResources.Request) =>
 	await axios.get<caluclateResources.Response>(caluclateResources.url(req));

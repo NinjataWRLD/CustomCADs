@@ -6,7 +6,7 @@ export interface Counts {
 export interface Coordinates {
 	x: number;
 	y: number;
-	Z: number;
+	z: number;
 }
 
 export interface Category {

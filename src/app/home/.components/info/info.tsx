@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from '../button/button';
+import Button from '@/app/components/button/button';
 import styles from './info.module.css';
 
 interface InfoProps {

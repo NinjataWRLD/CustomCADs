@@ -6,6 +6,7 @@ export interface Request {
 
 export interface Response {
 	presignedUrl: string;
+	contentType: string;
 }
 
 export const url = (file: 'image' | 'cad') =>

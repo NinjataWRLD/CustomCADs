@@ -3,6 +3,7 @@ import { Result } from '@/api/common/result';
 import { AccountResponse } from '../common';
 import * as allResources from './resources/all';
 import * as sinlgeResources from './resources/single';
+import * as sortingResources from './resources/sortings';
 import * as createResources from './resources/create';
 import * as deleteResources from './resources/delete';
 
@@ -11,6 +12,9 @@ export const all = async (req: allResources.Request) =>
 
 export const single = async (req: sinlgeResources.Request) =>
 	await axios.get<AccountResponse>(sinlgeResources.url(req));
+
+export const sortings = async () =>
+	await axios.get<sortingResources.Response>(sortingResources.url());
 
 export const create = async (req: createResources.Request) =>
 	await axios.post<AccountResponse>(createResources.url(), req);

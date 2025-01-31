@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import PopularModel from './popular-model';
-import BtnLink from '../button/button';
+import BtnLink from '@/app/components/button/button';
 import styles from './popular.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
