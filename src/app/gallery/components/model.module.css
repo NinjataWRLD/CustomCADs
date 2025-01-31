@@ -54,7 +54,9 @@
     opacity: 0.9;
     border-radius: 50%;
     transform: translateY(-110px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5), 0 0 10px rgba(255, 255, 255, 0.3);
+    box-shadow:
+        0 15px 30px rgba(0, 0, 0, 0.5),
+        0 0 10px rgba(255, 255, 255, 0.3);
     filter: blur(0) contrast(1.2);
     border: 3px solid rgba(255, 255, 255, 0.7);
 }
@@ -89,7 +91,7 @@
 
 .content .title span {
     font-weight: 300;
-    font-size: 0.70em;
+    font-size: 0.7em;
 }
 
 .button-container {
@@ -111,13 +113,17 @@
     border: none;
     background-color: transparent;
     position: relative;
-    transition: background-color 0.2s ease, transform 0.2s ease;
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease;
 }
 
 .heart i {
     font-size: 1.5rem;
     color: white;
-    transition: transform 0.2s ease, color 0.2s ease;
+    transition:
+        transform 0.2s ease,
+        color 0.2s ease;
 }
 
 .heart:hover i {

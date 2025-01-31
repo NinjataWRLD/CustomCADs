@@ -25,7 +25,7 @@
     margin-left: 5%;
     font-size: 1.02rem;
     font-weight: 400;
-    text-shadow: 
+    text-shadow:
         1px 1px 2px white,
         2px 2px 1px purple;
 }
@@ -63,12 +63,19 @@
     transform-origin: top;
     transform: scale(0) translateY(-65px);
     margin-bottom: -40px;
-    transition: background-color 1.3s, opacity .5s ease-in-out, transform .5s ease-in-out, margin-bottom .2s ease-in-out;
+    transition:
+        background-color 1.3s,
+        opacity 0.5s ease-in-out,
+        transform 0.5s ease-in-out,
+        margin-bottom 0.2s ease-in-out;
     transition-delay: calc(0.1s * (var(--i)));
 }
 
-.select-btn.active  ~ .list .option {
-    transition: opacity .6s ease-in-out, transform .5s ease-in-out, margin-bottom .2s ease-in-out;
+.select-btn.active ~ .list .option {
+    transition:
+        opacity 0.6s ease-in-out,
+        transform 0.5s ease-in-out,
+        margin-bottom 0.2s ease-in-out;
     transition-delay: calc(0.1s * (var(--i)));
     transform: scale(1) translateY(0);
     opacity: 1;
@@ -76,7 +83,7 @@
     background-color: black;
 }
 
-.select-btn.active  ~ .list .option:hover {
+.select-btn.active ~ .list .option:hover {
     background-color: #3e1558;
 }
 
@@ -119,7 +126,7 @@
 .arrows svg {
     font-size: 1.3rem;
     color: rgb(128, 0, 128);
-    transition: color .4s linear;
+    transition: color 0.4s linear;
 }
 
 .tooltip {

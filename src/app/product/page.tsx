@@ -1,11 +1,11 @@
 import { useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import useGetProduct from '@/hooks/queries/products/gallery/useGetGalleryProduct';
+import useAddActiveCartItem from '@/hooks/mutations/active-carts/useAddActiveCartItem';
 import Transition from '@/app/components/transition/transition';
 import BtnLink from '@/app/components/button/button';
-import styles from './styles.module.css';
-import useAddActiveCartItem from '@/hooks/mutations/active-carts/useAddActiveCartItem';
 import Cad from '@/app/components/cad/cad';
+import styles from './styles.module.css';
 
 const Product = () => {
 	const { id } = useParams();
