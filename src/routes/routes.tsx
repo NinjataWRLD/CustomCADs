@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import App from '@/app/app';
 import Home from '../app/home/page';
 import Gallery from '@/app/gallery/page';
+import Product from '@/app/product/page';
 
 const queryClient = new QueryClient({
 	defaultOptions: {
@@ -28,6 +29,10 @@ const userRoutes: RouteObject = {
 		{
 			path: '/gallery',
 			element: <Gallery />,
+		},
+		{
+			path: '/gallery/:id',
+			element: <Product />,
 		},
 	],
 };

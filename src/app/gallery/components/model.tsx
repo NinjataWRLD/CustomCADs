@@ -5,12 +5,14 @@ import useGenerateBlobUrl from '@/hooks/useGenerateBlobUrl';
 import { Response as Product } from '@/api/catalog/products/gallery/resources/all';
 import styles from './model.module.css';
 import useBytesToBuffer from '@/hooks/useBytesToBuffer';
+import { useNavigate } from 'react-router-dom';
 
 interface ModelProps {
 	product: Product;
 }
 
 const Model: React.FC<ModelProps> = ({ product }) => {
+	const navigate = useNavigate();
 	const { data: file, isLoading } = useDownloadProductImage({
 		id: product.id,
 	});
@@ -25,8 +27,10 @@ const Model: React.FC<ModelProps> = ({ product }) => {
 		return <>Loading...</>;
 	}
 
+	const handleClick = () => navigate(`${product.id}`);
+
 	return (
-		<div className={`${styles.model}`}>
+		<div className={`${styles.model}`} onClick={handleClick}>
 			<b></b>
 			<img src={blobUrl} alt='Model Picture' />
 			<div className={`${styles.content}`}>
