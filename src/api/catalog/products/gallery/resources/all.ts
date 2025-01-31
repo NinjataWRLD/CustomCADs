@@ -1,12 +1,11 @@
 import objectToUrl from '@/utils/object-to-url';
 import { GALLERY_BASE_PATH } from '@/api/catalog/common';
-import { ProductSorting, SortingDirection } from '@/api/common/enums/sortings';
 
 export interface Request {
 	categoryId?: number;
 	name?: string;
-	sortingType?: ProductSorting;
-	sortingDirection?: SortingDirection;
+	sortingType?: string;
+	sortingDirection?: string;
 	page: number;
 	limit: number;
 }
@@ -14,6 +13,8 @@ export interface Request {
 export interface Response {
 	id: string;
 	name: string;
+	category: string;
+	views: number;
 }
 
 export const url = (req: Request) => `${GALLERY_BASE_PATH}?${objectToUrl(req)}`;
