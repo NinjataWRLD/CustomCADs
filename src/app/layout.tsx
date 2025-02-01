@@ -3,7 +3,7 @@ import Footer from './components/footer/footer';
 import Gradient from './components/gradient/gradient';
 import { Outlet } from 'react-router-dom';
 
-const App = () => {
+const Layout = () => {
 	return (
 		<>
 			<Header />
@@ -16,4 +16,4 @@ const App = () => {
 	);
 };
 
-export default App;
+export default Layout;
