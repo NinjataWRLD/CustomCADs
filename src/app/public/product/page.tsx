@@ -1,12 +1,12 @@
 import { useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import useGetProduct from '@/hooks/queries/products/gallery/useGetGalleryProduct';
+import useCartContext from '@/hooks/useCartContext';
 import Transition from '@/app/components/transition/transition';
 import BtnLink from '@/app/components/button/button';
+import { CartItem } from '@/types/cart-item';
 import Cad from '@/app/components/cad/cad';
 import styles from './styles.module.css';
-import { CartItem } from '@/types/cart-item';
-import useCartContext from '@/hooks/useCartContext';
 
 const Product = () => {
 	const { id } = useParams();
@@ -15,7 +15,7 @@ const Product = () => {
 		isLoading,
 		isError,
 	} = useGetProduct({ id: String(id) });
-	const cart = useCartContext();
+	const { dispatch: cartDispatch } = useCartContext();
 
 	const dropdownRef = useRef<HTMLDivElement>(null);
 	const [addDetails, setAddDetails] = useState<boolean>(false);
@@ -43,7 +43,7 @@ const Product = () => {
 			weight: weight,
 			forDelivery: forDelivery,
 		};
-		cart.items.push(item);
+		cartDispatch({ type: 'ADD_ITEM', item: item });
 
 		setAddDetails(false);
 		setShowAddedMessage(true);

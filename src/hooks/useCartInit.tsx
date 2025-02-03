@@ -1,58 +1,55 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useReducer } from 'react';
 import { AxiosError } from 'axios';
 import useAuthn from '@/hooks/queries/identity/useAuthn';
 import useGetActiveCart from '@/hooks/queries/active-carts/useGetActiveCart';
 import useCreateActiveCart from '@/hooks/mutations/active-carts/useCreateActiveCart';
-import { CartState, defaultValues } from '@/contexts/cart/context';
+import { CartState } from '@/contexts/cart/context';
+import cartReducer from '@/contexts/cart/reducer';
+import { CartItem } from '@/types/cart-item';
 
-const useCartInit = () => {
-	const [items, setItems] = useState(defaultValues.items);
-
+const useCartInit = (): CartState => {
 	const { data: authn } = useAuthn();
-	const { data: cart, isError, error } = useGetActiveCart();
+	const { data: cart, isError, error, refetch } = useGetActiveCart();
 	const { mutate: createCart } = useCreateActiveCart();
 
+	const init = () => {
+		if (typeof window === 'undefined') {
+			return [];
+		}
+
+		const cartString = localStorage.getItem('cart');
+		if (!cartString) {
+			return [];
+		}
+
+		const items: CartItem[] = JSON.parse(cartString);
+		return items;
+	};
+	const [items, dispatch] = useReducer(cartReducer, [], init);
+
 	useEffect(() => {
-		const initUserCart = () => {
+		if (authn === false) {
+			localStorage.setItem('cart', JSON.stringify(items));
+		}
+	}, [authn, items]);
+
+	useEffect(() => {
+		if (authn === true) {
 			if (cart) {
 				const { items } = cart;
-				setItems(items);
+				dispatch({ type: 'FILL_CART', items: items });
 			} else if (
 				isError &&
 				error instanceof AxiosError &&
 				error.status === 404
 			) {
 				createCart();
+				refetch();
 			}
-		};
-		const initGuestCart = () => {
-			const persistEmptyCart = () => {
-				localStorage.setItem('cart', JSON.stringify(defaultValues));
-			};
-			try {
-				const cartString = localStorage.getItem('cart');
-				if (cartString) {
-					const cart: CartState = JSON.parse(cartString);
-					setItems(cart.items);
-				} else {
-					persistEmptyCart();
-				}
-			} catch {
-				persistEmptyCart();
-			}
-		};
+		}
+	}, [authn, cart, createCart, error, isError, refetch]);
 
-		const initCart = () => {
-			if (authn === true) {
-				initUserCart();
-			} else if (authn === false) {
-				initGuestCart();
-			}
-		};
-		initCart();
-	}, [authn, cart, createCart, error, isError]);
-
-	return { items };
+	return { items, dispatch };
 };
 
 export default useCartInit;
