@@ -1,5 +1,4 @@
 import React from 'react';
-import styles from '../header.module.css';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -8,6 +7,8 @@ import {
 	faSignInAlt,
 	faUserPlus,
 } from '@fortawesome/free-solid-svg-icons';
+import LanguageButton from './language-btn';
+import styles from '../header.module.css';
 
 const ContentEnd: React.FC = () => {
 	return (
@@ -49,6 +50,10 @@ const ContentEnd: React.FC = () => {
 						style={{ fontSize: '1.8rem', cursor: 'pointer' }}
 					/>
 				</Link>
+			</div>
+			<span>|</span>
+			<div className={styles['icon-wrapper']} data-tooltip='Language'>
+				<LanguageButton />
 			</div>
 		</div>
 	);
