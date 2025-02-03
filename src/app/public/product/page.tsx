@@ -5,7 +5,7 @@ import Transition from '@/app/components/transition/transition';
 import BtnLink from '@/app/components/button/button';
 import Cad from '@/app/components/cad/cad';
 import styles from './styles.module.css';
-import { CartDeliveryItem, CartItem } from '@/types/cart-item';
+import { CartItem } from '@/types/cart-item';
 import useCartContext from '@/hooks/useCartContext';
 
 const Product = () => {
@@ -36,20 +36,14 @@ const Product = () => {
 		return <>Error!</>;
 	}
 	const addToCart = async (forDelivery: boolean) => {
-		if (forDelivery) {
-			const item: CartItem = {
-				productId: product.id,
-			};
-			cart.items.push(item);
-		} else {
-			const weight = 5; // remove mock weight
-			const item: CartDeliveryItem = {
-				productId: product.id,
-				quantity: 1,
-				weight: weight,
-			};
-			cart.deliveryItems.push(item);
-		}
+		const weight = 5; // remove mock weight
+		const item: CartItem = {
+			productId: product.id,
+			quantity: 1,
+			weight: weight,
+			forDelivery: forDelivery,
+		};
+		cart.items.push(item);
 
 		setAddDetails(false);
 		setShowAddedMessage(true);

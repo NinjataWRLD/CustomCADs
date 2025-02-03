@@ -13,24 +13,23 @@ import {
 
 const Cart = () => {
 	const cart = useCartContext();
-	const allItems = [...cart.items, ...cart.deliveryItems];
-	const totalItems = cart.items.length;
-	const totalDeliveryItems = cart.deliveryItems.length;
+	const totalCount = cart.items.length;
+	const totalDeliveryCount = cart.items.filter((i) => i.forDelivery).length;
 
 	return (
 		<Transition>
 			<div className={styles.container}>
 				<h1>Your cart</h1>
 				<div className={styles.purchases}>
-					{allItems.map((i) => (
+					{cart.items.map((i) => (
 						<CartItem productId={i.productId} />
 					))}
 				</div>
 			</div>
 			<div className={styles.options}>
 				<h2>
-					<p>{totalItems + totalDeliveryItems} item/s total - $20</p>
-					<p>{totalDeliveryItems} for delivery - $3</p>
+					<p>{totalCount} item/s total - $20</p>
+					<p>{totalDeliveryCount} for delivery - $3</p>
 				</h2>
 				<BtnLink text='Buy Cart'></BtnLink>
 				<hr />
