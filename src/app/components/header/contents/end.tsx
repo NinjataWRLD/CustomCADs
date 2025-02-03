@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
 	faImage,
+	faShoppingCart,
 	faSignInAlt,
 	faUserPlus,
 } from '@fortawesome/free-solid-svg-icons';
@@ -15,6 +16,16 @@ const ContentEnd: React.FC = () => {
 				<Link to='/gallery'>
 					<FontAwesomeIcon
 						icon={faImage}
+						size='2x'
+						style={{ cursor: 'pointer' }}
+					/>
+				</Link>
+			</div>
+			<span>|</span>
+			<div className={styles['icon-wrapper']} data-tooltip='Cart'>
+				<Link to='/cart'>
+					<FontAwesomeIcon
+						icon={faShoppingCart}
 						size='2x'
 						style={{ cursor: 'pointer' }}
 					/>

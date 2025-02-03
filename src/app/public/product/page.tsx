@@ -3,9 +3,10 @@ import { useParams } from 'react-router-dom';
 import useGetProduct from '@/hooks/queries/products/gallery/useGetGalleryProduct';
 import Transition from '@/app/components/transition/transition';
 import BtnLink from '@/app/components/button/button';
-import styles from './styles.module.css';
-import useAddActiveCartItem from '@/hooks/mutations/active-carts/useAddActiveCartItem';
 import Cad from '@/app/components/cad/cad';
+import styles from './styles.module.css';
+import { CartDeliveryItem, CartItem } from '@/types/cart-item';
+import useCartContext from '@/hooks/useCartContext';
 
 const Product = () => {
 	const { id } = useParams();
@@ -14,31 +15,14 @@ const Product = () => {
 		isLoading,
 		isError,
 	} = useGetProduct({ id: String(id) });
+	const cart = useCartContext();
 
 	const dropdownRef = useRef<HTMLDivElement>(null);
 	const [addDetails, setAddDetails] = useState<boolean>(false);
 	const toggleForDelivery = () => {
 		setAddDetails((prev) => !prev);
 	};
-
-	const addItemMutation = useAddActiveCartItem();
 	const [showAddedMessage, setShowAddedMessage] = useState(false);
-	const addToCart = async (forDelivery: boolean) => {
-		const weight = 5; // remove mock weight
-
-		await addItemMutation.mutateAsync({
-			productId: product!.id,
-			forDelivery: forDelivery,
-			weight: weight,
-		});
-
-		setAddDetails(false);
-		setShowAddedMessage(true);
-
-		setTimeout(() => {
-			setShowAddedMessage(false);
-		}, 3000);
-	};
 
 	if (isLoading) {
 		return <>Loading...</>;
@@ -51,6 +35,29 @@ const Product = () => {
 	if (isError) {
 		return <>Error!</>;
 	}
+	const addToCart = async (forDelivery: boolean) => {
+		if (forDelivery) {
+			const item: CartItem = {
+				productId: product.id,
+			};
+			cart.items.push(item);
+		} else {
+			const weight = 5; // remove mock weight
+			const item: CartDeliveryItem = {
+				productId: product.id,
+				quantity: 1,
+				weight: weight,
+			};
+			cart.deliveryItems.push(item);
+		}
+
+		setAddDetails(false);
+		setShowAddedMessage(true);
+
+		setTimeout(() => {
+			setShowAddedMessage(false);
+		}, 3000);
+	};
 
 	return (
 		<>
