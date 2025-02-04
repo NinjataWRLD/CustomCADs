@@ -1,22 +1,17 @@
-'use client';
 import React, { useEffect, useRef } from 'react';
+import { useHomeTranslation } from '@/hooks/locales/pages/public';
 import Info from './.components/info/info';
 import Benefits from './.components/benefits/benefits';
 import Popular from './.components/popular/popular';
 import Card from './.components/cards/card';
-import Contacts from './.components/contacts/contacts';
 import Figures from './.components/figures/figures';
 import FiguresAnimation from './.components/figures/animation';
 import styles from './styles.module.css';
-import galleryPic from '@/assets/cards/gallery.png';
-import customPic from '@/assets/cards/custom.png';
-import printerPic from '@/assets/cards/printer.png';
-import { faCube, faPrint } from '@fortawesome/free-solid-svg-icons';
-import { faImages } from '@fortawesome/free-regular-svg-icons';
 
 const Home: React.FC = () => {
 	const sectionsRef = useRef<(HTMLElement | null)[]>([]);
 	const boxRef = useRef<HTMLDivElement | null>(null);
+	const tHome = useHomeTranslation();
 
 	useEffect(() => {
 		const sectionObserver = new IntersectionObserver(
@@ -93,7 +88,7 @@ const Home: React.FC = () => {
 				id='section3'
 				className={`${styles.models} ${styles.section}`}
 			>
-				<h1>Most Popular 3D Models</h1>
+				<h1>{tHome('title_popular')}</h1>
 				<Popular />
 			</section>
 
@@ -106,45 +101,15 @@ const Home: React.FC = () => {
 				id='section4'
 				className={`${styles.payments} ${styles.section}`}
 			>
-				<h1>3D Models Prices</h1>
+				<h1>{tHome('title_offer')}:</h1>
 				<div className={styles.cards}>
-					<Card
-						ref={boxRef}
-						title='Order from Gallery (Digital)'
-						icon={faImages}
-						pricing='15'
-						desc1='Ready-made designs'
-						desc2='Fast printing and delivery'
-						desc3='Affordable and convenient'
-						image={galleryPic}
-						link='/gallery'
-					/>
-					<Card
-						ref={boxRef}
-						title='Custom 3D Model (Digital)'
-						icon={faCube}
-						pricing='25'
-						desc1='Tailored design to your specifications'
-						desc2='Delivered as a digital file'
-						desc3='Perfect for further customization or personal use'
-						image={customPic}
-						link='/custom-models'
-					/>
-					<Card
-						ref={boxRef}
-						title='3D Model & Printed'
-						icon={faPrint}
-						pricing='35'
-						desc1='Personalized 3D design'
-						desc2='Physical product delivered to your door'
-						desc3='High-quality print with attention to detail'
-						image={printerPic}
-						link='/gallery'
-					/>
+					<Card id='cart' ref={boxRef} />
+					<Card id='order' ref={boxRef} />
+					<Card id='delivery' ref={boxRef} />
 				</div>
 			</section>
 
-			<hr />
+			{/* <hr />
 
 			<section
 				ref={(el) => {
@@ -154,7 +119,7 @@ const Home: React.FC = () => {
 				className={styles.contacts}
 			>
 				<Contacts />
-			</section>
+			</section> */}
 		</div>
 	);
 };

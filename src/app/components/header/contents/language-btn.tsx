@@ -1,11 +1,12 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGlobe } from '@fortawesome/free-solid-svg-icons';
+import { useHeaderTranslation } from '@/hooks/locales/components/layout';
 
 const LanguageButton = () => {
 	const { i18n } = useTranslation();
-	const { t: tHeader } = useTranslation('components.layout.header');
+	const tHeader = useHeaderTranslation();
 
 	const [language, setLanguage] = useState(i18n.language);
 	const languages = Object.keys(i18n.options.resources ?? {});
