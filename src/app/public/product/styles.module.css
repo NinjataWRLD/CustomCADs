@@ -73,13 +73,6 @@
     gap: 20px;
 }
 
-.visualizer {
-    background-image: url('@/assets/images/visualizer.png');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 220%;
-}
-
 .info,
 .visualizer {
     position: relative;

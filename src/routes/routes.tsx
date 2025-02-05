@@ -1,6 +1,7 @@
 import { RouteObject } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Layout from '@/app/layout';
+import CartContextProvider from '@/contexts/cart/provider';
 import publicRoutes from './public';
 
 const queryClient = new QueryClient({
@@ -16,7 +17,9 @@ const userRoutes: RouteObject = {
 	path: '/',
 	element: (
 		<QueryClientProvider client={queryClient}>
-			<Layout />
+			<CartContextProvider>
+				<Layout />
+			</CartContextProvider>
 		</QueryClientProvider>
 	),
 	children: [...publicRoutes],
