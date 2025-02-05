@@ -2,8 +2,10 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Sheet from './sheets/sheet';
 import styles from './benefits.module.css';
+import { useHomeTranslation } from '@/hooks/locales/pages/public';
 
 const Benefits: React.FC = () => {
+	const tHome = useHomeTranslation();
 	const navigate = useNavigate();
 
 	return (
@@ -13,21 +15,21 @@ const Benefits: React.FC = () => {
 				className={`${styles.picture}`}
 			></div>
 			<div className={`${styles.content}`}>
-				<h1>Why should you choose CustomCADs?</h1>
+				<h1>{tHome('title_benefits')}?</h1>
 				<Sheet
-					title='Custom Designs'
 					icon='fas fa-eye'
-					details='Describe your project, and we will create the model from scratch in SolidWorks and deliver it 3D-printed!'
+					title={tHome('benefits-subtitle-1')}
+					details={tHome('benefits-text-1')}
 				/>
 				<Sheet
-					title='Pre-made Designs'
 					icon='fas fa-robot'
-					details='Choose a design from our gallery and receive it fully 3D printed!'
+					title={tHome('benefits-subtitle-2')}
+					details={tHome('benefits-text-2')}
 				/>
 				<Sheet
-					title='Designer Network'
 					icon='fas fa-globe'
-					details='Connect with other expert 3D designers and get your project done quickly!'
+					title={tHome('benefits-subtitle-3')}
+					details={tHome('benefits-text-3')}
 				/>
 			</div>
 		</div>

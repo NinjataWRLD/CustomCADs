@@ -1,7 +1,8 @@
 import ReactDOM from 'react-dom/client';
-import './index.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import routes from './routes/routes';
+import './locales/i18n';
+import './index.css';
 
 const router = createBrowserRouter(routes);
 

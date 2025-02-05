@@ -135,7 +135,6 @@ const ThreeJS = ({ url, cam, pan }: ThreeJSProps) => {
 			window.removeEventListener('SendPosition', sendPosition);
 			window.addEventListener('ResetPosition', resetPosition);
 		};
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [loader, url]);
 
 	return <div ref={mountRef} className={styles.model} />;

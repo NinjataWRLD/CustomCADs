@@ -1,0 +1,12 @@
+{
+  "title": "Вашата Количка",
+  "by": "От: {{by}}",
+  "view": "Разгледай",
+  "delivery": "Доставка",
+  "remove": "Премахни",
+  "total_one": "{{count}} стока общо - {{cost}}",
+  "total_other": "{{count}} стоки общо - {{cost}}",
+  "total-delivery_one": "{{count}} стока с доставка - {{cost}}",
+  "total-delivery_other": "{{count}} стоки с доставка - {{cost}}",
+  "buy": "Купи Количка"
+}

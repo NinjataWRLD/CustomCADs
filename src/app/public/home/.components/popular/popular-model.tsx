@@ -1,16 +1,16 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye } from '@fortawesome/free-solid-svg-icons';
 import styles from './popular.module.css';
 
 interface ModelProps {
 	model: {
 		src: string;
 		name: string;
-		likes: string;
 		views: string;
 		category: string;
 		author: string;
-		description: string;
 		price: string;
 		upload_date: string;
 	};
@@ -41,7 +41,7 @@ const PopularModel: React.FC<ModelProps> = ({ model }) => {
 				</p>
 				<div className={`${styles['button-container']}`}>
 					<div className={`${styles.views}`}>
-						<i className='fas fa-eye'></i>
+						<FontAwesomeIcon icon={faEye}></FontAwesomeIcon>
 						<div>{model.views}</div>
 					</div>
 				</div>

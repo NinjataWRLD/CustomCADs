@@ -10,9 +10,12 @@ import Transition from '@/app/components/transition/transition';
 import BtnLink from '@/app/components/button/button';
 import CartItem from './components/cart-item';
 import styles from './styles.module.css';
+import { useCartTranslation } from '@/hooks/locales/pages/public';
 
 const Cart = () => {
 	const { items, dispatch } = useCartContext();
+	const tCart = useCartTranslation();
+
 	const totalCount = items.length;
 	const totalDeliveryCount = items.filter((i) => i.forDelivery).length;
 
@@ -35,7 +38,7 @@ const Cart = () => {
 	return (
 		<Transition>
 			<div className={styles.container}>
-				<h1>Your cart</h1>
+				<h1>{tCart('title')}</h1>
 				<div className={styles.purchases}>
 					{items.map((item) => (
 						<CartItem
@@ -51,10 +54,15 @@ const Cart = () => {
 			</div>
 			<div className={styles.options}>
 				<h2>
-					<p>{totalCount} item/s total - $20</p>
-					<p>{totalDeliveryCount} for delivery - $3</p>
+					<p>{tCart('total', { count: totalCount, cost: '$20' })}</p>
+					<p>
+						{tCart('total-delivery', {
+							count: totalDeliveryCount,
+							cost: '$3',
+						})}
+					</p>
 				</h2>
-				<BtnLink text='Buy Cart'></BtnLink>
+				<BtnLink text={tCart('buy')}></BtnLink>
 				<hr />
 				<div className={styles.cards}>
 					<FontAwesomeIcon icon={faCcVisa} />

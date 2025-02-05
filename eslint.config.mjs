@@ -87,8 +87,8 @@ const suggestions = {
 const eslintConfig = [
     ...compat.extends(
         'plugin:@typescript-eslint/recommended',
-        'plugin:react-hooks/recommended',
         'plugin:prettier/recommended',
+        'plugin:i18next/recommended',
     ),
     {
         languageOptions,
