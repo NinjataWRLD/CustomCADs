@@ -5,37 +5,36 @@ import {
 	faChevronDown,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import styles from './sortings.module.css';
 import useGetProductSortings from '@/hooks/queries/products/gallery/useGetProductSortings';
+import { useFetchTranslation } from '@/hooks/locales/common/messages';
+import { useSortingsTranslation } from '@/hooks/locales/common/resources';
 import { SortingDirection } from '@/api/common/enums/sortings';
+import styles from './sortings.module.css';
 
 interface SortingsProps {
 	updateSearch: (sorting: string, direction: string) => void;
 }
 
 const Sortings = ({ updateSearch }: SortingsProps) => {
-	const { data: sortings, isLoading, isError } = useGetProductSortings();
+	const tFetch = useFetchTranslation();
+	const tSortings = useSortingsTranslation();
 
+	const { data: sortings, isLoading, isError } = useGetProductSortings();
 	const [isActiveSort, setIsActiveSort] = useState(false);
-	const [sorting, setSorting] = useState<string>();
+
+	const initial = tSortings('Initial');
+	const [sorting, setSorting] = useState<string>(initial);
 	const [direction, setDirection] = useState<SortingDirection>(
 		SortingDirection.Descending,
 	);
-
 	useEffect(() => {
-		if (sorting) {
-			updateSearch(sorting, SortingDirection[direction]);
+		if (sorting === initial) {
+			setSorting(initial);
 		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [sorting, direction]);
+	}, [initial]);
 
-	const toggleSortDropdown = () => {
+	const toggleDropdown = () => {
 		setIsActiveSort((prev) => !prev);
-	};
-
-	const handleInput = (type: string) => {
-		setSorting(() => type);
-		setIsActiveSort(false);
 	};
 
 	const toggleDirection = () => {
@@ -46,12 +45,19 @@ const Sortings = ({ updateSearch }: SortingsProps) => {
 		);
 	};
 
+	const handleInput = (name: string) => {
+		setSorting(() => name);
+		setIsActiveSort(false);
+
+		updateSearch(sorting, SortingDirection[direction]);
+	};
+
 	if (isLoading) {
-		return <>Loading...</>;
+		return <>{tFetch('loading')}</>;
 	}
 
 	if (isError || !sortings) {
-		return <>Error!</>;
+		return <>{tFetch('error')}</>;
 	}
 
 	return (
@@ -59,11 +65,9 @@ const Sortings = ({ updateSearch }: SortingsProps) => {
 			<div className={`${styles.menu}`}>
 				<div
 					className={`${styles['select-btn']} ${isActiveSort ? styles.active : ''}`}
-					onClick={toggleSortDropdown}
+					onClick={toggleDropdown}
 				>
-					<span className={`${styles.sort}`}>
-						{sorting ?? 'Sort By'}
-					</span>
+					<span className={`${styles.sort}`}>{sorting}</span>
 					<FontAwesomeIcon icon={faChevronDown} />
 				</div>
 				{sortings && (
@@ -73,10 +77,10 @@ const Sortings = ({ updateSearch }: SortingsProps) => {
 								key={sorting}
 								value={sorting}
 								className={`${styles.option}`}
-								onClick={() => handleInput(sorting)}
+								onClick={() => handleInput(tSortings(sorting))}
 							>
 								<span className={`${styles.name}`}>
-									{sorting}
+									{tSortings(sorting)}
 								</span>
 							</li>
 						))}

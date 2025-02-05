@@ -9,8 +9,15 @@ import Sortings from '@/app/components/search/sortings/sortings';
 import Pagination from '@/app/components/pagination/pagination';
 import Model from './components/model';
 import styles from './styles.module.css';
+import {
+	useFetchTranslation,
+	usePlaceholdersTranslation,
+} from '@/hooks/locales/common/messages';
 
 const Gallery = () => {
+	const tFetch = useFetchTranslation();
+	const tPlaceholders = usePlaceholdersTranslation();
+
 	const [search, setSearch] = useState<GallerySearch>({
 		name: undefined,
 		categoryId: undefined,
@@ -47,6 +54,7 @@ const Gallery = () => {
 							}
 						/>
 						<Searchbar
+							placeholder={tPlaceholders('search-products')}
 							updateSearch={(name: string) =>
 								setSearch((prev) => ({
 									...prev,
@@ -67,14 +75,14 @@ const Gallery = () => {
 							}
 						/>
 					</div>
-					{products?.items.length === 0 ? (
-						<>No Models</>
-					) : (
+					{products && products.items.length ? (
 						<div className={`${styles.models}`}>
-							{products?.items?.map((product) => (
+							{products.items.map((product) => (
 								<Model key={product.id} product={product} />
 							))}
 						</div>
+					) : (
+						<>{tFetch('no-products')}</>
 					)}
 					<div className={`${styles.pagination}`}>
 						<Pagination

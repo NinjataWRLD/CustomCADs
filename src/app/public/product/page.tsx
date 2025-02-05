@@ -1,23 +1,26 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useFetchTranslation } from '@/hooks/locales/common/messages';
+import { useProductTranslation } from '@/hooks/locales/pages/public';
 import useGetProduct from '@/hooks/queries/products/gallery/useGetGalleryProduct';
-import useCartContext from '@/hooks/useCartContext';
 import Transition from '@/app/components/transition/transition';
 import BtnLink from '@/app/components/button/button';
-import { CartItem } from '@/types/cart-item';
 import Cad from '@/app/components/cad/cad';
+import AddDetails from './components/add-details';
 import styles from './styles.module.css';
 
 const Product = () => {
 	const { id } = useParams();
+
+	const tFetch = useFetchTranslation();
+	const tProduct = useProductTranslation();
+
 	const {
 		data: product,
 		isLoading,
 		isError,
 	} = useGetProduct({ id: String(id) });
-	const { dispatch: cartDispatch } = useCartContext();
 
-	const dropdownRef = useRef<HTMLDivElement>(null);
 	const [addDetails, setAddDetails] = useState<boolean>(false);
 	const toggleForDelivery = () => {
 		setAddDetails((prev) => !prev);
@@ -25,33 +28,12 @@ const Product = () => {
 	const [showAddedMessage, setShowAddedMessage] = useState(false);
 
 	if (isLoading) {
-		return <>Loading...</>;
+		return <>{tFetch('loading')}</>;
 	}
 
-	if (!product) {
-		return <>Not Found.</>;
+	if (isError || !product) {
+		return <>{tFetch('error')}</>;
 	}
-
-	if (isError) {
-		return <>Error!</>;
-	}
-	const addToCart = async (forDelivery: boolean) => {
-		const weight = 5; // remove mock weight
-		const item: CartItem = {
-			productId: product.id,
-			quantity: 1,
-			weight: weight,
-			forDelivery: forDelivery,
-		};
-		cartDispatch({ type: 'ADD_ITEM', item: item });
-
-		setAddDetails(false);
-		setShowAddedMessage(true);
-
-		setTimeout(() => {
-			setShowAddedMessage(false);
-		}, 3000);
-	};
 
 	return (
 		<>
@@ -71,11 +53,11 @@ const Product = () => {
 							<div className={`${styles.info}`}>
 								<h1>{product.name}</h1>
 								<p>
-									<strong>Category:</strong>{' '}
+									<strong>{tProduct('category')}</strong>
 									{product.category.name}
 								</p>
 								<p>
-									<strong>Made by:</strong>{' '}
+									<strong>{tProduct('creator')}</strong>
 									{product.creatorName}
 								</p>
 								<hr />
@@ -84,10 +66,11 @@ const Product = () => {
 								</p>
 								<hr />
 								<p>
-									<strong>Price:</strong> {product.price}
+									<strong>{tProduct('price')}</strong>
+									{product.price}
 								</p>
 								<p>
-									<strong>Uploaded on:</strong>{' '}
+									<strong>{tProduct('uploaded-on')}</strong>
 									{product.uploadDate}
 								</p>
 							</div>
@@ -95,60 +78,35 @@ const Product = () => {
 							<div className={`${styles.buttons}`}>
 								<BtnLink
 									className={`${styles.back}`}
-									text='Customize'
+									text={tProduct('button-1')}
 									link='/viewer'
 								/>
 								<BtnLink
 									onClick={toggleForDelivery}
+									text={tProduct('button-2')}
 									className={`${styles.back}`}
-									text='Add to Cart'
 								/>
 								<BtnLink
 									className={`${styles.back}`}
-									text='Go Back'
+									text={tProduct('button-3')}
 									link='/gallery'
 								/>
 							</div>
-							<p>*Customizing the model may reflect its price!</p>
+							<p>*{tProduct('warning')}</p>
 						</div>
 					</div>
 				</div>
 			</Transition>
-			{addDetails && <div className={styles.blur}></div>}
-			<div
-				ref={dropdownRef}
-				className={`${styles['buying-details']} ${addDetails ? styles.show : ''}`}
-			>
-				<div className={styles.close} onClick={toggleForDelivery}>
-					<i className='fas fa-times'></i>
-				</div>
-				<h1>Choose your buying preference</h1>
-				<div className={`${styles.buttons}`}>
-					<button onClick={() => addToCart(false)}>
-						<span>ONLY FILE</span>
-					</button>
-					<button onClick={() => addToCart(true)}>
-						<span>FILE & SHIPMENT</span>
-					</button>
-				</div>
-
-				<hr />
-
-				<div className={`${styles.notes}`}>
-					<p>
-						<strong>*File</strong> - receive the selected product
-						model as a file. No delivery, no extra fee.
-					</p>
-					<p>
-						<strong>*Shipment</strong> - receive a printed model of
-						the selected product, delivered to your location!
-					</p>
-				</div>
-			</div>
+			<AddDetails
+				id={product.id}
+				show={addDetails}
+				setShow={setAddDetails}
+				setShowMessage={setShowAddedMessage}
+			/>
 
 			{showAddedMessage && (
 				<div className={styles.cartMessage}>
-					<p>Item added to cart!</p>
+					<p>{tProduct('added-message')}</p>
 				</div>
 			)}
 		</>

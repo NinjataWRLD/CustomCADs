@@ -4,12 +4,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './searchbar.module.css';
 
 interface SearchbarProps {
+	placeholder: string;
 	updateSearch: (name: string) => void;
 }
 
-const Searchbar = ({ updateSearch }: SearchbarProps) => {
-	const [searchKeyword, setSearchKeyword] = useState<string>('');
+const Searchbar = ({ placeholder, updateSearch }: SearchbarProps) => {
+	const [searchKeyword, setSearchKeyword] = useState('');
 	const [isHovered, setIsHovered] = useState(false);
+	const [isPermanentHovered, setIsPermanentHovered] = useState(false);
 
 	const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
 		const { value } = e.target;
@@ -20,12 +22,14 @@ const Searchbar = ({ updateSearch }: SearchbarProps) => {
 	return (
 		<div
 			onMouseEnter={() => setIsHovered(true)}
+			onFocus={() => setIsPermanentHovered(true)}
+			onBlur={() => setIsPermanentHovered(false)}
 			onMouseLeave={() => !searchKeyword && setIsHovered(false)}
-			className={`${styles.searchbar} ${isHovered ? styles.covered : ''}`}
+			className={`${styles.searchbar} ${isPermanentHovered || isHovered ? styles.covered : ''}`}
 		>
 			<input
 				type='text'
-				placeholder='Search for a 3D model'
+				placeholder={placeholder}
 				value={searchKeyword}
 				onChange={handleInput}
 				className={`${styles.searchbarInput}`}
