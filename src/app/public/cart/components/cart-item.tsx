@@ -5,6 +5,8 @@ import useGetProduct from '@/hooks/queries/products/gallery/useGetGalleryProduct
 import useGenerateBlobUrl from '@/hooks/useGenerateBlobUrl';
 import useBytesToBuffer from '@/hooks/useBytesToBuffer';
 import useDownloadProductImage from '@/hooks/queries/products/gallery/useDownloadProductImage';
+import { useFetchTranslation } from '@/hooks/locales/common/messages';
+import { useCartTranslation } from '@/hooks/locales/pages/public';
 import Checkbox from '@/app/components/fields/checkbox';
 import { CartItem as ICartItem } from '@/types/cart-item';
 import styles from './cart-item.module.css';
@@ -25,11 +27,13 @@ const CartItem = ({
 	toggleDelivery: toggle,
 }: CartItemProps) => {
 	const navigate = useNavigate();
-	const { data: product, isError } = useGetProduct({ id: productId });
+	const tFetch = useFetchTranslation();
+	const tCart = useCartTranslation();
 
 	const { data: file, isError: isFileError } = useDownloadProductImage({
 		id: productId,
 	});
+	const { data: product, isError } = useGetProduct({ id: productId });
 
 	const presignedUrl: string = file?.presignedUrl ?? '';
 	const contentType: string = file?.contentType ?? '';
@@ -38,7 +42,7 @@ const CartItem = ({
 	const blobUrl = useGenerateBlobUrl(contentType, buffer);
 
 	if (isError || !product || isFileError) {
-		return <>Error!</>;
+		return <>{tFetch('error')}</>;
 	}
 
 	return (
@@ -49,7 +53,7 @@ const CartItem = ({
 						<div>
 							<Checkbox
 								id={product.id + forDelivery}
-								label='Delivery'
+								label={tCart('delivery')}
 								checked={forDelivery}
 								onClick={() => toggle(productId)}
 							/>
@@ -59,7 +63,7 @@ const CartItem = ({
 				</div>
 				<div className={styles.data}>
 					<h2>{product.name}</h2>
-					<p>By {product.creatorName}</p>
+					<p>{tCart('by', { by: product.creatorName })}</p>
 					<div className={styles.quantity}>
 						<FontAwesomeIcon
 							icon={faMinus}
@@ -75,12 +79,12 @@ const CartItem = ({
 						className={styles.btn}
 						onClick={() => navigate(`/gallery/${productId}`)}
 					>
-						<span>View</span>
+						<span>{tCart('view')}</span>
 					</button>
 					<p className={styles.price}>${product.price * quantity}</p>
 					<div
 						className={styles.bin}
-						data-tooltip='Remove'
+						data-tooltip={tCart('remove')}
 						onClick={() => remove(productId)}
 					>
 						<FontAwesomeIcon icon={faTrashCan} />

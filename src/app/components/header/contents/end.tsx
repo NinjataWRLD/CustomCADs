@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -9,11 +8,17 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import LanguageButton from './language-btn';
 import styles from '../header.module.css';
+import { useHeaderTranslation } from '@/hooks/locales/components/layout';
 
-const ContentEnd: React.FC = () => {
+const ContentEnd = () => {
+	const tHeader = useHeaderTranslation();
+
 	return (
 		<div className={styles['content-end']}>
-			<div className={styles['icon-wrapper']} data-tooltip='Gallery'>
+			<div
+				className={styles['icon-wrapper']}
+				data-tooltip={tHeader('icon-1')}
+			>
 				<Link to='/gallery'>
 					<FontAwesomeIcon
 						icon={faImage}
@@ -23,7 +28,10 @@ const ContentEnd: React.FC = () => {
 				</Link>
 			</div>
 			<span>|</span>
-			<div className={styles['icon-wrapper']} data-tooltip='Cart'>
+			<div
+				className={styles['icon-wrapper']}
+				data-tooltip={tHeader('icon-2')}
+			>
 				<Link to='/cart'>
 					<FontAwesomeIcon
 						icon={faShoppingCart}
@@ -33,7 +41,10 @@ const ContentEnd: React.FC = () => {
 				</Link>
 			</div>
 			<span>|</span>
-			<div className={styles['icon-wrapper']} data-tooltip='Log In'>
+			<div
+				className={styles['icon-wrapper']}
+				data-tooltip={tHeader('icon-3')}
+			>
 				<Link to='/login'>
 					<FontAwesomeIcon
 						icon={faSignInAlt}
@@ -43,7 +54,10 @@ const ContentEnd: React.FC = () => {
 				</Link>
 			</div>
 			<span>|</span>
-			<div className={styles['icon-wrapper']} data-tooltip='Register'>
+			<div
+				className={styles['icon-wrapper']}
+				data-tooltip={tHeader('icon-4')}
+			>
 				<Link to='/register'>
 					<FontAwesomeIcon
 						icon={faUserPlus}
@@ -52,7 +66,10 @@ const ContentEnd: React.FC = () => {
 				</Link>
 			</div>
 			<span>|</span>
-			<div className={styles['icon-wrapper']} data-tooltip='Language'>
+			<div
+				className={styles['icon-wrapper']}
+				data-tooltip={tHeader('icon-5')}
+			>
 				<LanguageButton />
 			</div>
 		</div>

@@ -8,8 +8,11 @@ import {
 	faLinkedin,
 } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import { useFooterTranslation } from '@/hooks/locales/components/layout';
 
-const Footer: React.FC = () => {
+const Footer = () => {
+	const tFooter = useFooterTranslation();
+
 	const getLink = (
 		event: React.MouseEvent<HTMLButtonElement | HTMLDivElement, MouseEvent>,
 	) => {
@@ -26,13 +29,10 @@ const Footer: React.FC = () => {
 			<div className={`${styles['gradient-border-top']}`}></div>
 			<div className={`${styles.content}`}>
 				<div className={`${styles.info}`}>
-					<h1>&copy; 2024 CustomCADs</h1>
+					<h1>{tFooter('title')}</h1>
+					<p>{tFooter('description')}</p>
 					<p>
-						Your go-to platform for custom 3D designs, pre-made
-						models, and designer connections.
-					</p>
-					<p>
-						<Link to='/privacy-policy'>Privacy Policy</Link>
+						<Link to='/privacy-policy'>{tFooter('link-1')}</Link>
 					</p>
 				</div>
 				<div className={`${styles.links}`}>
@@ -48,7 +48,7 @@ const Footer: React.FC = () => {
 								href='https://mail.google.com/mail/?view=cm&fs=1&to=customcads2023@gmail.com'
 								target='_blank'
 							>
-								Email
+								{tFooter('icon-1')}
 							</a>
 						</div>
 
@@ -63,7 +63,7 @@ const Footer: React.FC = () => {
 								href='https://www.instagram.com/custom_cads/'
 								target='_blank'
 							>
-								Instagram
+								{tFooter('icon-2')}
 							</a>
 						</div>
 
@@ -78,7 +78,7 @@ const Footer: React.FC = () => {
 								href='https://www.facebook.com/profile.php?id=61569972183042'
 								target='_blank'
 							>
-								Facebook
+								{tFooter('icon-3')}
 							</a>
 						</div>
 
@@ -93,7 +93,7 @@ const Footer: React.FC = () => {
 								href='https://www.linkedin.com/company/customcads/'
 								target='_blank'
 							>
-								LinkedIn
+								{tFooter('icon-4')}
 							</a>
 						</div>
 					</div>

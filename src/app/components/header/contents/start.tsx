@@ -1,7 +1,10 @@
 import { Link } from 'react-router-dom';
 import styles from '../header.module.css';
+import { useHeaderTranslation } from '@/hooks/locales/components/layout';
 
 const ContentStart = () => {
+	const tHeader = useHeaderTranslation();
+
 	const toggleNavVisibility = () => {
 		const menuElement = document.querySelector(`.${styles.menu}`);
 		if (menuElement) {
@@ -9,10 +12,11 @@ const ContentStart = () => {
 		}
 	};
 
+	const title = 'CustomCADs';
 	return (
 		<div className={styles['content-start']}>
 			<div onClick={toggleNavVisibility} className={styles.menu}>
-				<h2>CustomCADs</h2>
+				<h2>{title}</h2>
 				<span className={styles['left-icon']}></span>
 				<span className={styles['right-icon']}></span>
 			</div>
@@ -22,28 +26,16 @@ const ContentStart = () => {
 					onClick={toggleNavVisibility}
 					style={{ '--i': 1 } as React.CSSProperties}
 				>
-					<span></span>Home
+					<span></span>
+					{tHeader('sidebar-link-1')}
 				</Link>
 				<Link
 					to='/gallery'
 					onClick={toggleNavVisibility}
 					style={{ '--i': 2 } as React.CSSProperties}
 				>
-					<span></span>Gallery
-				</Link>
-				<Link
-					to='/roles'
-					onClick={toggleNavVisibility}
-					style={{ '--i': 3 } as React.CSSProperties}
-				>
-					<span></span>Roles
-				</Link>
-				<Link
-					to='/about'
-					onClick={toggleNavVisibility}
-					style={{ '--i': 4 } as React.CSSProperties}
-				>
-					<span></span>About us
+					<span></span>
+					{tHeader('sidebar-link-2')}
 				</Link>
 			</div>
 		</div>
