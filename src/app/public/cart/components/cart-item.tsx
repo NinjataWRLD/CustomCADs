@@ -7,7 +7,7 @@ import useBytesToBuffer from '@/hooks/useBytesToBuffer';
 import useDownloadProductImage from '@/hooks/queries/products/gallery/useDownloadProductImage';
 import { useFetchTranslation } from '@/hooks/locales/common/messages';
 import { useCartTranslation } from '@/hooks/locales/pages/public';
-import Checkbox from '@/app/components/fields/checkbox';
+import Checkbox from '@/app/components/fields/checkbox/checkbox';
 import { CartItem as ICartItem } from '@/types/cart-item';
 import styles from './cart-item.module.css';
 
