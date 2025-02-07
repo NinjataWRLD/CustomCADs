@@ -1,12 +1,11 @@
 import objectToUrl from '@/utils/object-to-url';
-import { ProductSorting, SortingDirection } from '@/api/common/enums/sortings';
 import { Category, DESIGNER_BASE_PATH } from '@/api/catalog/common';
 
 export interface Request {
 	categoryId?: number;
 	name?: string;
-	sortingType?: ProductSorting;
-	sortingDirection?: SortingDirection;
+	sortingType?: string;
+	sortingDirection?: string;
 	page: number;
 	limit: number;
 }
