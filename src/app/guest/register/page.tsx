@@ -4,7 +4,6 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { useRegisterTranslation } from '@/hooks/locales/pages/guest';
 import BtnLink from '@/app/components/button/button';
 import Transition from '@/app/components/transition/transition';
-import useRegisterForm from './validation/useRegisterForm';
 import useRegisterFields from './validation/useRegisterFields';
 import styles from './styles.module.css';
 
@@ -12,8 +11,7 @@ const Register = () => {
 	const { role } = useParams();
 	let formattedRole: 'Client' | 'Contributor' = 'Client';
 
-	const { handleSubmit } = useRegisterForm(formattedRole);
-	const fields = useRegisterFields(formattedRole);
+	const { handleSubmit, ...fields } = useRegisterFields(formattedRole);
 
 	const tRegister = useRegisterTranslation();
 

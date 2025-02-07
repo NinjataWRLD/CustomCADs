@@ -7,7 +7,7 @@ import useRegisterForm from './useRegisterForm';
 import styles from '@/styles/forms.module.css';
 
 const useRegisterFields = (role: 'Client' | 'Contributor') => {
-	const { form } = useRegisterForm(role);
+	const { form, handleSubmit } = useRegisterForm(role);
 	const tPlaceholders = usePlaceholdersTranslation();
 	const tLabels = useLabelsTranslation();
 
@@ -152,6 +152,7 @@ const useRegisterFields = (role: 'Client' | 'Contributor') => {
 	);
 
 	return {
+		handleSubmit,
 		FirstNameField,
 		LastNameField,
 		UsernameField,
