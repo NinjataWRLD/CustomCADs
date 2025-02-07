@@ -4,14 +4,17 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { useRegisterTranslation } from '@/hooks/locales/pages/guest';
 import BtnLink from '@/app/components/button/button';
 import Transition from '@/app/components/transition/transition';
-import useRegisterForm from './hooks/useRegisterForm';
+import useRegisterForm from './validation/useRegisterForm';
+import useRegisterFields from './validation/useRegisterFields';
 import styles from './styles.module.css';
 
 const Register = () => {
 	const { role } = useParams();
 	let formattedRole: 'Client' | 'Contributor' = 'Client';
 
-	const form = useRegisterForm(formattedRole);
+	const { handleSubmit } = useRegisterForm(formattedRole);
+	const fields = useRegisterFields(formattedRole);
+
 	const tRegister = useRegisterTranslation();
 
 	switch (role) {
@@ -34,10 +37,7 @@ const Register = () => {
 						<Link to='/register'>{tRegister('go-back')}</Link>
 					</div>
 
-					<form
-						onSubmit={form.handleSubmit}
-						className={`${styles.form}`}
-					>
+					<form onSubmit={handleSubmit} className={`${styles.form}`}>
 						<i
 							className={`${styles.border}`}
 							style={
@@ -65,27 +65,27 @@ const Register = () => {
 						<h1>{tRegister(`title-${role}`)}</h1>
 						<div className={`${styles.optionals}`}>
 							<div className={`${styles['form-field']}`}>
-								{form.FirstNameField}
+								{fields.FirstNameField}
 							</div>
 							<div className={`${styles['form-field']}`}>
-								{form.LastNameField}
+								{fields.LastNameField}
 							</div>
 						</div>
 
 						<div className={`${styles['form-field']}`}>
-							{form.UsernameField}
+							{fields.UsernameField}
 						</div>
 
 						<div className={`${styles['form-field']}`}>
-							{form.EmailField}
+							{fields.EmailField}
 						</div>
 
 						<div className={`${styles['form-field']}`}>
-							{form.PasswordField}
+							{fields.PasswordField}
 						</div>
 
 						<div className={`${styles['form-field']}`}>
-							{form.ConfirmPasswordField}
+							{fields.ConfirmPasswordField}
 						</div>
 
 						<div className={`${styles.submit}`}>

@@ -11,7 +11,7 @@ const FieldInfo = ({ meta }: FieldInfoProps) => {
 	return (
 		<>
 			{isTouched && errors.length ? (
-				<small className={styles.error}>{errors.join(',')}</small>
+				<small className={styles.error}>{errors[0]}</small>
 			) : null}
 			{isValidating ? 'Validating...' : null}
 		</>

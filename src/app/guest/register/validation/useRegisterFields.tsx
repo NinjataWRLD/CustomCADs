@@ -1,52 +1,22 @@
-import { FormEvent } from 'react';
-import { useForm, ValidationError } from '@tanstack/react-form';
-import { Request } from '@/api/identity/sign-up/resources/register';
-import useRegister from '@/hooks/mutations/sign-up/useRegister';
+import { ValidationError } from '@tanstack/react-form';
 import { usePlaceholdersTranslation } from '@/hooks/locales/common/messages';
 import { useLabelsTranslation } from '@/hooks/locales/components/forms';
 import FieldInfo from '@/app/components/fields/info/info';
 import Password from '@/app/components/fields/password/password';
+import useRegisterForm from './useRegisterForm';
 import styles from '@/styles/forms.module.css';
 
-const useRegisterForm = (role: 'Client' | 'Contributor') => {
-	const mutation = useRegister();
-	const form = useForm<Request>({
-		defaultValues: {
-			username: '',
-			role: '',
-			email: '',
-			timeZone: '',
-			password: '',
-			confirmPassword: '',
-			firstName: '',
-			lastName: '',
-		},
-		onSubmit: async ({ value }) => {
-			const { timeZone } = Intl.DateTimeFormat().resolvedOptions();
-			const req: Request = {
-				...value,
-				role: role,
-				timeZone: timeZone,
-			};
-			mutation.mutateAsync(req);
-		},
-	});
+const useRegisterFields = (role: 'Client' | 'Contributor') => {
+	const { form } = useRegisterForm(role);
 	const tPlaceholders = usePlaceholdersTranslation();
 	const tLabels = useLabelsTranslation();
-
-	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
-		e.stopPropagation();
-		form.handleSubmit();
-	};
 
 	const getClass = (errors: ValidationError[]) =>
 		errors ? styles.invalid : '';
 
 	const FirstNameField = (
-		<form.Field
-			name='firstName'
-			children={(field) =>
+		<form.Field name='firstName'>
+			{(field) =>
 				field.state.value !== undefined && (
 					<>
 						<label>{tLabels('first-name')}</label>
@@ -64,12 +34,11 @@ const useRegisterForm = (role: 'Client' | 'Contributor') => {
 					</>
 				)
 			}
-		/>
+		</form.Field>
 	);
 	const LastNameField = (
-		<form.Field
-			name='lastName'
-			children={(field) =>
+		<form.Field name='lastName'>
+			{(field) =>
 				field.state.value !== undefined && (
 					<>
 						<label>{tLabels('last-name')}</label>
@@ -87,12 +56,11 @@ const useRegisterForm = (role: 'Client' | 'Contributor') => {
 					</>
 				)
 			}
-		/>
+		</form.Field>
 	);
 	const UsernameField = (
-		<form.Field
-			name='username'
-			children={(field) =>
+		<form.Field name='username'>
+			{(field) =>
 				field.state.value !== undefined && (
 					<>
 						<label>{tLabels('username')}</label>
@@ -110,12 +78,11 @@ const useRegisterForm = (role: 'Client' | 'Contributor') => {
 					</>
 				)
 			}
-		/>
+		</form.Field>
 	);
 	const EmailField = (
-		<form.Field
-			name='email'
-			children={(field) =>
+		<form.Field name='email'>
+			{(field) =>
 				field.state.value !== undefined && (
 					<>
 						<label>{tLabels('email')}</label>
@@ -133,12 +100,11 @@ const useRegisterForm = (role: 'Client' | 'Contributor') => {
 					</>
 				)
 			}
-		/>
+		</form.Field>
 	);
 	const PasswordField = (
-		<form.Field
-			name='password'
-			children={(field) =>
+		<form.Field name='password'>
+			{(field) =>
 				field.state.value !== undefined && (
 					<>
 						<label>{tLabels('password')}</label>
@@ -158,12 +124,11 @@ const useRegisterForm = (role: 'Client' | 'Contributor') => {
 					</>
 				)
 			}
-		/>
+		</form.Field>
 	);
 	const ConfirmPasswordField = (
-		<form.Field
-			name='confirmPassword'
-			children={(field) =>
+		<form.Field name='confirmPassword'>
+			{(field) =>
 				field.state.value !== undefined && (
 					<>
 						<label>{tLabels('confirm-password')}</label>
@@ -183,11 +148,10 @@ const useRegisterForm = (role: 'Client' | 'Contributor') => {
 					</>
 				)
 			}
-		/>
+		</form.Field>
 	);
 
 	return {
-		handleSubmit,
 		FirstNameField,
 		LastNameField,
 		UsernameField,
@@ -197,4 +161,4 @@ const useRegisterForm = (role: 'Client' | 'Contributor') => {
 	};
 };
 
-export default useRegisterForm;
+export default useRegisterFields;
