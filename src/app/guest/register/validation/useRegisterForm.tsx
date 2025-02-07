@@ -2,7 +2,9 @@ import { FormEvent } from 'react';
 import { useForm } from '@tanstack/react-form';
 import { Request } from '@/api/identity/sign-up/resources/register';
 import useRegister from '@/hooks/mutations/sign-up/useRegister';
+import useForceLocaleRefresh from '@/hooks/locales/useForceLocaleRefresh';
 import getTimezone from '@/utils/get-timezone';
+import useRegisterValidation from './useRegisterValidation';
 
 interface Fields {
 	username: string;
@@ -23,6 +25,7 @@ const defaultValues: Fields = {
 
 const useRegisterForm = (role: 'Client' | 'Contributor') => {
 	const mutation = useRegister();
+	const schema = useRegisterValidation();
 
 	const form = useForm<Fields>({
 		defaultValues: defaultValues,
@@ -31,7 +34,12 @@ const useRegisterForm = (role: 'Client' | 'Contributor') => {
 			const req: Request = { ...value, role, timeZone };
 			await mutation.mutateAsync(req);
 		},
+		validators: {
+			onChange: schema,
+		},
 	});
+	useForceLocaleRefresh(form);
+
 	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		e.stopPropagation();
