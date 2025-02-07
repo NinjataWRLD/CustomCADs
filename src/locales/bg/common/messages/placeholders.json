@@ -1,3 +1,9 @@
 {
-  "search-products": "Потърси Продукт"
+  "search-products": "Потърси Продукт",
+  "first-name": "Иван",
+  "last-name": "Петров",
+  "username": "Иван_Петров123",
+  "email": "ivan@petrov.com",
+  "password": "вашата_тайна_парола_123",
+  "confirm-password": "вашата_тайна_парола_123"
 }
