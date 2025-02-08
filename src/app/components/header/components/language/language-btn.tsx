@@ -25,7 +25,7 @@ const LanguageButton = () => {
 	return (
 		<FontAwesomeIcon
 			icon={faGlobe}
-			style={{ fontSize: '1.8rem', cursor: 'pointer' }}
+			size='2x'
 			onClick={handleClick}
 			data-tooltip={tHeader('language')}
 		/>
