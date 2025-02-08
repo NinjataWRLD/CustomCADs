@@ -1,5 +1,4 @@
 import useDownloadProductCad from '@/hooks/queries/products/gallery/useDownloadProductCad.js';
-import useBytesToBuffer from '@/hooks/useBytesToBuffer.js';
 import useGenerateBlobUrl from '@/hooks/useGenerateBlobUrl.js';
 import { Coordinates } from '@/api/catalog/common.js';
 import ThreeJS from './three.js';
@@ -13,16 +12,7 @@ interface CadProps {
 
 const Cad = ({ id, cam, pan }: CadProps) => {
 	const { data: file } = useDownloadProductCad({ id: id });
-
-	const presignedUrl = file?.presignedUrl ?? '';
-	const contentType = file?.contentType ?? '';
-
-	const buffer = useBytesToBuffer(presignedUrl, contentType);
-	const blobUrl = useGenerateBlobUrl(contentType, buffer);
-
-	if (!buffer || buffer.byteLength === 0) {
-		return <div>Loading...</div>;
-	}
+	const blobUrl = useGenerateBlobUrl(file?.presignedUrl, file?.contentType);
 
 	return (
 		<div className={styles.container}>

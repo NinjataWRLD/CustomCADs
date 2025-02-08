@@ -1,4 +1,5 @@
 import { FormEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useForm as useTanStackForm } from '@tanstack/react-form';
 import { Request } from '@/api/identity/sign-in/resources/login';
 import useLogin from '@/hooks/mutations/sign-in/useLogin';
@@ -21,6 +22,7 @@ const defaultValues: Fields = {
 const useForm = () => {
 	const schema = useValidation();
 	const mutation = useLogin();
+	const navigate = useNavigate();
 
 	const authz = useAuthz();
 	const updateAuthz = async () => {
@@ -28,9 +30,8 @@ const useForm = () => {
 		const { data: role } = await refetch();
 
 		if (role) {
-			alert(role);
 			authStore.login(role);
-		} else alert('problem...');
+		}
 	};
 
 	const form = useTanStackForm<Fields>({
@@ -50,6 +51,7 @@ const useForm = () => {
 		e.preventDefault();
 		e.stopPropagation();
 		form.handleSubmit();
+		navigate('/');
 	};
 
 	return {

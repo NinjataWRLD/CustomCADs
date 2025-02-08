@@ -5,7 +5,7 @@ import {
 	faCcVisa,
 	faGooglePay,
 } from '@fortawesome/free-brands-svg-icons';
-import useCartContext from '@/hooks/useCartContext';
+import useCartContext from '@/hooks/contexts/useCartContext';
 import Transition from '@/app/components/transition/transition';
 import BtnLink from '@/app/components/button/button';
 import CartItem from './components/cart-item';

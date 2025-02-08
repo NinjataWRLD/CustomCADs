@@ -1,19 +1,18 @@
+import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
+import { Response as Product } from '@/api/catalog/products/gallery/resources/all';
 import useDownloadProductImage from '@/hooks/queries/products/gallery/useDownloadProductImage';
 import useGenerateBlobUrl from '@/hooks/useGenerateBlobUrl';
-import { Response as Product } from '@/api/catalog/products/gallery/resources/all';
-import styles from './model.module.css';
-import useBytesToBuffer from '@/hooks/useBytesToBuffer';
-import { useNavigate } from 'react-router-dom';
 import { useCategoriesTranslation } from '@/hooks/locales/common/resources';
 import { useFetchTranslation } from '@/hooks/locales/common/messages';
+import styles from './model.module.css';
 
 interface ModelProps {
 	product: Product;
 }
 
-const Model: React.FC<ModelProps> = ({ product }) => {
+const Model = ({ product }: ModelProps) => {
 	const navigate = useNavigate();
 
 	const tCategories = useCategoriesTranslation();
@@ -23,11 +22,7 @@ const Model: React.FC<ModelProps> = ({ product }) => {
 		id: product.id,
 	});
 
-	const presignedUrl: string = file?.presignedUrl ?? '';
-	const contentType: string = file?.contentType ?? '';
-
-	const buffer = useBytesToBuffer(presignedUrl, contentType);
-	const blobUrl = useGenerateBlobUrl(contentType, buffer);
+	const blobUrl = useGenerateBlobUrl(file?.contentType, file?.presignedUrl);
 
 	if (isLoading) {
 		return <>{tFetch('loading')}</>;

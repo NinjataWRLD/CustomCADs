@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import CartContext from './context';
-import useCartInit from '@/hooks/useCartInit';
+import useCartInit from '@/hooks/contexts/useCartInit';
 
 const CartProvider = ({ children }: { children: ReactNode }) => {
 	const { items, dispatch } = useCartInit();

@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMinus, faPlus, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import useGetProduct from '@/hooks/queries/products/gallery/useGetGalleryProduct';
 import useGenerateBlobUrl from '@/hooks/useGenerateBlobUrl';
-import useBytesToBuffer from '@/hooks/useBytesToBuffer';
 import useDownloadProductImage from '@/hooks/queries/products/gallery/useDownloadProductImage';
 import { useFetchTranslation } from '@/hooks/locales/common/messages';
 import { useCartTranslation } from '@/hooks/locales/pages/public';
@@ -35,11 +34,7 @@ const CartItem = ({
 	});
 	const { data: product, isError } = useGetProduct({ id: productId });
 
-	const presignedUrl: string = file?.presignedUrl ?? '';
-	const contentType: string = file?.contentType ?? '';
-
-	const buffer = useBytesToBuffer(presignedUrl, contentType);
-	const blobUrl = useGenerateBlobUrl(contentType, buffer);
+	const blobUrl = useGenerateBlobUrl(file?.contentType, file?.contentType);
 
 	if (isError || !product || isFileError) {
 		return <>{tFetch('error')}</>;

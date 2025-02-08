@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { useProductTranslation } from '@/hooks/locales/pages/public';
-import useCartContext from '@/hooks/useCartContext';
+import useCartContext from '@/hooks/contexts/useCartContext';
 import { CartItem } from '@/types/cart-item';
 import styles from '../styles.module.css';
 
