@@ -1,10 +1,10 @@
 import { FormEvent } from 'react';
-import { useForm } from '@tanstack/react-form';
+import { useForm as useTanStackForm } from '@tanstack/react-form';
 import { Request } from '@/api/identity/sign-up/resources/register';
 import useRegister from '@/hooks/mutations/sign-up/useRegister';
 import useForceLocaleRefresh from '@/hooks/locales/useForceLocaleRefresh';
 import getTimezone from '@/utils/get-timezone';
-import useRegisterValidation from './useRegisterValidation';
+import useValidation from './useValidation';
 
 interface Fields {
 	username: string;
@@ -23,11 +23,11 @@ const defaultValues: Fields = {
 	lastName: '',
 };
 
-const useRegisterForm = (role: 'Client' | 'Contributor') => {
+const useForm = (role: 'Client' | 'Contributor') => {
 	const mutation = useRegister();
-	const schema = useRegisterValidation();
+	const schema = useValidation();
 
-	const form = useForm<Fields>({
+	const form = useTanStackForm<Fields>({
 		defaultValues: defaultValues,
 		onSubmit: async ({ value }) => {
 			const timeZone = getTimezone();
@@ -52,4 +52,4 @@ const useRegisterForm = (role: 'Client' | 'Contributor') => {
 	};
 };
 
-export default useRegisterForm;
+export default useForm;

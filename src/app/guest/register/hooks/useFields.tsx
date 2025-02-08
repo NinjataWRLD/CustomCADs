@@ -3,11 +3,11 @@ import { usePlaceholdersTranslation } from '@/hooks/locales/common/messages';
 import { useLabelsTranslation } from '@/hooks/locales/components/forms';
 import FieldInfo from '@/app/components/fields/info/info';
 import Password from '@/app/components/fields/password/password';
-import useRegisterForm from './useRegisterForm';
+import useForm from './useForm';
 import styles from '@/styles/forms.module.css';
 
-const useRegisterFields = (role: 'Client' | 'Contributor') => {
-	const { form, handleSubmit } = useRegisterForm(role);
+const useFields = (role: 'Client' | 'Contributor') => {
+	const { form, handleSubmit } = useForm(role);
 	const tPlaceholders = usePlaceholdersTranslation();
 	const tLabels = useLabelsTranslation();
 
@@ -162,4 +162,4 @@ const useRegisterFields = (role: 'Client' | 'Contributor') => {
 	};
 };
 
-export default useRegisterFields;
+export default useFields;
