@@ -4,5 +4,7 @@
   "username": "Username",
   "email": "Email",
   "password": "Password",
-  "confirm-password": "Confirm Password"
+  "confirm-password": "Confirm Password",
+  "remember-me": "Remember me?",
+  "forgot-password": "Forgot your password?"
 }

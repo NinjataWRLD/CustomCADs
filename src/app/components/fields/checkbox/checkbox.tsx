@@ -1,4 +1,4 @@
-import { ChangeEventHandler } from 'react';
+import { ChangeEventHandler, CSSProperties } from 'react';
 import styles from './checkbox.module.css';
 
 interface CheckboxProps {
@@ -6,16 +6,17 @@ interface CheckboxProps {
 	label: string;
 	checked: boolean;
 	onClick: ChangeEventHandler<HTMLInputElement>;
+	style?: CSSProperties;
 }
 
-const Checkbox = ({ id, label, checked, onClick }: CheckboxProps) => {
+const Checkbox = ({ id, label, checked, onClick, style }: CheckboxProps) => {
 	return (
-		<div className={styles.checkbox}>
+		<div className={styles.checkbox} style={style}>
 			<input
 				id={id}
 				type='checkbox'
-				onChange={onClick}
 				checked={checked}
+				onChange={onClick}
 			/>
 			<label htmlFor={id}>
 				<span>{label}</span>

@@ -8,3 +8,6 @@ export const usePickRoleTranslation = () =>
 
 export const useRegisterTranslation = () =>
 	useTranslation(`${NAMESPACE}.${SUB_NAMESPACE}.register`).t;
+
+export const useLoginTranslation = () =>
+	useTranslation(`${NAMESPACE}.${SUB_NAMESPACE}.login`).t;
