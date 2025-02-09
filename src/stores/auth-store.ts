@@ -1,13 +1,15 @@
 import { Store } from '@tanstack/store';
+import { getCookie } from '@/utils/cookie-manager';
 
 interface AuthState {
 	authn: boolean;
 	authz: string | null;
 }
 
+const role = getCookie('role');
 const defaultState: AuthState = {
-	authn: false,
-	authz: null,
+	authn: Boolean(role),
+	authz: role ?? null,
 };
 const store = new Store<AuthState>(defaultState);
 

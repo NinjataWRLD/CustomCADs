@@ -1,5 +1,7 @@
 import axios, { AxiosError } from 'axios';
+import { login } from '@/stores/auth-store';
 import { refresh } from './identity/sign-in';
+import { authz } from './identity/info';
 
 const BASE_URL = import.meta.env.VITE_API_URL;
 const API_VERSION = import.meta.env.VITE_API_VERSION ?? 'v1';
@@ -26,6 +28,13 @@ instance.interceptors.response.use(
 		) {
 			try {
 				await refresh();
+
+				const updateStore = async () => {
+					const { data: role } = await authz();
+					login(role);
+				};
+				await updateStore();
+
 				return axios(config!);
 			} catch (error) {
 				return Promise.reject(error);

@@ -1,6 +1,6 @@
 import { useEffect, useReducer } from 'react';
 import { AxiosError } from 'axios';
-import useAuthn from '@/hooks/queries/identity/useAuthn';
+import useAuthStore from '@/hooks/stores/useAuthStore';
 import useGetActiveCart from '@/hooks/queries/active-carts/useGetActiveCart';
 import useCreateActiveCart from '@/hooks/mutations/active-carts/useCreateActiveCart';
 import { CartState } from '@/contexts/cart/context';
@@ -8,7 +8,7 @@ import cartReducer from '@/contexts/cart/reducer';
 import { CartItem } from '@/types/cart-item';
 
 const useCartInit = (): CartState => {
-	const { data: authn } = useAuthn();
+	const { authn } = useAuthStore();
 	const { data: cart, isError, error, refetch } = useGetActiveCart();
 	const { mutate: createCart } = useCreateActiveCart();
 
