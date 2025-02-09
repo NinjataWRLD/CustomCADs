@@ -10,7 +10,7 @@ import { CartItem } from '@/types/cart-item';
 const useCartInit = (): CartState => {
 	const { authn } = useAuthStore();
 	const { data: cart, isError, error, refetch } = useGetActiveCart();
-	const { mutate: createCart } = useCreateActiveCart();
+	const { mutateAsync: createCart } = useCreateActiveCart();
 
 	const loadFromLocalStorage = () => {
 		const cart = localStorage.getItem('cart');
@@ -25,24 +25,22 @@ const useCartInit = (): CartState => {
 		if (authn === false) {
 			localStorage.setItem('cart', JSON.stringify(items));
 		}
-	}, [authn, items]);
+	}, [items]);
 
 	useEffect(() => {
 		if (authn === true) {
-			if (cart) {
-				const { items } = cart;
-				dispatch({ type: 'FILL_CART', items: items });
-			} else if (
-				isError &&
-				error instanceof AxiosError &&
-				error.status === 404
-			) {
-				createCart(undefined, {
-					onSuccess: () => {
-						refetch();
-					},
-				});
-			}
+			const initCart = async () => {
+				if (cart) {
+					dispatch({ type: 'FILL_CART', items: cart.items });
+				} else if (
+					isError &&
+					error instanceof AxiosError &&
+					error.status === 404
+				) {
+					await createCart();
+				}
+			};
+			initCart();
 		}
 	}, [authn, cart, isError, refetch]);
 

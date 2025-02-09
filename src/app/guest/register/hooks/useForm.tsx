@@ -1,8 +1,10 @@
 import { FormEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useForm as useTanStackForm } from '@tanstack/react-form';
-import { Request } from '@/api/identity/sign-up/resources/register';
 import useRegister from '@/hooks/mutations/sign-up/useRegister';
 import useForceLocaleRefresh from '@/hooks/locales/useForceLocaleRefresh';
+import useCartInit from '@/hooks/contexts/useCartInit';
+import useUpdateAuthz from '@/hooks/stores/useUpdateAuthz';
 import getTimezone from '@/utils/get-timezone';
 import useValidation from './useValidation';
 
@@ -24,15 +26,21 @@ const defaultValues: Fields = {
 };
 
 const useForm = (role: 'Client' | 'Contributor') => {
-	const mutation = useRegister();
+	const { mutateAsync: register } = useRegister();
 	const schema = useValidation();
+
+	const { dispatch } = useCartInit();
+	const updateAuthz = useUpdateAuthz();
+	const navigate = useNavigate();
 
 	const form = useTanStackForm<Fields>({
 		defaultValues: defaultValues,
 		onSubmit: async ({ value }) => {
 			const timeZone = getTimezone();
-			const req: Request = { ...value, role, timeZone };
-			await mutation.mutateAsync(req);
+			await register({ ...value, role, timeZone });
+			dispatch({ type: 'CLEAR_CART' });
+			await updateAuthz();
+			navigate('/');
 		},
 		validators: {
 			onChange: schema,
