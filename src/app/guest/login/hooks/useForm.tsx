@@ -40,6 +40,7 @@ const useForm = () => {
 			const req: Request = { ...value };
 			await mutation.mutateAsync(req);
 			await updateAuthz();
+			navigate('/');
 		},
 		validators: {
 			onChange: schema,
@@ -51,7 +52,6 @@ const useForm = () => {
 		e.preventDefault();
 		e.stopPropagation();
 		form.handleSubmit();
-		navigate('/');
 	};
 
 	return {

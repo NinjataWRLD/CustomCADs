@@ -34,7 +34,7 @@ const CartItem = ({
 	});
 	const { data: product, isError } = useGetProduct({ id: productId });
 
-	const blobUrl = useGenerateBlobUrl(file?.contentType, file?.contentType);
+	const blobUrl = useGenerateBlobUrl(file?.presignedUrl, file?.contentType);
 
 	if (isError || !product || isFileError) {
 		return <>{tFetch('error')}</>;

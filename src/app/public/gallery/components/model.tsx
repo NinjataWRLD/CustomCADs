@@ -22,7 +22,7 @@ const Model = ({ product }: ModelProps) => {
 		id: product.id,
 	});
 
-	const blobUrl = useGenerateBlobUrl(file?.contentType, file?.presignedUrl);
+	const blobUrl = useGenerateBlobUrl(file?.presignedUrl, file?.contentType);
 
 	if (isLoading) {
 		return <>{tFetch('loading')}</>;

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import fetchFile from '@/utils/fetch-file';
 
-const useGenerateBlobUrl = (contentType?: string, presignedUrl?: string) => {
+const useGenerateBlobUrl = (presignedUrl?: string, contentType?: string) => {
 	const [buffer, setBuffer] = useState(new ArrayBuffer());
 
 	useEffect(() => {

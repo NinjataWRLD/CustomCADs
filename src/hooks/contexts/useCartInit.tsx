@@ -12,20 +12,14 @@ const useCartInit = (): CartState => {
 	const { data: cart, isError, error, refetch } = useGetActiveCart();
 	const { mutate: createCart } = useCreateActiveCart();
 
-	const init = () => {
-		if (typeof window === 'undefined') {
-			return [];
-		}
-
-		const cartString = localStorage.getItem('cart');
-		if (!cartString) {
-			return [];
-		}
-
-		const items: CartItem[] = JSON.parse(cartString);
-		return items;
+	const loadFromLocalStorage = () => {
+		const cart = localStorage.getItem('cart');
+		return cart ? (JSON.parse(cart) as CartItem[]) : [];
 	};
-	const [items, dispatch] = useReducer(cartReducer, [], init);
+
+	const [items, dispatch] = useReducer(cartReducer, [], () =>
+		typeof window === 'undefined' ? [] : loadFromLocalStorage(),
+	);
 
 	useEffect(() => {
 		if (authn === false) {
@@ -43,11 +37,14 @@ const useCartInit = (): CartState => {
 				error instanceof AxiosError &&
 				error.status === 404
 			) {
-				createCart();
-				refetch();
+				createCart(undefined, {
+					onSuccess: () => {
+						refetch();
+					},
+				});
 			}
 		}
-	}, [authn, cart, createCart, error, isError, refetch]);
+	}, [authn, cart, isError, refetch]);
 
 	return { items, dispatch };
 };

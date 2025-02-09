@@ -1,11 +1,15 @@
+import { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import styles from './base.module.css';
 
+const Wrapper = ({ link, children }: { link?: string; children: ReactNode }) =>
+	link ? <Link to={link}>{children}</Link> : <>{children}</>;
+
 interface BaseButtonProps {
 	label: string;
-	link: string;
+	link?: string;
 	icon: IconDefinition;
 	onClick?: VoidFunction;
 }
@@ -13,14 +17,14 @@ interface BaseButtonProps {
 const BaseButton = ({ label, link, icon, onClick }: BaseButtonProps) => {
 	return (
 		<div className={styles['icon-wrapper']} data-tooltip={label}>
-			<Link to={link}>
+			<Wrapper link={link}>
 				<FontAwesomeIcon
 					icon={icon}
 					size='2x'
 					style={{ cursor: 'pointer' }}
 					onClick={onClick}
 				/>
-			</Link>
+			</Wrapper>
 		</div>
 	);
 };
