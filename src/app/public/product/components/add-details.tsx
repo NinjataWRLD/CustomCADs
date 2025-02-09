@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { useProductTranslation } from '@/hooks/locales/pages/public';
-import useCartContext from '@/hooks/contexts/useCartContext';
+import useCartUpdates from '@/hooks/contexts/useCartUpdates';
 import { CartItem } from '@/types/cart-item';
 import styles from '../styles.module.css';
 
@@ -15,7 +15,7 @@ interface AddDetailsProps {
 
 const AddDetails = ({ id, show, setShow, setShowMessage }: AddDetailsProps) => {
 	const tProduct = useProductTranslation();
-	const { dispatch: cartDispatch } = useCartContext();
+	const { addItem } = useCartUpdates();
 
 	const toggleForDelivery = () => {
 		setShow((prev) => !prev);
@@ -29,7 +29,7 @@ const AddDetails = ({ id, show, setShow, setShowMessage }: AddDetailsProps) => {
 			weight: weight,
 			forDelivery: forDelivery,
 		};
-		cartDispatch({ type: 'ADD_ITEM', item: item });
+		addItem(item);
 
 		setShow(false);
 		setShowMessage(true);

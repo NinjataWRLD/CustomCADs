@@ -37,8 +37,8 @@ const Header = () => {
 					icon={faShoppingCart}
 				/>
 				<span>|</span>
-				{authn ? (
-					<SettingsButton role={authz!} />
+				{authn && authz ? (
+					<SettingsButton role={authz} />
 				) : (
 					<>
 						<BaseButton

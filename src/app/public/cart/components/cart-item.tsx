@@ -4,6 +4,7 @@ import { faMinus, faPlus, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import useGetProduct from '@/hooks/queries/products/gallery/useGetGalleryProduct';
 import useGenerateBlobUrl from '@/hooks/useGenerateBlobUrl';
 import useDownloadProductImage from '@/hooks/queries/products/gallery/useDownloadProductImage';
+import useCartUpdates from '@/hooks/contexts/useCartUpdates';
 import { useFetchTranslation } from '@/hooks/locales/common/messages';
 import { useCartTranslation } from '@/hooks/locales/pages/public';
 import Checkbox from '@/app/components/fields/checkbox/checkbox';
@@ -12,22 +13,20 @@ import styles from './cart-item.module.css';
 
 interface CartItemProps {
 	item: ICartItem;
-	removeItem: (id: string) => void;
-	incrementQuantity: (id: string) => void;
-	decrementQuantity: (id: string) => void;
-	toggleDelivery: (id: string) => void;
 }
 
 const CartItem = ({
 	item: { productId, forDelivery, quantity },
-	removeItem: remove,
-	incrementQuantity: increment,
-	decrementQuantity: decrement,
-	toggleDelivery: toggle,
 }: CartItemProps) => {
 	const navigate = useNavigate();
 	const tFetch = useFetchTranslation();
 	const tCart = useCartTranslation();
+	const {
+		removeItem,
+		incrementItemQuantity,
+		decrementItemQuantity,
+		toggleItemForDelivery,
+	} = useCartUpdates();
 
 	const { data: file, isError: isFileError } = useDownloadProductImage({
 		id: productId,
@@ -50,7 +49,7 @@ const CartItem = ({
 								id={product.id + forDelivery}
 								label={tCart('delivery')}
 								checked={forDelivery}
-								onClick={() => toggle(productId)}
+								onClick={() => toggleItemForDelivery(productId)}
 							/>
 						</div>
 					</h2>
@@ -62,12 +61,12 @@ const CartItem = ({
 					<div className={styles.quantity}>
 						<FontAwesomeIcon
 							icon={faMinus}
-							onClick={() => decrement(productId)}
+							onClick={() => decrementItemQuantity(productId)}
 						/>
 						<div className={styles.number}>{quantity}</div>
 						<FontAwesomeIcon
 							icon={faPlus}
-							onClick={() => increment(productId)}
+							onClick={() => incrementItemQuantity(productId)}
 						/>
 					</div>
 					<button
@@ -80,7 +79,7 @@ const CartItem = ({
 					<div
 						className={styles.bin}
 						data-tooltip={tCart('remove')}
-						onClick={() => remove(productId)}
+						onClick={() => removeItem(productId)}
 					>
 						<FontAwesomeIcon icon={faTrashCan} />
 					</div>
