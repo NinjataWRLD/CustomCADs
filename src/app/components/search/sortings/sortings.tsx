@@ -28,9 +28,7 @@ const Sortings = ({ updateSearch }: SortingsProps) => {
 		SortingDirection.Descending,
 	);
 	useEffect(() => {
-		if (sorting === initial) {
-			setSorting(initial);
-		}
+		setSorting(initial);
 	}, [initial]);
 
 	const toggleDropdown = () => {

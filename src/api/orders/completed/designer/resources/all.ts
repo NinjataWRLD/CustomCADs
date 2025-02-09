@@ -1,15 +1,11 @@
 import objectToUrl from '@/utils/object-to-url';
-import {
-	CompletedOrderSorting,
-	SortingDirection,
-} from '@/api/common/enums/sortings';
 import { COMPLETED_ORDERS_DESIGNER_BASE_PATH } from '@/api/orders/common';
 
 export interface Request {
 	delivery?: boolean;
 	name?: string;
-	sortingType?: CompletedOrderSorting;
-	sortingDirection?: SortingDirection;
+	sortingType?: string;
+	sortingDirection?: string;
 	page: number;
 	limit: number;
 }

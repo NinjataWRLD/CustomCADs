@@ -1,16 +1,12 @@
 import objectToUrl from '@/utils/object-to-url';
-import {
-	OngoingOrderSorting,
-	SortingDirection,
-} from '@/api/common/enums/sortings';
 import { ONGOING_ORDERS_CLIENT_BASE_PATH } from '@/api/orders/common';
 
 export interface Request {
 	delivery?: boolean;
 	orderStatus?: string;
 	name?: string;
-	sortingType?: OngoingOrderSorting;
-	sortingDirection?: SortingDirection;
+	sortingType?: string;
+	sortingDirection?: string;
 	page: number;
 	limit: number;
 }

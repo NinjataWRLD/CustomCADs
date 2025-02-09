@@ -1,10 +1,9 @@
-import { ShipmentSorting, SortingDirection } from '@/api/common/enums/sortings';
 import { Address, SHIPMENTS_BASE_PATH } from '@/api/delivery/common';
 import objectToUrl from '@/utils/object-to-url';
 
 export interface Request {
-	sortingType?: ShipmentSorting;
-	sortingDirection?: SortingDirection;
+	sortingType?: string;
+	sortingDirection?: string;
 	page: number;
 	limit: number;
 }

@@ -1,11 +1,10 @@
 import objectToUrl from '@/utils/object-to-url';
-import { AccountSorting, SortingDirection } from '@/api/common/enums/sortings';
 import { ACCOUNTS_BASE_PATH } from '../../common';
 
 export interface Request {
 	name?: string;
-	sortingType?: AccountSorting;
-	sortingDirection?: SortingDirection;
+	sortingType?: string;
+	sortingDirection?: string;
 	page: number;
 	limit: number;
 }

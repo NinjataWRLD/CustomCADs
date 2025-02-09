@@ -1,10 +1,9 @@
 import objectToUrl from '@/utils/object-to-url';
-import { CartSorting, SortingDirection } from '@/api/common/enums/sortings';
 import { PURCHASED_CART_BASE_PATH } from '../../common';
 
 export interface Request {
-	sortingType: CartSorting;
-	sortingDirectoin: SortingDirection;
+	sortingType: string;
+	sortingDirectoin: string;
 	page: number;
 	limit: number;
 }
