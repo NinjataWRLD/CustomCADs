@@ -4,5 +4,7 @@
   "username": "Потребителско Име",
   "email": "Имейл",
   "password": "Парола",
-  "confirm-password": "Потвърдете Паролата"
+  "confirm-password": "Потвърдете Паролата",
+  "remember-me": "Запомни ме?",
+  "forgot-password": "Забравихте паролата си?"
 }

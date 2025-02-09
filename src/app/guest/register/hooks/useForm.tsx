@@ -1,10 +1,12 @@
 import { FormEvent } from 'react';
-import { useForm } from '@tanstack/react-form';
-import { Request } from '@/api/identity/sign-up/resources/register';
+import { useNavigate } from 'react-router-dom';
+import { useForm as useTanStackForm } from '@tanstack/react-form';
 import useRegister from '@/hooks/mutations/sign-up/useRegister';
 import useForceLocaleRefresh from '@/hooks/locales/useForceLocaleRefresh';
+import useCartInit from '@/hooks/contexts/useCartInit';
+import useUpdateAuthz from '@/hooks/stores/useUpdateAuthz';
 import getTimezone from '@/utils/get-timezone';
-import useRegisterValidation from './useRegisterValidation';
+import useValidation from './useValidation';
 
 interface Fields {
 	username: string;
@@ -23,16 +25,22 @@ const defaultValues: Fields = {
 	lastName: '',
 };
 
-const useRegisterForm = (role: 'Client' | 'Contributor') => {
-	const mutation = useRegister();
-	const schema = useRegisterValidation();
+const useForm = (role: 'Client' | 'Contributor') => {
+	const { mutateAsync: register } = useRegister();
+	const schema = useValidation();
 
-	const form = useForm<Fields>({
+	const { dispatch } = useCartInit();
+	const updateAuthz = useUpdateAuthz();
+	const navigate = useNavigate();
+
+	const form = useTanStackForm<Fields>({
 		defaultValues: defaultValues,
 		onSubmit: async ({ value }) => {
 			const timeZone = getTimezone();
-			const req: Request = { ...value, role, timeZone };
-			await mutation.mutateAsync(req);
+			await register({ ...value, role, timeZone });
+			dispatch({ type: 'CLEAR_CART' });
+			await updateAuthz();
+			navigate('/');
 		},
 		validators: {
 			onChange: schema,
@@ -52,4 +60,4 @@ const useRegisterForm = (role: 'Client' | 'Contributor') => {
 	};
 };
 
-export default useRegisterForm;
+export default useForm;

@@ -5,35 +5,19 @@ import {
 	faCcVisa,
 	faGooglePay,
 } from '@fortawesome/free-brands-svg-icons';
-import useCartContext from '@/hooks/useCartContext';
+import { useCartTranslation } from '@/hooks/locales/pages/public';
+import useCartContext from '@/hooks/contexts/useCartContext';
 import Transition from '@/app/components/transition/transition';
 import BtnLink from '@/app/components/button/button';
 import CartItem from './components/cart-item';
 import styles from './styles.module.css';
-import { useCartTranslation } from '@/hooks/locales/pages/public';
 
 const Cart = () => {
-	const { items, dispatch } = useCartContext();
+	const { items } = useCartContext();
 	const tCart = useCartTranslation();
 
 	const totalCount = items.length;
 	const totalDeliveryCount = items.filter((i) => i.forDelivery).length;
-
-	const removeItem = (id: string) => {
-		dispatch({ type: 'REMOVE_ITEM', id: id });
-	};
-
-	const incrementQuantity = (productId: string) => {
-		dispatch({ type: 'INCREMENT_QUANTITY', id: productId });
-	};
-
-	const decrementQuantity = (productId: string) => {
-		dispatch({ type: 'DECREMENT_QUANTITY', id: productId });
-	};
-
-	const toggleDelivery = (productId: string) => {
-		dispatch({ type: 'TOGGLE_DELIVERY', id: productId });
-	};
 
 	return (
 		<Transition>
@@ -41,14 +25,7 @@ const Cart = () => {
 				<h1>{tCart('title')}</h1>
 				<div className={styles.purchases}>
 					{items.map((item) => (
-						<CartItem
-							key={item.productId}
-							item={item}
-							removeItem={removeItem}
-							incrementQuantity={incrementQuantity}
-							decrementQuantity={decrementQuantity}
-							toggleDelivery={toggleDelivery}
-						/>
+						<CartItem key={item.productId} item={item} />
 					))}
 				</div>
 			</div>

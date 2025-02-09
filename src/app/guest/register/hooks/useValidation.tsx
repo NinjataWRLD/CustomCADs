@@ -3,7 +3,7 @@ import { useErrorsTranslation } from '@/hooks/locales/components/forms';
 import validations from '@/constants/user';
 import fieldEqualityHelper from '@/utils/field-equality';
 
-const useRegisterValidation = () => {
+const useValidation = () => {
 	const tErrors = useErrorsTranslation();
 	const { name, email, password } = validations;
 
@@ -49,4 +49,4 @@ const useRegisterValidation = () => {
 	return schema;
 };
 
-export default useRegisterValidation;
+export default useValidation;
