@@ -1,8 +1,7 @@
-import React from 'react';
 import faviconPic from '@/assets/favicons/favicon.svg';
 import styles from './figures.module.css';
 
-const Figures: React.FC = () => {
+const Figures = () => {
 	return (
 		<div className={styles.hero}>
 			<div className={styles['hero-figure']}>

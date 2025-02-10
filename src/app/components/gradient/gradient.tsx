@@ -1,7 +1,6 @@
-import React from 'react';
 import styles from './gradient.module.css';
 
-const Gradient: React.FC = () => {
+const Gradient = () => {
 	return (
 		<div className={`${styles.main}`}>
 			<div className={`${styles.box}`}>

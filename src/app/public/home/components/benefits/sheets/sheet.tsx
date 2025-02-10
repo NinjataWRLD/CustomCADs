@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './sheet.module.css';
 
 interface SheetProps {
@@ -7,7 +6,7 @@ interface SheetProps {
 	details: string;
 }
 
-const Sheet: React.FC<SheetProps> = ({ title, icon, details }) => {
+const Sheet = ({ title, icon, details }: SheetProps) => {
 	return (
 		<div className={`${styles.sheet}`}>
 			<i className={icon}></i>

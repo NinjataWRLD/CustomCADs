@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import anime from 'animejs';
 import styles from './figures.module.css';
 
-const FiguresAnimation: React.FC = () => {
+const FiguresAnimation = () => {
 	useEffect(() => {
 		const getClass = (className: string) => `.${styles[className]}`;
 

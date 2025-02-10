@@ -9,22 +9,11 @@ import styles from './styles.module.css';
 
 const Register = () => {
 	const { role } = useParams();
-	let formattedRole: 'Client' | 'Contributor' = 'Client';
-
-	const { handleSubmit, ...fields } = useFields(formattedRole);
+	const { handleSubmit, ...fields } = useFields(
+		role === 'client' ? 'Client' : 'Contributor',
+	);
 
 	const tRegister = useRegisterTranslation();
-
-	switch (role) {
-		case 'client':
-			formattedRole = 'Client';
-			break;
-		case 'contributor':
-			formattedRole = 'Contributor';
-			break;
-		default:
-			return;
-	}
 
 	return (
 		<Transition>

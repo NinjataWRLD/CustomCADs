@@ -7,7 +7,7 @@ import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { useHomeTranslation } from '@/hooks/locales/pages/public';
 import { useCategoriesTranslation } from '@/hooks/locales/common/resources';
 
-const MostPopularModels: React.FC = () => {
+const MostPopularModels = () => {
 	const tHome = useHomeTranslation();
 	const tCategories = useCategoriesTranslation();
 	const [currentIndex, setCurrentIndex] = useState(0);

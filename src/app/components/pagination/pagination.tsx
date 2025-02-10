@@ -1,4 +1,3 @@
-import React from 'react';
 import Button from './buttons/button';
 import Num from './buttons/num';
 import styles from './pagination.module.css';
@@ -10,12 +9,7 @@ interface PaginationProps {
 	onPageChange: (newPage: number) => void;
 }
 
-const Pagination: React.FC<PaginationProps> = ({
-	total,
-	limit,
-	page,
-	onPageChange,
-}) => {
+const Pagination = ({ total, limit, page, onPageChange }: PaginationProps) => {
 	const lastPage = Math.ceil(total / limit);
 
 	const handleBeginning = () => {
