@@ -6,6 +6,7 @@ export interface Request {
 	name?: string;
 	sortingType?: string;
 	sortingDirection?: string;
+	tagIds?: string[];
 	page: number;
 	limit: number;
 }

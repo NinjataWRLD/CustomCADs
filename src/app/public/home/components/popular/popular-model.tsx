@@ -1,25 +1,32 @@
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
+import useGenerateBlobUrl from '@/hooks/useGenerateBlobUrl';
+import useDownloadProductImage from '@/hooks/queries/products/gallery/useDownloadProductImage';
+import { useCategoriesTranslation } from '@/hooks/locales/common/resources';
 import styles from './popular.module.css';
 
 interface ModelProps {
-	model: {
-		src: string;
+	product: {
+		id: string;
 		name: string;
-		views: string;
+		views: number;
 		category: string;
-		author: string;
-		price: string;
-		upload_date: string;
 	};
 }
 
-const PopularModel = ({ model }: ModelProps) => {
+const PopularModel = ({ product }: ModelProps) => {
 	const navigate = useNavigate();
+	const tCategories = useCategoriesTranslation();
+
+	const { data: download } = useDownloadProductImage({ id: product.id });
+	const blobUrl = useGenerateBlobUrl(
+		download?.presignedUrl,
+		download?.contentType,
+	);
 
 	const handleDetailsClick = () => {
-		navigate('/product');
+		navigate(`/gallery/${product.id}`);
 	};
 
 	return (
@@ -27,21 +34,21 @@ const PopularModel = ({ model }: ModelProps) => {
 			<b></b>
 			<img
 				onClick={handleDetailsClick}
-				src={model.src}
+				src={blobUrl}
 				alt='Model Picture'
 				width={736}
 				height={0}
 			/>
 			<div className={`${styles.content}`}>
 				<p onClick={handleDetailsClick} className={`${styles.title}`}>
-					{model.name}
+					{product.name}
 					<br />
-					<span>{model.category}</span>
+					<span>{tCategories(product.category)}</span>
 				</p>
 				<div className={`${styles['button-container']}`}>
 					<div className={`${styles.views}`}>
 						<FontAwesomeIcon icon={faEye}></FontAwesomeIcon>
-						<div>{model.views}</div>
+						<div>{product.views}</div>
 					</div>
 				</div>
 			</div>

@@ -3,7 +3,7 @@ import { all } from '@/api/categories/categories';
 
 const useGetCategories = () =>
 	useQuery({
-		queryKey: ['accounts', 'all'],
+		queryKey: ['categories', 'all'],
 		queryFn: async () => (await all()).data,
 	});
 
