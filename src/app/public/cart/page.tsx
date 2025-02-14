@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
 	faApplePay,
@@ -15,9 +16,15 @@ import styles from './styles.module.css';
 const Cart = () => {
 	const { items } = useCartContext();
 	const tCart = useCartTranslation();
+	const [cost, setCost] = useState({ total: 0, delivery: 0 });
 
 	const totalCount = items.length;
+	const addToTotalCost = (amount: number) =>
+		setCost((prev) => ({ ...prev, total: prev.total + amount }));
+
 	const totalDeliveryCount = items.filter((i) => i.forDelivery).length;
+	const addToDeliveryCost = (amount: number) =>
+		setCost((prev) => ({ ...prev, delivery: prev.delivery + amount }));
 
 	return (
 		<Transition>
@@ -25,17 +32,29 @@ const Cart = () => {
 				<h1>{tCart('title')}</h1>
 				<div className={styles.purchases}>
 					{items.map((item) => (
-						<CartItem key={item.productId} item={item} />
+						<CartItem
+							key={item.productId}
+							item={item}
+							addToCost={{
+								total: addToTotalCost,
+								delivery: addToDeliveryCost,
+							}}
+						/>
 					))}
 				</div>
 			</div>
 			<div className={styles.options}>
 				<h2>
-					<p>{tCart('total', { count: totalCount, cost: '$20' })}</p>
+					<p>
+						{tCart('total', {
+							count: totalCount,
+							cost: cost.total,
+						})}
+					</p>
 					<p>
 						{tCart('total-delivery', {
 							count: totalDeliveryCount,
-							cost: '$3',
+							cost: cost.delivery,
 						})}
 					</p>
 				</h2>

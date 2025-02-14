@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMinus, faPlus, faTrashCan } from '@fortawesome/free-solid-svg-icons';
@@ -11,12 +12,16 @@ import Checkbox from '@/app/components/fields/checkbox/checkbox';
 import { CartItem as ICartItem } from '@/types/cart-item';
 import styles from './cart-item.module.css';
 
+type AddToCostFunc = (amount: number) => void;
+
 interface CartItemProps {
 	item: ICartItem;
+	addToCost: { total: AddToCostFunc; delivery: AddToCostFunc };
 }
 
 const CartItem = ({
 	item: { productId, forDelivery, quantity },
+	addToCost,
 }: CartItemProps) => {
 	const navigate = useNavigate();
 	const tFetch = useFetchTranslation();
@@ -32,8 +37,36 @@ const CartItem = ({
 		id: productId,
 	});
 	const { data: product, isError } = useGetProduct({ id: productId });
-
 	const blobUrl = useGenerateBlobUrl(file?.presignedUrl, file?.contentType);
+
+	const updateCosts = (amount: number) => {
+		addToCost.total(amount);
+		if (forDelivery) addToCost.delivery(amount);
+	};
+
+	useEffect(() => {
+		if (product) updateCosts(quantity * product.price);
+	}, [productId, product]);
+
+	const remove = () => {
+		removeItem(productId);
+		if (product) updateCosts(-1 * quantity * product.price);
+	};
+	const incrementQuantity = () => {
+		incrementItemQuantity(productId);
+		if (product) updateCosts(product.price);
+	};
+	const decrementQuantity = () => {
+		decrementItemQuantity(productId);
+		if (quantity > 1 && product) updateCosts(-1 * product.price);
+	};
+	const toggleForDelivery = () => {
+		toggleItemForDelivery(productId);
+		if (product) {
+			if (forDelivery) addToCost.delivery(-1 * quantity * product.price);
+			else addToCost.delivery(quantity * product.price);
+		}
+	};
 
 	if (isError || !product || isFileError) {
 		return <>{tFetch('error')}</>;
@@ -49,7 +82,7 @@ const CartItem = ({
 								id={product.id + forDelivery}
 								label={tCart('delivery')}
 								checked={forDelivery}
-								onClick={() => toggleItemForDelivery(productId)}
+								onClick={toggleForDelivery}
 							/>
 						</div>
 					</h2>
@@ -61,12 +94,12 @@ const CartItem = ({
 					<div className={styles.quantity}>
 						<FontAwesomeIcon
 							icon={faMinus}
-							onClick={() => decrementItemQuantity(productId)}
+							onClick={decrementQuantity}
 						/>
 						<div className={styles.number}>{quantity}</div>
 						<FontAwesomeIcon
 							icon={faPlus}
-							onClick={() => incrementItemQuantity(productId)}
+							onClick={incrementQuantity}
 						/>
 					</div>
 					<button
@@ -79,7 +112,7 @@ const CartItem = ({
 					<div
 						className={styles.bin}
 						data-tooltip={tCart('remove')}
-						onClick={() => removeItem(productId)}
+						onClick={remove}
 					>
 						<FontAwesomeIcon icon={faTrashCan} />
 					</div>
