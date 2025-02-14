@@ -2,12 +2,13 @@ import { useEffect, useState } from 'react';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import useGetCategories from '@/hooks/queries/categories/useGetCategories';
+import useSearchParams from '@/hooks/useSearchParams';
 import { useFetchTranslation } from '@/hooks/locales/common/messages';
 import { useCategoriesTranslation } from '@/hooks/locales/common/resources';
 import styles from './categories.module.css';
 
 interface CategoriesProps {
-	updateSearch: (categoryId: number) => void;
+	updateSearch: (categoryId?: number) => void;
 }
 
 const Categories = ({ updateSearch }: CategoriesProps) => {
@@ -17,24 +18,24 @@ const Categories = ({ updateSearch }: CategoriesProps) => {
 	const { data: categories, isLoading, isError } = useGetCategories();
 	const [isActiveCategory, setIsActiveCategory] = useState(false);
 
-	const all = tCategories('All');
-	const [category, setCategory] = useState(all);
+	const { getParam, setParams } = useSearchParams();
+	const categoryParam = getParam('category');
+
+	const all = 'All';
+	const [category, setCategory] = useState(categoryParam ?? all);
+
 	useEffect(() => {
-		setCategory(all);
+		if (categories && categoryParam) {
+			const category = categories.find((c) => c.name === categoryParam);
+			updateSearch(category?.id);
+		}
+	}, [categories]);
+
+	useEffect(() => {
+		if (!categoryParam) {
+			setCategory(all);
+		}
 	}, [all]);
-
-	const toggleDropdown = () => {
-		setIsActiveCategory((prev) => !prev);
-	};
-
-	const handleInput = (name: string) => {
-		const category = categories?.find((c) => c.name === name);
-
-		setCategory(tCategories(category?.name ?? all));
-		setIsActiveCategory(false);
-
-		updateSearch(category?.id ?? undefined!);
-	};
 
 	if (isLoading) {
 		return <>{tFetch('loading')}</>;
@@ -44,13 +45,34 @@ const Categories = ({ updateSearch }: CategoriesProps) => {
 		return <>{tFetch('error')}</>;
 	}
 
+	const toggleDropdown = () => {
+		setIsActiveCategory((prev) => !prev);
+	};
+
+	const setCategoryParam = (category: string) =>
+		setParams({
+			category: encodeURIComponent(category),
+		});
+
+	const handleInput = (name: string) => {
+		const category = categories.find((c) => c.name === name);
+
+		setCategory(category?.name ?? all);
+		setIsActiveCategory(false);
+
+		updateSearch(category?.id ?? undefined!);
+		setCategoryParam(category?.name ?? undefined!);
+	};
+
 	return (
 		<div className={`${styles.menu}`}>
 			<div
 				className={`${styles['select-btn']} ${isActiveCategory ? styles.active : ''}`}
 				onClick={toggleDropdown}
 			>
-				<span className={`${styles.category}`}>{category}</span>
+				<span className={`${styles.category}`}>
+					{tCategories(category)}
+				</span>
 				<FontAwesomeIcon icon={faChevronDown} />
 			</div>
 			<ul className={`${styles.list}`}>

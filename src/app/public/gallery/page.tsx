@@ -1,6 +1,11 @@
 import { useState, useEffect } from 'react';
 import usePagination from '@/hooks/usePagination';
 import useGetProducts from '@/hooks/queries/products/gallery/useGetGalleryProducts';
+import {
+	useFetchTranslation,
+	usePlaceholdersTranslation,
+} from '@/hooks/locales/common/messages';
+import useSearchParams from '@/hooks/useSearchParams';
 import { GallerySearch } from '@/app/types/search';
 import Transition from '@/app/components/transition/transition';
 import Categories from '@/app/components/search/categories/categories';
@@ -9,20 +14,21 @@ import Sortings from '@/app/components/search/sortings/sortings';
 import Pagination from '@/app/components/pagination/pagination';
 import Model from './components/model';
 import styles from './styles.module.css';
-import {
-	useFetchTranslation,
-	usePlaceholdersTranslation,
-} from '@/hooks/locales/common/messages';
 
 const Gallery = () => {
 	const tFetch = useFetchTranslation();
 	const tPlaceholders = usePlaceholdersTranslation();
 
+	const { getParam } = useSearchParams();
+	const nameParam = getParam('name');
+	const sortingTypeParam = getParam('sortingType');
+	const sortingDirectionParam = getParam('sortingDirection');
+
 	const [search, setSearch] = useState<GallerySearch>({
-		name: undefined,
+		name: nameParam,
 		categoryId: undefined,
-		sortingType: undefined,
-		sortingDirection: undefined,
+		sortingType: sortingTypeParam,
+		sortingDirection: sortingDirectionParam,
 	});
 
 	const [total, setTotal] = useState(0);
@@ -46,31 +52,29 @@ const Gallery = () => {
 				<section className={`${styles.container}`}>
 					<div className={styles.search}>
 						<Categories
-							updateSearch={(categoryId: number) =>
+							updateSearch={(categoryId) =>
 								setSearch((prev) => ({
 									...prev,
-									categoryId: categoryId,
+									categoryId: categoryId ?? prev.categoryId,
 								}))
 							}
 						/>
 						<Searchbar
 							placeholder={tPlaceholders('search-products')}
-							updateSearch={(name: string) =>
+							updateSearch={(name) =>
 								setSearch((prev) => ({
 									...prev,
-									name: name,
+									name: name ?? prev.name,
 								}))
 							}
 						/>
 						<Sortings
-							updateSearch={(
-								sorting: string,
-								direction: string,
-							) =>
+							updateSearch={(sorting, direction) =>
 								setSearch((prev) => ({
 									...prev,
-									sortingType: sorting,
-									sortingDirection: direction,
+									sortingType: sorting ?? prev.sortingType,
+									sortingDirection:
+										direction ?? prev.sortingDirection,
 								}))
 							}
 						/>
