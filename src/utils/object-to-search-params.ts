@@ -1,4 +1,4 @@
-const objectToSearchParams = (obj: Record<string, unknown>) =>
+const objectToSearchParams = (obj: object) =>
 	new URLSearchParams(
 		Object.entries(obj)
 			.filter(([, value]) => value !== undefined && value !== null)
