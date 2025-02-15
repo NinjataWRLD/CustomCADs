@@ -3,7 +3,7 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { Coordinates } from '@/api/catalog/common';
-import styles from './cad.module.css';
+import styles from './styles.module.css';
 
 interface ThreeJSProps {
 	url: string;

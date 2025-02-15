@@ -1,8 +1,8 @@
 import { RouteObject } from 'react-router-dom';
-import Home from '@/app/public/home/page';
-import Gallery from '@/app/public/gallery/page';
-import Product from '@/app/public/product/page';
-import Cart from '@/app/public/cart/page';
+import Home from '@/app/public/home';
+import Gallery from '@/app/public/gallery';
+import Product from '@/app/public/product';
+import Cart from '@/app/public/cart';
 
 const routes: RouteObject[] = [
 	{

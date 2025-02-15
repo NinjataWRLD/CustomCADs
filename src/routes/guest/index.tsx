@@ -1,7 +1,7 @@
 import { RouteObject } from 'react-router-dom';
-import PickRole from '@/app/guest/pick-role/page';
-import Register from '@/app/guest/register/page';
-import Login from '@/app/guest/login/page';
+import PickRole from '@/app/guest/pick-role';
+import Register from '@/app/guest/register';
+import Login from '@/app/guest/login';
 
 const routes: RouteObject[] = [
 	{

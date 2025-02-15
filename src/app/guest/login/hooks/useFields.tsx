@@ -2,11 +2,11 @@ import { Link } from 'react-router-dom';
 import { ValidationError } from '@tanstack/react-form';
 import { usePlaceholdersTranslation } from '@/hooks/locales/common/messages';
 import { useLabelsTranslation } from '@/hooks/locales/components/forms';
-import FieldInfo from '@/app/components/fields/info/info';
-import Password from '@/app/components/fields/password/password';
+import FieldInfo from '@/app/components/fields/info';
+import Password from '@/app/components/fields/password';
+import Checkbox from '@/app/components/fields/checkbox';
 import useForm from './useForm';
 import styles from '@/styles/forms.module.css';
-import Checkbox from '@/app/components/fields/checkbox/checkbox';
 
 const useFields = () => {
 	const { form, handleSubmit } = useForm();
