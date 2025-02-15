@@ -1,14 +1,14 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useHomeTranslation } from '@/hooks/locales/pages/public';
-import Info from './.components/info/info';
-import Benefits from './.components/benefits/benefits';
-import Popular from './.components/popular/popular';
-import Card from './.components/cards/card';
-import Figures from './.components/figures/figures';
-import FiguresAnimation from './.components/figures/animation';
+import Info from './components/info/info';
+import Benefits from './components/benefits/benefits';
+import Popular from './components/popular/popular';
+import Card from './components/cards/card';
+import Figures from './components/figures/figures';
+import FiguresAnimation from './components/figures/animation';
 import styles from './styles.module.css';
 
-const Home: React.FC = () => {
+const Home = () => {
 	const sectionsRef = useRef<(HTMLElement | null)[]>([]);
 	const boxRef = useRef<HTMLDivElement | null>(null);
 	const tHome = useHomeTranslation();

@@ -1,4 +1,3 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
@@ -16,7 +15,7 @@ interface ModelProps {
 	};
 }
 
-const PopularModel: React.FC<ModelProps> = ({ model }) => {
+const PopularModel = ({ model }: ModelProps) => {
 	const navigate = useNavigate();
 
 	const handleDetailsClick = () => {

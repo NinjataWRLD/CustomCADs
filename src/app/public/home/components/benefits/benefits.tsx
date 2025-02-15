@@ -1,10 +1,9 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Sheet from './sheets/sheet';
 import styles from './benefits.module.css';
 import { useHomeTranslation } from '@/hooks/locales/pages/public';
 
-const Benefits: React.FC = () => {
+const Benefits = () => {
 	const tHome = useHomeTranslation();
 	const navigate = useNavigate();
 

@@ -45,7 +45,9 @@ const possibleErrors = {
     'no-template-curly-in-string': 'warn',
     'no-this-before-super': 'warn',
     'no-unreachable': 'warn',
+    'no-useless-assignment': 'warn',
     'use-isnan': 'warn',
+    'react-hooks/exhaustive-deps': 'off',
 };
 
 const suggestions = {

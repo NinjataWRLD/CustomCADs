@@ -9,12 +9,12 @@ import { CartItem } from '@/types/cart-item';
 
 const useCartInit = (): CartState => {
 	const { authn } = useAuthStore();
-	const { data: cart, isError, error, refetch } = useGetActiveCart();
+	const { data: cart, isError, error } = useGetActiveCart(authn);
 	const { mutateAsync: createCart } = useCreateActiveCart();
 
 	const loadFromLocalStorage = () => {
-		const cart = localStorage.getItem('cart');
-		return cart ? (JSON.parse(cart) as CartItem[]) : [];
+		const items = localStorage.getItem('cart');
+		return items ? (JSON.parse(items) as CartItem[]) : [];
 	};
 
 	const [items, dispatch] = useReducer(cartReducer, [], () =>
@@ -42,7 +42,7 @@ const useCartInit = (): CartState => {
 			};
 			initCart();
 		}
-	}, [authn, cart, isError, refetch]);
+	}, [authn, cart, isError]);
 
 	return { items, dispatch };
 };

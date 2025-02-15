@@ -1,4 +1,3 @@
-import React from 'react';
 import Button from '@/app/components/button/button';
 import styles from './info.module.css';
 import { useHomeTranslation } from '@/hooks/locales/pages/public';
@@ -7,7 +6,7 @@ interface InfoProps {
 	scrollTargetId?: string;
 }
 
-const Info: React.FC<InfoProps> = ({ scrollTargetId }) => {
+const Info = ({ scrollTargetId }: InfoProps) => {
 	const tHome = useHomeTranslation();
 
 	return (
