@@ -1,5 +1,5 @@
 import { Address, SHIPMENTS_BASE_PATH } from '@/api/delivery/common';
-import objectToUrl from '@/utils/object-to-url';
+import objectToSearchParams from '@/utils/object-to-search-params';
 
 export interface Request {
 	sortingType?: string;
@@ -15,4 +15,4 @@ export interface Response {
 }
 
 export const url = (req: Request) =>
-	`${SHIPMENTS_BASE_PATH}?${objectToUrl(req)}`;
+	`${SHIPMENTS_BASE_PATH}?${objectToSearchParams(req)}`;

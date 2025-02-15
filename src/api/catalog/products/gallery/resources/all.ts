@@ -1,4 +1,4 @@
-import objectToUrl from '@/utils/object-to-url';
+import objectToSearchParams from '@/utils/object-to-search-params';
 import { GALLERY_BASE_PATH } from '@/api/catalog/common';
 
 export interface Request {
@@ -18,4 +18,4 @@ export interface Response {
 	views: number;
 }
 
-export const url = (req: Request) => `${GALLERY_BASE_PATH}?${objectToUrl(req)}`;
+export const url = (req: Request) => `${GALLERY_BASE_PATH}?${objectToSearchParams(req)}`;

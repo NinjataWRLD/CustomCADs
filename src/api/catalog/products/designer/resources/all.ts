@@ -1,4 +1,4 @@
-import objectToUrl from '@/utils/object-to-url';
+import objectToSearchParams from '@/utils/object-to-search-params';
 import { Category, DESIGNER_BASE_PATH } from '@/api/catalog/common';
 
 export interface Request {
@@ -21,4 +21,4 @@ export interface Response {
 export const url = (
 	req: Request,
 	status: 'unchecked' | 'validated' | 'reported',
-) => `${DESIGNER_BASE_PATH}/${status}?${objectToUrl(req)}`;
+) => `${DESIGNER_BASE_PATH}/${status}?${objectToSearchParams(req)}`;

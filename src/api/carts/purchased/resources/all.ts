@@ -1,4 +1,4 @@
-import objectToUrl from '@/utils/object-to-url';
+import objectToSearchParams from '@/utils/object-to-search-params';
 import { PURCHASED_CART_BASE_PATH } from '../../common';
 
 export interface Request {
@@ -16,4 +16,4 @@ export interface Response {
 }
 
 export const url = (req: Request) =>
-	`${PURCHASED_CART_BASE_PATH}?${objectToUrl(req)}`;
+	`${PURCHASED_CART_BASE_PATH}?${objectToSearchParams(req)}`;
