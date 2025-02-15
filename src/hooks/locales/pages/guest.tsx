@@ -11,3 +11,6 @@ export const useRegisterTranslation = () =>
 
 export const useLoginTranslation = () =>
 	useTranslation(`${NAMESPACE}.${SUB_NAMESPACE}.login`).t;
+
+export const useForgotPasswordTranslation = () =>
+	useTranslation(`${NAMESPACE}.${SUB_NAMESPACE}.forgot-password`).t;
