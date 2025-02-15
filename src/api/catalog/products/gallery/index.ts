@@ -1,6 +1,8 @@
 import axios from '@/api/axios';
 import { Result } from '@/api/common/result';
 import * as allResources from './resources/all';
+import * as addTagResources from './resources/add-tag';
+import * as removeTagResources from './resources/remove-tag';
 import * as singleResources from './resources/single';
 import * as sortingsResources from './resources/sortings';
 import * as downloadResources from './resources/download';
@@ -25,3 +27,9 @@ export const downloadCad = async (req: downloadResources.Request) =>
 		downloadResources.url('cad'),
 		req,
 	);
+
+export const addTag = async (req: addTagResources.Request) =>
+	await axios.patch(addTagResources.url(), req);
+
+export const removeTag = async (req: removeTagResources.Request) =>
+	await axios.patch(removeTagResources.url(), req);

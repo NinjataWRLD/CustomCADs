@@ -1,7 +1,9 @@
 import { RouteObject } from 'react-router-dom';
-import PickRole from '@/app/guest/pick-role/page';
-import Register from '@/app/guest/register/page';
-import Login from '@/app/guest/login/page';
+import PickRole from '@/app/guest/pick-role';
+import Register from '@/app/guest/register';
+import Login from '@/app/guest/login';
+import ForgotPassword from '@/app/guest/forgot-password';
+import ResetPassword from '@/app/guest/reset-password';
 
 const routes: RouteObject[] = [
 	{
@@ -15,6 +17,14 @@ const routes: RouteObject[] = [
 	{
 		path: '/login',
 		element: <Login />,
+	},
+	{
+		path: '/forgot-password',
+		element: <ForgotPassword />,
+	},
+	{
+		path: '/reset-password',
+		element: <ResetPassword />,
 	},
 ];
 

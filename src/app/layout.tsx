@@ -1,8 +1,8 @@
 import { Outlet } from 'react-router-dom';
 import useLanguages from '@/hooks/locales/useLanguages';
-import Header from './components/header/header';
-import Footer from './components/footer/footer';
-import Gradient from './components/gradient/gradient';
+import Header from './components/header';
+import Footer from './components/footer';
+import Gradient from './components/gradient';
 
 const Layout = () => {
 	useLanguages();

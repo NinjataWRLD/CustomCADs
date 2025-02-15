@@ -1,4 +1,4 @@
-import objectToUrl from '@/utils/object-to-url';
+import objectToSearchParams from '@/utils/object-to-search-params';
 import { ONGOING_ORDERS_DESIGNER_BASE_PATH } from '@/api/orders/common';
 
 export interface Request {
@@ -21,4 +21,5 @@ export interface Response {
 export const url = (
 	req: Request,
 	status: 'pending' | 'accepted' | 'begun' | 'finished' | 'reported',
-) => `${ONGOING_ORDERS_DESIGNER_BASE_PATH}/${status}?${objectToUrl(req)}`;
+) =>
+	`${ONGOING_ORDERS_DESIGNER_BASE_PATH}/${status}?${objectToSearchParams(req)}`;

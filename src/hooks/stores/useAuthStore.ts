@@ -7,12 +7,11 @@ import useAuthz from '@/hooks/queries/identity/useAuthz';
 const useAuthStore = () => {
 	const state = useStore(authStore);
 	const { refetch: refetchAuthn } = useAuthn();
-	const { refetch: refetchAuthz } = useAuthz();
+	const { data: authz } = useAuthz(state.authn);
 
 	useEffect(() => {
 		const sync = async () => {
 			const { data: authn } = await refetchAuthn();
-			const { data: authz } = await refetchAuthz();
 
 			if (authn && authz) {
 				login(authz);

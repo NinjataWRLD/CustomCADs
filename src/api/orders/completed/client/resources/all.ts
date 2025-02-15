@@ -1,4 +1,4 @@
-import objectToUrl from '@/utils/object-to-url';
+import objectToSearchParams from '@/utils/object-to-search-params';
 import { COMPLETED_ORDERS_CLIENT_BASE_PATH } from '@/api/orders/common';
 
 export interface Request {
@@ -19,4 +19,4 @@ export interface Response {
 }
 
 export const url = (req: Request) =>
-	`${COMPLETED_ORDERS_CLIENT_BASE_PATH}?${objectToUrl(req)}`;
+	`${COMPLETED_ORDERS_CLIENT_BASE_PATH}?${objectToSearchParams(req)}`;

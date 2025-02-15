@@ -1,4 +1,4 @@
-import objectToUrl from '@/utils/object-to-url';
+import objectToSearchParams from '@/utils/object-to-search-params';
 import { Category, CREATOR_BASE_PATH } from '@/api/catalog/common';
 
 export interface Request {
@@ -13,4 +13,5 @@ export interface Response {
 	category: Category;
 }
 
-export const url = (req: Request) => `${CREATOR_BASE_PATH}?${objectToUrl(req)}`;
+export const url = (req: Request) =>
+	`${CREATOR_BASE_PATH}?${objectToSearchParams(req)}`;

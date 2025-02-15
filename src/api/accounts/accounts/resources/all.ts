@@ -1,4 +1,4 @@
-import objectToUrl from '@/utils/object-to-url';
+import objectToSearchParams from '@/utils/object-to-search-params';
 import { ACCOUNTS_BASE_PATH } from '../../common';
 
 export interface Request {
@@ -10,4 +10,4 @@ export interface Request {
 }
 
 export const url = (req: Request) =>
-	`${ACCOUNTS_BASE_PATH}?${objectToUrl(req)}`;
+	`${ACCOUNTS_BASE_PATH}?${objectToSearchParams(req)}`;
