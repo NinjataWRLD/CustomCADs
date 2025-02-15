@@ -5,7 +5,12 @@ const config: Config.InitialOptions = {
 	testEnvironment: 'jsdom',
 	moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
 	transform: {
-		'^.+\\.tsx?$': 'ts-jest',
+		'^.+\\.tsx?$': [
+			'ts-jest',
+			{
+				tsconfig: '<rootDir>/tsconfig.test.json',
+			},
+		],
 	},
 	testPathIgnorePatterns: ['/node_modules/', '/dist/'],
 	collectCoverage: true,
