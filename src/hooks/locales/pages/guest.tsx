@@ -14,3 +14,6 @@ export const useLoginTranslation = () =>
 
 export const useForgotPasswordTranslation = () =>
 	useTranslation(`${NAMESPACE}.${SUB_NAMESPACE}.forgot-password`).t;
+
+export const useResetPasswordTranslation = () =>
+	useTranslation(`${NAMESPACE}.${SUB_NAMESPACE}.reset-password`).t;
