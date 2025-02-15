@@ -1,7 +1,7 @@
 import { usePlaceholdersTranslation } from '@/hooks/locales/common/messages';
 import { useLabelsTranslation } from '@/hooks/locales/components/forms';
-import Password from '@/app/components/fields/password/password';
-import FieldInfo from '@/app/components/fields/info/info';
+import Password from '@/app/components/fields/password';
+import FieldInfo from '@/app/components/fields/info';
 import useForm from './useForm';
 import styles from '@/styles/forms.module.css';
 

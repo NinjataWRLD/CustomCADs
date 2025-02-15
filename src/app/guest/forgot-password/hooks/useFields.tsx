@@ -1,7 +1,7 @@
 import { ValidationError } from '@tanstack/react-form';
 import { usePlaceholdersTranslation } from '@/hooks/locales/common/messages';
 import { useLabelsTranslation } from '@/hooks/locales/components/forms';
-import FieldInfo from '@/app/components/fields/info/info';
+import FieldInfo from '@/app/components/fields/info';
 import useForm from './useForm';
 import styles from '@/styles/forms.module.css';
 

@@ -6,10 +6,11 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
+    "lint": "eslint .",
     "format": "prettier --write .",
     "test": "jest",
-    "test:unit": "npx jest __test__/unit",
+    "test:watch": "jest --watch --verbose",
+    "test:unit": "jest src",
     "preview": "vite preview"
   },
   "dependencies": {

@@ -2,13 +2,13 @@ import { CartItem } from '@/types/cart-item';
 import useAuthStore from '@/hooks/stores/useAuthStore';
 import useAddActiveCartItem from '@/hooks/mutations/active-carts/useAddActiveCartItem';
 import useRemoveActiveCartItem from '@/hooks/mutations/active-carts/useRemoveActiveCartItem';
-import useCartInit from './useCartInit';
-import useIncreaseAcitveCartItemQuantity from '../mutations/active-carts/useIncreaseAcitveCartItemQuantity';
-import useDecreaseAcitveCartItemQuantity from '../mutations/active-carts/useDecreaseAcitveCartItemQuantity';
-import useToggleActiveCartItemForDelivery from '../mutations/active-carts/useToggleActiveCartItemForDelivery';
+import useIncreaseAcitveCartItemQuantity from '@/hooks/mutations/active-carts/useIncreaseAcitveCartItemQuantity';
+import useDecreaseAcitveCartItemQuantity from '@/hooks/mutations/active-carts/useDecreaseAcitveCartItemQuantity';
+import useToggleActiveCartItemForDelivery from '@/hooks/mutations/active-carts/useToggleActiveCartItemForDelivery';
+import useCartContext from './useCartContext';
 
 const useCartUpdates = () => {
-	const { dispatch } = useCartInit();
+	const { dispatch } = useCartContext();
 	const { authn, authz } = useAuthStore();
 
 	const { mutateAsync: addCartItem } = useAddActiveCartItem();
@@ -20,10 +20,11 @@ const useCartUpdates = () => {
 	const { mutateAsync: toggleCartItemForDelivery } =
 		useToggleActiveCartItemForDelivery();
 
+	const cartEnabled: boolean = authn && authz === 'Client';
 	const addItem = async (item: CartItem) => {
 		dispatch({ type: 'ADD_ITEM', item: item });
 
-		if (authn && authz === 'Client') {
+		if (cartEnabled) {
 			await addCartItem(item);
 		}
 	};
@@ -31,7 +32,7 @@ const useCartUpdates = () => {
 	const removeItem = async (id: string) => {
 		dispatch({ type: 'REMOVE_ITEM', id: id });
 
-		if (authn && authz === 'Client') {
+		if (cartEnabled) {
 			await removeCartItem({ itemId: id });
 		}
 	};
@@ -39,7 +40,7 @@ const useCartUpdates = () => {
 	const incrementItemQuantity = async (id: string) => {
 		dispatch({ type: 'INCREMENT_QUANTITY', id: id });
 
-		if (authn && authz === 'Client') {
+		if (cartEnabled) {
 			await increaseCartItemQuantity({ itemId: id, amount: 1 });
 		}
 	};
@@ -47,7 +48,7 @@ const useCartUpdates = () => {
 	const toggleItemForDelivery = async (id: string) => {
 		dispatch({ type: 'TOGGLE_DELIVERY', id: id });
 
-		if (authn && authz === 'Client') {
+		if (cartEnabled) {
 			await toggleCartItemForDelivery({ itemId: id });
 		}
 	};
@@ -55,7 +56,7 @@ const useCartUpdates = () => {
 	const decrementItemQuantity = async (id: string) => {
 		dispatch({ type: 'DECREMENT_QUANTITY', id: id });
 
-		if (authn && authz === 'Client') {
+		if (cartEnabled) {
 			await decreaseCartItemQuantity({ itemId: id, amount: 1 });
 		}
 	};

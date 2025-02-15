@@ -14,6 +14,8 @@ export interface Category {
 	name: string;
 }
 
+export const TAG_BASE_PATH = '/tags';
+
 export const GALLERY_BASE_PATH = '/products/gallery';
 
 export const CREATOR_BASE_PATH = '/products/creator';
