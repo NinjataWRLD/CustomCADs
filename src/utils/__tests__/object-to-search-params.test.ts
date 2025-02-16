@@ -1,6 +1,7 @@
-import objectToSearchParams from '@/utils/object-to-search-params';
+import { describe, expect, it } from 'vitest';
+import objectToSearchParams from '../object-to-search-params';
 
-describe('Object to URL utility function tests', () => {
+describe('Object to Search Params utility tests', () => {
 	it('should convert a simple object to a URL query string', () => {
 		const obj = { key1: 'value1', key2: 'value2' };
 		const url = objectToSearchParams(obj);

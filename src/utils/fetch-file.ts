@@ -1,11 +1,16 @@
 const fetchFile = async (url: string, contentType: string) => {
-	const data = await fetch(url, {
+	const response = await fetch(url, {
 		headers: {
 			'Content-Type': contentType,
 		},
 	});
 
-	return await data.arrayBuffer();
+	if (!response.ok) {
+		throw new Error(
+			`Network response was not ok: ${response.status} ${response.statusText}`,
+		);
+	}
+	return await response.arrayBuffer();
 };
 
 export default fetchFile;

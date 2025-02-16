@@ -1,3 +1,4 @@
+/// <reference types="vitest/config" />
 import { defineConfig, UserConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
@@ -11,6 +12,10 @@ let config: UserConfig = {
 		alias: {
 			'@': path.resolve(__dirname, './src'),
 		},
+	},
+	test: {
+		globals: true,
+		environment: 'jsdom',
 	},
 };
 
