@@ -2,6 +2,7 @@ import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { FlatCompat } from '@eslint/eslintrc';
 import prettierPlugin from 'eslint-plugin-prettier';
+import vitestPlugin from '@vitest/eslint-plugin';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -96,6 +97,7 @@ const eslintConfig = [
         languageOptions,
         plugins: {
             prettier: prettierPlugin,
+            vitest: vitestPlugin,
         },
         rules: {
             ...possibleErrors,

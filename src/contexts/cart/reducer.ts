@@ -27,6 +27,12 @@ const cartReducer = (state: CartItem[], action: CartAction): CartItem[] => {
 					? { ...item, forDelivery: !item.forDelivery }
 					: item,
 			);
+		case 'SET_WEIGHT':
+			return state.map((item) =>
+				item.productId === action.id
+					? { ...item, weight: action.weight }
+					: item,
+			);
 		case 'FILL_CART':
 			return action.items;
 		case 'REMOVE_ITEM':
