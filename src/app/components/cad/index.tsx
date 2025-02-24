@@ -1,4 +1,5 @@
 import { Coordinates } from '@/api/catalog/common.js';
+import useEditorStore from '@/hooks/stores/useEditorStore.js';
 import useDownloadProductCad from '@/hooks/queries/products/gallery/useDownloadProductCad.js';
 import useGenerateBlobUrl from '@/hooks/useGenerateBlobUrl.js';
 import useGetProduct from '@/hooks/queries/products/gallery/useGetGalleryProduct.js';
@@ -18,6 +19,8 @@ interface CadProps {
 const Cad = ({ id, product, type }: CadProps) => {
 	const { data: file } = useDownloadProductCad({ id: id });
 	const blobUrl = useGenerateBlobUrl(file?.presignedUrl, file?.contentType);
+
+	useEditorStore(id);
 
 	const shouldFetch = !product;
 	const { data: fetchedProduct } = useGetProduct({ id: id }, shouldFetch);

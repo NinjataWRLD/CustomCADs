@@ -2,6 +2,7 @@ import { Dispatch, SetStateAction } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { useProductTranslation } from '@/hooks/locales/pages/public';
+import useEditorStore from '@/hooks/stores/useEditorStore';
 import useCartUpdates from '@/hooks/contexts/useCartUpdates';
 import { CartItem } from '@/types/cart-item';
 import styles from '../styles.module.css';
@@ -20,14 +21,14 @@ const AddToCartPopup = ({
 	setShowMessage,
 }: AddDetailsProps) => {
 	const tProduct = useProductTranslation();
-	const { addItem } = useCartUpdates();
+	const { weight } = useEditorStore(id);
 
+	const { addItem } = useCartUpdates();
 	const toggleForDelivery = () => {
 		setShow((prev) => !prev);
 	};
 
 	const addToCart = async (forDelivery: boolean) => {
-		const weight = 5; // remove mock weight
 		const item: CartItem = {
 			productId: id,
 			quantity: 1,
