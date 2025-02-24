@@ -44,8 +44,8 @@ const Product = () => {
 							<div className={`${styles.visualizer}`}>
 								<Cad
 									id={product.id}
-									cam={product.camCoordinates}
-									pan={product.panCoordinates}
+									product={product}
+									type='gallery'
 								/>
 							</div>
 						</div>
