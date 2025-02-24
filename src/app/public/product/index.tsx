@@ -77,19 +77,14 @@ const Product = () => {
 
 							<div className={`${styles.buttons}`}>
 								<BtnLink
-									className={`${styles.back}`}
-									text={tProduct('button-1')}
-									link='/viewer'
-								/>
-								<BtnLink
 									onClick={toggleForDelivery}
-									text={tProduct('button-2')}
+									text={tProduct('button-1')}
 									className={`${styles.back}`}
 								/>
 								<BtnLink
-									className={`${styles.back}`}
-									text={tProduct('button-3')}
+									text={tProduct('button-2')}
 									link='/gallery'
+									className={`${styles.back}`}
 								/>
 							</div>
 							<p>*{tProduct('warning')}</p>

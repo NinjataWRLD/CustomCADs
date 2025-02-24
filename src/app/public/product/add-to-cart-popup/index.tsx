@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { useProductTranslation } from '@/hooks/locales/pages/public';
@@ -21,6 +22,7 @@ const AddToCartPopup = ({
 	setShowMessage,
 }: AddDetailsProps) => {
 	const tProduct = useProductTranslation();
+	const navigate = useNavigate();
 	const { weight } = useEditorStore(id);
 
 	const { addItem } = useCartUpdates();
@@ -43,6 +45,10 @@ const AddToCartPopup = ({
 		setTimeout(() => {
 			setShowMessage(false);
 		}, 3000);
+
+		if (forDelivery) {
+			navigate(`/editor/${id}`, { state: { allow: true } });
+		}
 	};
 
 	return (

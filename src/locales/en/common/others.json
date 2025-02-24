@@ -1,0 +1,11 @@
+{
+  "color": "Color",
+  "scale": "Scale",
+  "width": "Width",
+  "height": "Height",
+  "length": "Length",
+  "volume": "Volume",
+  "infill": "Infill",
+  "weight": "Weight",
+  "cost": "Cost"
+}
