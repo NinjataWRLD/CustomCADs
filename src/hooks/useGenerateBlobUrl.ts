@@ -15,7 +15,7 @@ const useGenerateBlobUrl = (presignedUrl?: string, contentType?: string) => {
 	}, [presignedUrl, contentType]);
 
 	const blobUrl = useMemo(() => {
-		if (!buffer) return '';
+		if (!buffer.byteLength) return '';
 		const blob = new Blob([buffer], { type: contentType });
 		return URL.createObjectURL(blob);
 	}, [buffer, contentType]);

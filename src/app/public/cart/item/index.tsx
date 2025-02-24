@@ -26,6 +26,7 @@ const CartItem = ({
 	const navigate = useNavigate();
 	const tFetch = useFetchTranslation();
 	const tCart = useCartTranslation();
+
 	const {
 		removeItem,
 		incrementItemQuantity,
@@ -86,7 +87,7 @@ const CartItem = ({
 							/>
 						</div>
 					</h2>
-					<img src={blobUrl} alt='image' />
+					{blobUrl && <img src={blobUrl} alt='Item Image' />}
 				</div>
 				<div className={styles.data}>
 					<h2>{product.name}</h2>

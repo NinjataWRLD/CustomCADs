@@ -48,7 +48,6 @@ const possibleErrors = {
     'no-unreachable': 'warn', // Disallow unreachable code after return, throw, continue, and break statements
     'no-useless-assignment': 'warn', // Disallow variable assignments when the value is not used
     'use-isnan': 'warn', // Require calls to isNaN() when checking for NaN
-    'react-hooks/exhaustive-deps': 'off', // // Checks useEffect dependencies
 };
 
 const suggestions = {

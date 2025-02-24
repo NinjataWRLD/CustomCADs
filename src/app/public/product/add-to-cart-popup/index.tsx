@@ -55,10 +55,10 @@ const AddToCartPopup = ({
 				</div>
 				<h1>{tProduct('add-details-title')}</h1>
 				<div className={`${styles.buttons}`}>
-					<button onClick={() => addToCart(false)}>
+					<button onClick={() => addToCart(true)}>
 						<span>{tProduct('add-details-yes')}</span>
 					</button>
-					<button onClick={() => addToCart(true)}>
+					<button onClick={() => addToCart(false)}>
 						<span>{tProduct('add-details-no')}</span>
 					</button>
 				</div>

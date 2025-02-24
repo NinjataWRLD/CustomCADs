@@ -21,11 +21,11 @@ const Product = () => {
 		isError,
 	} = useGetProduct({ id: String(id) });
 
-	const [addDetails, setAddDetails] = useState<boolean>(false);
+	const [showPopup, setShowPopup] = useState(false);
 	const toggleForDelivery = () => {
-		setAddDetails((prev) => !prev);
+		setShowPopup((prev) => !prev);
 	};
-	const [showAddedMessage, setShowAddedMessage] = useState(false);
+	const [showPopupMessage, setShowPopupMessage] = useState(false);
 
 	if (isLoading) {
 		return <>{tFetch('loading')}</>;
@@ -99,12 +99,12 @@ const Product = () => {
 			</Transition>
 			<AddToCartPopup
 				id={product.id}
-				show={addDetails}
-				setShow={setAddDetails}
-				setShowMessage={setShowAddedMessage}
+				show={showPopup}
+				setShow={setShowPopup}
+				setShowMessage={setShowPopupMessage}
 			/>
 
-			{showAddedMessage && (
+			{showPopupMessage && (
 				<div className={styles.cartMessage}>
 					<p>{tProduct('added-message')}</p>
 				</div>
