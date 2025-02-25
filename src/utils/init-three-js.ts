@@ -129,6 +129,10 @@ const initThreeJS = (
 				}
 			}
 		});
+
+		while (scene.children.length > 0) {
+			scene.remove(scene.children[0]);
+		}
 	};
 
 	return { scene, camera, renderer, controls, updateCoords, exit };

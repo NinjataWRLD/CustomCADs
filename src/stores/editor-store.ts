@@ -44,6 +44,11 @@ export const addRecord = (id: string) =>
 		[id]: defaultEditorState,
 	}));
 
+export const removeRecord = (id: string) =>
+	store.setState((prev) =>
+		Object.fromEntries(Object.entries(prev).filter((x) => x[0] !== id)),
+	);
+
 export const setMaterial = (id: string, material: Material) =>
 	store.setState((prev) => ({
 		...prev,

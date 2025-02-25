@@ -11,6 +11,7 @@ import useCartContext from '@/hooks/contexts/useCartContext';
 import Transition from '@/app/components/transition';
 import BtnLink from '@/app/components/button';
 import CartItem from './item';
+import formatter from './formatter';
 import styles from './styles.module.css';
 
 const Cart = () => {
@@ -48,13 +49,13 @@ const Cart = () => {
 					<p>
 						{tCart('total', {
 							count: totalCount,
-							cost: cost.total,
+							cost: formatter.price(cost.total),
 						})}
 					</p>
 					<p>
 						{tCart('total-delivery', {
 							count: totalDeliveryCount,
-							cost: cost.delivery,
+							cost: formatter.price(cost.delivery),
 						})}
 					</p>
 				</h2>
