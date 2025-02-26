@@ -43,25 +43,28 @@ const EditorThreeJS = ({ url, cam, pan, state, setState }: ThreeJSProps) => {
 	const calculateCad = useCalculateThreeJS(originalScaleRef, totalSizeRef);
 
 	const updateSize = () => {
-		if (!cadRef.current) return;
+		if (!cadRef.current)
+			throw new Error('cadRef must be set before calling updateSize');
 
 		const { x, y, z } = calculate3D.size(cadRef.current.scene);
 		totalSizeRef.current = new THREE.Vector3(x, y, z);
 
 		const base = 35;
-		const biggest = Math.max(x, y, z);
+		const smallest = Math.min(x, y, z);
 
 		const ratio: Ratio = {
-			x: (base * x) / biggest,
-			y: (base * y) / biggest,
-			z: (base * z) / biggest,
+			x: (base * x) / smallest,
+			y: (base * y) / smallest,
+			z: (base * z) / smallest,
 		};
 		setRatio(ratio);
 		return ratio;
 	};
 
 	const clearMaterial = () => {
-		if (!cadRef.current) return;
+		if (!cadRef.current)
+			throw new Error('cadRef must be set before calling clearMaterial');
+
 		cadRef.current.scene.traverse((child) => {
 			if (child instanceof THREE.Mesh) {
 				child.material.map = undefined;
@@ -70,12 +73,15 @@ const EditorThreeJS = ({ url, cam, pan, state, setState }: ThreeJSProps) => {
 	};
 
 	const updateMetrics = (e: CalculateCadEvent) => {
-		if (!cadRef.current) return;
-		const { volume, weight, cost } = calculateCad(e, cadRef.current);
+		if (!cadRef.current)
+			throw new Error('cadRef must be set before calling updateSize');
 
-		setVolume(volume);
-		setWeight(weight);
-		setCost(cost);
+		const calculations = calculateCad(e, cadRef.current);
+		setVolume(calculations.volume);
+		setWeight(calculations.weight);
+		setCost(calculations.cost);
+
+		return calculations;
 	};
 
 	const calculateHandler = (e: Event) =>
@@ -91,7 +97,7 @@ const EditorThreeJS = ({ url, cam, pan, state, setState }: ThreeJSProps) => {
 			cadRef.current = cad;
 			originalScaleRef.current = cad.scene.scale.clone();
 
-			const ratio = updateSize()!; // cadRef.current is set for sure
+			const ratio = updateSize();
 			clearMaterial();
 
 			window.addEventListener('customize-cad', customizeHandler);
