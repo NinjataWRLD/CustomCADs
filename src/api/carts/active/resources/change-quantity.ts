@@ -1,7 +1,7 @@
 import { ACTIVE_CART_BASE_PATH } from '../../common';
 
 export interface Request {
-	itemId: string;
+	productId: string;
 	amount: number;
 }
 

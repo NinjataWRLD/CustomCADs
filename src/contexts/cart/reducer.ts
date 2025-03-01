@@ -11,13 +11,15 @@ const cartReducer = (state: CartItem[], action: CartAction): CartItem[] => {
 				: [...state, action.item];
 		case 'INCREMENT_QUANTITY':
 			return state.map((item) =>
-				item.productId === action.id
+				item.productId === action.id && item.forDelivery
 					? { ...item, quantity: item.quantity + 1 }
 					: item,
 			);
 		case 'DECREMENT_QUANTITY':
 			return state.map((item) =>
-				item.productId === action.id && item.quantity > 1
+				item.productId === action.id &&
+				item.forDelivery &&
+				item.quantity > 1
 					? { ...item, quantity: item.quantity - 1 }
 					: item,
 			);

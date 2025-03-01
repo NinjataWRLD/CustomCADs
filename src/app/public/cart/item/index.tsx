@@ -119,17 +119,19 @@ const CartItem = ({
 				<div className={styles.data}>
 					<h2>{product.name}</h2>
 					<p>{tCart('by', { by: product.creatorName })}</p>
-					<div className={styles.quantity}>
-						<FontAwesomeIcon
-							icon={faMinus}
-							onClick={decrementQuantity}
-						/>
-						<div className={styles.number}>{quantity}</div>
-						<FontAwesomeIcon
-							icon={faPlus}
-							onClick={incrementQuantity}
-						/>
-					</div>
+					{forDelivery && (
+						<div className={styles.quantity}>
+							<FontAwesomeIcon
+								icon={faMinus}
+								onClick={decrementQuantity}
+							/>
+							<div className={styles.number}>{quantity}</div>
+							<FontAwesomeIcon
+								icon={faPlus}
+								onClick={incrementQuantity}
+							/>
+						</div>
+					)}
 					<button
 						className={styles.btn}
 						onClick={() => navigate(`/gallery/${productId}`)}
