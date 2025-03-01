@@ -17,7 +17,7 @@ const useForm = (email: string, token: string) => {
 	const { mutateAsync: reset } = useResetPassword();
 	const schema = useValidation();
 
-	const form = useTanStackForm<Fields>({
+	const form = useTanStackForm({
 		defaultValues: defaultValues,
 		onSubmit: async ({ value }) => {
 			await reset({
@@ -30,7 +30,7 @@ const useForm = (email: string, token: string) => {
 			onChange: schema,
 		},
 	});
-	useForceLocaleRefresh(form);
+	useForceLocaleRefresh(() => form.validate('change'));
 
 	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();

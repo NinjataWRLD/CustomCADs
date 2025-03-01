@@ -32,7 +32,7 @@ const useForm = (role: 'Client' | 'Contributor') => {
 	const updateAuthz = useUpdateAuthz();
 	const navigate = useNavigate();
 
-	const form = useTanStackForm<Fields>({
+	const form = useTanStackForm({
 		defaultValues: defaultValues,
 		onSubmit: async ({ value }) => {
 			const { timeZone } = Intl.DateTimeFormat().resolvedOptions();
@@ -45,7 +45,7 @@ const useForm = (role: 'Client' | 'Contributor') => {
 			onChange: schema,
 		},
 	});
-	useForceLocaleRefresh(form);
+	useForceLocaleRefresh(() => form.validate('change'));
 
 	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();

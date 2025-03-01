@@ -1,13 +1,10 @@
-import { ReactFormExtendedApi } from '@tanstack/react-form';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
-const useForceLocaleRefresh = <TFields>(
-	form: ReactFormExtendedApi<TFields, undefined>,
-) => {
+const useForceLocaleRefresh = (refresh: VoidFunction) => {
 	const { i18n } = useTranslation();
 	useEffect(() => {
-		form.validate('change');
+		refresh();
 	}, [i18n.language]);
 
 	return i18n.language;

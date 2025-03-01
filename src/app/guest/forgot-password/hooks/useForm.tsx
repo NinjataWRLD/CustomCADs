@@ -16,7 +16,7 @@ const useForm = () => {
 	const { refetch } = useForgotPassword({ email: email }, !!email);
 	const schema = useValidation();
 
-	const form = useTanStackForm<Fields>({
+	const form = useTanStackForm({
 		defaultValues: defaultValues,
 		onSubmit: async ({ value }) => {
 			setEmail(value.email);
@@ -25,7 +25,7 @@ const useForm = () => {
 			onChange: schema,
 		},
 	});
-	useForceLocaleRefresh(form);
+	useForceLocaleRefresh(() => form.validate('change'));
 
 	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
