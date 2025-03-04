@@ -42,11 +42,7 @@ const Product = () => {
 					<div className={`${styles.product}`}>
 						<div className={`${styles.model}`}>
 							<div className={`${styles.visualizer}`}>
-								<Cad
-									id={product.id}
-									product={product}
-									type='gallery'
-								/>
+								<Cad type='gallery' product={product} />
 							</div>
 						</div>
 						<div className={`${styles.details}`}>

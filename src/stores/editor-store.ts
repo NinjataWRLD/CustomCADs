@@ -1,9 +1,9 @@
 import { Store } from '@tanstack/store';
-import { Material, Ratio } from '@/types/threejs';
+import { Ratio } from '@/types/threejs';
 
 const LOCAL_STORAGE_KEY = 'editor-store';
 interface EditorState {
-	material: Material;
+	materialId: number;
 	color: string;
 	infill: number;
 	ratio: Ratio;
@@ -14,7 +14,7 @@ interface EditorState {
 }
 
 export const defaultEditorState: EditorState = {
-	material: 'PLA',
+	materialId: 1,
 	color: '#ffffff',
 	infill: 20,
 	ratio: { x: 0, y: 0, z: 0 },
@@ -49,10 +49,10 @@ export const removeRecord = (id: string) =>
 		Object.fromEntries(Object.entries(prev).filter((x) => x[0] !== id)),
 	);
 
-export const setMaterial = (id: string, material: Material) =>
+export const setMaterialId = (id: string, materialId: number) =>
 	store.setState((prev) => ({
 		...prev,
-		[id]: { ...prev[id], material: material },
+		[id]: { ...prev[id], materialId: materialId },
 	}));
 
 export const setColor = (id: string, color: string) =>

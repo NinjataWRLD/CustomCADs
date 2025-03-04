@@ -1,6 +1,6 @@
 import * as THREE from 'three';
-import { Material, Mesh } from '@/types/threejs';
-import { COST, DENSITIES, WEIGHT } from '@/constants/threejs';
+import { Mesh } from '@/types/threejs';
+import { COST, WEIGHT } from '@/constants/threejs';
 import { calculateVolume } from './volume-calculator';
 
 const calculate3D = {
@@ -20,12 +20,12 @@ const calculate3D = {
 	/**
 	 * Returns in grams
 	 */
-	weight: (volumeMm3: number, material: Material, infill: number) => {
+	weight: (volumeMm3: number, infill: number, density: number) => {
 		const effectiveVolumeMm3 =
 			volumeMm3 * (WEIGHT.wallFactor + (1 - WEIGHT.wallFactor) * infill);
 
 		const effectiveVolumeCm3 = effectiveVolumeMm3 / 1000;
-		return effectiveVolumeCm3 * DENSITIES[material];
+		return effectiveVolumeCm3 * density;
 	},
 
 	/**

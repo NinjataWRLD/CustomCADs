@@ -8,17 +8,16 @@ import useCalculateThreeJS from '@/hooks/threejs/useCalculateThreeJS';
 import CustomizeCadEvent from '@/events/customize-cad-event';
 import CalculateCadEvent from '@/events/calculate-cad-event';
 import calculate3D from '@/utils/calculate-3D';
-import { Material, Ratio } from '@/types/threejs';
-import styles from './styles.module.css';
+import { Ratio } from '@/types/threejs';
+import styles from '../styles.module.css';
 
 interface ThreeJSProps {
 	url: string;
-	cam: Coordinates;
-	pan: Coordinates;
+	coords: { cam: Coordinates; pan: Coordinates };
 	state: {
 		color?: string;
 		texture: string;
-		material: Material;
+		density: number;
 		scale: number;
 		ratio: Ratio;
 		infill: number;
@@ -31,23 +30,23 @@ interface ThreeJSProps {
 	};
 }
 
-const EditorThreeJS = ({ url, cam, pan, state, setState }: ThreeJSProps) => {
-	const { color, texture, material, scale, infill, ratio } = state;
+const EditorThreeJS = ({ url, coords, state, setState }: ThreeJSProps) => {
+	const { color, texture, density, scale, infill, ratio } = state;
 	const { setRatio, setVolume, setWeight, setCost } = setState;
 
 	const cadRef = useRef<GLTF>(null);
 	const totalSizeRef = useRef<THREE.Vector3>(new THREE.Vector3(0, 0, 0));
 	const originalScaleRef = useRef<THREE.Vector3>(new THREE.Vector3(0, 0, 0));
 
-	const updateLooks = useUpdateThreeJS();
-	const calculateCad = useCalculateThreeJS(originalScaleRef, totalSizeRef);
+	const update = useUpdateThreeJS();
+	const calculate = useCalculateThreeJS(originalScaleRef, totalSizeRef);
 
 	const updateSize = () => {
 		if (!cadRef.current)
 			throw new Error('cadRef must be set before calling updateSize');
 
-		const { x, y, z } = calculate3D.size(cadRef.current.scene);
-		totalSizeRef.current = new THREE.Vector3(x, y, z);
+		totalSizeRef.current = calculate3D.size(cadRef.current.scene);
+		const { x, y, z } = totalSizeRef.current;
 
 		const base = 35;
 		const smallest = Math.min(x, y, z);
@@ -72,44 +71,45 @@ const EditorThreeJS = ({ url, cam, pan, state, setState }: ThreeJSProps) => {
 		});
 	};
 
+	const updateLooks = (e: CustomizeCadEvent) => {
+		if (!cadRef.current)
+			throw new Error('cadRef must be set before calling updateLooks');
+
+		update(e, cadRef.current);
+	};
+	const updateHandler = (e: Event) => updateLooks(e as CustomizeCadEvent);
+
 	const updateMetrics = (e: CalculateCadEvent) => {
 		if (!cadRef.current)
-			throw new Error('cadRef must be set before calling updateSize');
+			throw new Error('cadRef must be set before calling updateMetrics');
 
-		const calculations = calculateCad(e, cadRef.current);
+		const calculations = calculate(e, cadRef.current);
 		setVolume(calculations.volume);
 		setWeight(calculations.weight);
 		setCost(calculations.cost);
-
-		return calculations;
 	};
-
 	const calculateHandler = (e: Event) =>
 		updateMetrics(e as CalculateCadEvent);
 
-	const customizeHandler = (e: Event) =>
-		cadRef.current && updateLooks(e as CustomizeCadEvent, cadRef.current);
-
 	const { ref } = useThreeJS(
 		url,
-		{ cam, pan },
+		coords,
 		(cad) => {
 			cadRef.current = cad;
 			originalScaleRef.current = cad.scene.scale.clone();
 
 			const ratio = updateSize();
 			clearMaterial();
-
-			window.addEventListener('customize-cad', customizeHandler);
-			updateLooks(new CustomizeCadEvent(texture, color), cad);
+			window.addEventListener('customize-cad', updateHandler);
+			updateHandler(new CustomizeCadEvent(texture, color));
 
 			window.addEventListener('calculate-cad', calculateHandler);
-			updateMetrics(
-				new CalculateCadEvent(material, ratio, scale, infill),
+			calculateHandler(
+				new CalculateCadEvent(density, ratio, scale, infill),
 			);
 		},
 		() => {
-			window.removeEventListener('customize-cad', customizeHandler);
+			window.removeEventListener('customize-cad', updateHandler);
 			window.removeEventListener('calculate-cad', calculateHandler);
 		},
 	);
@@ -120,9 +120,9 @@ const EditorThreeJS = ({ url, cam, pan, state, setState }: ThreeJSProps) => {
 
 	useEffect(() => {
 		window.dispatchEvent(
-			new CalculateCadEvent(material, ratio, scale, infill),
+			new CalculateCadEvent(density, ratio, scale, infill),
 		);
-	}, [material, scale, infill]);
+	}, [density, scale, infill]);
 
 	return <div ref={ref} className={styles.model} />;
 };

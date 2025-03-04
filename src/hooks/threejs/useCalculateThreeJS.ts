@@ -9,7 +9,8 @@ const useCalculateThreeJS = (
 	totalSizeRef: RefObject<THREE.Vector3>,
 ) => {
 	const calculate = (e: CalculateCadEvent, cad: GLTF) => {
-		const { material, scale, ratio, infill } = e;
+		const { density, scale, ratio, infill } = e;
+
 		cad.scene.scale.copy(originalScaleRef.current);
 		cad.scene.scale.multiplyScalar(scale);
 
@@ -26,7 +27,7 @@ const useCalculateThreeJS = (
 		const scaledVolume =
 			(volume * multiply(ratio)) / multiply(totalSizeRef.current);
 
-		const weight = calculate3D.weight(scaledVolume, material, infill);
+		const weight = calculate3D.weight(scaledVolume, infill, density);
 		const cost = calculate3D.cost(weight);
 
 		return { volume: scaledVolume, weight: weight, cost: cost };

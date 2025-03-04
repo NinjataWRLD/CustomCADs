@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Coordinates } from '@/api/catalog/common';
 import useThreeJS from '@/hooks/threejs/useThreeJS';
-import styles from './styles.module.css';
+import styles from '../styles.module.css';
 
 interface ThreeJSProps {
 	url: string;

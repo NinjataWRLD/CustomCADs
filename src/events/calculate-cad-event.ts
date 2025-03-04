@@ -1,19 +1,14 @@
-import { Material, Ratio } from '@/types/threejs';
+import { Ratio } from '@/types/threejs';
 
 class CalculateCadEvent extends Event {
-	material: Material;
+	density: number;
 	ratio: Ratio;
 	scale: number;
 	infill: number;
 
-	constructor(
-		material: Material,
-		ratio: Ratio,
-		scale: number,
-		infill: number,
-	) {
+	constructor(density: number, ratio: Ratio, scale: number, infill: number) {
 		super('calculate-cad');
-		this.material = material;
+		this.density = density;
 		this.ratio = ratio;
 		this.scale = scale;
 		this.infill = infill;
