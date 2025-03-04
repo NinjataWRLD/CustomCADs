@@ -9,7 +9,6 @@ describe('Cart Reducer tests', () => {
 		const newItem: CartItem = {
 			productId: '123',
 			quantity: 1,
-			weight: 2,
 			forDelivery: true,
 		};
 
@@ -21,7 +20,7 @@ describe('Cart Reducer tests', () => {
 
 	it('should increment quantity for an existing item', () => {
 		const initialState: CartItem[] = [
-			{ productId: '123', quantity: 1, weight: 2, forDelivery: true },
+			{ productId: '123', quantity: 1, forDelivery: true },
 		];
 		const action: CartAction = { type: 'INCREMENT_QUANTITY', id: '123' };
 
@@ -32,7 +31,7 @@ describe('Cart Reducer tests', () => {
 
 	it('should decrement quantity for an existing item', () => {
 		const initialState: CartItem[] = [
-			{ productId: '123', quantity: 2, weight: 2, forDelivery: true },
+			{ productId: '123', quantity: 2, forDelivery: true },
 		];
 		const action: CartAction = { type: 'DECREMENT_QUANTITY', id: '123' };
 
@@ -43,7 +42,7 @@ describe('Cart Reducer tests', () => {
 
 	it('should not decrement quantity below 1', () => {
 		const initialState: CartItem[] = [
-			{ productId: '123', quantity: 1, weight: 2, forDelivery: true },
+			{ productId: '123', quantity: 1, forDelivery: true },
 		];
 		const action: CartAction = { type: 'DECREMENT_QUANTITY', id: '123' };
 
@@ -54,7 +53,7 @@ describe('Cart Reducer tests', () => {
 
 	it('should toggle delivery for an existing item', () => {
 		const initialState: CartItem[] = [
-			{ productId: '123', quantity: 1, weight: 2, forDelivery: true },
+			{ productId: '123', quantity: 1, forDelivery: true },
 		];
 		const action: CartAction = { type: 'TOGGLE_DELIVERY', id: '123' };
 
@@ -63,22 +62,11 @@ describe('Cart Reducer tests', () => {
 		expect(newState[0].forDelivery).toBe(false);
 	});
 
-	it('should set weight for an existing item', () => {
-		const initialState: CartItem[] = [
-			{ productId: '123', quantity: 1, weight: 2, forDelivery: true },
-		];
-		const action: CartAction = { type: 'SET_WEIGHT', id: '123', weight: 3 };
-
-		const newState = cartReducer(initialState, action);
-
-		expect(newState[0].weight).toBe(3);
-	});
-
 	it('should fill the cart with provided items', () => {
 		const initialState: CartItem[] = [];
 		const items: CartItem[] = [
-			{ productId: '123', quantity: 1, weight: 2, forDelivery: true },
-			{ productId: '456', quantity: 1, weight: 3, forDelivery: false },
+			{ productId: '123', quantity: 1, forDelivery: true },
+			{ productId: '456', quantity: 1, forDelivery: false },
 		];
 		const action: CartAction = { type: 'FILL_CART', items };
 
@@ -88,23 +76,20 @@ describe('Cart Reducer tests', () => {
 	});
 
 	it('should remove an item from the cart', () => {
-		const initialState: CartItem[] = [
-			{ productId: '123', quantity: 1, weight: 2, forDelivery: true },
-			{ productId: '456', quantity: 1, weight: 3, forDelivery: false },
-		];
-		const action: CartAction = { type: 'REMOVE_ITEM', id: '123' };
+		const item1 = { productId: '123', quantity: 1, forDelivery: true };
+		const item2 = { productId: '456', quantity: 1, forDelivery: false };
+		const initialState: CartItem[] = [item1, item2];
+		const action: CartAction = { type: 'REMOVE_ITEM', id: item1.productId };
 
 		const newState = cartReducer(initialState, action);
 
-		expect(newState).toEqual([
-			{ productId: '456', quantity: 1, weight: 3, forDelivery: false },
-		]);
+		expect(newState).toEqual([item2]);
 	});
 
 	it('should clear the cart', () => {
 		const initialState: CartItem[] = [
-			{ productId: '123', quantity: 1, weight: 2, forDelivery: true },
-			{ productId: '456', quantity: 1, weight: 3, forDelivery: false },
+			{ productId: '123', quantity: 1, forDelivery: true },
+			{ productId: '456', quantity: 1, forDelivery: false },
 		];
 		const action: CartAction = { type: 'CLEAR_CART' };
 

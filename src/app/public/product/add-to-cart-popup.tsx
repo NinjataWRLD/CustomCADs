@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { useProductTranslation } from '@/hooks/locales/pages/public';
-import useEditorStore from '@/hooks/stores/useEditorStore';
 import useCartUpdates from '@/hooks/contexts/useCartUpdates';
 import { CartItem } from '@/types/cart-item';
 import styles from '../styles.module.css';
@@ -23,7 +22,6 @@ const AddToCartPopup = ({
 }: AddDetailsProps) => {
 	const tProduct = useProductTranslation();
 	const navigate = useNavigate();
-	const { weight } = useEditorStore(id);
 
 	const { addItem } = useCartUpdates();
 	const toggleForDelivery = () => {
@@ -31,14 +29,6 @@ const AddToCartPopup = ({
 	};
 
 	const addToCart = async (forDelivery: boolean) => {
-		const item: CartItem = {
-			productId: id,
-			quantity: 1,
-			weight: weight,
-			forDelivery: forDelivery,
-		};
-		addItem(item);
-
 		setShow(false);
 		setShowMessage(true);
 
@@ -46,9 +36,14 @@ const AddToCartPopup = ({
 			setShowMessage(false);
 		}, 3000);
 
-		if (forDelivery) {
-			navigate(`/editor/${id}`, { state: { allow: true } });
-		}
+		if (!forDelivery) {
+			const item: CartItem = {
+				productId: id,
+				quantity: 1,
+				forDelivery: true,
+			};
+			addItem(item);
+		} else navigate(`/editor/${id}`, { state: { allow: true } });
 	};
 
 	return (

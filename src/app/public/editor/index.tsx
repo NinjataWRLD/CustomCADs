@@ -23,7 +23,10 @@ import styles from './styles.module.css';
 const Editor = () => {
 	const { id } = useParams();
 	const navigate = useNavigate();
-	const { allow } = useLocation().state;
+
+	const locationState = useLocation().state;
+	if (!locationState || !locationState.allow)
+		throw new Error('Entry Not Allowed!');
 
 	const tOthers = useOthersTranslation();
 	const tEditor = useEditorTranslation();
@@ -31,7 +34,7 @@ const Editor = () => {
 	const [metric, setMetric] = useState<Metric>('mm');
 
 	const store = useEditorStore(id ?? '');
-	if (!allow || !id) return;
+	if (!id) return;
 	const { material, color, ratio, infill, scale, volume, weight, cost } =
 		store;
 

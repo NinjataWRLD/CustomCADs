@@ -37,10 +37,8 @@ const useUpdateThreeJS = () => {
 		cad.scene.traverse((child) => {
 			if (child instanceof THREE.Mesh) {
 				const lastTexture = lastTexturesRef.current.get(child);
-				if (texture) {
-					if (texture !== lastTexture) {
-						setNewTexture(child, texture, color);
-					}
+				if (texture !== lastTexture) {
+					setNewTexture(child, texture, color);
 				}
 				updateColor(child, color);
 			}

@@ -10,7 +10,7 @@ const fetchFile = async (url: string, contentType: string) => {
 			`Network response was not ok: ${response.status} ${response.statusText}`,
 		);
 	}
-	return await response.arrayBuffer();
+	return await response.blob();
 };
 
 export default fetchFile;

@@ -20,7 +20,6 @@ const calculate3D = {
 	/**
 	 * Returns in grams
 	 */
-
 	weight: (volumeMm3: number, material: Material, infill: number) => {
 		const effectiveVolumeMm3 =
 			volumeMm3 * (WEIGHT.wallFactor + (1 - WEIGHT.wallFactor) * infill);
