@@ -1,5 +1,5 @@
 import { ReactNode, useState } from 'react';
-import styles from './styles.module.css';
+import styles from '../styles.module.css';
 
 interface MenuProps {
 	title: string;
