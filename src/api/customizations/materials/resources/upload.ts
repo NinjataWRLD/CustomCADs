@@ -1,4 +1,4 @@
-import { CREATOR_BASE_PATH } from '@/api/catalog/common';
+import { MATERIALS_BASE_PATH } from '@/api/customizations/common';
 
 export interface Request {
 	productName: string;
@@ -15,4 +15,4 @@ export interface Response {
 	presignedCadUrl: string;
 }
 
-export const url = () => `${CREATOR_BASE_PATH}/presignedUrls/upload`;
+export const url = () => `${MATERIALS_BASE_PATH}/presignedUrls/upload`;

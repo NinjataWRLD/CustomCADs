@@ -4,6 +4,8 @@ import { ACTIVE_CART_BASE_PATH } from '../../common';
 export interface Request {
 	paymentMethodId: string;
 	shipmentService: string;
+	count: number;
+	customizationId: string;
 	address: Address;
 	contact: Contact;
 }
