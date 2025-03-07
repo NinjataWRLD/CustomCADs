@@ -4,11 +4,8 @@ import { GLTF } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { Coordinates } from '@/api/catalog/common';
 import useThreeJS from '@/hooks/threejs/useThreeJS';
 import useUpdateThreeJS from '@/hooks/threejs/useUpdateThreeJS';
-import useCalculateThreeJS from '@/hooks/threejs/useCalculateThreeJS';
-import CustomizeCadEvent from '@/events/customize-cad-event';
-import CalculateCadEvent from '@/events/calculate-cad-event';
 import calculate3D from '@/utils/calculate-3D';
-import { Ratio } from '@/types/threejs';
+import { Ratio, CustomizeCad, CalculateCad } from '@/types/threejs';
 import styles from '../styles.module.css';
 
 interface ThreeJSProps {
@@ -17,6 +14,7 @@ interface ThreeJSProps {
 	state: {
 		color?: string;
 		texture: string;
+		volume: number;
 		density: number;
 		scale: number;
 		ratio: Ratio;
@@ -24,105 +22,80 @@ interface ThreeJSProps {
 	};
 	setState: {
 		setRatio: (ratio: Ratio) => void;
-		setVolume: (volume: number) => void;
 		setWeight: (weight: number) => void;
 		setCost: (cost: number) => void;
 	};
 }
 
 const EditorThreeJS = ({ url, coords, state, setState }: ThreeJSProps) => {
-	const { color, texture, density, scale, infill, ratio } = state;
-	const { setRatio, setVolume, setWeight, setCost } = setState;
+	const { color, texture, volume, density, scale, infill, ratio } = state;
+	const { setRatio, setWeight, setCost } = setState;
 
 	const cadRef = useRef<GLTF>(null);
 	const totalSizeRef = useRef<THREE.Vector3>(new THREE.Vector3(0, 0, 0));
-	const originalScaleRef = useRef<THREE.Vector3>(new THREE.Vector3(0, 0, 0));
-
 	const update = useUpdateThreeJS();
-	const calculate = useCalculateThreeJS(originalScaleRef, totalSizeRef);
 
 	const updateSize = () => {
-		if (!cadRef.current)
-			throw new Error('cadRef must be set before calling updateSize');
+		if (cadRef.current) {
+			totalSizeRef.current = calculate3D.boxSize(cadRef.current.scene);
+			const { x, y, z } = totalSizeRef.current;
 
-		totalSizeRef.current = calculate3D.size(cadRef.current.scene);
-		const { x, y, z } = totalSizeRef.current;
+			const base = 35;
+			const smallest = Math.min(x, y, z);
 
-		const base = 35;
-		const smallest = Math.min(x, y, z);
-
-		const ratio: Ratio = {
-			x: (base * x) / smallest,
-			y: (base * y) / smallest,
-			z: (base * z) / smallest,
-		};
-		setRatio(ratio);
-		return ratio;
+			const ratio: Ratio = {
+				x: (base * x) / smallest,
+				y: (base * y) / smallest,
+				z: (base * z) / smallest,
+			};
+			setRatio(ratio);
+			return ratio;
+		}
+		return { x: 0, y: 0, z: 0 } as Ratio;
 	};
 
-	const clearMaterial = () => {
-		if (!cadRef.current)
-			throw new Error('cadRef must be set before calling clearMaterial');
+	const updateLooks = (data: CustomizeCad) => {
+		if (cadRef.current) update(data, cadRef.current);
+	};
 
-		cadRef.current.scene.traverse((child) => {
+	const updateMetrics = (data: CalculateCad) => {
+		const { volume, density, scale, ratio, infill } = data;
+
+		const volumeMm3 = calculate3D.volumeMm3(
+			volume,
+			scale,
+			ratio,
+			totalSizeRef.current,
+		);
+
+		const weight = calculate3D.weightGrams(volumeMm3, infill, density);
+		setWeight(weight);
+
+		const cost = calculate3D.costUSD(weight);
+		setCost(cost);
+	};
+
+	const { ref } = useThreeJS(url, coords, (cad) => {
+		cadRef.current = cad;
+
+		cad.scene.traverse((child) => {
 			if (child instanceof THREE.Mesh) {
 				child.material.map = undefined;
 			}
 		});
-	};
+		updateLooks({ texture, color });
 
-	const updateLooks = (e: CustomizeCadEvent) => {
-		if (!cadRef.current)
-			throw new Error('cadRef must be set before calling updateLooks');
-
-		update(e, cadRef.current);
-	};
-	const updateHandler = (e: Event) => updateLooks(e as CustomizeCadEvent);
-
-	const updateMetrics = (e: CalculateCadEvent) => {
-		if (!cadRef.current)
-			throw new Error('cadRef must be set before calling updateMetrics');
-
-		const calculations = calculate(e, cadRef.current);
-		setVolume(calculations.volume);
-		setWeight(calculations.weight);
-		setCost(calculations.cost);
-	};
-	const calculateHandler = (e: Event) =>
-		updateMetrics(e as CalculateCadEvent);
-
-	const { ref } = useThreeJS(
-		url,
-		coords,
-		(cad) => {
-			cadRef.current = cad;
-			originalScaleRef.current = cad.scene.scale.clone();
-
-			const ratio = updateSize();
-			clearMaterial();
-			window.addEventListener('customize-cad', updateHandler);
-			updateHandler(new CustomizeCadEvent(texture, color));
-
-			window.addEventListener('calculate-cad', calculateHandler);
-			calculateHandler(
-				new CalculateCadEvent(density, ratio, scale, infill),
-			);
-		},
-		() => {
-			window.removeEventListener('customize-cad', updateHandler);
-			window.removeEventListener('calculate-cad', calculateHandler);
-		},
-	);
+		const ratio = updateSize();
+		updateMetrics({ volume, density, ratio, scale, infill });
+	});
 
 	useEffect(() => {
-		window.dispatchEvent(new CustomizeCadEvent(texture, color));
+		updateLooks({ texture, color });
 	}, [texture, color]);
 
 	useEffect(() => {
-		window.dispatchEvent(
-			new CalculateCadEvent(density, ratio, scale, infill),
-		);
-	}, [density, scale, infill]);
+		updateMetrics({ volume, density, ratio, scale, infill });
+	}, [volume, density, ratio, scale, infill]);
 
 	return <div ref={ref} className={styles.model} />;
 };

@@ -1,26 +1,25 @@
 import * as THREE from 'three';
-import { Mesh } from '@/types/threejs';
 import { COST, WEIGHT } from '@/constants/threejs';
-import { calculateVolume } from './volume-calculator';
+import { Ratio } from '@/types/threejs';
 
 const calculate3D = {
-	/**
-	 * Returns in arbitrary units
-	 */
-	size: (scene: THREE.Group<THREE.Object3DEventMap>) =>
+	boxSize: (scene: THREE.Group<THREE.Object3DEventMap>) =>
 		new THREE.Box3().setFromObject(scene).getSize(new THREE.Vector3()),
 
-	/**
-	 * Returns in mm³
-	 */
-	volume: (child: Mesh) => (
-		child.updateWorldMatrix(true, true), calculateVolume(child)
-	),
+	multiplyDimensions: (dimensions: { x: number; y: number; z: number }) =>
+		dimensions.x * dimensions.y * dimensions.z,
 
-	/**
-	 * Returns in grams
-	 */
-	weight: (volumeMm3: number, infill: number, density: number) => {
+	volumeMm3: (volume: number, scale: number, ratio: Ratio, size: Ratio) => {
+		const scaledVolume = volume * scale ** 3;
+
+		const scaledVolumeMm3 =
+			(scaledVolume * calculate3D.multiplyDimensions(ratio)) /
+			calculate3D.multiplyDimensions(size);
+
+		return scaledVolumeMm3;
+	},
+
+	weightGrams: (volumeMm3: number, infill: number, density: number) => {
 		const effectiveVolumeMm3 =
 			volumeMm3 * (WEIGHT.wallFactor + (1 - WEIGHT.wallFactor) * infill);
 
@@ -28,10 +27,7 @@ const calculate3D = {
 		return effectiveVolumeCm3 * density;
 	},
 
-	/**
-	 * Returns in USD
-	 */
-	cost: (weightInG: number) =>
+	costUSD: (weightInG: number) =>
 		(weightInG / 1000) * COST.dollarPerKg * COST.profitMargin,
 };
 

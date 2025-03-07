@@ -1,8 +1,7 @@
 import { useRef } from 'react';
 import * as THREE from 'three';
 import { GLTF } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import { Mesh } from '@/types/threejs';
-import CustomizeCadEvent from '@/events/customize-cad-event';
+import { Mesh, CustomizeCad } from '@/types/threejs';
 
 const useUpdateThreeJS = () => {
 	const lastTexturesRef = useRef<Map<THREE.Object3D, string>>(new Map());
@@ -31,7 +30,7 @@ const useUpdateThreeJS = () => {
 		}
 	};
 
-	const updateLooks = (event: CustomizeCadEvent, cad: GLTF) => {
+	const updateLooks = (event: CustomizeCad, cad: GLTF) => {
 		const { texture, color } = event;
 
 		cad.scene.traverse((child) => {

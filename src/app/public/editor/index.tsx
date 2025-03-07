@@ -3,6 +3,7 @@ import { resetStore, setCustomizationId } from '@/stores/editor-store';
 import { useEditorTranslation } from '@/hooks/locales/pages/public';
 import useCustomizationManager from '@/hooks/useCustomizationManager';
 import useEditorStore from '@/hooks/stores/useEditorStore';
+import useGetProduct from '@/hooks/queries/products/gallery/useGetGalleryProduct';
 import Transition from '@/app/components/transition';
 import BtnLink from '@/app/components/button';
 import Cad from '@/app/components/cad';
@@ -21,12 +22,13 @@ const Editor = () => {
 
 	const tEditor = useEditorTranslation();
 
+	const { data: product } = useGetProduct({ id: id ?? '' }, !!id);
 	const store = useEditorStore(id ?? '');
 	const { customization, edit: persist } = useCustomizationManager(
 		store.customizationId,
 	);
 
-	if (!id || !customization) return;
+	if (!id || !customization || !product) return;
 	if (!store.customizationId) {
 		setCustomizationId(id, customization.id);
 	}
@@ -39,7 +41,7 @@ const Editor = () => {
 			materialId: store.materialId,
 			infill: store.infill / 100,
 			scale: store.scale / 100,
-			volume: store.volume,
+			volume: product.volume,
 		});
 
 	const back = () => navigate(`/gallery/${id}`);
@@ -72,7 +74,7 @@ const Editor = () => {
 							title={tEditor('title-2')}
 							description={tEditor('description-2')}
 						>
-							<Calculations id={id} />
+							<Calculations id={id} volume={product.volume} />
 						</Menu>
 					</div>
 

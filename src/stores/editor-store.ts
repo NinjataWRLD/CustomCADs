@@ -9,7 +9,6 @@ interface EditorState {
 	infill: number;
 	ratio: Ratio;
 	scale: number;
-	volume: number;
 	weight: number;
 	cost: number;
 }
@@ -21,7 +20,6 @@ export const defaultEditorState: EditorState = {
 	infill: 20,
 	ratio: { x: 0, y: 0, z: 0 },
 	scale: 100,
-	volume: 0,
 	weight: 0,
 	cost: 0,
 };
@@ -91,12 +89,6 @@ export const setScale = (id: string, scale: number) =>
 	store.setState((prev) => ({
 		...prev,
 		[id]: { ...prev[id], scale: scale },
-	}));
-
-export const setVolume = (id: string, volume: number) =>
-	store.setState((prev) => ({
-		...prev,
-		[id]: { ...prev[id], volume: volume },
 	}));
 
 export const setWeight = (id: string, weight: number) =>

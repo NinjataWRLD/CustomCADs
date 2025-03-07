@@ -5,6 +5,7 @@ export interface Request {
 	price: number;
 	cadKey: string;
 	cadContentType: string;
+	cadVolume: number;
 }
 
 export const url = () => `${ONGOING_ORDERS_DESIGNER_BASE_PATH}/finished`;

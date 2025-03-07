@@ -14,6 +14,7 @@ export interface Response {
 	name: string;
 	description: string;
 	price: number;
+	volume: number;
 	uploadDate: string;
 	creatorName: string;
 	counts: Counts;
