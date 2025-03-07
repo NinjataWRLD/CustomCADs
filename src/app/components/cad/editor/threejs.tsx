@@ -31,6 +31,7 @@ const EditorThreeJS = ({ url, coords, state, setState }: ThreeJSProps) => {
 	const { color, texture, volume, density, scale, infill, ratio } = state;
 	const { setRatio, setWeight, setCost } = setState;
 
+	const originalScaleRef = useRef<THREE.Vector3>(new THREE.Vector3(0, 0, 0));
 	const cadRef = useRef<GLTF>(null);
 	const totalSizeRef = useRef<THREE.Vector3>(new THREE.Vector3(0, 0, 0));
 	const update = useUpdateThreeJS();
@@ -73,9 +74,15 @@ const EditorThreeJS = ({ url, coords, state, setState }: ThreeJSProps) => {
 
 		const cost = calculate3D.costUSD(weight);
 		setCost(cost);
+
+		if (cadRef.current) {
+			cadRef.current.scene.scale.copy(originalScaleRef.current);
+			cadRef.current.scene.scale.multiplyScalar(scale);
+		}
 	};
 
 	const { ref } = useThreeJS(url, coords, (cad) => {
+		originalScaleRef.current = cad.scene.scale.clone();
 		cadRef.current = cad;
 
 		cad.scene.traverse((child) => {
