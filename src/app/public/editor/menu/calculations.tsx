@@ -62,12 +62,6 @@ const Calculations = ({ id, volume }: CalculationsProps) => {
 					label={'cm'}
 				/>
 				<RadioField
-					value={'m'}
-					checked={metric === 'm'}
-					onChange={() => setMetric('m')}
-					label={'m'}
-				/>
-				<RadioField
 					value={'inch'}
 					checked={metric === 'inch'}
 					onChange={() => setMetric('inch')}
@@ -75,9 +69,9 @@ const Calculations = ({ id, volume }: CalculationsProps) => {
 				/>
 			</div>
 			<div>
-				<p>{`${tOthers('width')}: ${formatter.size(ratio.x, scale / 100, metric)}`}</p>
-				<p>{`${tOthers('height')}: ${formatter.size(ratio.y, scale / 100, metric)}`}</p>
-				<p>{`${tOthers('length')}: ${formatter.size(ratio.z, scale / 100, metric)}`}</p>
+				<p>{`${tOthers('width')}: ${formatter.size((ratio.x * scale) / 100, metric)}`}</p>
+				<p>{`${tOthers('height')}: ${formatter.size((ratio.y * scale) / 100, metric)}`}</p>
+				<p>{`${tOthers('length')}: ${formatter.size((ratio.z * scale) / 100, metric)}`}</p>
 				<p>{`${tOthers('volume')}: ${formatter.volume(volume, scale / 100, metric)}`}</p>
 				<p>{`${tOthers('weight')}: ${formatter.weight(weight)}`}</p>
 				<p>{`${tOthers('cost')}: ${formatter.cost(cost)}`}</p>

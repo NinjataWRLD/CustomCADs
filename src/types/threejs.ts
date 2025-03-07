@@ -5,7 +5,7 @@ export type Mesh = THREE.Mesh<THREE.BufferGeometry, any>;
 
 export type Ratio = { x: number; y: number; z: number };
 
-export type Metric = 'mm' | 'cm' | 'm' | 'inch';
+export type Metric = 'mm' | 'cm' | 'inch';
 
 export interface CustomizeCad {
 	texture: string;
