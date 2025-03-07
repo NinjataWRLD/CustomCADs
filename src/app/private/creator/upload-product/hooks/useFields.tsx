@@ -3,6 +3,7 @@ import { useLabelsTranslation } from '@/hooks/locales/components/forms';
 import useGetCategories from '@/hooks/queries/categories/useGetCategories';
 import FieldInfo from '@/app/components/fields/info';
 import getErrorClass from '@/utils/get-error-class';
+import { formatMeta } from '@/utils/form-formatter';
 import useForm from './useForm';
 
 const useFields = () => {
@@ -28,13 +29,7 @@ const useFields = () => {
 							placeholder={tPlaceholders('name')}
 							className={getErrorClass(field.state.meta.errors)}
 						/>
-						<FieldInfo
-							isValidating={field.state.meta.isValidating}
-							isTouched={field.state.meta.isTouched}
-							errors={field.state.meta.errors.map(
-								(e) => e?.message ?? '',
-							)}
-						/>
+						<FieldInfo info={formatMeta(field.state.meta)} />
 					</>
 				)
 			}
@@ -55,13 +50,7 @@ const useFields = () => {
 							placeholder={tPlaceholders('description')}
 							className={getErrorClass(field.state.meta.errors)}
 						/>
-						<FieldInfo
-							isValidating={field.state.meta.isValidating}
-							isTouched={field.state.meta.isTouched}
-							errors={field.state.meta.errors.map(
-								(e) => e?.message ?? '',
-							)}
-						/>
+						<FieldInfo info={formatMeta(field.state.meta)} />
 					</>
 				)
 			}
@@ -89,13 +78,7 @@ const useFields = () => {
 								</option>
 							))}
 						</select>
-						<FieldInfo
-							isValidating={field.state.meta.isValidating}
-							isTouched={field.state.meta.isTouched}
-							errors={field.state.meta.errors.map(
-								(e) => e?.message ?? '',
-							)}
-						/>
+						<FieldInfo info={formatMeta(field.state.meta)} />
 					</>
 				)
 			}
@@ -118,13 +101,7 @@ const useFields = () => {
 							}
 							className={getErrorClass(field.state.meta.errors)}
 						/>
-						<FieldInfo
-							isValidating={field.state.meta.isValidating}
-							isTouched={field.state.meta.isTouched}
-							errors={field.state.meta.errors.map(
-								(e) => e?.message ?? '',
-							)}
-						/>
+						<FieldInfo info={formatMeta(field.state.meta)} />
 					</>
 				)
 			}
@@ -147,13 +124,7 @@ const useFields = () => {
 							}
 							className={getErrorClass(field.state.meta.errors)}
 						/>
-						<FieldInfo
-							isValidating={field.state.meta.isValidating}
-							isTouched={field.state.meta.isTouched}
-							errors={field.state.meta.errors.map(
-								(e) => e?.message ?? '',
-							)}
-						/>
+						<FieldInfo info={formatMeta(field.state.meta)} />
 					</>
 				)
 			}
@@ -176,13 +147,7 @@ const useFields = () => {
 							}
 							className={getErrorClass(field.state.meta.errors)}
 						/>
-						<FieldInfo
-							isValidating={field.state.meta.isValidating}
-							isTouched={field.state.meta.isTouched}
-							errors={field.state.meta.errors.map(
-								(e) => e?.message ?? '',
-							)}
-						/>
+						<FieldInfo info={formatMeta(field.state.meta)} />
 					</>
 				)
 			}

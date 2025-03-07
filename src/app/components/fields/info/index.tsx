@@ -1,12 +1,16 @@
 import styles from './styles.module.css';
 
 interface FieldInfoProps {
-	isTouched: boolean;
-	isValidating: boolean;
-	errors: string[];
+	info: {
+		isTouched: boolean;
+		isValidating: boolean;
+		errors: string[];
+	};
 }
 
-const FieldInfo = ({ isTouched, isValidating, errors }: FieldInfoProps) => {
+const FieldInfo = ({ info }: FieldInfoProps) => {
+	const { isTouched, isValidating, errors } = info;
+
 	return (
 		<>
 			{isTouched && errors.length ? (

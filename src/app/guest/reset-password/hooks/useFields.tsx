@@ -2,6 +2,7 @@ import { usePlaceholdersTranslation } from '@/hooks/locales/common/messages';
 import { useLabelsTranslation } from '@/hooks/locales/components/forms';
 import Password from '@/app/components/fields/password';
 import FieldInfo from '@/app/components/fields/info';
+import { formatMeta } from '@/utils/form-formatter';
 import useForm from './useForm';
 import styles from '@/styles/forms.module.css';
 
@@ -28,13 +29,7 @@ const useFields = (email: string, token: string) => {
 								errors={field.state.meta.errors}
 							/>
 						</div>
-						<FieldInfo
-							isValidating={field.state.meta.isValidating}
-							isTouched={field.state.meta.isTouched}
-							errors={field.state.meta.errors.map(
-								(e) => e?.message ?? '',
-							)}
-						/>
+						<FieldInfo info={formatMeta(field.state.meta)} />
 					</>
 				)
 			}
@@ -58,13 +53,7 @@ const useFields = (email: string, token: string) => {
 								errors={field.state.meta.errors}
 							/>
 						</div>
-						<FieldInfo
-							isValidating={field.state.meta.isValidating}
-							isTouched={field.state.meta.isTouched}
-							errors={field.state.meta.errors.map(
-								(e) => e?.message ?? '',
-							)}
-						/>
+						<FieldInfo info={formatMeta(field.state.meta)} />
 					</>
 				)
 			}
