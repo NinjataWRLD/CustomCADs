@@ -5,5 +5,7 @@
   "username": "John_Doe123",
   "email": "john@doe.com",
   "password": "your_secret_password_123",
-  "confirm-password": "your_secret_password_123"
+  "confirm-password": "your_secret_password_123",
+  "name": "Custom CAD",
+  "description": "The most Customizable CAD"
 }
