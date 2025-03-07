@@ -1,22 +1,33 @@
 import * as THREE from 'three';
-import { COST, WEIGHT } from '@/constants/threejs';
+import { COST, RATIO, WEIGHT } from '@/constants/threejs';
 import { Ratio } from '@/types/threejs';
 
 const calculate3D = {
 	boxSize: (scene: THREE.Group<THREE.Object3DEventMap>) =>
 		new THREE.Box3().setFromObject(scene).getSize(new THREE.Vector3()),
 
-	multiplyDimensions: (dimensions: { x: number; y: number; z: number }) =>
-		dimensions.x * dimensions.y * dimensions.z,
+	getBase: (size: Ratio) => {
+		const { x, y, z } = size;
+		const smallest = Math.min(x, y, z);
 
-	volumeMm3: (volume: number, scale: number, ratio: Ratio, size: Ratio) => {
+		if (smallest === 0) return 0;
+		return RATIO.base / smallest;
+	},
+
+	baseRatio: (size: Ratio) => {
+		const { x, y, z } = size;
+		const base = calculate3D.getBase(size);
+
+		if (base === 0) return { x: 0, y: 0, z: 0 };
+		return { x: base * x, y: base * y, z: base * z };
+	},
+
+	volumeMm3: (volume: number, scale: number, size: Ratio) => {
 		const scaledVolume = volume * scale ** 3;
+		const base = calculate3D.getBase(size);
 
-		const scaledVolumeMm3 =
-			(scaledVolume * calculate3D.multiplyDimensions(ratio)) /
-			calculate3D.multiplyDimensions(size);
-
-		return scaledVolumeMm3;
+		if (base === 0) return 0;
+		return scaledVolume * base ** 3;
 	},
 
 	weightGrams: (volumeMm3: number, infill: number, density: number) => {

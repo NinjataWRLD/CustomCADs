@@ -7,6 +7,7 @@ import useGetProduct from '@/hooks/queries/products/gallery/useGetGalleryProduct
 import Transition from '@/app/components/transition';
 import BtnLink from '@/app/components/button';
 import Cad from '@/app/components/cad';
+import calculate3D from '@/utils/calculate-3D';
 import Menu from './menu';
 import Looks from './menu/looks';
 import Calculations from './menu/calculations';
@@ -47,6 +48,12 @@ const Editor = () => {
 	const back = () => navigate(`/gallery/${id}`);
 	const next = () => navigate(`/cart`);
 
+	const volume = calculate3D.volumeMm3(
+		product.volume,
+		store.scale / 100,
+		store.size,
+	);
+
 	return (
 		<Transition>
 			<div className={styles['viewer-page']}>
@@ -74,7 +81,7 @@ const Editor = () => {
 							title={tEditor('title-2')}
 							description={tEditor('description-2')}
 						>
-							<Calculations id={id} volume={product.volume} />
+							<Calculations id={id} volume={volume} />
 						</Menu>
 					</div>
 

@@ -20,11 +20,9 @@ const formatter = {
 		return `${value} ${metric}`;
 	},
 
-	volume: (volume: number, scale: number, metric: Metric) => {
+	volume: (volume: number, metric: Metric) => {
 		const value = parseFloat(
-			((volume * scale ** 3) / MM_PER_UNIT[metric] ** 3).toFixed(
-				POINT_PER_UNIT[metric],
-			),
+			(volume / MM_PER_UNIT[metric] ** 3).toFixed(POINT_PER_UNIT[metric]),
 		);
 		return `${value} ${metric}³`;
 	},

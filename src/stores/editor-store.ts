@@ -7,7 +7,7 @@ interface EditorState {
 	materialId: number;
 	color: string;
 	infill: number;
-	ratio: Ratio;
+	size: Ratio;
 	scale: number;
 	weight: number;
 	cost: number;
@@ -18,7 +18,7 @@ export const defaultEditorState: EditorState = {
 	materialId: 1,
 	color: '#ffffff',
 	infill: 20,
-	ratio: { x: 0, y: 0, z: 0 },
+	size: { x: 0, y: 0, z: 0 },
 	scale: 100,
 	weight: 0,
 	cost: 0,
@@ -79,10 +79,10 @@ export const setInfill = (id: string, infill: number) =>
 		[id]: { ...prev[id], infill: infill },
 	}));
 
-export const setRatio = (id: string, ratio: Ratio) =>
+export const setSize = (id: string, size: Ratio) =>
 	store.setState((prev) => ({
 		...prev,
-		[id]: { ...prev[id], ratio: ratio },
+		[id]: { ...prev[id], size: size },
 	}));
 
 export const setScale = (id: string, scale: number) =>

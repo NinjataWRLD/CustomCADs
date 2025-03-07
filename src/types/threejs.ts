@@ -15,7 +15,7 @@ export interface CustomizeCad {
 export interface CalculateCad {
 	volume: number;
 	density: number;
-	ratio: Ratio;
+	size: Ratio;
 	scale: number;
 	infill: number;
 }

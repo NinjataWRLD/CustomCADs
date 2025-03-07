@@ -1,4 +1,4 @@
-import { setCost, setRatio, setWeight } from '@/stores/editor-store.js';
+import { setCost, setSize, setWeight } from '@/stores/editor-store.js';
 import useDownloadProductCad from '@/hooks/queries/products/gallery/useDownloadProductCad.js';
 import useGenerateBlobUrl from '@/hooks/useGenerateBlobUrl.js';
 import useEditorStore from '@/hooks/stores/useEditorStore.js';
@@ -16,7 +16,7 @@ const EditorCad = ({ id }: EditorCadProps) => {
 	const cadBlobUrl = useGenerateBlobUrl(cad?.presignedUrl, cad?.contentType);
 
 	const { data: product } = useGetProduct({ id: id });
-	const { materialId, color, scale, ratio, infill } = useEditorStore(id);
+	const { materialId, color, scale, size, infill } = useEditorStore(id);
 
 	const textureBlobUrls = useTextures();
 	if (!product || !cadBlobUrl || !textureBlobUrls[materialId]) {
@@ -36,10 +36,10 @@ const EditorCad = ({ id }: EditorCadProps) => {
 					density: textureBlobUrls[materialId].density,
 					infill: infill / 100,
 					scale: scale / 100,
-					ratio: ratio,
+					size: size,
 				}}
 				setState={{
-					setRatio: (ratio) => setRatio(id, ratio),
+					setSize: (size) => setSize(id, size),
 					setWeight: (weight) => setWeight(id, weight),
 					setCost: (cost) => setCost(id, cost),
 				}}

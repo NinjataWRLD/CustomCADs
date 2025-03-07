@@ -6,6 +6,7 @@ import RadioField from '@/app/components/fields/radio';
 import { INFILL, SCALE } from '@/constants/threejs';
 import useEditorStore from '@/hooks/stores/useEditorStore';
 import { setInfill, setScale } from '@/stores/editor-store';
+import calculate3D from '@/utils/calculate-3D';
 import formatter from '../formatter';
 import styles from '../styles.module.css';
 
@@ -16,7 +17,8 @@ interface CalculationsProps {
 
 const Calculations = ({ id, volume }: CalculationsProps) => {
 	const [metric, setMetric] = useState<Metric>('mm');
-	const { infill, scale, ratio, weight, cost } = useEditorStore(id);
+	const { infill, scale, size, weight, cost } = useEditorStore(id);
+	const ratio = calculate3D.baseRatio(size);
 
 	const tOthers = useOthersTranslation();
 	const unrecommended = (
@@ -72,7 +74,7 @@ const Calculations = ({ id, volume }: CalculationsProps) => {
 				<p>{`${tOthers('width')}: ${formatter.size((ratio.x * scale) / 100, metric)}`}</p>
 				<p>{`${tOthers('height')}: ${formatter.size((ratio.y * scale) / 100, metric)}`}</p>
 				<p>{`${tOthers('length')}: ${formatter.size((ratio.z * scale) / 100, metric)}`}</p>
-				<p>{`${tOthers('volume')}: ${formatter.volume(volume, scale / 100, metric)}`}</p>
+				<p>{`${tOthers('volume')}: ${formatter.volume(volume, metric)}`}</p>
 				<p>{`${tOthers('weight')}: ${formatter.weight(weight)}`}</p>
 				<p>{`${tOthers('cost')}: ${formatter.cost(cost)}`}</p>
 			</div>
