@@ -5,7 +5,7 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { useProductTranslation } from '@/hooks/locales/pages/public';
 import useCartUpdates from '@/hooks/contexts/useCartUpdates';
 import { CartItem } from '@/types/cart-item';
-import styles from '../styles.module.css';
+import styles from './styles.module.css';
 
 interface AddDetailsProps {
 	id: string;
