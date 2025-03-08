@@ -22,7 +22,7 @@
     "@tanstack/react-query": "^5.65.1",
     "@tanstack/react-store": "^0.7.0",
     "animejs": "^3.2.2",
-    "axios": "^1.7.9",
+    "axios": "^1.8.2",
     "framer-motion": "^12.0.6",
     "i18next": "^24.2.2",
     "js-cookie": "^3.0.5",
