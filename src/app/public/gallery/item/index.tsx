@@ -21,19 +21,17 @@ const Item = ({ product }: ItemProps) => {
 	const { data: file, isLoading } = useDownloadProductImage({
 		id: product.id,
 	});
-
 	const blobUrl = useGenerateBlobUrl(file?.presignedUrl, file?.contentType);
 
 	if (isLoading) {
 		return <>{tFetch('loading')}</>;
 	}
-
 	const handleClick = () => navigate(`${product.id}`);
 
 	return (
 		<div className={`${styles.model}`} onClick={handleClick}>
 			<b></b>
-			<img src={blobUrl} alt='Model Picture' />
+			{blobUrl && <img src={blobUrl} alt='Product Image' />}
 			<div className={`${styles.content}`}>
 				<p className={`${styles.title}`}>
 					{product.name}

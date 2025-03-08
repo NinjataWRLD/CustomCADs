@@ -3,6 +3,7 @@ import Home from '@/app/public/home';
 import Gallery from '@/app/public/gallery';
 import Product from '@/app/public/product';
 import Cart from '@/app/public/cart';
+import Editor from '@/app/public/editor';
 
 const routes: RouteObject[] = [
 	{
@@ -20,6 +21,10 @@ const routes: RouteObject[] = [
 	{
 		path: '/cart',
 		element: <Cart />,
+	},
+	{
+		path: '/editor/:id',
+		element: <Editor />,
 	},
 ];
 

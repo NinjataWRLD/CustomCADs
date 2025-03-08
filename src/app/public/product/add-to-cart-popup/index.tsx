@@ -1,7 +1,9 @@
 import { Dispatch, SetStateAction } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { useProductTranslation } from '@/hooks/locales/pages/public';
+import useEditorStore from '@/hooks/stores/useEditorStore';
 import useCartUpdates from '@/hooks/contexts/useCartUpdates';
 import { CartItem } from '@/types/cart-item';
 import styles from '../styles.module.css';
@@ -20,14 +22,15 @@ const AddToCartPopup = ({
 	setShowMessage,
 }: AddDetailsProps) => {
 	const tProduct = useProductTranslation();
-	const { addItem } = useCartUpdates();
+	const navigate = useNavigate();
+	const { weight } = useEditorStore(id);
 
+	const { addItem } = useCartUpdates();
 	const toggleForDelivery = () => {
 		setShow((prev) => !prev);
 	};
 
 	const addToCart = async (forDelivery: boolean) => {
-		const weight = 5; // remove mock weight
 		const item: CartItem = {
 			productId: id,
 			quantity: 1,
@@ -42,6 +45,10 @@ const AddToCartPopup = ({
 		setTimeout(() => {
 			setShowMessage(false);
 		}, 3000);
+
+		if (forDelivery) {
+			navigate(`/editor/${id}`, { state: { allow: true } });
+		}
 	};
 
 	return (
@@ -55,10 +62,10 @@ const AddToCartPopup = ({
 				</div>
 				<h1>{tProduct('add-details-title')}</h1>
 				<div className={`${styles.buttons}`}>
-					<button onClick={() => addToCart(false)}>
+					<button onClick={() => addToCart(true)}>
 						<span>{tProduct('add-details-yes')}</span>
 					</button>
-					<button onClick={() => addToCart(true)}>
+					<button onClick={() => addToCart(false)}>
 						<span>{tProduct('add-details-no')}</span>
 					</button>
 				</div>

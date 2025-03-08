@@ -1,8 +1,8 @@
-import { ValidationError } from '@tanstack/react-form';
 import { usePlaceholdersTranslation } from '@/hooks/locales/common/messages';
 import { useLabelsTranslation } from '@/hooks/locales/components/forms';
 import FieldInfo from '@/app/components/fields/info';
 import Password from '@/app/components/fields/password';
+import getErrorClass from '@/utils/get-error-class';
 import useForm from './useForm';
 import styles from '@/styles/forms.module.css';
 
@@ -10,9 +10,6 @@ const useFields = (role: 'Client' | 'Contributor') => {
 	const { form, handleSubmit } = useForm(role);
 	const tPlaceholders = usePlaceholdersTranslation();
 	const tLabels = useLabelsTranslation();
-
-	const getClass = (errors: ValidationError[]) =>
-		errors ? styles.invalid : '';
 
 	const FirstNameField = (
 		<form.Field name='firstName'>
@@ -28,9 +25,15 @@ const useFields = (role: 'Client' | 'Contributor') => {
 							onBlur={field.handleBlur}
 							onChange={(e) => field.handleChange(e.target.value)}
 							placeholder={tPlaceholders('first-name')}
-							className={getClass(field.state.meta.errors)}
+							className={getErrorClass(field.state.meta.errors)}
 						/>
-						<FieldInfo meta={field.state.meta} />
+						<FieldInfo
+							isValidating={field.state.meta.isValidating}
+							isTouched={field.state.meta.isTouched}
+							errors={field.state.meta.errors.map(
+								(e) => e?.message ?? '',
+							)}
+						/>
 					</>
 				)
 			}
@@ -50,9 +53,15 @@ const useFields = (role: 'Client' | 'Contributor') => {
 							onBlur={field.handleBlur}
 							onChange={(e) => field.handleChange(e.target.value)}
 							placeholder={tPlaceholders('last-name')}
-							className={getClass(field.state.meta.errors)}
+							className={getErrorClass(field.state.meta.errors)}
 						/>
-						<FieldInfo meta={field.state.meta} />
+						<FieldInfo
+							isValidating={field.state.meta.isValidating}
+							isTouched={field.state.meta.isTouched}
+							errors={field.state.meta.errors.map(
+								(e) => e?.message ?? '',
+							)}
+						/>
 					</>
 				)
 			}
@@ -72,9 +81,15 @@ const useFields = (role: 'Client' | 'Contributor') => {
 							onBlur={field.handleBlur}
 							onChange={(e) => field.handleChange(e.target.value)}
 							placeholder={tPlaceholders('username')}
-							className={getClass(field.state.meta.errors)}
+							className={getErrorClass(field.state.meta.errors)}
 						/>
-						<FieldInfo meta={field.state.meta} />
+						<FieldInfo
+							isValidating={field.state.meta.isValidating}
+							isTouched={field.state.meta.isTouched}
+							errors={field.state.meta.errors.map(
+								(e) => e?.message ?? '',
+							)}
+						/>
 					</>
 				)
 			}
@@ -94,9 +109,15 @@ const useFields = (role: 'Client' | 'Contributor') => {
 							onBlur={field.handleBlur}
 							onChange={(e) => field.handleChange(e.target.value)}
 							placeholder={tPlaceholders('email')}
-							className={getClass(field.state.meta.errors)}
+							className={getErrorClass(field.state.meta.errors)}
 						/>
-						<FieldInfo meta={field.state.meta} />
+						<FieldInfo
+							isValidating={field.state.meta.isValidating}
+							isTouched={field.state.meta.isTouched}
+							errors={field.state.meta.errors.map(
+								(e) => e?.message ?? '',
+							)}
+						/>
 					</>
 				)
 			}
@@ -120,7 +141,13 @@ const useFields = (role: 'Client' | 'Contributor') => {
 								errors={field.state.meta.errors}
 							/>
 						</div>
-						<FieldInfo meta={field.state.meta} />
+						<FieldInfo
+							isValidating={field.state.meta.isValidating}
+							isTouched={field.state.meta.isTouched}
+							errors={field.state.meta.errors.map(
+								(e) => e?.message ?? '',
+							)}
+						/>
 					</>
 				)
 			}
@@ -144,7 +171,13 @@ const useFields = (role: 'Client' | 'Contributor') => {
 								errors={field.state.meta.errors}
 							/>
 						</div>
-						<FieldInfo meta={field.state.meta} />
+						<FieldInfo
+							isValidating={field.state.meta.isValidating}
+							isTouched={field.state.meta.isTouched}
+							errors={field.state.meta.errors.map(
+								(e) => e?.message ?? '',
+							)}
+						/>
 					</>
 				)
 			}

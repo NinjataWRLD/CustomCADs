@@ -21,11 +21,11 @@ const Product = () => {
 		isError,
 	} = useGetProduct({ id: String(id) });
 
-	const [addDetails, setAddDetails] = useState<boolean>(false);
+	const [showPopup, setShowPopup] = useState(false);
 	const toggleForDelivery = () => {
-		setAddDetails((prev) => !prev);
+		setShowPopup((prev) => !prev);
 	};
-	const [showAddedMessage, setShowAddedMessage] = useState(false);
+	const [showPopupMessage, setShowPopupMessage] = useState(false);
 
 	if (isLoading) {
 		return <>{tFetch('loading')}</>;
@@ -44,8 +44,8 @@ const Product = () => {
 							<div className={`${styles.visualizer}`}>
 								<Cad
 									id={product.id}
-									cam={product.camCoordinates}
-									pan={product.panCoordinates}
+									product={product}
+									type='gallery'
 								/>
 							</div>
 						</div>
@@ -77,19 +77,14 @@ const Product = () => {
 
 							<div className={`${styles.buttons}`}>
 								<BtnLink
-									className={`${styles.back}`}
-									text={tProduct('button-1')}
-									link='/viewer'
-								/>
-								<BtnLink
 									onClick={toggleForDelivery}
-									text={tProduct('button-2')}
+									text={tProduct('button-1')}
 									className={`${styles.back}`}
 								/>
 								<BtnLink
-									className={`${styles.back}`}
-									text={tProduct('button-3')}
+									text={tProduct('button-2')}
 									link='/gallery'
+									className={`${styles.back}`}
 								/>
 							</div>
 							<p>*{tProduct('warning')}</p>
@@ -99,12 +94,12 @@ const Product = () => {
 			</Transition>
 			<AddToCartPopup
 				id={product.id}
-				show={addDetails}
-				setShow={setAddDetails}
-				setShowMessage={setShowAddedMessage}
+				show={showPopup}
+				setShow={setShowPopup}
+				setShowMessage={setShowPopupMessage}
 			/>
 
-			{showAddedMessage && (
+			{showPopupMessage && (
 				<div className={styles.cartMessage}>
 					<p>{tProduct('added-message')}</p>
 				</div>

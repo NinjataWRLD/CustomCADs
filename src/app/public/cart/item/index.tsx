@@ -6,10 +6,13 @@ import useGetProduct from '@/hooks/queries/products/gallery/useGetGalleryProduct
 import useGenerateBlobUrl from '@/hooks/useGenerateBlobUrl';
 import useDownloadProductImage from '@/hooks/queries/products/gallery/useDownloadProductImage';
 import useCartUpdates from '@/hooks/contexts/useCartUpdates';
+import useEditorStore from '@/hooks/stores/useEditorStore';
 import { useFetchTranslation } from '@/hooks/locales/common/messages';
 import { useCartTranslation } from '@/hooks/locales/pages/public';
+import { removeRecord } from '@/stores/editor-store';
 import Checkbox from '@/app/components/fields/checkbox';
 import { CartItem as ICartItem } from '@/types/cart-item';
+import formatter from '../formatter';
 import styles from './styles.module.css';
 
 type AddToCostFunc = (amount: number) => void;
@@ -24,8 +27,11 @@ const CartItem = ({
 	addToCost,
 }: CartItemProps) => {
 	const navigate = useNavigate();
+	const store = useEditorStore(productId);
+
 	const tFetch = useFetchTranslation();
 	const tCart = useCartTranslation();
+
 	const {
 		removeItem,
 		incrementItemQuantity,
@@ -39,32 +45,54 @@ const CartItem = ({
 	const { data: product, isError } = useGetProduct({ id: productId });
 	const blobUrl = useGenerateBlobUrl(file?.presignedUrl, file?.contentType);
 
-	const updateCosts = (amount: number) => {
-		addToCost.total(amount);
-		if (forDelivery) addToCost.delivery(amount);
+	const updateCosts = (productCost: number, customizationCost: number) => {
+		addToCost.total(productCost);
+		if (forDelivery) {
+			addToCost.delivery(productCost);
+
+			addToCost.total(customizationCost);
+			addToCost.delivery(customizationCost);
+		}
 	};
 
 	useEffect(() => {
-		if (product) updateCosts(quantity * product.price);
-	}, [productId, product]);
+		if (product) {
+			updateCosts(quantity * product.price, quantity * store.cost);
+		}
+	}, [product]);
+
+	if (!product) {
+		return <></>;
+	}
+
+	const subtract = (money: number) => -1 * quantity * money;
 
 	const remove = () => {
 		removeItem(productId);
-		if (product) updateCosts(-1 * quantity * product.price);
+		updateCosts(
+			subtract(product.price),
+			forDelivery ? subtract(store.cost) : 0,
+		);
+		removeRecord(productId);
 	};
 	const incrementQuantity = () => {
 		incrementItemQuantity(productId);
-		if (product) updateCosts(product.price);
+		updateCosts(product.price, forDelivery ? store.cost : 0);
 	};
 	const decrementQuantity = () => {
 		decrementItemQuantity(productId);
-		if (quantity > 1 && product) updateCosts(-1 * product.price);
+		if (quantity > 1) {
+			updateCosts(-1 * product.price, forDelivery ? -1 * store.cost : 0);
+		}
 	};
 	const toggleForDelivery = () => {
 		toggleItemForDelivery(productId);
-		if (product) {
-			if (forDelivery) addToCost.delivery(-1 * quantity * product.price);
-			else addToCost.delivery(quantity * product.price);
+		if (forDelivery) {
+			addToCost.delivery(subtract(product.price));
+			addToCost.delivery(subtract(store.cost));
+			addToCost.total(subtract(store.cost));
+		} else {
+			navigate(`/editor/${productId}`, { state: { allow: true } });
 		}
 	};
 
@@ -86,29 +114,57 @@ const CartItem = ({
 							/>
 						</div>
 					</h2>
-					<img src={blobUrl} alt='image' />
+					{blobUrl && <img src={blobUrl} alt='Item Image' />}
 				</div>
 				<div className={styles.data}>
 					<h2>{product.name}</h2>
 					<p>{tCart('by', { by: product.creatorName })}</p>
-					<div className={styles.quantity}>
-						<FontAwesomeIcon
-							icon={faMinus}
-							onClick={decrementQuantity}
-						/>
-						<div className={styles.number}>{quantity}</div>
-						<FontAwesomeIcon
-							icon={faPlus}
-							onClick={incrementQuantity}
-						/>
-					</div>
+					{forDelivery && (
+						<div className={styles.quantity}>
+							<FontAwesomeIcon
+								icon={faMinus}
+								onClick={decrementQuantity}
+							/>
+							<div className={styles.number}>{quantity}</div>
+							<FontAwesomeIcon
+								icon={faPlus}
+								onClick={incrementQuantity}
+							/>
+						</div>
+					)}
 					<button
 						className={styles.btn}
 						onClick={() => navigate(`/gallery/${productId}`)}
 					>
 						<span>{tCart('view')}</span>
 					</button>
-					<p className={styles.price}>${product.price * quantity}</p>
+					{forDelivery && (
+						<>
+							<button
+								className={styles.btn}
+								style={{ bottom: '10%' }}
+								onClick={() =>
+									navigate(`/editor/${productId}`, {
+										state: { allow: true },
+									})
+								}
+							>
+								<span>{tCart('customize')}</span>
+							</button>
+						</>
+					)}
+					<p>
+						{tCart('product-price', {
+							price: formatter.price(product.price * quantity),
+						})}
+					</p>
+					{forDelivery && (
+						<p>
+							{tCart('customization-cost', {
+								cost: formatter.price(store.cost * quantity),
+							})}
+						</p>
+					)}
 					<div
 						className={styles.bin}
 						data-tooltip={tCart('remove')}

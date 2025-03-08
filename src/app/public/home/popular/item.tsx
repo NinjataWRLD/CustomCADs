@@ -32,13 +32,13 @@ const Item = ({ product }: ItemProps) => {
 	return (
 		<div className={`${styles.model}`}>
 			<b></b>
-			<img
-				onClick={handleDetailsClick}
-				src={blobUrl}
-				alt='Model Picture'
-				width={736}
-				height={0}
-			/>
+			{blobUrl && (
+				<img
+					onClick={handleDetailsClick}
+					src={blobUrl}
+					alt='Product Image'
+				/>
+			)}
 			<div className={`${styles.content}`}>
 				<p onClick={handleDetailsClick} className={`${styles.title}`}>
 					{product.name}

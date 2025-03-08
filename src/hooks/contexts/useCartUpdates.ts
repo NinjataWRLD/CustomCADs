@@ -33,7 +33,7 @@ const useCartUpdates = () => {
 		dispatch({ type: 'REMOVE_ITEM', id: id });
 
 		if (cartEnabled) {
-			await removeCartItem({ itemId: id });
+			await removeCartItem({ productId: id });
 		}
 	};
 
@@ -41,7 +41,7 @@ const useCartUpdates = () => {
 		dispatch({ type: 'INCREMENT_QUANTITY', id: id });
 
 		if (cartEnabled) {
-			await increaseCartItemQuantity({ itemId: id, amount: 1 });
+			await increaseCartItemQuantity({ productId: id, amount: 1 });
 		}
 	};
 
@@ -49,7 +49,7 @@ const useCartUpdates = () => {
 		dispatch({ type: 'TOGGLE_DELIVERY', id: id });
 
 		if (cartEnabled) {
-			await toggleCartItemForDelivery({ itemId: id });
+			await toggleCartItemForDelivery({ productId: id });
 		}
 	};
 
@@ -57,7 +57,7 @@ const useCartUpdates = () => {
 		dispatch({ type: 'DECREMENT_QUANTITY', id: id });
 
 		if (cartEnabled) {
-			await decreaseCartItemQuantity({ itemId: id, amount: 1 });
+			await decreaseCartItemQuantity({ productId: id, amount: 1 });
 		}
 	};
 

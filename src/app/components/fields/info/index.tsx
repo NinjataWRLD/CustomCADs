@@ -1,13 +1,12 @@
-import { FieldMeta } from '@tanstack/react-form';
 import styles from './styles.module.css';
 
 interface FieldInfoProps {
-	meta: FieldMeta;
+	isTouched: boolean;
+	isValidating: boolean;
+	errors: string[];
 }
 
-const FieldInfo = ({ meta }: FieldInfoProps) => {
-	const { isTouched, isValidating, errors } = meta;
-
+const FieldInfo = ({ isTouched, isValidating, errors }: FieldInfoProps) => {
 	return (
 		<>
 			{isTouched && errors.length ? (

@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
-import { ValidationError } from '@tanstack/react-form';
 import { usePlaceholdersTranslation } from '@/hooks/locales/common/messages';
 import { useLabelsTranslation } from '@/hooks/locales/components/forms';
 import FieldInfo from '@/app/components/fields/info';
 import Password from '@/app/components/fields/password';
 import Checkbox from '@/app/components/fields/checkbox';
+import getErrorClass from '@/utils/get-error-class';
 import useForm from './useForm';
 import styles from '@/styles/forms.module.css';
 
@@ -13,8 +13,6 @@ const useFields = () => {
 	const tPlaceholders = usePlaceholdersTranslation();
 	const tLabels = useLabelsTranslation();
 
-	const getClass = (errors: ValidationError[]) =>
-		errors ? styles.invalid : '';
 	const UsernameField = (
 		<form.Field name='username'>
 			{(field) =>
@@ -29,9 +27,15 @@ const useFields = () => {
 							onBlur={field.handleBlur}
 							onChange={(e) => field.handleChange(e.target.value)}
 							placeholder={tPlaceholders('username')}
-							className={getClass(field.state.meta.errors)}
+							className={getErrorClass(field.state.meta.errors)}
 						/>
-						<FieldInfo meta={field.state.meta} />
+						<FieldInfo
+							isValidating={field.state.meta.isValidating}
+							isTouched={field.state.meta.isTouched}
+							errors={field.state.meta.errors.map(
+								(e) => e?.message ?? '',
+							)}
+						/>
 					</>
 				)
 			}
@@ -58,7 +62,13 @@ const useFields = () => {
 						<Link to='/forgot-password'>
 							{tLabels('forgot-password')}
 						</Link>
-						<FieldInfo meta={field.state.meta} />
+						<FieldInfo
+							isValidating={field.state.meta.isValidating}
+							isTouched={field.state.meta.isTouched}
+							errors={field.state.meta.errors.map(
+								(e) => e?.message ?? '',
+							)}
+						/>
 					</>
 				)
 			}
@@ -78,7 +88,13 @@ const useFields = () => {
 							}
 							style={{ marginRight: 120 }}
 						/>
-						<FieldInfo meta={field.state.meta} />
+						<FieldInfo
+							isValidating={field.state.meta.isValidating}
+							isTouched={field.state.meta.isTouched}
+							errors={field.state.meta.errors.map(
+								(e) => e?.message ?? '',
+							)}
+						/>
 					</>
 				)
 			}

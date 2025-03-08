@@ -26,7 +26,7 @@ const useForm = () => {
 	const updateAuthz = useUpdateAuthz();
 	const navigate = useNavigate();
 
-	const form = useTanStackForm<Fields>({
+	const form = useTanStackForm({
 		defaultValues: defaultValues,
 		onSubmit: async ({ value }) => {
 			await login(value);
@@ -39,7 +39,7 @@ const useForm = () => {
 			onChange: schema,
 		},
 	});
-	useForceLocaleRefresh(form);
+	useForceLocaleRefresh(() => form.validate('change'));
 
 	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();

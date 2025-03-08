@@ -28,7 +28,13 @@ const useFields = (email: string, token: string) => {
 								errors={field.state.meta.errors}
 							/>
 						</div>
-						<FieldInfo meta={field.state.meta} />
+						<FieldInfo
+							isValidating={field.state.meta.isValidating}
+							isTouched={field.state.meta.isTouched}
+							errors={field.state.meta.errors.map(
+								(e) => e?.message ?? '',
+							)}
+						/>
 					</>
 				)
 			}
@@ -52,7 +58,13 @@ const useFields = (email: string, token: string) => {
 								errors={field.state.meta.errors}
 							/>
 						</div>
-						<FieldInfo meta={field.state.meta} />
+						<FieldInfo
+							isValidating={field.state.meta.isValidating}
+							isTouched={field.state.meta.isTouched}
+							errors={field.state.meta.errors.map(
+								(e) => e?.message ?? '',
+							)}
+						/>
 					</>
 				)
 			}
