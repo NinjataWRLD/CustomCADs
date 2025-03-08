@@ -5,9 +5,9 @@ import objectToSearchParams from '@/utils/object-to-search-params';
 export interface Request {
 	id: string;
 	count: number;
-	weight: number;
 	country: string;
 	city: string;
+	customizationId: string;
 }
 
 export type Response = Calculation;

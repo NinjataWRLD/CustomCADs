@@ -1,4 +1,5 @@
 import axios from '@/api/axios';
+import { ActiveCartItem } from '@/api/carts/common';
 import * as createResources from './resources/create';
 import * as addItemResources from './resources/add-item';
 import * as removeItemResources from './resources/remove-item';
@@ -14,7 +15,7 @@ export const create = async () =>
 	await axios.post<createResources.Response>(createResources.url());
 
 export const addItem = async (req: addItemResources.Request) =>
-	await axios.post<addItemResources.Response>(addItemResources.url(), req);
+	await axios.post<ActiveCartItem>(addItemResources.url(), req);
 
 export const purchase = async (req: purchaseResources.Request) =>
 	await axios.post(purchaseResources.url(), req);

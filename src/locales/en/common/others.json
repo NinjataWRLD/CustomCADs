@@ -7,5 +7,6 @@
   "volume": "Volume",
   "infill": "Infill",
   "weight": "Weight",
-  "cost": "Cost"
+  "cost": "Cost",
+  "unrecommended": "Not Recommended"
 }

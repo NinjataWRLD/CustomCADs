@@ -5,7 +5,7 @@ import { Coordinates } from '@/api/catalog/common';
 const init = {
 	camera: (cam: Coordinates) => {
 		const aspect = window.innerWidth / window.innerHeight;
-		const camera = new THREE.PerspectiveCamera(50, aspect, 0.1, 1000);
+		const camera = new THREE.PerspectiveCamera(50, aspect, 0.1, 10000);
 
 		if (!cam.x && !cam.y && !cam.z) {
 			camera.position.set(0, 0, 5);

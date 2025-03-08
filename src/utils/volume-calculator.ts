@@ -1,7 +1,8 @@
 import * as THREE from 'three';
+import { GLTF } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { Mesh } from '@/types/threejs';
 
-export const calculateVolume = (mesh: Mesh) => {
+const calculateMeshVolume = (mesh: Mesh) => {
 	let sum = 0;
 	const {
 		matrixWorld,
@@ -42,4 +43,14 @@ export const calculateVolume = (mesh: Mesh) => {
 	}
 
 	return Math.abs(sum) / 6;
+};
+
+export const calculateCadVolume = (cad: GLTF) => {
+	let volume = 0;
+	cad.scene.traverse((child) => {
+		if (child instanceof THREE.Mesh) {
+			volume += calculateMeshVolume(child);
+		}
+	});
+	return volume;
 };

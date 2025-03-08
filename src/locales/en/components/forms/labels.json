@@ -6,5 +6,11 @@
   "password": "Password",
   "confirm-password": "Confirm Password",
   "remember-me": "Remember me?",
-  "forgot-password": "Forgot your password?"
+  "forgot-password": "Forgot your password?",
+  "name": "Name",
+  "description": "Description",
+  "category": "Category",
+  "price": "Price",
+  "image": "Image",
+  "cad": "Cad"
 }

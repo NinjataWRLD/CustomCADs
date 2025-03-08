@@ -24,12 +24,8 @@ const useThreeJS = (
 	}, []);
 
 	useEffect(() => {
-		if (!instanceRef.current) {
-			return;
-		}
-		const { scene } = instanceRef.current;
-
-		if (scene) {
+		if (instanceRef.current && url) {
+			const { scene } = instanceRef.current;
 			new GLTFLoader().load(url, (cad) => {
 				if (loadCallback) loadCallback(cad);
 				scene.add(cad.scene);

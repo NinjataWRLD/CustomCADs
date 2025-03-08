@@ -5,6 +5,17 @@ export type Mesh = THREE.Mesh<THREE.BufferGeometry, any>;
 
 export type Ratio = { x: number; y: number; z: number };
 
-export type Material = 'PLA' | 'ABS' | 'TUF' | 'Glow in dark' | 'Wood';
+export type Metric = 'mm' | 'cm' | 'inch';
 
-export type Metric = 'mm' | 'cm' | 'm' | 'inch';
+export interface CustomizeCad {
+	texture: string;
+	color?: string;
+}
+
+export interface CalculateCad {
+	volume: number;
+	density: number;
+	size: Ratio;
+	scale: number;
+	infill: number;
+}

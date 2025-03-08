@@ -18,7 +18,7 @@ const imageCase = {
 const cases: Case[][] = [[cadCase], [imageCase]];
 
 describe('Fetch File utility tests', () => {
-	let mockArrayBuffer: ArrayBuffer;
+	let mockBlob: Blob;
 	const mockFetch = (
 		contentType: string,
 		responseData: unknown,
@@ -28,7 +28,7 @@ describe('Fetch File utility tests', () => {
 			ok: true,
 			status: throwError ? 500 : 200,
 			headers: { get: () => contentType },
-			arrayBuffer: () =>
+			blob: () =>
 				throwError
 					? Promise.reject(new Error(responseData as string))
 					: Promise.resolve(responseData),
@@ -36,12 +36,12 @@ describe('Fetch File utility tests', () => {
 	};
 
 	beforeEach(() => {
-		mockArrayBuffer = new ArrayBuffer(8);
+		mockBlob = new Blob([new ArrayBuffer(8)]);
 	});
 
 	it.each(cases)('makes proper call to fetch', async (file) => {
 		// Arrange
-		mockFetch(file.contentType, mockArrayBuffer);
+		mockFetch(file.contentType, mockBlob);
 
 		// Act
 		await fetchFile(file.url, file.contentType);
@@ -54,25 +54,22 @@ describe('Fetch File utility tests', () => {
 		});
 	});
 
-	it.each(cases)(
-		'returns ArrayBuffer when fetch is successful',
-		async (file) => {
-			// Arrange
-			mockFetch(file.contentType, mockArrayBuffer);
+	it.each(cases)('returns Blob when fetch is successful', async (file) => {
+		// Arrange
+		mockFetch(file.contentType, mockBlob);
 
-			// Act
-			const result = await fetchFile(file.url, file.contentType);
+		// Act
+		const result = await fetchFile(file.url, file.contentType);
 
-			// Assert
-			expect(result).toEqual(mockArrayBuffer);
-		},
-	);
+		// Assert
+		expect(result).toEqual(mockBlob);
+	});
 
 	it.each(cases)(
-		'returns non-ArrayBuffer when fetch is successful',
+		'returns non-Blob when fetch is successful',
 		async (file) => {
 			// Arrange
-			const message = 'Not an ArrayBuffer';
+			const message = 'Not a Blob';
 			mockFetch(file.contentType, message);
 
 			// Act
@@ -114,17 +111,14 @@ describe('Fetch File utility tests', () => {
 		},
 	);
 
-	it.each(cases)(
-		'throws proper errors when arrayBuffer() fails',
-		async (file) => {
-			// Arrange
-			const message = 'RangeError: Invalid typed array length: 4';
-			mockFetch(file.contentType, message, true);
+	it.each(cases)('throws proper errors when blob() fails', async (file) => {
+		// Arrange
+		const message = 'RangeError: Invalid typed array length: 4';
+		mockFetch(file.contentType, message, true);
 
-			// Act + Arrange
-			await expect(fetchFile(file.url, file.contentType)).rejects.toThrow(
-				message,
-			);
-		},
-	);
+		// Act + Arrange
+		await expect(fetchFile(file.url, file.contentType)).rejects.toThrow(
+			message,
+		);
+	});
 });

@@ -3,6 +3,7 @@ import { useLabelsTranslation } from '@/hooks/locales/components/forms';
 import FieldInfo from '@/app/components/fields/info';
 import Password from '@/app/components/fields/password';
 import getErrorClass from '@/utils/get-error-class';
+import { formatMeta } from '@/utils/form-formatter';
 import useForm from './useForm';
 import styles from '@/styles/forms.module.css';
 
@@ -27,13 +28,7 @@ const useFields = (role: 'Client' | 'Contributor') => {
 							placeholder={tPlaceholders('first-name')}
 							className={getErrorClass(field.state.meta.errors)}
 						/>
-						<FieldInfo
-							isValidating={field.state.meta.isValidating}
-							isTouched={field.state.meta.isTouched}
-							errors={field.state.meta.errors.map(
-								(e) => e?.message ?? '',
-							)}
-						/>
+						<FieldInfo info={formatMeta(field.state.meta)} />
 					</>
 				)
 			}
@@ -55,13 +50,7 @@ const useFields = (role: 'Client' | 'Contributor') => {
 							placeholder={tPlaceholders('last-name')}
 							className={getErrorClass(field.state.meta.errors)}
 						/>
-						<FieldInfo
-							isValidating={field.state.meta.isValidating}
-							isTouched={field.state.meta.isTouched}
-							errors={field.state.meta.errors.map(
-								(e) => e?.message ?? '',
-							)}
-						/>
+						<FieldInfo info={formatMeta(field.state.meta)} />
 					</>
 				)
 			}
@@ -83,13 +72,7 @@ const useFields = (role: 'Client' | 'Contributor') => {
 							placeholder={tPlaceholders('username')}
 							className={getErrorClass(field.state.meta.errors)}
 						/>
-						<FieldInfo
-							isValidating={field.state.meta.isValidating}
-							isTouched={field.state.meta.isTouched}
-							errors={field.state.meta.errors.map(
-								(e) => e?.message ?? '',
-							)}
-						/>
+						<FieldInfo info={formatMeta(field.state.meta)} />
 					</>
 				)
 			}
@@ -111,13 +94,7 @@ const useFields = (role: 'Client' | 'Contributor') => {
 							placeholder={tPlaceholders('email')}
 							className={getErrorClass(field.state.meta.errors)}
 						/>
-						<FieldInfo
-							isValidating={field.state.meta.isValidating}
-							isTouched={field.state.meta.isTouched}
-							errors={field.state.meta.errors.map(
-								(e) => e?.message ?? '',
-							)}
-						/>
+						<FieldInfo info={formatMeta(field.state.meta)} />
 					</>
 				)
 			}
@@ -141,13 +118,7 @@ const useFields = (role: 'Client' | 'Contributor') => {
 								errors={field.state.meta.errors}
 							/>
 						</div>
-						<FieldInfo
-							isValidating={field.state.meta.isValidating}
-							isTouched={field.state.meta.isTouched}
-							errors={field.state.meta.errors.map(
-								(e) => e?.message ?? '',
-							)}
-						/>
+						<FieldInfo info={formatMeta(field.state.meta)} />
 					</>
 				)
 			}
@@ -171,13 +142,7 @@ const useFields = (role: 'Client' | 'Contributor') => {
 								errors={field.state.meta.errors}
 							/>
 						</div>
-						<FieldInfo
-							isValidating={field.state.meta.isValidating}
-							isTouched={field.state.meta.isTouched}
-							errors={field.state.meta.errors.map(
-								(e) => e?.message ?? '',
-							)}
-						/>
+						<FieldInfo info={formatMeta(field.state.meta)} />
 					</>
 				)
 			}

@@ -15,4 +15,4 @@ export interface Response {
 	presignedCadUrl: string;
 }
 
-export const url = () => `${CREATOR_BASE_PATH}/upload`;
+export const url = () => `${CREATOR_BASE_PATH}/presignedUrls/upload`;

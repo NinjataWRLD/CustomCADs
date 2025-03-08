@@ -9,6 +9,7 @@ export interface Request {
 	imageContentType: string;
 	cadKey: string;
 	cadContentType: string;
+	cadVolume: number;
 }
 
 export interface Response {

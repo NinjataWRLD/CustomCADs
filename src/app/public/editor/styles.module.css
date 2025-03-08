@@ -2,6 +2,11 @@
     height: 100vh;
     position: relative;
     display: flex;
+    justify-content: space-between;
+}
+
+.cad {
+    flex-basis: 100%;
 }
 
 .btn {
@@ -18,13 +23,21 @@
     background-color: hsla(228, 21%, 14%, 0.77);
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border-left: 2px solid rgba(128, 0, 128, 0.582);
     gap: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin: 0 auto;
     overflow-y: auto;
+}
+
+
+/* sorry :D */
+.idk1 {
+    border-right: 2px solid rgba(128, 0, 128, 0.582);
+}
+
+.idk2 {
+    border-left: 2px solid rgba(128, 0, 128, 0.582);
 }
 
 .materials {

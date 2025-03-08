@@ -6,5 +6,11 @@
   "password": "Парола",
   "confirm-password": "Потвърдете Паролата",
   "remember-me": "Запомни ме?",
-  "forgot-password": "Забравихте паролата си?"
+  "forgot-password": "Забравихте паролата си?",
+  "name": "Име",
+  "description": "Описание",
+  "category": "Категория",
+  "price": "Цена",
+  "image": "Изображение",
+  "cad": "Модел"
 }

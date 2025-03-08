@@ -1,25 +1,25 @@
 import { Store } from '@tanstack/store';
-import { Material, Ratio } from '@/types/threejs';
+import { Ratio } from '@/types/threejs';
 
 const LOCAL_STORAGE_KEY = 'editor-store';
 interface EditorState {
-	material: Material;
+	customizationId?: string;
+	materialId: number;
 	color: string;
 	infill: number;
-	ratio: Ratio;
+	size: Ratio;
 	scale: number;
-	volume: number;
 	weight: number;
 	cost: number;
 }
 
 export const defaultEditorState: EditorState = {
-	material: 'PLA',
+	customizationId: undefined,
+	materialId: 1,
 	color: '#ffffff',
 	infill: 20,
-	ratio: { x: 0, y: 0, z: 0 },
+	size: { x: 0, y: 0, z: 0 },
 	scale: 100,
-	volume: 0,
 	weight: 0,
 	cost: 0,
 };
@@ -38,6 +38,12 @@ store.subscribe((state) => {
 	localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state.currentVal));
 });
 
+export const resetStore = (id: string) =>
+	store.setState((prev) => ({
+		...prev,
+		[id]: defaultEditorState,
+	}));
+
 export const addRecord = (id: string) =>
 	store.setState((prev) => ({
 		...prev,
@@ -49,10 +55,16 @@ export const removeRecord = (id: string) =>
 		Object.fromEntries(Object.entries(prev).filter((x) => x[0] !== id)),
 	);
 
-export const setMaterial = (id: string, material: Material) =>
+export const setCustomizationId = (id: string, customizationId: string) =>
 	store.setState((prev) => ({
 		...prev,
-		[id]: { ...prev[id], material: material },
+		[id]: { ...prev[id], customizationId: customizationId },
+	}));
+
+export const setMaterialId = (id: string, materialId: number) =>
+	store.setState((prev) => ({
+		...prev,
+		[id]: { ...prev[id], materialId: materialId },
 	}));
 
 export const setColor = (id: string, color: string) =>
@@ -67,22 +79,16 @@ export const setInfill = (id: string, infill: number) =>
 		[id]: { ...prev[id], infill: infill },
 	}));
 
-export const setRatio = (id: string, ratio: Ratio) =>
+export const setSize = (id: string, size: Ratio) =>
 	store.setState((prev) => ({
 		...prev,
-		[id]: { ...prev[id], ratio: ratio },
+		[id]: { ...prev[id], size: size },
 	}));
 
 export const setScale = (id: string, scale: number) =>
 	store.setState((prev) => ({
 		...prev,
 		[id]: { ...prev[id], scale: scale },
-	}));
-
-export const setVolume = (id: string, volume: number) =>
-	store.setState((prev) => ({
-		...prev,
-		[id]: { ...prev[id], volume: volume },
 	}));
 
 export const setWeight = (id: string, weight: number) =>

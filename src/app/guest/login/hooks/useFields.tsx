@@ -5,6 +5,7 @@ import FieldInfo from '@/app/components/fields/info';
 import Password from '@/app/components/fields/password';
 import Checkbox from '@/app/components/fields/checkbox';
 import getErrorClass from '@/utils/get-error-class';
+import { formatMeta } from '@/utils/form-formatter';
 import useForm from './useForm';
 import styles from '@/styles/forms.module.css';
 
@@ -29,13 +30,7 @@ const useFields = () => {
 							placeholder={tPlaceholders('username')}
 							className={getErrorClass(field.state.meta.errors)}
 						/>
-						<FieldInfo
-							isValidating={field.state.meta.isValidating}
-							isTouched={field.state.meta.isTouched}
-							errors={field.state.meta.errors.map(
-								(e) => e?.message ?? '',
-							)}
-						/>
+						<FieldInfo info={formatMeta(field.state.meta)} />
 					</>
 				)
 			}
@@ -62,13 +57,7 @@ const useFields = () => {
 						<Link to='/forgot-password'>
 							{tLabels('forgot-password')}
 						</Link>
-						<FieldInfo
-							isValidating={field.state.meta.isValidating}
-							isTouched={field.state.meta.isTouched}
-							errors={field.state.meta.errors.map(
-								(e) => e?.message ?? '',
-							)}
-						/>
+						<FieldInfo info={formatMeta(field.state.meta)} />
 					</>
 				)
 			}
@@ -88,13 +77,7 @@ const useFields = () => {
 							}
 							style={{ marginRight: 120 }}
 						/>
-						<FieldInfo
-							isValidating={field.state.meta.isValidating}
-							isTouched={field.state.meta.isTouched}
-							errors={field.state.meta.errors.map(
-								(e) => e?.message ?? '',
-							)}
-						/>
+						<FieldInfo info={formatMeta(field.state.meta)} />
 					</>
 				)
 			}

@@ -1,24 +1,22 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import fetchFile from '@/utils/fetch-file';
 
 const useGenerateBlobUrl = (presignedUrl?: string, contentType?: string) => {
-	const [buffer, setBuffer] = useState(new ArrayBuffer());
+	const [blobUrl, setBlobUrl] = useState('');
 
 	useEffect(() => {
 		const getFile = async () => {
 			if (presignedUrl && contentType) {
-				const buffer = await fetchFile(presignedUrl, contentType);
-				setBuffer(buffer);
+				const blob = await fetchFile(presignedUrl, contentType);
+				setBlobUrl(URL.createObjectURL(blob));
 			}
 		};
 		getFile();
-	}, [presignedUrl, contentType]);
 
-	const blobUrl = useMemo(() => {
-		if (!buffer.byteLength) return '';
-		const blob = new Blob([buffer], { type: contentType });
-		return URL.createObjectURL(blob);
-	}, [buffer, contentType]);
+		return () => {
+			URL.revokeObjectURL(blobUrl);
+		};
+	}, [presignedUrl, contentType]);
 
 	return blobUrl;
 };

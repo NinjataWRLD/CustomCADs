@@ -6,7 +6,6 @@ import {
 	usePlaceholdersTranslation,
 } from '@/hooks/locales/common/messages';
 import useSearchParams from '@/hooks/useSearchParams';
-import { GallerySearch } from '@/app/types/search';
 import Transition from '@/app/components/transition';
 import Categories from '@/app/components/search/categories';
 import Searchbar from '@/app/components/search/searchbar';
@@ -14,6 +13,13 @@ import Sortings from '@/app/components/search/sortings';
 import Pagination from '@/app/components/pagination';
 import Item from './item';
 import styles from './styles.module.css';
+
+interface GallerySearch {
+	name?: string;
+	categoryId?: number;
+	sortingType?: string;
+	sortingDirection?: string;
+}
 
 const Gallery = () => {
 	const tFetch = useFetchTranslation();
