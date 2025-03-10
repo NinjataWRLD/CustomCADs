@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { useLoginTranslation } from '@/hooks/locales/pages/guest';
-import BtnLink from '@/app/components/button';
+import Btn from '@/app/components/button';
 import Transition from '@/app/components/transition';
 import useFields from './hooks/useFields';
 import styles from './styles.module.css';
@@ -57,7 +57,7 @@ const Login = () => {
 					{fields.RememberMeField}
 
 					<div className={`${styles.submit}`}>
-						<BtnLink text={tLogin('btn')} type='submit' />
+						<Btn type='submit' text={tLogin('btn')} />
 					</div>
 
 					<p>

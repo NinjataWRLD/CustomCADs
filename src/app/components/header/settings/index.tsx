@@ -7,7 +7,7 @@ import {
 	faUserCog,
 } from '@fortawesome/free-solid-svg-icons';
 import { useHeaderTranslation } from '@/hooks/locales/components/layout';
-import useCartInit from '@/hooks/contexts/useCartInit';
+import useCartContext from '@/hooks/contexts/useCartContext';
 import useLogout from '@/hooks/mutations/sign-in/useLogout';
 import * as authStore from '@/stores/auth-store';
 import BaseButton from '../base';
@@ -16,7 +16,7 @@ import styles from './styles.module.css';
 
 const SettingsButton = ({ role }: { role: string }) => {
 	const tHeader = useHeaderTranslation();
-	const { dispatch } = useCartInit();
+	const { dispatch } = useCartContext();
 
 	const mutation = useLogout();
 	const logout = async () => {

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useForm as useTanStackForm } from '@tanstack/react-form';
 import useRegister from '@/hooks/mutations/sign-up/useRegister';
 import useForceLocaleRefresh from '@/hooks/locales/useForceLocaleRefresh';
-import useCartInit from '@/hooks/contexts/useCartInit';
+import useCartContext from '@/hooks/contexts/useCartContext';
 import useUpdateAuthz from '@/hooks/stores/useUpdateAuthz';
 import useValidation from './useValidation';
 
@@ -28,7 +28,7 @@ const useForm = (role: 'Client' | 'Contributor') => {
 	const { mutateAsync: register } = useRegister();
 	const schema = useValidation();
 
-	const { dispatch } = useCartInit();
+	const { dispatch } = useCartContext();
 	const updateAuthz = useUpdateAuthz();
 	const navigate = useNavigate();
 

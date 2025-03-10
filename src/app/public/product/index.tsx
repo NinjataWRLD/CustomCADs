@@ -2,9 +2,10 @@ import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useFetchTranslation } from '@/hooks/locales/common/messages';
 import { useProductTranslation } from '@/hooks/locales/pages/public';
+import useCartContext from '@/hooks/contexts/useCartContext';
 import useGetProduct from '@/hooks/queries/products/gallery/useGetGalleryProduct';
 import Transition from '@/app/components/transition';
-import BtnLink from '@/app/components/button';
+import Btn from '@/app/components/button';
 import Cad from '@/app/components/cad';
 import AddToCartPopup from './add-to-cart-popup';
 import styles from './styles.module.css';
@@ -14,6 +15,9 @@ const Product = () => {
 
 	const tFetch = useFetchTranslation();
 	const tProduct = useProductTranslation();
+
+	const { items } = useCartContext();
+	const alreadyInCart = items.some((i) => i.productId === id);
 
 	const {
 		data: product,
@@ -72,18 +76,25 @@ const Product = () => {
 							</div>
 
 							<div className={`${styles.buttons}`}>
-								<BtnLink
-									onClick={toggleForDelivery}
-									text={tProduct('button-1')}
-									className={`${styles.back}`}
-								/>
-								<BtnLink
-									text={tProduct('button-2')}
+								{!alreadyInCart ? (
+									<Btn
+										type='button'
+										text={tProduct('button-1')}
+										onClick={toggleForDelivery}
+									/>
+								) : (
+									<Btn
+										type='button'
+										text={tProduct('button-2')}
+										disabled
+									/>
+								)}
+								<Btn
+									type='link'
+									text={tProduct('button-3')}
 									link='/gallery'
-									className={`${styles.back}`}
 								/>
 							</div>
-							<p>*{tProduct('warning')}</p>
 						</div>
 					</div>
 				</div>

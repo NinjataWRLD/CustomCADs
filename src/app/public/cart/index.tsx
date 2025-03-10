@@ -9,7 +9,7 @@ import {
 import { useCartTranslation } from '@/hooks/locales/pages/public';
 import useCartContext from '@/hooks/contexts/useCartContext';
 import Transition from '@/app/components/transition';
-import BtnLink from '@/app/components/button';
+import Btn from '@/app/components/button';
 import CartItem from './item';
 import formatter from './formatter';
 import styles from './styles.module.css';
@@ -59,7 +59,7 @@ const Cart = () => {
 						})}
 					</p>
 				</h2>
-				<BtnLink text={tCart('buy')}></BtnLink>
+				<Btn type='button' text={tCart('buy')} />
 				<hr />
 				<div className={styles.cards}>
 					<FontAwesomeIcon icon={faCcVisa} />
