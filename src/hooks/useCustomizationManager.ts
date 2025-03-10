@@ -3,7 +3,6 @@ import { AxiosError } from 'axios';
 import useCreateCustomization from '@/hooks/mutations/customizations/useCreateCustomization';
 import useGetCustomization from '@/hooks/queries/customizations/useGetCustomization';
 import useEditCustomization from './mutations/customizations/useEditCustomization';
-import { Request } from '@/api/customizations/customizations/resources/edit';
 
 const useCustomizationManager = (idParam?: string) => {
 	const { mutateAsync: create, data: createData } = useCreateCustomization();
@@ -23,7 +22,6 @@ const useCustomizationManager = (idParam?: string) => {
 			scale: 1,
 			volume: 0,
 		});
-	const persist = async (data: Request) => await edit(data);
 
 	useEffect(() => {
 		if (!id || (error instanceof AxiosError && error.status === 404)) {
@@ -31,7 +29,7 @@ const useCustomizationManager = (idParam?: string) => {
 		}
 	}, [customization]);
 
-	return { customization: customization, edit: persist };
+	return { customization: customization, edit };
 };
 
 export default useCustomizationManager;

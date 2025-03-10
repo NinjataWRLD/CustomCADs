@@ -11,14 +11,14 @@ import { useFetchTranslation } from '@/hooks/locales/common/messages';
 import { useCartTranslation } from '@/hooks/locales/pages/public';
 import { removeRecord } from '@/stores/editor-store';
 import Checkbox from '@/app/components/fields/checkbox';
-import { CartItem as ICartItem } from '@/types/cart-item';
+import { CartItem as Item } from '@/types/cart-item';
 import formatter from '../formatter';
 import styles from './styles.module.css';
 
 type AddToCostFunc = (amount: number) => void;
 
 interface CartItemProps {
-	item: ICartItem;
+	item: Item;
 	addToCost: { total: AddToCostFunc; delivery: AddToCostFunc };
 }
 
@@ -36,7 +36,7 @@ const CartItem = ({
 		removeItem,
 		incrementItemQuantity,
 		decrementItemQuantity,
-		toggleItemForDelivery,
+		toggleItemNoDelivery,
 	} = useCartUpdates();
 
 	const { data: file, isError: isFileError } = useDownloadProductImage({
@@ -85,15 +85,13 @@ const CartItem = ({
 			updateCosts(-1 * product.price, forDelivery ? -1 * store.cost : 0);
 		}
 	};
-	const toggleForDelivery = () => {
-		toggleItemForDelivery(productId);
+	const toggleForDelivery = async () => {
 		if (forDelivery) {
+			await toggleItemNoDelivery(productId);
 			addToCost.delivery(subtract(product.price));
 			addToCost.delivery(subtract(store.cost));
 			addToCost.total(subtract(store.cost));
-		} else {
-			navigate(`/editor/${productId}`, { state: { allow: true } });
-		}
+		} else navigate(`/editor/${productId}`, { state: { allow: true } });
 	};
 
 	if (isError || !product || isFileError) {

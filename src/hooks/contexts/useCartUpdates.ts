@@ -45,11 +45,25 @@ const useCartUpdates = () => {
 		}
 	};
 
-	const toggleItemForDelivery = async (id: string) => {
+	const toggleItemNoDelivery = async (id: string) => {
 		dispatch({ type: 'TOGGLE_DELIVERY', id: id });
 
 		if (cartEnabled) {
 			await toggleCartItemForDelivery({ productId: id });
+		}
+	};
+
+	const toggleItemForDelivery = async (
+		id: string,
+		customizationId: string,
+	) => {
+		dispatch({ type: 'TOGGLE_DELIVERY', id: id });
+
+		if (cartEnabled) {
+			await toggleCartItemForDelivery({
+				productId: id,
+				customizationId: customizationId,
+			});
 		}
 	};
 
@@ -66,6 +80,7 @@ const useCartUpdates = () => {
 		removeItem,
 		incrementItemQuantity,
 		decrementItemQuantity,
+		toggleItemNoDelivery,
 		toggleItemForDelivery,
 	};
 };
