@@ -5,7 +5,7 @@ import useCustomizationManager from '@/hooks/useCustomizationManager';
 import useEditorStore from '@/hooks/stores/useEditorStore';
 import useGetProduct from '@/hooks/queries/products/gallery/useGetGalleryProduct';
 import Transition from '@/app/components/transition';
-import BtnLink from '@/app/components/button';
+import Btn from '@/app/components/button';
 import Cad from '@/app/components/cad';
 import calculate3D from '@/utils/calculate-3D';
 import Menu from './menu';
@@ -68,8 +68,16 @@ const Editor = () => {
 					</div>
 
 					<div className={styles.btn}>
-						<BtnLink text={tEditor('back')} onClick={back} />
-						<BtnLink text={tEditor('reset')} onClick={reset} />
+						<Btn
+							type='button'
+							text={tEditor('back')}
+							onClick={back}
+						/>
+						<Btn
+							type='button'
+							text={tEditor('reset')}
+							onClick={reset}
+						/>
 					</div>
 				</div>
 				<div className={styles.cad}>
@@ -86,8 +94,16 @@ const Editor = () => {
 					</div>
 
 					<div className={styles.btn}>
-						<BtnLink text={tEditor('save')} onClick={save} />
-						<BtnLink text={tEditor('next')} onClick={next} />
+						<Btn
+							type='button'
+							text={tEditor('save')}
+							onClick={save}
+						/>
+						<Btn
+							type='button'
+							text={tEditor('next')}
+							onClick={next}
+						/>
 					</div>
 				</div>
 			</div>

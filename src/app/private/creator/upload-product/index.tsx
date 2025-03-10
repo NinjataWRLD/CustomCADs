@@ -1,6 +1,6 @@
 import Transition from '@/app/components/transition';
 import useFields from './hooks/useFields';
-import BtnLink from '@/app/components/button';
+import Btn from '@/app/components/button';
 import { useUploadProductTranslation } from '@/hooks/locales/pages/private/creator';
 import styles from './styles.module.css';
 
@@ -57,7 +57,7 @@ const UploadProduct = () => {
 					</div>
 
 					<div className={`${styles.submit}`}>
-						<BtnLink text={tUploadProduct('btn')} type='submit' />
+						<Btn type='submit' text={tUploadProduct('btn')} />
 					</div>
 				</form>
 			</div>

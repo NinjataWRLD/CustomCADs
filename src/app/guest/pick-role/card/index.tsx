@@ -7,7 +7,7 @@ import {
 	IconDefinition,
 } from '@fortawesome/free-solid-svg-icons';
 import { usePickRoleTranslation } from '@/hooks/locales/pages/guest';
-import BtnLink from '@/app/components/button';
+import Btn from '@/app/components/button';
 import styles from './styles.module.css';
 
 const Card = ({ id }: { id: 'client' | 'contributor' }) => {
@@ -26,7 +26,13 @@ const Card = ({ id }: { id: 'client' | 'contributor' }) => {
 				tPickRole('client-plus-2'),
 				tPickRole('client-plus-3'),
 			];
-			btn = <BtnLink text={tPickRole('btn')} link='/register/client' />;
+			btn = (
+				<Btn
+					type='link'
+					text={tPickRole('btn')}
+					link='/register/client'
+				/>
+			);
 			break;
 
 		case 'contributor':
@@ -38,7 +44,11 @@ const Card = ({ id }: { id: 'client' | 'contributor' }) => {
 				tPickRole('contributor-plus-3'),
 			];
 			btn = (
-				<BtnLink text={tPickRole('btn')} link='/register/contributor' />
+				<Btn
+					type='link'
+					text={tPickRole('btn')}
+					link='/register/contributor'
+				/>
 			);
 			break;
 

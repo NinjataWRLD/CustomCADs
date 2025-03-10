@@ -4,7 +4,7 @@ import { useFetchTranslation } from '@/hooks/locales/common/messages';
 import { useProductTranslation } from '@/hooks/locales/pages/public';
 import useGetProduct from '@/hooks/queries/products/gallery/useGetGalleryProduct';
 import Transition from '@/app/components/transition';
-import BtnLink from '@/app/components/button';
+import Btn from '@/app/components/button';
 import Cad from '@/app/components/cad';
 import AddToCartPopup from './add-to-cart-popup';
 import styles from './styles.module.css';
@@ -72,18 +72,17 @@ const Product = () => {
 							</div>
 
 							<div className={`${styles.buttons}`}>
-								<BtnLink
-									onClick={toggleForDelivery}
+								<Btn
+									type='button'
 									text={tProduct('button-1')}
-									className={`${styles.back}`}
+									onClick={toggleForDelivery}
 								/>
-								<BtnLink
+								<Btn
+									type='link'
 									text={tProduct('button-2')}
 									link='/gallery'
-									className={`${styles.back}`}
 								/>
 							</div>
-							<p>*{tProduct('warning')}</p>
 						</div>
 					</div>
 				</div>
