@@ -6,6 +6,7 @@ import {
 	faUserPlus,
 } from '@fortawesome/free-solid-svg-icons';
 import useAuthStore from '@/hooks/stores/useAuthStore';
+import useCartContext from '@/hooks/contexts/useCartContext';
 import { useHeaderTranslation } from '@/hooks/locales/components/layout';
 import LanguageButton from './language';
 import SettingsButton from './settings';
@@ -15,7 +16,10 @@ import styles from './styles.module.css';
 const title = 'CustomCADs';
 const Header = () => {
 	const { authn, authz } = useAuthStore();
+	const { items } = useCartContext();
+
 	const tHeader = useHeaderTranslation();
+	const hasCart = !authn || authz === 'Client';
 
 	return (
 		<header className={styles.header}>
@@ -31,12 +35,18 @@ const Header = () => {
 					icon={faImage}
 				/>
 				<span>|</span>
-				<BaseButton
-					label={tHeader('icon-2')}
-					link='/cart'
-					icon={faShoppingCart}
-				/>
-				<span>|</span>
+				{hasCart && (
+					<>
+						<BaseButton
+							label={tHeader('icon-2')}
+							link='/cart'
+							icon={faShoppingCart}
+						>
+							<div className={styles.circle}>{items.length}</div>
+						</BaseButton>
+						<span>|</span>
+					</>
+				)}
 				{authn && authz ? (
 					<SettingsButton role={authz} />
 				) : (
