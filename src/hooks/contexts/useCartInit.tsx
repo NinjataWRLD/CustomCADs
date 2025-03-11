@@ -9,7 +9,7 @@ import { CartItem } from '@/types/cart-item';
 
 const useCartInit = (): CartState => {
 	const { authn } = useAuthStore();
-	const { data: cart, isError, error } = useGetActiveCart(authn);
+	const { data: cart, error } = useGetActiveCart(authn);
 	const { mutateAsync: createCart } = useCreateActiveCart();
 
 	const loadFromLocalStorage = () => {
@@ -33,7 +33,6 @@ const useCartInit = (): CartState => {
 				if (cart) {
 					dispatch({ type: 'FILL_CART', items: cart.items });
 				} else if (
-					isError &&
 					error instanceof AxiosError &&
 					error.status === 404
 				) {
@@ -42,7 +41,7 @@ const useCartInit = (): CartState => {
 			};
 			initCart();
 		}
-	}, [authn, cart, isError]);
+	}, [authn, cart]);
 
 	return { items, dispatch };
 };

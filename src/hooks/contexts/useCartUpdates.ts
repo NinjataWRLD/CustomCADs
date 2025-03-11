@@ -8,9 +8,10 @@ import useToggleActiveCartItemForDelivery from '@/hooks/mutations/active-carts/u
 import useCartContext from './useCartContext';
 
 const useCartUpdates = () => {
-	const { dispatch } = useCartContext();
 	const { authn, authz } = useAuthStore();
+	const cartEnabled: boolean = authn && authz === 'Client';
 
+	const { dispatch } = useCartContext();
 	const { mutateAsync: addCartItem } = useAddActiveCartItem();
 	const { mutateAsync: removeCartItem } = useRemoveActiveCartItem();
 	const { mutateAsync: increaseCartItemQuantity } =
@@ -20,7 +21,6 @@ const useCartUpdates = () => {
 	const { mutateAsync: toggleCartItemForDelivery } =
 		useToggleActiveCartItemForDelivery();
 
-	const cartEnabled: boolean = authn && authz === 'Client';
 	const addItem = async (item: CartItem) => {
 		dispatch({ type: 'ADD_ITEM', item: item });
 
