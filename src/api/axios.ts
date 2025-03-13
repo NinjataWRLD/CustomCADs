@@ -1,5 +1,6 @@
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import { login } from '@/stores/auth-store';
+import isError from '@/utils/is-error';
 import { refresh } from './identity/sign-in';
 import { authz } from './identity/info';
 
@@ -17,7 +18,7 @@ const instance = axios.create({
 instance.interceptors.response.use(
 	(response) => response,
 	async (error) => {
-		if (!(error instanceof AxiosError)) {
+		if (!isError(error)) {
 			return Promise.reject(error);
 		}
 		const { response, config } = error;

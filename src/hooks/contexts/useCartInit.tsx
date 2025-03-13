@@ -1,11 +1,11 @@
 import { useEffect, useReducer } from 'react';
-import { AxiosError } from 'axios';
 import useAuthStore from '@/hooks/stores/useAuthStore';
 import useGetActiveCart from '@/hooks/queries/active-carts/useGetActiveCart';
 import useCreateActiveCart from '@/hooks/mutations/active-carts/useCreateActiveCart';
 import { CartState } from '@/contexts/cart/context';
 import cartReducer from '@/contexts/cart/reducer';
 import { CartItem } from '@/types/cart-item';
+import isError from '@/utils/is-error';
 
 const useCartInit = (): CartState => {
 	const { authn } = useAuthStore();
@@ -32,10 +32,7 @@ const useCartInit = (): CartState => {
 			const initCart = async () => {
 				if (cart) {
 					dispatch({ type: 'FILL_CART', items: cart.items });
-				} else if (
-					error instanceof AxiosError &&
-					error.status === 404
-				) {
+				} else if (isError(error, 404)) {
 					await createCart();
 				}
 			};
