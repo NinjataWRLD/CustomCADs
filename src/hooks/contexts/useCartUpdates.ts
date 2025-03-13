@@ -46,7 +46,7 @@ const useCartUpdates = () => {
 	};
 
 	const toggleItemNoDelivery = async (id: string) => {
-		dispatch({ type: 'TOGGLE_DELIVERY', id: id });
+		dispatch({ type: 'SET_NO_DELIVERY', id: id });
 
 		if (cartEnabled) {
 			await toggleCartItemForDelivery({ productId: id });
@@ -57,7 +57,11 @@ const useCartUpdates = () => {
 		id: string,
 		customizationId: string,
 	) => {
-		dispatch({ type: 'TOGGLE_DELIVERY', id: id });
+		dispatch({
+			type: 'SET_FOR_DELIVERY',
+			id: id,
+			customizationId: customizationId,
+		});
 
 		if (cartEnabled) {
 			await toggleCartItemForDelivery({

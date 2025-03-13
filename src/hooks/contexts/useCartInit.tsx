@@ -9,7 +9,7 @@ import isError from '@/utils/is-error';
 
 const useCartInit = (): CartState => {
 	const { authn } = useAuthStore();
-	const { data: cart, error } = useGetActiveCart(authn);
+	const { refetch } = useGetActiveCart();
 	const { mutateAsync: createCart } = useCreateActiveCart();
 
 	const loadFromLocalStorage = () => {
@@ -30,6 +30,8 @@ const useCartInit = (): CartState => {
 	useEffect(() => {
 		if (authn === true) {
 			const initCart = async () => {
+				const { data: cart, error } = await refetch();
+
 				if (cart) {
 					dispatch({ type: 'FILL_CART', items: cart.items });
 				} else if (isError(error, 404)) {
@@ -38,7 +40,7 @@ const useCartInit = (): CartState => {
 			};
 			initCart();
 		}
-	}, [authn, cart]);
+	}, [authn]);
 
 	return { items, dispatch };
 };
