@@ -35,7 +35,7 @@ const Header = () => {
 					icon={faImage}
 				/>
 				<span>|</span>
-				{hasCart && (
+				{hasCart && items && (
 					<>
 						<BaseButton
 							label={tHeader('icon-2')}

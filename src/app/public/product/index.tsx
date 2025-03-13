@@ -17,7 +17,7 @@ const Product = () => {
 	const tProduct = useProductTranslation();
 
 	const { items } = useCartContext();
-	const alreadyInCart = items.some((i) => i.productId === id);
+	const alreadyInCart = items && items.some((i) => i.productId === id);
 
 	const {
 		data: product,

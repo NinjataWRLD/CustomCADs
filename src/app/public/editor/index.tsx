@@ -23,7 +23,7 @@ const Editor = () => {
 		throw new Error('Entry Not Allowed!');
 
 	const { items } = useCartContext();
-	const item = items.find((i) => i.productId === id);
+	const item = items?.find((i) => i.productId === id);
 
 	const tEditor = useEditorTranslation();
 	const store = useEditorStore(id ?? '');
