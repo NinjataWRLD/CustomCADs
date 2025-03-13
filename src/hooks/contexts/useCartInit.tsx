@@ -1,4 +1,5 @@
 import { useEffect, useReducer } from 'react';
+import { ActiveCartItem } from '@/api/carts/common';
 import useAuthStore from '@/hooks/stores/useAuthStore';
 import useGetActiveCart from '@/hooks/queries/active-carts/useGetActiveCart';
 import useCreateActiveCart from '@/hooks/mutations/active-carts/useCreateActiveCart';
@@ -27,13 +28,32 @@ const useCartInit = (): CartState => {
 		}
 	}, [items]);
 
+	const mapItems = (items: ActiveCartItem[]): CartItem[] =>
+		items.map(({ forDelivery, productId, quantity, customizationId }) =>
+			forDelivery
+				? {
+						forDelivery,
+						productId,
+						quantity,
+						customizationId: customizationId!,
+					}
+				: {
+						forDelivery,
+						productId,
+						quantity: 1,
+					},
+		);
+
 	useEffect(() => {
 		if (authn === true) {
 			const initCart = async () => {
 				const { data: cart, error } = await refetch();
 
 				if (cart) {
-					dispatch({ type: 'FILL_CART', items: cart.items });
+					dispatch({
+						type: 'FILL_CART',
+						items: mapItems(cart.items),
+					});
 				} else if (isError(error, 404)) {
 					await createCart();
 				}

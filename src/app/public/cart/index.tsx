@@ -17,28 +17,63 @@ import styles from './styles.module.css';
 const Cart = () => {
 	const { items } = useCartContext();
 	const tCart = useCartTranslation();
-	const [cost, setCost] = useState({ total: 0, delivery: 0 });
 
-	const totalCount = items.length;
-	const addToTotalCost = (amount: number) =>
-		setCost((prev) => ({ ...prev, total: prev.total + amount }));
+	const [prices, setPrices] = useState<Record<string, number>>({});
+	const [costs, setCosts] = useState<Record<string, number>>({});
+	const sum = {
+		product: { total: 0, delivery: 0 },
+		customization: { total: 0, delivery: 0 },
+	};
 
-	const totalDeliveryCount = items.filter((i) => i.forDelivery).length;
-	const addToDeliveryCost = (amount: number) =>
-		setCost((prev) => ({ ...prev, delivery: prev.delivery + amount }));
+	Object.entries(prices).forEach(([id, price]) => {
+		sum.product.total += price;
+		const item = items?.find((i) => i.productId === id);
+		if (item?.forDelivery) {
+			sum.product.delivery += price;
+		}
+	});
+	Object.entries(costs).forEach(([id, cost]) => {
+		sum.customization.total += cost;
+		const item = items?.find((i) => i.productId === id);
+		if (item?.forDelivery) {
+			sum.customization.delivery += cost;
+		}
+	});
 
 	return (
 		<Transition>
 			<div className={styles.container}>
 				<h1>{tCart('title')}</h1>
 				<div className={styles.purchases}>
-					{items.map((item) => (
+					{items?.map((item) => (
 						<CartItem
 							key={item.productId}
 							item={item}
-							addToCost={{
-								total: addToTotalCost,
-								delivery: addToDeliveryCost,
+							reset={{
+								price: () =>
+									setPrices((prev) => ({
+										...prev,
+										[item.productId]: 0,
+									})),
+								cost: () =>
+									setCosts((prev) => ({
+										...prev,
+										[item.productId]: 0,
+									})),
+							}}
+							addTo={{
+								price: (price) =>
+									setPrices((prev) => ({
+										...prev,
+										[item.productId]:
+											(prev[item.productId] ?? 0) + price,
+									})),
+								cost: (cost) =>
+									setCosts((prev) => ({
+										...prev,
+										[item.productId]:
+											(prev[item.productId] ?? 0) + cost,
+									})),
 							}}
 						/>
 					))}
@@ -48,14 +83,19 @@ const Cart = () => {
 				<h2>
 					<p>
 						{tCart('total', {
-							count: totalCount,
-							cost: formatter.price(cost.total),
+							count: items?.length,
+							cost: formatter.price(
+								sum.product.total + sum.customization.total,
+							),
 						})}
 					</p>
 					<p>
 						{tCart('total-delivery', {
-							count: totalDeliveryCount,
-							cost: formatter.price(cost.delivery),
+							count: items?.filter((i) => i.forDelivery).length,
+							cost: formatter.price(
+								sum.product.delivery +
+									sum.customization.delivery,
+							),
 						})}
 					</p>
 				</h2>

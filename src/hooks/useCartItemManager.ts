@@ -13,7 +13,8 @@ const useCartItemManager = (productId: string) => {
 		useCreateCustomization();
 
 	const customizationId =
-		createCustomizationData?.id ?? item?.customizationId;
+		createCustomizationData?.id ??
+		(item?.forDelivery ? item.customizationId : null);
 
 	const { data: customization, error: customizationError } =
 		useGetCustomization({ id: customizationId! }, !!customizationId);

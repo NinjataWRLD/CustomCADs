@@ -1,6 +1,12 @@
-export interface CartItem {
-	productId: string;
-	quantity: number;
-	forDelivery: boolean;
-	customizationId?: string;
-}
+export type CartItem =
+	| {
+			forDelivery: true;
+			productId: string;
+			quantity: number;
+			customizationId: string;
+	  }
+	| {
+			forDelivery: false;
+			productId: string;
+			quantity: 1;
+	  };
