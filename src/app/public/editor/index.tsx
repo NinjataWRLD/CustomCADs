@@ -1,12 +1,11 @@
-import { useEffect } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
-import { resetStore, setCustomizationId } from '@/stores/editor-store';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { resetStore } from '@/stores/editor-store';
 import { useEditorTranslation } from '@/hooks/locales/pages/public';
-import useCustomizationManager from '@/hooks/useCustomizationManager';
+import useCartItemManager from '@/hooks/useCartItemManager';
 import useEditorStore from '@/hooks/stores/useEditorStore';
 import useGetProduct from '@/hooks/queries/products/gallery/useGetGalleryProduct';
-import useCartContext from '@/hooks/contexts/useCartContext';
 import useCartUpdates from '@/hooks/contexts/useCartUpdates';
+import useEditCustomization from '@/hooks/mutations/customizations/useEditCustomization';
 import Transition from '@/app/components/transition';
 import Btn from '@/app/components/button';
 import Cad from '@/app/components/cad';
@@ -18,32 +17,28 @@ import styles from './styles.module.css';
 
 const Editor = () => {
 	const { id } = useParams();
+	const navigate = useNavigate();
+
 	const locationState = useLocation().state;
 	if (!locationState || !locationState.allow)
 		throw new Error('Entry Not Allowed!');
-
-	const { items } = useCartContext();
-	const item = items?.find((i) => i.productId === id);
 
 	const tEditor = useEditorTranslation();
 	const store = useEditorStore(id ?? '');
 
 	const { data: product } = useGetProduct({ id: id ?? '' }, !!id);
-	const { customization, edit: editCustomization } = useCustomizationManager(
-		store.customizationId,
-	);
+	const { item, customization } = useCartItemManager(id ?? '');
 
 	const { addItem, toggleItemForDelivery } = useCartUpdates();
-	useEffect(() => {
-		if (id && customization && item) {
-			if (!item.forDelivery) toggleItemForDelivery(id, customization.id);
-		}
-	}, [id, customization, item]);
+	const { mutateAsync: editCustomization } = useEditCustomization();
 
 	if (!id || !customization || !product) return;
-	if (!store.customizationId) {
-		setCustomizationId(id, customization.id);
-	}
+
+	const volume = calculate3D.volumeMm3(
+		product.volume,
+		store.scale / 100,
+		store.size,
+	);
 
 	const reset = () => resetStore(id);
 	const save = () => {
@@ -54,6 +49,7 @@ const Editor = () => {
 				forDelivery: true,
 				customizationId: customization.id,
 			});
+		else if (!item.forDelivery) toggleItemForDelivery(id, customization.id);
 
 		editCustomization({
 			id: customization.id,
@@ -61,15 +57,11 @@ const Editor = () => {
 			materialId: store.materialId,
 			infill: store.infill / 100,
 			scale: store.scale / 100,
-			volume: product.volume,
+			volume: volume,
 		});
-	};
 
-	const volume = calculate3D.volumeMm3(
-		product.volume,
-		store.scale / 100,
-		store.size,
-	);
+		navigate('/cart');
+	};
 
 	return (
 		<Transition>

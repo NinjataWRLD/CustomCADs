@@ -3,7 +3,6 @@ import { Ratio } from '@/types/threejs';
 
 const LOCAL_STORAGE_KEY = 'editor-store';
 interface EditorState {
-	customizationId?: string;
 	materialId: number;
 	color: string;
 	infill: number;
@@ -14,7 +13,6 @@ interface EditorState {
 }
 
 export const defaultEditorState: EditorState = {
-	customizationId: undefined,
 	materialId: 1,
 	color: '#ffffff',
 	infill: 20,
@@ -54,12 +52,6 @@ export const removeRecord = (id: string) =>
 	store.setState((prev) =>
 		Object.fromEntries(Object.entries(prev).filter((x) => x[0] !== id)),
 	);
-
-export const setCustomizationId = (id: string, customizationId: string) =>
-	store.setState((prev) => ({
-		...prev,
-		[id]: { ...prev[id], customizationId: customizationId },
-	}));
 
 export const setMaterialId = (id: string, materialId: number) =>
 	store.setState((prev) => ({

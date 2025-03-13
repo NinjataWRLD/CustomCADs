@@ -9,7 +9,6 @@ export interface CustomizationResponse {
 	id: string;
 	scale: number;
 	infill: number;
-	volume: number;
 	weight: number;
 	cost: number;
 	color: string;
