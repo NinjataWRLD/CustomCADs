@@ -8,9 +8,10 @@ import useToggleActiveCartItemForDelivery from '@/hooks/mutations/active-carts/u
 import useCartContext from './useCartContext';
 
 const useCartUpdates = () => {
-	const { dispatch } = useCartContext();
 	const { authn, authz } = useAuthStore();
+	const cartEnabled: boolean = authn && authz === 'Client';
 
+	const { dispatch } = useCartContext();
 	const { mutateAsync: addCartItem } = useAddActiveCartItem();
 	const { mutateAsync: removeCartItem } = useRemoveActiveCartItem();
 	const { mutateAsync: increaseCartItemQuantity } =
@@ -20,7 +21,6 @@ const useCartUpdates = () => {
 	const { mutateAsync: toggleCartItemForDelivery } =
 		useToggleActiveCartItemForDelivery();
 
-	const cartEnabled: boolean = authn && authz === 'Client';
 	const addItem = async (item: CartItem) => {
 		dispatch({ type: 'ADD_ITEM', item: item });
 
@@ -45,11 +45,29 @@ const useCartUpdates = () => {
 		}
 	};
 
-	const toggleItemForDelivery = async (id: string) => {
-		dispatch({ type: 'TOGGLE_DELIVERY', id: id });
+	const toggleItemNoDelivery = async (id: string) => {
+		dispatch({ type: 'SET_NO_DELIVERY', id: id });
 
 		if (cartEnabled) {
 			await toggleCartItemForDelivery({ productId: id });
+		}
+	};
+
+	const toggleItemForDelivery = async (
+		id: string,
+		customizationId: string,
+	) => {
+		dispatch({
+			type: 'SET_FOR_DELIVERY',
+			id: id,
+			customizationId: customizationId,
+		});
+
+		if (cartEnabled) {
+			await toggleCartItemForDelivery({
+				productId: id,
+				customizationId: customizationId,
+			});
 		}
 	};
 
@@ -66,6 +84,7 @@ const useCartUpdates = () => {
 		removeItem,
 		incrementItemQuantity,
 		decrementItemQuantity,
+		toggleItemNoDelivery,
 		toggleItemForDelivery,
 	};
 };

@@ -17,7 +17,7 @@ const Product = () => {
 	const tProduct = useProductTranslation();
 
 	const { items } = useCartContext();
-	const alreadyInCart = items.some((i) => i.productId === id);
+	const alreadyInCart = items && items.some((i) => i.productId === id);
 
 	const {
 		data: product,
@@ -29,7 +29,15 @@ const Product = () => {
 	const toggleForDelivery = () => {
 		setShowPopup((prev) => !prev);
 	};
+
 	const [showPopupMessage, setShowPopupMessage] = useState(false);
+	const flashPopupMessage = () => {
+		setShowPopupMessage(true);
+
+		setTimeout(() => {
+			setShowPopupMessage(false);
+		}, 3000);
+	};
 
 	if (isLoading) {
 		return <>{tFetch('loading')}</>;
@@ -103,7 +111,7 @@ const Product = () => {
 				id={product.id}
 				show={showPopup}
 				setShow={setShowPopup}
-				setShowMessage={setShowPopupMessage}
+				flashMessage={flashPopupMessage}
 			/>
 
 			{showPopupMessage && (

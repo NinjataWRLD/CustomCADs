@@ -1,9 +1,11 @@
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { resetStore, setCustomizationId } from '@/stores/editor-store';
+import { resetStore } from '@/stores/editor-store';
 import { useEditorTranslation } from '@/hooks/locales/pages/public';
-import useCustomizationManager from '@/hooks/useCustomizationManager';
+import useCartItemManager from '@/hooks/useCartItemManager';
 import useEditorStore from '@/hooks/stores/useEditorStore';
 import useGetProduct from '@/hooks/queries/products/gallery/useGetGalleryProduct';
+import useCartUpdates from '@/hooks/contexts/useCartUpdates';
+import useEditCustomization from '@/hooks/mutations/customizations/useEditCustomization';
 import Transition from '@/app/components/transition';
 import Btn from '@/app/components/button';
 import Cad from '@/app/components/cad';
@@ -22,37 +24,44 @@ const Editor = () => {
 		throw new Error('Entry Not Allowed!');
 
 	const tEditor = useEditorTranslation();
+	const store = useEditorStore(id ?? '');
 
 	const { data: product } = useGetProduct({ id: id ?? '' }, !!id);
-	const store = useEditorStore(id ?? '');
-	const { customization, edit: persist } = useCustomizationManager(
-		store.customizationId,
-	);
+	const { item, customization } = useCartItemManager(id ?? '');
+
+	const { addItem, toggleItemForDelivery } = useCartUpdates();
+	const { mutateAsync: editCustomization } = useEditCustomization();
 
 	if (!id || !customization || !product) return;
-	if (!store.customizationId) {
-		setCustomizationId(id, customization.id);
-	}
-
-	const reset = () => resetStore(id);
-	const save = () =>
-		persist({
-			id: customization.id,
-			color: store.color,
-			materialId: store.materialId,
-			infill: store.infill / 100,
-			scale: store.scale / 100,
-			volume: product.volume,
-		});
-
-	const back = () => navigate(`/gallery/${id}`);
-	const next = () => navigate(`/cart`);
 
 	const volume = calculate3D.volumeMm3(
 		product.volume,
 		store.scale / 100,
 		store.size,
 	);
+
+	const reset = () => resetStore(id);
+	const save = () => {
+		if (!item)
+			addItem({
+				productId: id,
+				quantity: 1,
+				forDelivery: true,
+				customizationId: customization.id,
+			});
+		else if (!item.forDelivery) toggleItemForDelivery(id, customization.id);
+
+		editCustomization({
+			id: customization.id,
+			color: store.color,
+			materialId: store.materialId,
+			infill: store.infill / 100,
+			scale: store.scale / 100,
+			volume: volume,
+		});
+
+		navigate('/cart');
+	};
 
 	return (
 		<Transition>
@@ -68,11 +77,6 @@ const Editor = () => {
 					</div>
 
 					<div className={styles.btn}>
-						<Btn
-							type='button'
-							text={tEditor('back')}
-							onClick={back}
-						/>
 						<Btn
 							type='button'
 							text={tEditor('reset')}
@@ -98,11 +102,6 @@ const Editor = () => {
 							type='button'
 							text={tEditor('save')}
 							onClick={save}
-						/>
-						<Btn
-							type='button'
-							text={tEditor('next')}
-							onClick={next}
 						/>
 					</div>
 				</div>

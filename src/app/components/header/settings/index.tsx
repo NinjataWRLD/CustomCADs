@@ -18,10 +18,10 @@ const SettingsButton = ({ role }: { role: string }) => {
 	const tHeader = useHeaderTranslation();
 	const { dispatch } = useCartContext();
 
-	const mutation = useLogout();
+	const { mutateAsync: apiLogout } = useLogout();
 	const logout = async () => {
+		await apiLogout();
 		dispatch({ type: 'CLEAR_CART' });
-		await mutation.mutateAsync();
 		authStore.logout();
 	};
 

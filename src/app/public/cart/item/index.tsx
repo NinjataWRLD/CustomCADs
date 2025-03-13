@@ -2,32 +2,27 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMinus, faPlus, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import useGetCustomization from '@/hooks/queries/customizations/useGetCustomization';
 import useGetProduct from '@/hooks/queries/products/gallery/useGetGalleryProduct';
 import useGenerateBlobUrl from '@/hooks/useGenerateBlobUrl';
 import useDownloadProductImage from '@/hooks/queries/products/gallery/useDownloadProductImage';
 import useCartUpdates from '@/hooks/contexts/useCartUpdates';
-import useEditorStore from '@/hooks/stores/useEditorStore';
 import { useFetchTranslation } from '@/hooks/locales/common/messages';
 import { useCartTranslation } from '@/hooks/locales/pages/public';
 import { removeRecord } from '@/stores/editor-store';
 import Checkbox from '@/app/components/fields/checkbox';
-import { CartItem as ICartItem } from '@/types/cart-item';
+import { CartItem as Item } from '@/types/cart-item';
 import formatter from '../formatter';
 import styles from './styles.module.css';
 
-type AddToCostFunc = (amount: number) => void;
-
 interface CartItemProps {
-	item: ICartItem;
-	addToCost: { total: AddToCostFunc; delivery: AddToCostFunc };
+	item: Item;
+	reset: { price: VoidFunction; cost: VoidFunction };
+	addTo: { price: (price: number) => void; cost: (cost: number) => void };
 }
 
-const CartItem = ({
-	item: { productId, forDelivery, quantity },
-	addToCost,
-}: CartItemProps) => {
+const CartItem = ({ item, addTo, reset }: CartItemProps) => {
 	const navigate = useNavigate();
-	const store = useEditorStore(productId);
 
 	const tFetch = useFetchTranslation();
 	const tCart = useCartTranslation();
@@ -36,63 +31,59 @@ const CartItem = ({
 		removeItem,
 		incrementItemQuantity,
 		decrementItemQuantity,
-		toggleItemForDelivery,
+		toggleItemNoDelivery,
 	} = useCartUpdates();
 
 	const { data: file, isError: isFileError } = useDownloadProductImage({
-		id: productId,
+		id: item.productId,
 	});
-	const { data: product, isError } = useGetProduct({ id: productId });
+	const { data: product, isError } = useGetProduct({ id: item.productId });
 	const blobUrl = useGenerateBlobUrl(file?.presignedUrl, file?.contentType);
 
-	const updateCosts = (productCost: number, customizationCost: number) => {
-		addToCost.total(productCost);
-		if (forDelivery) {
-			addToCost.delivery(productCost);
-
-			addToCost.total(customizationCost);
-			addToCost.delivery(customizationCost);
-		}
-	};
+	const id = item.forDelivery ? item.customizationId : '';
+	const { data: customization } = useGetCustomization({ id }, !!id);
 
 	useEffect(() => {
-		if (product) {
-			updateCosts(quantity * product.price, quantity * store.cost);
-		}
+		reset.price();
+		if (product) addTo.price(product.price * item.quantity);
 	}, [product]);
+
+	useEffect(() => {
+		reset.cost();
+		if (customization) addTo.cost(customization.cost * item.quantity);
+	}, [customization]);
 
 	if (!product) {
 		return <></>;
 	}
 
-	const subtract = (money: number) => -1 * quantity * money;
-
 	const remove = () => {
-		removeItem(productId);
-		updateCosts(
-			subtract(product.price),
-			forDelivery ? subtract(store.cost) : 0,
-		);
-		removeRecord(productId);
+		addTo.price(-1 * product.price * item.quantity);
+		addTo.cost(-1 * (customization?.cost ?? 0) * item.quantity);
+
+		removeItem(item.productId);
+		removeRecord(item.productId);
 	};
 	const incrementQuantity = () => {
-		incrementItemQuantity(productId);
-		updateCosts(product.price, forDelivery ? store.cost : 0);
+		incrementItemQuantity(item.productId);
+		addTo.price(product.price);
+		addTo.cost(customization?.cost ?? 0);
 	};
 	const decrementQuantity = () => {
-		decrementItemQuantity(productId);
-		if (quantity > 1) {
-			updateCosts(-1 * product.price, forDelivery ? -1 * store.cost : 0);
+		decrementItemQuantity(item.productId);
+		if (item.quantity > 1) {
+			addTo.price(-1 * product.price);
+			addTo.cost(-1 * (customization?.cost ?? 0));
 		}
 	};
-	const toggleForDelivery = () => {
-		toggleItemForDelivery(productId);
-		if (forDelivery) {
-			addToCost.delivery(subtract(product.price));
-			addToCost.delivery(subtract(store.cost));
-			addToCost.total(subtract(store.cost));
+	const toggleDelivery = async () => {
+		if (item.forDelivery) {
+			addTo.price(-1 * product.price * (item.quantity - 1));
+			addTo.cost(-1 * (customization?.cost ?? 0) * item.quantity);
+
+			await toggleItemNoDelivery(item.productId);
 		} else {
-			navigate(`/editor/${productId}`, { state: { allow: true } });
+			navigate(`/editor/${item.productId}`, { state: { allow: true } });
 		}
 	};
 
@@ -107,10 +98,10 @@ const CartItem = ({
 					<h2>
 						<div>
 							<Checkbox
-								id={product.id + forDelivery}
+								id={item.productId}
 								label={tCart('delivery')}
-								checked={forDelivery}
-								onClick={toggleForDelivery}
+								checked={item.forDelivery}
+								onClick={toggleDelivery}
 							/>
 						</div>
 					</h2>
@@ -119,13 +110,13 @@ const CartItem = ({
 				<div className={styles.data}>
 					<h2>{product.name}</h2>
 					<p>{tCart('by', { by: product.creatorName })}</p>
-					{forDelivery && (
+					{item.forDelivery && (
 						<div className={styles.quantity}>
 							<FontAwesomeIcon
 								icon={faMinus}
 								onClick={decrementQuantity}
 							/>
-							<div className={styles.number}>{quantity}</div>
+							<div className={styles.number}>{item.quantity}</div>
 							<FontAwesomeIcon
 								icon={faPlus}
 								onClick={incrementQuantity}
@@ -134,17 +125,17 @@ const CartItem = ({
 					)}
 					<button
 						className={styles.btn}
-						onClick={() => navigate(`/gallery/${productId}`)}
+						onClick={() => navigate(`/gallery/${item.productId}`)}
 					>
 						<span>{tCart('view')}</span>
 					</button>
-					{forDelivery && (
+					{item.forDelivery && (
 						<>
 							<button
 								className={styles.btn}
 								style={{ bottom: '10%' }}
 								onClick={() =>
-									navigate(`/editor/${productId}`, {
+									navigate(`/editor/${item.productId}`, {
 										state: { allow: true },
 									})
 								}
@@ -155,13 +146,13 @@ const CartItem = ({
 					)}
 					<p>
 						{tCart('product-price', {
-							price: formatter.price(product.price * quantity),
+							price: formatter.price(product.price),
 						})}
 					</p>
-					{forDelivery && (
+					{item.forDelivery && (
 						<p>
 							{tCart('customization-cost', {
-								cost: formatter.price(store.cost * quantity),
+								cost: formatter.price(customization?.cost ?? 0),
 							})}
 						</p>
 					)}

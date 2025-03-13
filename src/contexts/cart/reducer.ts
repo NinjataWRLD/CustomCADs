@@ -23,10 +23,25 @@ const cartReducer = (state: CartItem[], action: CartAction): CartItem[] => {
 					? { ...item, quantity: item.quantity - 1 }
 					: item,
 			);
-		case 'TOGGLE_DELIVERY':
+		case 'SET_FOR_DELIVERY':
 			return state.map((item) =>
 				item.productId === action.id
-					? { ...item, forDelivery: !item.forDelivery }
+					? {
+							...item,
+							forDelivery: true,
+							customizationId: action.customizationId,
+						}
+					: item,
+			);
+		case 'SET_NO_DELIVERY':
+			return state.map((item) =>
+				item.productId === action.id
+					? {
+							...item,
+							forDelivery: false,
+							customizationId: undefined,
+							quantity: 1,
+						}
 					: item,
 			);
 		case 'SET_WEIGHT':

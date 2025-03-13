@@ -8,13 +8,20 @@ const Wrapper = ({ link, children }: { link?: string; children: ReactNode }) =>
 	link ? <Link to={link}>{children}</Link> : <>{children}</>;
 
 interface BaseButtonProps {
+	children?: ReactNode;
 	label: string;
 	link?: string;
 	icon: IconDefinition;
 	onClick?: VoidFunction;
 }
 
-const BaseButton = ({ label, link, icon, onClick }: BaseButtonProps) => {
+const BaseButton = ({
+	children,
+	label,
+	link,
+	icon,
+	onClick,
+}: BaseButtonProps) => {
 	return (
 		<div className={styles['icon-wrapper']} data-tooltip={label}>
 			<Wrapper link={link}>
@@ -24,6 +31,7 @@ const BaseButton = ({ label, link, icon, onClick }: BaseButtonProps) => {
 					style={{ cursor: 'pointer' }}
 					onClick={onClick}
 				/>
+				{children}
 			</Wrapper>
 		</div>
 	);
