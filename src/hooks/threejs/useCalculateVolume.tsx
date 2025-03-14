@@ -18,7 +18,7 @@ const useCalculateVolume = (file: File | null) => {
 		};
 	}, [file]);
 
-	const { ref } = useThreeJS(
+	const { instance, ref } = useThreeJS(
 		blobUrl ?? '',
 		{ cam: emptyCoords, pan: emptyCoords },
 		(cad) => {
@@ -26,7 +26,7 @@ const useCalculateVolume = (file: File | null) => {
 		},
 	);
 
-	return { volume, ref };
+	return { volume, ref, getCoords: () => instance?.getCoords() };
 };
 
 export default useCalculateVolume;

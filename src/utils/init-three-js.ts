@@ -85,6 +85,13 @@ const update = {
 	},
 };
 
+const info = {
+	coords: (camera: THREE.Camera, controls: OrbitControls) => ({
+		cam: camera.position,
+		pan: controls.target,
+	}),
+};
+
 const initThreeJS = (
 	root: HTMLDivElement | null,
 	coords: { cam: Coordinates; pan: Coordinates },
@@ -104,6 +111,7 @@ const initThreeJS = (
 	init.lights(scene);
 	animate(controls, renderer, camera, scene);
 
+	const getCoords = () => info.coords(camera, controls);
 	const updateCoords = (coords: { cam: Coordinates; pan: Coordinates }) => {
 		update.camera(camera, coords.cam);
 		update.controls(controls, coords.pan);
@@ -123,7 +131,7 @@ const initThreeJS = (
 		}
 	};
 
-	return { scene, camera, renderer, controls, updateCoords, exit };
+	return { scene, camera, renderer, controls, updateCoords, getCoords, exit };
 };
 
 export default initThreeJS;
