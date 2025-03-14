@@ -7,6 +7,7 @@ import {
 	faUserCog,
 } from '@fortawesome/free-solid-svg-icons';
 import { useHeaderTranslation } from '@/hooks/locales/components/layout';
+import useAuthStore from '@/hooks/stores/useAuthStore';
 import useCartContext from '@/hooks/contexts/useCartContext';
 import useLogout from '@/hooks/mutations/sign-in/useLogout';
 import * as authStore from '@/stores/auth-store';
@@ -14,7 +15,9 @@ import BaseButton from '../base';
 import Setting from './setting';
 import styles from './styles.module.css';
 
-const SettingsButton = ({ role }: { role: string }) => {
+const SettingsButton = () => {
+	const { is } = useAuthStore();
+
 	const tHeader = useHeaderTranslation();
 	const { dispatch } = useCartContext();
 
@@ -30,31 +33,23 @@ const SettingsButton = ({ role }: { role: string }) => {
 	const hide = () => setShow(false);
 
 	let settings;
-	switch (role) {
-		case 'Client':
-			settings = (
-				<>
-					<Setting
-						label={'Carts'}
-						link='/carts'
-						icon={faShoppingBag}
-						hide={hide}
-					/>
-					<Setting
-						label={'Orders'}
-						link='/orders'
-						icon={faPuzzlePiece}
-						hide={hide}
-					/>
-				</>
-			);
-			break;
-		case 'Contributor':
-			break;
-		case 'Designer':
-			break;
-		default:
-			break;
+	if (is.client) {
+		settings = (
+			<>
+				<Setting
+					label={'Carts'}
+					link='/carts'
+					icon={faShoppingBag}
+					hide={hide}
+				/>
+				<Setting
+					label={'Orders'}
+					link='/orders'
+					icon={faPuzzlePiece}
+					hide={hide}
+				/>
+			</>
+		);
 	}
 
 	return (

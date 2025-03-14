@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useStore } from '@tanstack/react-store';
 import authStore, { login, logout } from '@/stores/auth-store';
 import useAuthn from '@/hooks/queries/identity/useAuthn';
@@ -22,7 +22,23 @@ const useAuthStore = () => {
 		sync();
 	}, [state]);
 
-	return state;
+	const is = useMemo(() => {
+		const { authn, authz } = state;
+		const roles = {
+			guest: !authn,
+			client: authn && authz === 'Client',
+			contributor: authn && authz === 'Contributor',
+			designer: authn && authz === 'Designer',
+			admin: authn && authz === 'Admin',
+		};
+
+		return {
+			...roles,
+			creator: roles.contributor || roles.designer,
+		};
+	}, [state.authn, state.authz]);
+
+	return { ...state, is: is };
 };
 
 export default useAuthStore;
