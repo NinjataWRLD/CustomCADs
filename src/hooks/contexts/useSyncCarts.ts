@@ -5,17 +5,16 @@ import useAddActiveCartItem from '@/hooks/mutations/active-carts/useAddActiveCar
 import useGetActiveCart from '../queries/active-carts/useGetActiveCart';
 
 const useSyncCarts = () => {
-	const { authn, authz } = useAuthStore();
-	const isClient = authn && authz === 'Client';
+	const { is } = useAuthStore();
 
 	const { mutateAsync: addItem } = useAddActiveCartItem();
-	const { data: cart } = useGetActiveCart(isClient);
+	const { data: cart } = useGetActiveCart(is.client);
 	const items = cart?.items ?? [];
 
 	useEffect(() => {
 		const cartString = localStorage.getItem('cart');
 
-		if (isClient && cartString) {
+		if (is.client && cartString) {
 			localStorage.removeItem('cart');
 			const cart = JSON.parse(cartString) as CartItem[];
 
@@ -31,7 +30,7 @@ const useSyncCarts = () => {
 				);
 			sync();
 		}
-	}, [authn, authz]);
+	}, [is]);
 };
 
 export default useSyncCarts;

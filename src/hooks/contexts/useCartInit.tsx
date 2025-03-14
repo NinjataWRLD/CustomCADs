@@ -9,8 +9,8 @@ import { CartItem } from '@/types/cart-item';
 import isError from '@/utils/is-error';
 
 const useCartInit = (): CartState => {
-	const { authn } = useAuthStore();
-	const { refetch } = useGetActiveCart();
+	const { is } = useAuthStore();
+	const { refetch } = useGetActiveCart(false);
 	const { mutateAsync: createCart } = useCreateActiveCart();
 
 	const loadFromLocalStorage = () => {
@@ -23,7 +23,7 @@ const useCartInit = (): CartState => {
 	);
 
 	useEffect(() => {
-		if (authn === false) {
+		if (is.guest) {
 			localStorage.setItem('cart', JSON.stringify(items));
 		}
 	}, [items]);
@@ -45,7 +45,7 @@ const useCartInit = (): CartState => {
 		);
 
 	useEffect(() => {
-		if (authn === true) {
+		if (is.client) {
 			const initCart = async () => {
 				const { data: cart, error } = await refetch();
 
@@ -60,7 +60,7 @@ const useCartInit = (): CartState => {
 			};
 			initCart();
 		}
-	}, [authn]);
+	}, [is]);
 
 	return { items, dispatch };
 };

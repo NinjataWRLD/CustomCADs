@@ -4,7 +4,7 @@ import Layout from '@/app/layout';
 import CartContextProvider from '@/contexts/cart/provider';
 import publicRoutes from './public';
 import guestRoutes from './guest';
-import privateRoutes from './private';
+import creatorRoutes from './creator';
 
 const queryClient = new QueryClient({
 	defaultOptions: {
@@ -24,7 +24,7 @@ const userRoutes: RouteObject = {
 			</CartContextProvider>
 		</QueryClientProvider>
 	),
-	children: [...publicRoutes, ...guestRoutes, ...privateRoutes],
+	children: [publicRoutes, guestRoutes, creatorRoutes],
 };
 
 export default [userRoutes];

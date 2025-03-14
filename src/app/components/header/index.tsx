@@ -15,11 +15,10 @@ import styles from './styles.module.css';
 
 const title = 'CustomCADs';
 const Header = () => {
-	const { authn, authz } = useAuthStore();
+	const { is } = useAuthStore();
 	const { items } = useCartContext();
 
 	const tHeader = useHeaderTranslation();
-	const hasCart = !authn || authz === 'Client';
 
 	return (
 		<header className={styles.header}>
@@ -35,7 +34,7 @@ const Header = () => {
 					icon={faImage}
 				/>
 				<span>|</span>
-				{hasCart && items && (
+				{(is.guest || is.client) && items && (
 					<>
 						<BaseButton
 							label={tHeader('icon-2')}
@@ -47,8 +46,8 @@ const Header = () => {
 						<span>|</span>
 					</>
 				)}
-				{authn && authz ? (
-					<SettingsButton role={authz} />
+				{!is.guest ? (
+					<SettingsButton />
 				) : (
 					<>
 						<BaseButton
