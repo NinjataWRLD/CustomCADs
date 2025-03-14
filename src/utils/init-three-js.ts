@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { Coordinates } from '@/api/catalog/common';
+import removeGLTF from './remove-gtlf';
 
 const init = {
 	camera: (cam: Coordinates) => {
@@ -116,20 +117,7 @@ const initThreeJS = (
 		renderer.dispose();
 		renderer.domElement.remove();
 
-		scene.traverse((child) => {
-			const { geometry, material } = child as THREE.Mesh;
-			if (geometry) {
-				geometry.dispose();
-			}
-			if (material) {
-				if (Array.isArray(material)) {
-					material.forEach((mat) => mat.dispose());
-				} else {
-					material.dispose();
-				}
-			}
-		});
-
+		removeGLTF(scene);
 		while (scene.children.length > 0) {
 			scene.remove(scene.children[0]);
 		}
