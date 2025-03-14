@@ -1,4 +1,5 @@
 import { FormEvent, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useForm as useTanStackForm } from '@tanstack/react-form';
 import useForceLocaleRefresh from '@/hooks/locales/useForceLocaleRefresh';
 import { FileData } from '@/types/files';
@@ -25,13 +26,15 @@ const defaultValues: Fields = {
 
 const useForm = () => {
 	const schema = useValidation();
+	const navigate = useNavigate();
+
 	const [value, setValue] = useState<Fields>();
 
-	const [cad, setCad] = useState<File | null>(null);
 	const [files, setFiles] = useState<{ image: FileData; cad: FileData }>();
+	const uploadFiles = useUploader(setFiles);
 
-	const uploadFiles = useUploader(setCad, setFiles);
-	const ref = useCreator(cad, files, value);
+	const [cad, setCad] = useState<File | null>(null);
+	const ref = useCreator(cad, files, value, () => navigate('/gallery'));
 
 	useEffect(() => {
 		if (value) {
@@ -56,6 +59,7 @@ const useForm = () => {
 	return {
 		form,
 		handleSubmit,
+		setCad,
 		ref,
 	};
 };

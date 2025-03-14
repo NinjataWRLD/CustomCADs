@@ -2,6 +2,8 @@ import { useEffect, useRef } from 'react';
 import { GLTFLoader, GLTF } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { Coordinates } from '@/api/catalog/common';
 import initThreeJS from '@/utils/init-three-js';
+import lockGLTF from '@/utils/lock-gltf';
+import removeGLTF from '@/utils/remove-gtlf';
 
 const useThreeJS = (
 	url: string,
@@ -26,7 +28,10 @@ const useThreeJS = (
 	useEffect(() => {
 		if (instanceRef.current && url) {
 			const { scene } = instanceRef.current;
+			removeGLTF(scene);
+
 			new GLTFLoader().load(url, (cad) => {
+				lockGLTF(cad);
 				if (loadCallback) loadCallback(cad);
 				scene.add(cad.scene);
 			});

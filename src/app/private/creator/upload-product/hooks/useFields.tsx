@@ -7,7 +7,7 @@ import { formatMeta } from '@/utils/form-formatter';
 import useForm from './useForm';
 
 const useFields = () => {
-	const { form, handleSubmit, ref } = useForm();
+	const { form, handleSubmit, setCad, ref } = useForm();
 	const { data: categories } = useGetCategories();
 
 	const tPlaceholders = usePlaceholdersTranslation();
@@ -119,9 +119,10 @@ const useFields = () => {
 							id={field.name}
 							name={field.name}
 							onBlur={field.handleBlur}
-							onChange={(e) =>
-								field.handleChange(e.target.files?.[0] ?? null)
-							}
+							onChange={(e) => {
+								const image = e.target.files?.[0] ?? null;
+								field.handleChange(image);
+							}}
 							className={getErrorClass(field.state.meta.errors)}
 						/>
 						<FieldInfo info={formatMeta(field.state.meta)} />
@@ -142,9 +143,11 @@ const useFields = () => {
 							id={field.name}
 							name={field.name}
 							onBlur={field.handleBlur}
-							onChange={(e) =>
-								field.handleChange(e.target.files?.[0] ?? null)
-							}
+							onChange={(e) => {
+								const cad = e.target.files?.[0] ?? null;
+								field.handleChange(cad);
+								setCad(cad);
+							}}
 							className={getErrorClass(field.state.meta.errors)}
 						/>
 						<FieldInfo info={formatMeta(field.state.meta)} />

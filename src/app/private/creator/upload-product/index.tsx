@@ -60,8 +60,8 @@ const UploadProduct = () => {
 						<Btn type='submit' text={tUploadProduct('btn')} />
 					</div>
 				</form>
+				<div ref={ref} style={{ width: '25%', height: '80%' }} />
 			</div>
-			<div ref={ref} style={{ display: 'none' }} />
 		</Transition>
 	);
 };

@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { Coordinates } from '@/api/catalog/common';
+import removeGLTF from './remove-gtlf';
 
 const init = {
 	camera: (cam: Coordinates) => {
@@ -84,6 +85,13 @@ const update = {
 	},
 };
 
+const info = {
+	coords: (camera: THREE.Camera, controls: OrbitControls) => ({
+		cam: camera.position,
+		pan: controls.target,
+	}),
+};
+
 const initThreeJS = (
 	root: HTMLDivElement | null,
 	coords: { cam: Coordinates; pan: Coordinates },
@@ -103,6 +111,7 @@ const initThreeJS = (
 	init.lights(scene);
 	animate(controls, renderer, camera, scene);
 
+	const getCoords = () => info.coords(camera, controls);
 	const updateCoords = (coords: { cam: Coordinates; pan: Coordinates }) => {
 		update.camera(camera, coords.cam);
 		update.controls(controls, coords.pan);
@@ -116,26 +125,13 @@ const initThreeJS = (
 		renderer.dispose();
 		renderer.domElement.remove();
 
-		scene.traverse((child) => {
-			const { geometry, material } = child as THREE.Mesh;
-			if (geometry) {
-				geometry.dispose();
-			}
-			if (material) {
-				if (Array.isArray(material)) {
-					material.forEach((mat) => mat.dispose());
-				} else {
-					material.dispose();
-				}
-			}
-		});
-
+		removeGLTF(scene);
 		while (scene.children.length > 0) {
 			scene.remove(scene.children[0]);
 		}
 	};
 
-	return { scene, camera, renderer, controls, updateCoords, exit };
+	return { scene, camera, renderer, controls, updateCoords, getCoords, exit };
 };
 
 export default initThreeJS;
