@@ -24,7 +24,7 @@ const userRoutes: RouteObject = {
 			</CartContextProvider>
 		</QueryClientProvider>
 	),
-	children: [...publicRoutes, ...guestRoutes, ...creatorRoutes],
+	children: [publicRoutes, guestRoutes, creatorRoutes],
 };
 
 export default [userRoutes];
