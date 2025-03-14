@@ -1,7 +1,7 @@
 import Transition from '@/app/components/transition';
 import useFields from './hooks/useFields';
 import Btn from '@/app/components/button';
-import { useUploadProductTranslation } from '@/hooks/locales/pages/private/creator';
+import { useUploadProductTranslation } from '@/hooks/locales/pages/creator';
 import styles from './styles.module.css';
 
 const UploadProduct = () => {
