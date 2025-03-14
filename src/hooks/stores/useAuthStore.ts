@@ -1,26 +1,39 @@
 import { useEffect, useMemo } from 'react';
 import { useStore } from '@tanstack/react-store';
 import authStore, { login, logout } from '@/stores/auth-store';
+import useRefresh from '@/hooks/mutations/sign-in/useRefersh';
 import useAuthn from '@/hooks/queries/identity/useAuthn';
 import useAuthz from '@/hooks/queries/identity/useAuthz';
 
 const useAuthStore = () => {
 	const state = useStore(authStore);
-	const { refetch: refetchAuthn } = useAuthn();
-	const { refetch: refetchAuthz } = useAuthz(state.authn);
+	const { mutateAsync: refreshAuth } = useRefresh();
+
+	const { refetch: refetchAuthn } = useAuthn(false);
+	const { refetch: refetchAuthz } = useAuthz(false);
 
 	useEffect(() => {
+		let retries = 0;
 		const sync = async () => {
 			const { data: authn } = await refetchAuthn();
-			if (authn) {
-				const { data: authz } = await refetchAuthz();
-				if (authz) {
-					login(authz);
+			if (!authn) {
+				try {
+					retries += 1;
+					await refreshAuth();
+					if (retries < 2) sync();
+				} catch {
+					logout();
+					return;
 				}
-			} else if (authn === false) logout();
+			}
+
+			const { data: authz } = await refetchAuthz();
+			if (authz) {
+				login(authz);
+			}
 		};
 		sync();
-	}, [state]);
+	}, [state.authn, state.authz]);
 
 	const is = useMemo(() => {
 		const { authn, authz } = state;
