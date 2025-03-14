@@ -7,7 +7,6 @@ import { FileData } from '@/types/files';
 type SetState<TState> = Dispatch<SetStateAction<TState>>;
 
 const useUploader = (
-	setCad: SetState<File | null>,
 	setFiles: SetState<{ image: FileData; cad: FileData } | undefined>,
 ) => {
 	const uploadFiles = async (
@@ -16,9 +15,7 @@ const useUploader = (
 		cad: File | null,
 	) => {
 		if (!image || !cad) throw new Error('Image and Cad are required!');
-
 		cad = new File([cad], cad.name, { type: getCadType(cad) });
-		setCad(cad);
 
 		const { type: imageType, name: imageName } = image;
 		const { name: cadName, type: cadType } = cad;

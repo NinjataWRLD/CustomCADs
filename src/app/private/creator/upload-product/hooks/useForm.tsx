@@ -27,10 +27,10 @@ const useForm = () => {
 	const schema = useValidation();
 	const [value, setValue] = useState<Fields>();
 
-	const [cad, setCad] = useState<File | null>(null);
 	const [files, setFiles] = useState<{ image: FileData; cad: FileData }>();
+	const uploadFiles = useUploader(setFiles);
 
-	const uploadFiles = useUploader(setCad, setFiles);
+	const [cad, setCad] = useState<File | null>(null);
 	const ref = useCreator(cad, files, value);
 
 	useEffect(() => {
@@ -56,6 +56,7 @@ const useForm = () => {
 	return {
 		form,
 		handleSubmit,
+		setCad,
 		ref,
 	};
 };
