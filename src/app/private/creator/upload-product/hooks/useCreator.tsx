@@ -13,7 +13,12 @@ type ProductData = {
 	categoryId: number;
 };
 
-const useCreator = (cad: File | null, files?: Files, data?: ProductData) => {
+const useCreator = (
+	cad: File | null,
+	files?: Files,
+	data?: ProductData,
+	callback?: VoidFunction,
+) => {
 	const [id, setId] = useState<string>();
 	const { volume: cadVolume, ref, getCoords } = useCalculateVolume(cad);
 
@@ -54,6 +59,7 @@ const useCreator = (cad: File | null, files?: Files, data?: ProductData) => {
 					type: 'pan',
 					coordinates: coords.pan,
 				});
+				if (callback) callback();
 			};
 			handleCoords();
 		}

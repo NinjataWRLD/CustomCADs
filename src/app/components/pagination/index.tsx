@@ -10,6 +10,8 @@ interface PaginationProps {
 }
 
 const Pagination = ({ total, limit, page, onPageChange }: PaginationProps) => {
+	if (!total) return;
+
 	const lastPage = Math.ceil(total / limit);
 
 	const handleBeginning = () => {
