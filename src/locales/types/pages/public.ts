@@ -1,0 +1,82 @@
+export type PagesPublicCart = {
+	title: string;
+	by: string;
+	view: string;
+	customize: string;
+	delivery: string;
+	'product-price': string;
+	'customization-cost': string;
+	remove: string;
+	total?: undefined;
+	total_zero: string;
+	total_one: string;
+	total_other: string;
+	'total-delivery'?: undefined;
+	'total-delivery_zero': string;
+	'total-delivery_one': string;
+	'total-delivery_other': string;
+	buy: string;
+};
+
+export type PagesPublicEditor = {
+	'title-1': string;
+	'description-1': string;
+	'title-2': string;
+	'description-2': string;
+	'clear-color': string;
+	back: string;
+	reset: string;
+	save: string;
+	next: string;
+};
+
+export type PagesPublicHome = {
+	title_info: string;
+	subtitle_info: string;
+	'info-1': string;
+	'info-2': string;
+	'btn-1': string;
+	or: string;
+	'btn-2': string;
+	title_benefits: string;
+	'benefits-subtitle-1': string;
+	'benefits-text-1': string;
+	'benefits-subtitle-2': string;
+	'benefits-text-2': string;
+	'benefits-subtitle-3': string;
+	'benefits-text-3': string;
+	title_popular: string;
+	'popular-1-name': string;
+	'popular-2-name': string;
+	'popular-3-name': string;
+	'popular-gallery-btn': string;
+	title_offer: string;
+	'learn-more': string;
+	'card-title_cart': string;
+	'card-desc-1_cart': string;
+	'card-desc-2_cart': string;
+	'card-desc-3_cart': string;
+	'card-title_order': string;
+	'card-desc-1_order': string;
+	'card-desc-2_order': string;
+	'card-desc-3_order': string;
+	'card-title_delivery': string;
+	'card-desc-1_delivery': string;
+	'card-desc-2_delivery': string;
+	'card-desc-3_delivery': string;
+};
+
+export type PagesPublicProduct = {
+	category: string;
+	creator: string;
+	price: string;
+	'uploaded-on': string;
+	'button-1': string;
+	'button-2': string;
+	'button-3': string;
+	warning: string;
+	'add-details-title': string;
+	'add-details-yes': string;
+	'add-details-no': string;
+	'added-message': string;
+};
