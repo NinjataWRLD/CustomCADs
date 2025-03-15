@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import useGetCategories from '@/hooks/queries/categories/useGetCategories';
 import useSearchParams from '@/hooks/useSearchParams';
 import { useFetchTranslation } from '@/hooks/locales/common/messages';
-import { useCategoriesTranslation } from '@/hooks/locales/common/resources';
 import styles from './styles.module.css';
 
 interface CategoriesProps {
@@ -13,7 +12,6 @@ interface CategoriesProps {
 
 const Categories = ({ updateSearch }: CategoriesProps) => {
 	const tFetch = useFetchTranslation();
-	const tCategories = useCategoriesTranslation();
 
 	const { data: categories, isLoading, isError } = useGetCategories();
 	const [isActiveCategory, setIsActiveCategory] = useState(false);
@@ -21,7 +19,7 @@ const Categories = ({ updateSearch }: CategoriesProps) => {
 	const { getParam, setParams } = useSearchParams();
 	const categoryParam = getParam('category');
 
-	const all = 'All';
+	const all = 'All Categories';
 	const [category, setCategory] = useState(categoryParam ?? all);
 
 	useEffect(() => {
@@ -49,19 +47,23 @@ const Categories = ({ updateSearch }: CategoriesProps) => {
 		setIsActiveCategory((prev) => !prev);
 	};
 
-	const setCategoryParam = (category: string) =>
-		setParams({
-			category: encodeURIComponent(category),
-		});
+	const setCategoryParam = (category?: string) => {
+		if (category) setParams({ category: encodeURIComponent(category) });
+	};
 
 	const handleInput = (name: string) => {
 		const category = categories.find((c) => c.name === name);
 
-		setCategory(category?.name ?? all);
 		setIsActiveCategory(false);
-
-		updateSearch(category?.id ?? undefined!);
-		setCategoryParam(category?.name ?? undefined!);
+		if (category) {
+			setCategory(category.name);
+			updateSearch(category.id);
+			setCategoryParam(category.name);
+		} else {
+			setCategory(all);
+			updateSearch();
+			setCategoryParam();
+		}
 	};
 
 	return (
@@ -70,9 +72,7 @@ const Categories = ({ updateSearch }: CategoriesProps) => {
 				className={`${styles['select-btn']} ${isActiveCategory ? styles.active : ''}`}
 				onClick={toggleDropdown}
 			>
-				<span className={`${styles.category}`}>
-					{tCategories(category)}
-				</span>
+				<span className={`${styles.category}`}>{category}</span>
 				<FontAwesomeIcon icon={faChevronDown} />
 			</div>
 			<ul className={`${styles.list}`}>
@@ -85,7 +85,7 @@ const Categories = ({ updateSearch }: CategoriesProps) => {
 					}
 					onClick={() => handleInput(all)}
 				>
-					<span className={`${styles.name}`}>{tCategories(all)}</span>
+					<span className={`${styles.name}`}>{all}</span>
 				</li>
 				{categories.map((category) => (
 					<li
@@ -100,7 +100,7 @@ const Categories = ({ updateSearch }: CategoriesProps) => {
 						onClick={() => handleInput(category.name)}
 					>
 						<span className={`${styles.name}`}>
-							{tCategories(category.name)}
+							{category.name}
 						</span>
 					</li>
 				))}

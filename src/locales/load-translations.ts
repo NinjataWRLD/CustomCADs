@@ -1,28 +1,22 @@
-type Dictionary = Record<string, string>;
+type Translation = Record<string, string>;
+type Resources = Record<string, { default: Translation }>;
 
-interface Resource {
-	default: Dictionary;
-}
+const loadTranslations = (lng: string) => {
+	const translations: Record<string, Translation> = {};
 
-const loadTranslations = async (lng: string) => {
-	const translations: Record<string, Dictionary> = {};
+	const resources: Resources = import.meta.glob(`/src/locales/**/*.ts`, {
+		eager: true,
+	});
 
-	const modules: Record<string, Resource> = import.meta.glob(
-		`/src/locales/**/*.json`,
-		{
-			eager: true,
-		},
-	);
-
-	for (const path in modules) {
+	for (const path in resources) {
 		const basePath = `/src/locales/${lng}/`;
 		if (path.startsWith(basePath)) {
 			const namespace = path
 				.replace(basePath, '')
-				.replace('.json', '')
+				.replace('.ts', '')
 				.replace(/\//g, '.');
 
-			translations[namespace] = modules[path].default;
+			translations[namespace] = resources[path].default;
 		}
 	}
 

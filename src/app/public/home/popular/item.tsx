@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import useGenerateBlobUrl from '@/hooks/useGenerateBlobUrl';
 import useDownloadProductImage from '@/hooks/queries/products/gallery/useDownloadProductImage';
-import { useCategoriesTranslation } from '@/hooks/locales/common/resources';
 import styles from './styles.module.css';
 
 interface ItemProps {
@@ -17,7 +16,6 @@ interface ItemProps {
 
 const Item = ({ product }: ItemProps) => {
 	const navigate = useNavigate();
-	const tCategories = useCategoriesTranslation();
 
 	const { data: download } = useDownloadProductImage({ id: product.id });
 	const blobUrl = useGenerateBlobUrl(
@@ -43,7 +41,7 @@ const Item = ({ product }: ItemProps) => {
 				<p onClick={handleDetailsClick} className={`${styles.title}`}>
 					{product.name}
 					<br />
-					<span>{tCategories(product.category)}</span>
+					<span>{product.category}</span>
 				</p>
 				<div className={`${styles['button-container']}`}>
 					<div className={`${styles.views}`}>
