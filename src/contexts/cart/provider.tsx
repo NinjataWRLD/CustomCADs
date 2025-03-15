@@ -1,8 +1,8 @@
 import { ReactNode } from 'react';
-import CartContext from './context';
-import useCartInit from '@/hooks/contexts/useCartInit';
+import { CartContext } from './context';
+import { useCartInit } from '@/hooks/contexts/useCartInit';
 
-const CartProvider = ({ children }: { children: ReactNode }) => {
+export const CartProvider = ({ children }: { children: ReactNode }) => {
 	const { items, dispatch } = useCartInit();
 
 	return (
@@ -11,5 +11,3 @@ const CartProvider = ({ children }: { children: ReactNode }) => {
 		</CartContext.Provider>
 	);
 };
-
-export default CartProvider;

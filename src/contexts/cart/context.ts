@@ -1,6 +1,6 @@
 import { createContext, Dispatch } from 'react';
 import { CartItem } from '@/types/cart-item';
-import CartAction from './action';
+import { CartAction } from './action';
 
 export interface CartState {
 	items: CartItem[] | null;
@@ -11,5 +11,4 @@ export const defaultValues: CartState = {
 	dispatch: () => {},
 };
 
-const CartContext = createContext<CartState>(defaultValues);
-export default CartContext;
+export const CartContext = createContext<CartState>(defaultValues);

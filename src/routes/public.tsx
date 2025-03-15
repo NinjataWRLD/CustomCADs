@@ -6,7 +6,7 @@ import Cart from '@/app/public/cart';
 import Editor from '@/app/public/editor';
 import PublicGuard from './guards/public-guard';
 
-const routes: RouteObject = {
+export const routes: RouteObject = {
 	element: <PublicGuard />,
 	children: [
 		{
@@ -31,5 +31,3 @@ const routes: RouteObject = {
 		},
 	],
 };
-
-export default routes;

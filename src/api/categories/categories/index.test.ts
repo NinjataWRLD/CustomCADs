@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, Mock, vi } from 'vitest';
-import axios from '@/api/axios';
+import { axios } from '@/api/axios';
 import * as categories from './index';
 import * as allResources from './resources/all';
 import * as singleResources from './resources/single';

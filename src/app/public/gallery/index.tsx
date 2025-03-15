@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
-import usePagination from '@/hooks/usePagination';
-import useGetProducts from '@/hooks/queries/products/gallery/useGetGalleryProducts';
+import { usePagination } from '@/hooks/usePagination';
+import { useGetProducts } from '@/hooks/queries/products/gallery';
 import {
 	useFetchTranslation,
 	usePlaceholdersTranslation,
 } from '@/hooks/locales/common/messages';
-import useSearchParams from '@/hooks/useSearchParams';
+import { useSearchParams } from '@/hooks/useSearchParams';
 import Transition from '@/app/components/transition';
 import Categories from '@/app/components/search/categories';
 import Searchbar from '@/app/components/search/searchbar';

@@ -1,11 +1,11 @@
 import { FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm as useTanStackForm } from '@tanstack/react-form';
-import useLogin from '@/hooks/mutations/sign-in/useLogin';
-import useForceLocaleRefresh from '@/hooks/locales/useForceLocaleRefresh';
-import useSyncCarts from '@/hooks/contexts/useSyncCarts';
-import useUpdateAuthz from '@/hooks/stores/useUpdateAuthz';
-import useValidation from './useValidation';
+import { useLogin } from '@/hooks/mutations/identity';
+import { useForceLocaleRefresh } from '@/hooks/locales/useForceLocaleRefresh';
+import { useSyncCarts } from '@/hooks/contexts/useSyncCarts';
+import { useUpdateAuthz } from '@/hooks/stores/useUpdateAuthz';
+import { useValidation } from './useValidation';
 
 interface Fields {
 	username: string;
@@ -18,7 +18,7 @@ const defaultValues: Fields = {
 	rememberMe: false,
 };
 
-const useForm = () => {
+export const useForm = () => {
 	const schema = useValidation();
 	const navigate = useNavigate();
 
@@ -52,5 +52,3 @@ const useForm = () => {
 		handleSubmit,
 	};
 };
-
-export default useForm;

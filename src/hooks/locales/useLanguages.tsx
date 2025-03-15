@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
-const useLanguages = () => {
+export const useLanguages = () => {
 	const { i18n } = useTranslation();
 
 	useEffect(() => {
@@ -16,5 +16,3 @@ const useLanguages = () => {
 
 	return i18n.language;
 };
-
-export default useLanguages;

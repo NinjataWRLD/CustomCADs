@@ -4,10 +4,10 @@ import { useOthersTranslation } from '@/hooks/locales/common/others';
 import RangeField from '@/app/components/fields/range';
 import RadioField from '@/app/components/fields/radio';
 import { INFILL, SCALE } from '@/constants/threejs';
-import useEditorStore from '@/hooks/stores/useEditorStore';
+import { useEditorStore } from '@/hooks/stores/useEditorStore';
 import { setInfill, setScale } from '@/stores/editor-store';
-import calculate3D from '@/utils/calculate-3D';
-import formatter from '../formatter';
+import * as calculate3D from '@/utils/calculate-3D';
+import * as formatter from '../formatter';
 import styles from '../styles.module.css';
 
 interface CalculationsProps {

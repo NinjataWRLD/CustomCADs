@@ -1,11 +1,11 @@
 import { FormEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm as useTanStackForm } from '@tanstack/react-form';
-import useForceLocaleRefresh from '@/hooks/locales/useForceLocaleRefresh';
+import { useForceLocaleRefresh } from '@/hooks/locales/useForceLocaleRefresh';
 import { FileData } from '@/types/files';
-import useValidation from './useValidation';
-import useUploader from './useUploader';
-import useCreator from './useCreator';
+import { useValidation } from './useValidation';
+import { useUploader } from './useUploader';
+import { useCreator } from './useCreator';
 
 interface Fields {
 	name: string;
@@ -24,7 +24,7 @@ const defaultValues: Fields = {
 	cad: null,
 };
 
-const useForm = () => {
+export const useForm = () => {
 	const schema = useValidation();
 	const navigate = useNavigate();
 
@@ -63,5 +63,3 @@ const useForm = () => {
 		ref,
 	};
 };
-
-export default useForm;

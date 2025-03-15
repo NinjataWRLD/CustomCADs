@@ -2,8 +2,8 @@ import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { Response as Product } from '@/api/catalog/products/gallery/resources/all';
-import useDownloadProductImage from '@/hooks/queries/products/gallery/useDownloadProductImage';
-import useGenerateBlobUrl from '@/hooks/useGenerateBlobUrl';
+import { useDownloadProductImage } from '@/hooks/queries/products/gallery';
+import { useGenerateBlobUrl } from '@/hooks/useGenerateBlobUrl';
 import { useFetchTranslation } from '@/hooks/locales/common/messages';
 import styles from './styles.module.css';
 

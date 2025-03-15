@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
-import useCreateCustomization from '@/hooks/mutations/customizations/useCreateCustomization';
-import useGetCustomization from '@/hooks/queries/customizations/useGetCustomization';
-import useCartUpdates from '@/hooks/contexts/useCartUpdates';
-import useCartContext from '@/hooks/contexts/useCartContext';
-import isError from '@/utils/is-error';
+import { useCreateCustomization } from '@/hooks/mutations/customizations';
+import { useGetCustomization } from '@/hooks/queries/customizations';
+import { useCartUpdates } from '@/hooks/contexts/useCartUpdates';
+import { useCartContext } from '@/hooks/contexts/useCartContext';
+import { isAxiosError } from '@/utils/api';
 
-const useCartItemManager = (productId: string) => {
+export const useCartItemManager = (productId: string) => {
 	const { items } = useCartContext();
 	const item = items?.find((i) => i.productId === productId);
 
@@ -20,7 +20,10 @@ const useCartItemManager = (productId: string) => {
 		useGetCustomization({ id: customizationId! }, !!customizationId);
 
 	useEffect(() => {
-		if (items && (!customizationId || isError(customizationError, 404))) {
+		if (
+			items &&
+			(!customizationId || isAxiosError(customizationError, 404))
+		) {
 			createCustomization({
 				materialId: 1,
 				color: '#ffffff',
@@ -44,5 +47,3 @@ const useCartItemManager = (productId: string) => {
 
 	return { item, customization };
 };
-
-export default useCartItemManager;

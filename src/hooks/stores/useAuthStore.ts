@@ -1,12 +1,11 @@
 import { useEffect, useMemo } from 'react';
 import { useStore } from '@tanstack/react-store';
-import authStore, { login, logout } from '@/stores/auth-store';
-import useRefresh from '@/hooks/mutations/sign-in/useRefersh';
-import useAuthn from '@/hooks/queries/identity/useAuthn';
-import useAuthz from '@/hooks/queries/identity/useAuthz';
+import { store, login, logout } from '@/stores/auth-store';
+import { useRefresh } from '@/hooks/mutations/identity';
+import { useAuthn, useAuthz } from '@/hooks/queries/identity';
 
-const useAuthStore = () => {
-	const state = useStore(authStore);
+export const useAuthStore = () => {
+	const state = useStore(store);
 	const { mutateAsync: refreshAuth } = useRefresh();
 
 	const { refetch: refetchAuthn } = useAuthn(false);
@@ -53,5 +52,3 @@ const useAuthStore = () => {
 
 	return { ...state, is: is };
 };
-
-export default useAuthStore;

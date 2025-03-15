@@ -1,12 +1,12 @@
 import { Dispatch, SetStateAction } from 'react';
 import { upload } from '@/api/catalog/products/creator';
-import uploadFile from '@/utils/upload-file';
-import getCadType from '@/utils/get-cad-type';
+import { uploadFile } from '@/utils/file';
+import { getCadType } from '@/utils/get-cad-type';
 import { FileData } from '@/types/files';
 
 type SetState<TState> = Dispatch<SetStateAction<TState>>;
 
-const useUploader = (
+export const useUploader = (
 	setFiles: SetState<{ image: FileData; cad: FileData } | undefined>,
 ) => {
 	const uploadFiles = async (
@@ -46,5 +46,3 @@ const useUploader = (
 
 	return uploadFiles;
 };
-
-export default useUploader;

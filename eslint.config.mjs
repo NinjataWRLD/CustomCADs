@@ -101,7 +101,7 @@ const eslintConfig = [
         rules: {
             ...possibleErrors,
             ...suggestions,
-            'prettier/prettier': 'error',
+            'prettier/prettier': 'warn',
         },
     },
 ];

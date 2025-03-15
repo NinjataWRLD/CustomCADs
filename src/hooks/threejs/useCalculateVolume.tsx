@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import useThreeJS from '@/hooks/threejs/useThreeJS';
+import { useThreeJS } from '@/hooks/threejs/useThreeJS';
 import { calculateCadVolume } from '@/utils/volume-calculator';
 
 const emptyCoords = { x: 0, y: 0, z: 0 };
 
-const useCalculateVolume = (file: File | null) => {
+export const useCalculateVolume = (file: File | null) => {
 	const [blobUrl, setBlobUrl] = useState<string | null>(null);
 	const [volume, setVolume] = useState<number | null>(null);
 
@@ -12,7 +12,6 @@ const useCalculateVolume = (file: File | null) => {
 		if (file) {
 			setBlobUrl(URL.createObjectURL(file));
 		}
-
 		return () => {
 			if (blobUrl) URL.revokeObjectURL(blobUrl);
 		};
@@ -28,5 +27,3 @@ const useCalculateVolume = (file: File | null) => {
 
 	return { volume, ref, getCoords: () => instance?.getCoords() };
 };
-
-export default useCalculateVolume;

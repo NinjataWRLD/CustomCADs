@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import fetchFile from '../fetch-file';
+import { fetchFile } from '../file';
 
 interface Case {
 	url: string;

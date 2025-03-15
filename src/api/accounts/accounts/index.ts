@@ -1,4 +1,4 @@
-import axios from '@/api/axios';
+import { axios } from '@/api/axios';
 import { Result } from '@/api/common/result';
 import { AccountResponse } from '../common';
 import * as allResources from './resources/all';

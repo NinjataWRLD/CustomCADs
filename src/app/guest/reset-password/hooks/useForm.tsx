@@ -1,8 +1,8 @@
 import { FormEvent } from 'react';
 import { useForm as useTanStackForm } from '@tanstack/react-form';
-import useForceLocaleRefresh from '@/hooks/locales/useForceLocaleRefresh';
-import useValidation from './useValidation';
-import useResetPassword from '@/hooks/mutations/sign-in/useResetPassword';
+import { useForceLocaleRefresh } from '@/hooks/locales/useForceLocaleRefresh';
+import { useResetPassword } from '@/hooks/mutations/identity';
+import { useValidation } from './useValidation';
 
 interface Fields {
 	password: string;
@@ -13,7 +13,7 @@ const defaultValues: Fields = {
 	confirmPassword: '',
 };
 
-const useForm = (email: string, token: string) => {
+export const useForm = (email: string, token: string) => {
 	const { mutateAsync: reset } = useResetPassword();
 	const schema = useValidation();
 
@@ -43,5 +43,3 @@ const useForm = (email: string, token: string) => {
 		handleSubmit,
 	};
 };
-
-export default useForm;

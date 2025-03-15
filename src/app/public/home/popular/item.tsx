@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
-import useGenerateBlobUrl from '@/hooks/useGenerateBlobUrl';
-import useDownloadProductImage from '@/hooks/queries/products/gallery/useDownloadProductImage';
+import { useGenerateBlobUrl } from '@/hooks/useGenerateBlobUrl';
+import { useDownloadProductImage } from '@/hooks/queries/products/gallery';
 import styles from './styles.module.css';
 
 interface ItemProps {

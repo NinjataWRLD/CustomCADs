@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react';
-import fetchFile from '@/utils/fetch-file';
+import { fetchFile } from '@/utils/file';
 
-const useGenerateBlobUrl = (presignedUrl?: string, contentType?: string) => {
+export const useGenerateBlobUrl = (
+	presignedUrl?: string,
+	contentType?: string,
+) => {
 	const [blobUrl, setBlobUrl] = useState('');
 
 	useEffect(() => {
@@ -20,5 +23,3 @@ const useGenerateBlobUrl = (presignedUrl?: string, contentType?: string) => {
 
 	return blobUrl;
 };
-
-export default useGenerateBlobUrl;

@@ -1,8 +1,8 @@
 import { z } from 'zod';
 import { useErrorsTranslation } from '@/hooks/locales/components/forms';
-import validations from '@/constants/product';
+import { product as validations } from '@/constants/validations';
 
-const useValidation = () => {
+export const useValidation = () => {
 	const tErrors = useErrorsTranslation();
 	const { name, description, price } = validations;
 
@@ -52,5 +52,3 @@ const useValidation = () => {
 
 	return schema;
 };
-
-export default useValidation;

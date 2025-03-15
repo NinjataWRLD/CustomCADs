@@ -1,18 +1,13 @@
 import { useStore } from '@tanstack/react-store';
-import editorStore, {
-	addRecord,
-	defaultEditorState,
-} from '@/stores/editor-store';
+import { store, addRecord, defaultEditorState } from '@/stores/editor-store';
 
-const useEditorStore = (id: string) => {
-	const store = useStore(editorStore, (store) => {
+export const useEditorStore = (id: string) => {
+	const state = useStore(store, (store) => {
 		if (!store[id]) {
 			addRecord(id);
 		}
 		return store[id] ?? defaultEditorState;
 	});
 
-	return store;
+	return state;
 };
-
-export default useEditorStore;

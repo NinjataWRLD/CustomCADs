@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from 'vitest';
-import fieldEqualityHelper from '../field-equality';
+import { fieldEqualityHelper } from '../form';
 
 describe('Field Equality Helper utility tests', () => {
 	let helper: ReturnType<typeof fieldEqualityHelper>;

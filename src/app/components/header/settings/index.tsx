@@ -7,9 +7,9 @@ import {
 	faUserCog,
 } from '@fortawesome/free-solid-svg-icons';
 import { useHeaderTranslation } from '@/hooks/locales/components/layout';
-import useAuthStore from '@/hooks/stores/useAuthStore';
-import useCartContext from '@/hooks/contexts/useCartContext';
-import useLogout from '@/hooks/mutations/sign-in/useLogout';
+import { useAuthStore } from '@/hooks/stores/useAuthStore';
+import { useCartContext } from '@/hooks/contexts/useCartContext';
+import { useLogout } from '@/hooks/mutations/identity';
 import * as authStore from '@/stores/auth-store';
 import BaseButton from '../base';
 import Setting from './setting';

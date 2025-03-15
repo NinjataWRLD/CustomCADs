@@ -2,17 +2,19 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMinus, faPlus, faTrashCan } from '@fortawesome/free-solid-svg-icons';
-import useGetCustomization from '@/hooks/queries/customizations/useGetCustomization';
-import useGetProduct from '@/hooks/queries/products/gallery/useGetGalleryProduct';
-import useGenerateBlobUrl from '@/hooks/useGenerateBlobUrl';
-import useDownloadProductImage from '@/hooks/queries/products/gallery/useDownloadProductImage';
-import useCartUpdates from '@/hooks/contexts/useCartUpdates';
+import { useGetCustomization } from '@/hooks/queries/customizations';
+import {
+	useGetProduct,
+	useDownloadProductImage,
+} from '@/hooks/queries/products/gallery';
+import { useGenerateBlobUrl } from '@/hooks/useGenerateBlobUrl';
+import { useCartUpdates } from '@/hooks/contexts/useCartUpdates';
 import { useFetchTranslation } from '@/hooks/locales/common/messages';
 import { useCartTranslation } from '@/hooks/locales/pages/public';
 import { removeRecord } from '@/stores/editor-store';
 import Checkbox from '@/app/components/fields/checkbox';
 import { CartItem as Item } from '@/types/cart-item';
-import formatter from '../formatter';
+import * as formatter from '../formatter';
 import styles from './styles.module.css';
 
 interface CartItemProps {

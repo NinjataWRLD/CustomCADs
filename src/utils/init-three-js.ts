@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { Coordinates } from '@/api/catalog/common';
-import removeGLTF from './remove-gtlf';
+import { removeGLTF } from './gltf';
 
 const init = {
 	camera: (cam: Coordinates) => {
@@ -92,7 +92,7 @@ const info = {
 	}),
 };
 
-const initThreeJS = (
+export const initThreeJS = (
 	root: HTMLDivElement | null,
 	coords: { cam: Coordinates; pan: Coordinates },
 ) => {
@@ -133,5 +133,3 @@ const initThreeJS = (
 
 	return { scene, camera, renderer, controls, updateCoords, getCoords, exit };
 };
-
-export default initThreeJS;

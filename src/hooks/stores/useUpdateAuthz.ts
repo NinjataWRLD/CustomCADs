@@ -1,7 +1,7 @@
-import useAuthz from '@/hooks/queries/identity/useAuthz';
+import { useAuthz } from '@/hooks/queries/identity';
 import { login } from '@/stores/auth-store';
 
-const useUpdateAuthz = () => {
+export const useUpdateAuthz = () => {
 	const { refetch } = useAuthz();
 	const updateAuthz = async () => {
 		const { data: role } = await refetch();
@@ -13,5 +13,3 @@ const useUpdateAuthz = () => {
 
 	return updateAuthz;
 };
-
-export default useUpdateAuthz;

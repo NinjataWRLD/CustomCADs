@@ -1,4 +1,4 @@
-import axios from '@/api/axios';
+import { axios } from '@/api/axios';
 import { MaterialResponse } from '@/api/customizations/common';
 import * as allResources from './resources/all';
 import * as singleResources from './resources/single';

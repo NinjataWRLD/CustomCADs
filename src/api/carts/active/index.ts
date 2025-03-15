@@ -1,4 +1,4 @@
-import axios from '@/api/axios';
+import { axios } from '@/api/axios';
 import { ActiveCartItem } from '@/api/carts/common';
 import * as createResources from './resources/create';
 import * as addItemResources from './resources/add-item';

@@ -5,8 +5,8 @@ import {
 	faSignInAlt,
 	faUserPlus,
 } from '@fortawesome/free-solid-svg-icons';
-import useAuthStore from '@/hooks/stores/useAuthStore';
-import useCartContext from '@/hooks/contexts/useCartContext';
+import { useAuthStore } from '@/hooks/stores/useAuthStore';
+import { useCartContext } from '@/hooks/contexts/useCartContext';
 import { useHeaderTranslation } from '@/hooks/locales/components/layout';
 import LanguageButton from './language';
 import SettingsButton from './settings';

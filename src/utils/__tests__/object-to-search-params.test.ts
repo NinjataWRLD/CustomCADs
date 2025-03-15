@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import objectToSearchParams from '../object-to-search-params';
+import { objectToSearchParams } from '../api';
 
 describe('Object to Search Params utility tests', () => {
 	it('should convert a simple object to a URL query string', () => {

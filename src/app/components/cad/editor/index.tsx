@@ -1,10 +1,12 @@
-import { setCost, setSize, setWeight } from '@/stores/editor-store.js';
-import useDownloadProductCad from '@/hooks/queries/products/gallery/useDownloadProductCad.js';
-import useGenerateBlobUrl from '@/hooks/useGenerateBlobUrl.js';
-import useEditorStore from '@/hooks/stores/useEditorStore.js';
-import useGetProduct from '@/hooks/queries/products/gallery/useGetGalleryProduct.js';
-import useTextures from '@/hooks/threejs/useTextures.js';
-import EditorThreeJS from './threejs.jsx';
+import { setCost, setSize, setWeight } from '@/stores/editor-store';
+import { useGenerateBlobUrl } from '@/hooks/useGenerateBlobUrl';
+import { useEditorStore } from '@/hooks/stores/useEditorStore';
+import {
+	useGetProduct,
+	useDownloadProductCad,
+} from '@/hooks/queries/products/gallery';
+import { useTextures } from '@/hooks/threejs/useTextures';
+import EditorThreeJS from './threejs';
 import styles from '../styles.module.css';
 
 interface EditorCadProps {

@@ -1,5 +1,5 @@
 import { Navigate, Outlet } from 'react-router-dom';
-import useAuthStore from '@/hooks/stores/useAuthStore';
+import { useAuthStore } from '@/hooks/stores/useAuthStore';
 
 const GuestGuard = () => {
 	const { is } = useAuthStore();

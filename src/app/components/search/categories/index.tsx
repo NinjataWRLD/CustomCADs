@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import useGetCategories from '@/hooks/queries/categories/useGetCategories';
-import useSearchParams from '@/hooks/useSearchParams';
+import { useGetCategories } from '@/hooks/queries/categories';
+import { useSearchParams } from '@/hooks/useSearchParams';
 import { useFetchTranslation } from '@/hooks/locales/common/messages';
 import styles from './styles.module.css';
 
