@@ -1,4 +1,4 @@
-import axios from '@/api/axios';
+import { axios } from '@/api/axios';
 import { RoleResponse } from '../common';
 import * as allResources from './resources/all';
 import * as singleResources from './resources/single';

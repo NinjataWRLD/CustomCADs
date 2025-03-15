@@ -1,5 +1,5 @@
 import { Address, SHIPMENTS_BASE_PATH } from '@/api/delivery/common';
-import objectToSearchParams from '@/utils/object-to-search-params';
+import { objectToSearchParams } from '@/utils/api';
 
 export interface Request {
 	sortingType?: string;

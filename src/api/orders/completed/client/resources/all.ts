@@ -1,4 +1,4 @@
-import objectToSearchParams from '@/utils/object-to-search-params';
+import { objectToSearchParams } from '@/utils/api';
 import { COMPLETED_ORDERS_CLIENT_BASE_PATH } from '@/api/orders/common';
 
 export interface Request {

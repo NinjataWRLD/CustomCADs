@@ -1,5 +1,1 @@
-const formatter = {
-	price: (price: number) => price.toFixed(2),
-};
-
-export default formatter;
+export const price = (price: number) => price.toFixed(2);

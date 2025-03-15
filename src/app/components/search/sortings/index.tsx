@@ -5,10 +5,10 @@ import {
 	faChevronDown,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import useSearchParams from '@/hooks/useSearchParams';
-import { SortingDirection } from '@/api/common/enums/sortings';
-import useGetProductSortings from '@/hooks/queries/products/gallery/useGetProductSortings';
+import { useSearchParams } from '@/hooks/useSearchParams';
+import { useGetProductSortings } from '@/hooks/queries/products/gallery';
 import { useFetchTranslation } from '@/hooks/locales/common/messages';
+import { SortingDirection } from '@/types/sorting';
 import styles from './styles.module.css';
 
 interface SortingsProps {

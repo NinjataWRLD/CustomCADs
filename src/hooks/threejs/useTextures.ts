@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 import { downloadTexture } from '@/api/customizations/materials';
-import useGetMaterials from '@/hooks/queries/materials/useGetMaterials';
-import fetchFile from '@/utils/fetch-file';
+import { useGetMaterials } from '@/hooks/queries/materials';
+import { fetchFile } from '@/utils/file';
 
 interface Material {
 	blobUrl: string;
 	density: number;
 }
 
-const useTextures = () => {
+export const useTextures = () => {
 	const [map, setMap] = useState<{ [key: string]: Material }>({});
 	const { data } = useGetMaterials();
 
@@ -50,5 +50,3 @@ const useTextures = () => {
 
 	return map;
 };
-
-export default useTextures;

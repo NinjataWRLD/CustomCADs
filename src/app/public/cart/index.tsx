@@ -7,11 +7,11 @@ import {
 	faGooglePay,
 } from '@fortawesome/free-brands-svg-icons';
 import { useCartTranslation } from '@/hooks/locales/pages/public';
-import useCartContext from '@/hooks/contexts/useCartContext';
+import { useCartContext } from '@/hooks/contexts/useCartContext';
 import Transition from '@/app/components/transition';
 import Btn from '@/app/components/button';
 import CartItem from './item';
-import formatter from './formatter';
+import * as formatter from './formatter';
 import styles from './styles.module.css';
 
 const Cart = () => {
@@ -94,7 +94,7 @@ const Cart = () => {
 							count: items?.filter((i) => i.forDelivery).length,
 							cost: formatter.price(
 								sum.product.delivery +
-									sum.customization.delivery,
+								sum.customization.delivery,
 							),
 						})}
 					</p>

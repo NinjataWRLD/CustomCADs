@@ -1,4 +1,4 @@
-import objectToSearchParams from '@/utils/object-to-search-params';
+import { objectToSearchParams } from '@/utils/api';
 import { Category, CREATOR_BASE_PATH } from '@/api/catalog/common';
 
 export interface Request {

@@ -1,9 +1,9 @@
 import { z } from 'zod';
 import { useErrorsTranslation } from '@/hooks/locales/components/forms';
-import validations from '@/constants/user';
-import fieldEqualityHelper from '@/utils/field-equality';
+import { user as validations } from '@/constants/validations';
+import { fieldEqualityHelper } from '@/utils/form';
 
-const useValidation = () => {
+export const useValidation = () => {
 	const tErrors = useErrorsTranslation();
 	const { password } = validations;
 
@@ -27,5 +27,3 @@ const useValidation = () => {
 
 	return schema;
 };
-
-export default useValidation;

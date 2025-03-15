@@ -1,12 +1,11 @@
 import { usePlaceholdersTranslation } from '@/hooks/locales/common/messages';
 import { useLabelsTranslation } from '@/hooks/locales/components/forms';
-import useGetCategories from '@/hooks/queries/categories/useGetCategories';
+import { useGetCategories } from '@/hooks/queries/categories';
 import FieldInfo from '@/app/components/fields/info';
-import getErrorClass from '@/utils/get-error-class';
-import { formatMeta } from '@/utils/form-formatter';
-import useForm from './useForm';
+import { getErrorClass, formatMeta } from '@/utils/form';
+import { useForm } from './useForm';
 
-const useFields = () => {
+export const useFields = () => {
 	const { form, handleSubmit, setCad, ref } = useForm();
 	const { data: categories } = useGetCategories();
 
@@ -168,5 +167,3 @@ const useFields = () => {
 		CadField,
 	};
 };
-
-export default useFields;

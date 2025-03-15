@@ -1,6 +1,6 @@
 import { Calculation } from '@/api/common/calculation';
 import { ONGOING_ORDERS_CLIENT_BASE_PATH } from '@/api/orders/common';
-import objectToSearchParams from '@/utils/object-to-search-params';
+import { objectToSearchParams } from '@/utils/api';
 
 export interface Request {
 	id: string;

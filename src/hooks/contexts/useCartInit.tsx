@@ -1,14 +1,14 @@
 import { useEffect, useReducer } from 'react';
 import { ActiveCartItem } from '@/api/carts/common';
-import useAuthStore from '@/hooks/stores/useAuthStore';
-import useGetActiveCart from '@/hooks/queries/active-carts/useGetActiveCart';
-import useCreateActiveCart from '@/hooks/mutations/active-carts/useCreateActiveCart';
+import { useAuthStore } from '@/hooks/stores/useAuthStore';
+import { useGetActiveCart } from '@/hooks/queries/active-carts';
+import { useCreateActiveCart } from '@/hooks/mutations/active-carts';
 import { CartState } from '@/contexts/cart/context';
-import cartReducer from '@/contexts/cart/reducer';
+import { cartReducer } from '@/contexts/cart/reducer';
 import { CartItem } from '@/types/cart-item';
-import isError from '@/utils/is-error';
+import { isAxiosError } from '@/utils/api';
 
-const useCartInit = (): CartState => {
+export const useCartInit = (): CartState => {
 	const { is } = useAuthStore();
 	const { refetch } = useGetActiveCart(false);
 	const { mutateAsync: createCart } = useCreateActiveCart();
@@ -37,11 +37,7 @@ const useCartInit = (): CartState => {
 						quantity,
 						customizationId: customizationId!,
 					}
-				: {
-						forDelivery,
-						productId,
-						quantity: 1,
-					},
+				: { forDelivery, productId, quantity: 1 },
 		);
 
 	useEffect(() => {
@@ -54,7 +50,7 @@ const useCartInit = (): CartState => {
 						type: 'FILL_CART',
 						items: mapItems(cart.items),
 					});
-				} else if (isError(error, 404)) {
+				} else if (isAxiosError(error, 404)) {
 					await createCart();
 				}
 			};
@@ -64,5 +60,3 @@ const useCartInit = (): CartState => {
 
 	return { items, dispatch };
 };
-
-export default useCartInit;

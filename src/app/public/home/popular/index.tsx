@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
-import useGetTags from '@/hooks/queries/tags/useGetTags';
-import useGetProducts from '@/hooks/queries/products/gallery/useGetGalleryProducts';
+import { useGetTags } from '@/hooks/queries/tags';
+import { useGetProducts } from '@/hooks/queries/products/gallery';
 import { useHomeTranslation } from '@/hooks/locales/pages/public';
 import Btn from '@/app/components/button';
 import Item from './item';

@@ -31,7 +31,7 @@ const loadInitialState = (): Record<string, EditorState> => {
 	}
 };
 
-const store = new Store<Record<string, EditorState>>(loadInitialState());
+export const store = new Store<Record<string, EditorState>>(loadInitialState());
 store.subscribe((state) => {
 	localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state.currentVal));
 });
@@ -94,5 +94,3 @@ export const setCost = (id: string, cost: number) =>
 		...prev,
 		[id]: { ...prev[id], cost: cost },
 	}));
-
-export default store;

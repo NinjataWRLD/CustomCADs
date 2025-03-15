@@ -3,7 +3,7 @@ import * as THREE from 'three';
 import { GLTF } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { Mesh, CustomizeCad } from '@/types/threejs';
 
-const useUpdateThreeJS = () => {
+export const useUpdateThreeJS = () => {
 	const lastTexturesRef = useRef<Map<THREE.Object3D, string>>(new Map());
 
 	const setNewTexture = (child: Mesh, texture: string, color?: string) => {
@@ -46,5 +46,3 @@ const useUpdateThreeJS = () => {
 
 	return updateLooks;
 };
-
-export default useUpdateThreeJS;

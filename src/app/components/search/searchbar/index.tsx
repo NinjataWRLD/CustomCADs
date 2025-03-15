@@ -1,7 +1,7 @@
 import { ChangeEvent, useState } from 'react';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import useSearchParams from '@/hooks/useSearchParams';
+import { useSearchParams } from '@/hooks/useSearchParams';
 import styles from './styles.module.css';
 
 interface SearchbarProps {

@@ -3,11 +3,9 @@ const map: Record<string, string> = {
 	// more in the future
 };
 
-const getCadType = (file: File) => {
+export const getCadType = (file: File) => {
 	if (file.type) return file.type;
 
 	const ext = file.name.slice(file.name.lastIndexOf('.')).toLowerCase();
 	return map[ext] || 'application/octet-stream';
 };
-
-export default getCadType;

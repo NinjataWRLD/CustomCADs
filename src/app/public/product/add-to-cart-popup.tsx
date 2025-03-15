@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { useProductTranslation } from '@/hooks/locales/pages/public';
-import useCartUpdates from '@/hooks/contexts/useCartUpdates';
+import { useCartUpdates } from '@/hooks/contexts/useCartUpdates';
 import styles from './styles.module.css';
 
 interface AddDetailsProps {

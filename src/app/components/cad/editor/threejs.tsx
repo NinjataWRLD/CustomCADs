@@ -2,9 +2,9 @@ import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { GLTF } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { Coordinates } from '@/api/catalog/common';
-import useThreeJS from '@/hooks/threejs/useThreeJS';
-import useUpdateThreeJS from '@/hooks/threejs/useUpdateThreeJS';
-import calculate3D from '@/utils/calculate-3D';
+import { useThreeJS } from '@/hooks/threejs/useThreeJS';
+import { useUpdateThreeJS } from '@/hooks/threejs/useUpdateThreeJS';
+import * as calculate3D from '@/utils/calculate-3D';
 import { Ratio, CustomizeCad, CalculateCad } from '@/types/threejs';
 import styles from '../styles.module.css';
 

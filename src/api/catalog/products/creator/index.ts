@@ -1,4 +1,4 @@
-import axios from '@/api/axios';
+import { axios } from '@/api/axios';
 import { Result } from '@/api/common/result';
 import * as uploadResources from './resources/upload';
 import * as createResources from './resources/create';
@@ -48,13 +48,13 @@ export const edit = async (req: editResources.Request) =>
 export const setCadCoords = async (req: setCoordsResources.Request) =>
 	await axios.patch(setCoordsResources.url(), req);
 
-export const changeImage = async (req: replaceResources.Request) =>
+export const replaceImage = async (req: replaceResources.Request) =>
 	await axios.post<replaceResources.Response>(
 		replaceResources.url('image'),
 		req,
 	);
 
-export const changeCad = async (req: replaceResources.Request) =>
+export const replaceCad = async (req: replaceResources.Request) =>
 	await axios.post<replaceResources.Response>(
 		replaceResources.url('cad'),
 		req,

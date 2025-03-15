@@ -1,7 +1,7 @@
 type Translation = Record<string, string>;
 type Resources = Record<string, { default: Translation }>;
 
-const loadTranslations = (lng: string) => {
+export const loadTranslations = (lng: string) => {
 	const translations: Record<string, Translation> = {};
 
 	const resources: Resources = import.meta.glob(`/src/locales/**/*.ts`, {
@@ -22,5 +22,3 @@ const loadTranslations = (lng: string) => {
 
 	return translations;
 };
-
-export default loadTranslations;

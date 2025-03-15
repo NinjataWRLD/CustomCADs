@@ -6,7 +6,7 @@ import ForgotPassword from '@/app/guest/forgot-password';
 import ResetPassword from '@/app/guest/reset-password';
 import GuestGuard from './guards/guest-guard';
 
-const routes: RouteObject = {
+export const routes: RouteObject = {
 	element: <GuestGuard />,
 	children: [
 		{
@@ -31,5 +31,3 @@ const routes: RouteObject = {
 		},
 	],
 };
-
-export default routes;

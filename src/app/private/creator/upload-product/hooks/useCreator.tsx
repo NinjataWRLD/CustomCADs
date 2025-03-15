@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
-import useCreateProduct from '@/hooks/mutations/products/creator/useCreateProduct';
-import useCalculateVolume from '@/hooks/threejs/useCalculateVolume';
-import useSetProductCadCoords from '@/hooks/mutations/products/creator/useSetProductCadCoords';
+import {
+	useCreateProduct,
+	useSetProductCadCoords,
+} from '@/hooks/mutations/products/creator';
+import { useCalculateVolume } from '@/hooks/threejs/useCalculateVolume';
 import { FileData } from '@/types/files';
 
 type Files = { image: FileData; cad: FileData };
@@ -13,7 +15,7 @@ type ProductData = {
 	categoryId: number;
 };
 
-const useCreator = (
+export const useCreator = (
 	cad: File | null,
 	files?: Files,
 	data?: ProductData,
@@ -67,5 +69,3 @@ const useCreator = (
 
 	return ref;
 };
-
-export default useCreator;

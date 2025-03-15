@@ -1,7 +1,7 @@
-import useDownloadProductCad from '@/hooks/queries/products/gallery/useDownloadProductCad.js';
-import useGenerateBlobUrl from '@/hooks/useGenerateBlobUrl.js';
-import { Product } from '../index.jsx';
-import CreatorThreeJS from './threejs.jsx';
+import { useDownloadProductCad } from '@/hooks/queries/products/gallery';
+import { useGenerateBlobUrl } from '@/hooks/useGenerateBlobUrl';
+import { Product } from '../index';
+import CreatorThreeJS from './threejs';
 import styles from '../styles.module.css';
 
 const CreatorCad = ({ product }: { product: Product }) => {

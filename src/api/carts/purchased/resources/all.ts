@@ -1,4 +1,4 @@
-import objectToSearchParams from '@/utils/object-to-search-params';
+import { objectToSearchParams } from '@/utils/api';
 import { PURCHASED_CART_BASE_PATH } from '../../common';
 
 export interface Request {

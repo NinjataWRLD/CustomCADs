@@ -1,7 +1,7 @@
 import { FormEvent, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useForgotPasswordTranslation } from '@/hooks/locales/pages/guest';
-import useFields from './hooks/useFields';
+import { useFields } from './hooks/useFields';
 import Transition from '@/app/components/transition';
 import Btn from '@/app/components/button';
 import faviconImg from '@/assets/favicons/favicon.svg';

@@ -1,22 +1,24 @@
 import { CartItem } from '@/types/cart-item';
-import useAuthStore from '@/hooks/stores/useAuthStore';
-import useAddActiveCartItem from '@/hooks/mutations/active-carts/useAddActiveCartItem';
-import useRemoveActiveCartItem from '@/hooks/mutations/active-carts/useRemoveActiveCartItem';
-import useIncreaseAcitveCartItemQuantity from '@/hooks/mutations/active-carts/useIncreaseAcitveCartItemQuantity';
-import useDecreaseAcitveCartItemQuantity from '@/hooks/mutations/active-carts/useDecreaseAcitveCartItemQuantity';
-import useToggleActiveCartItemForDelivery from '@/hooks/mutations/active-carts/useToggleActiveCartItemForDelivery';
-import useCartContext from './useCartContext';
+import { useAuthStore } from '@/hooks/stores/useAuthStore';
+import {
+	useAddActiveCartItem,
+	useToggleActiveCartItemForDelivery,
+	useRemoveActiveCartItem,
+	useIncreaseActiveCartItemQuantity,
+	useDecreaseActiveCartItemQuantity,
+} from '@/hooks/mutations/active-carts';
+import { useCartContext } from './useCartContext';
 
-const useCartUpdates = () => {
+export const useCartUpdates = () => {
 	const { is } = useAuthStore();
 
 	const { dispatch } = useCartContext();
 	const { mutateAsync: addCartItem } = useAddActiveCartItem();
 	const { mutateAsync: removeCartItem } = useRemoveActiveCartItem();
 	const { mutateAsync: increaseCartItemQuantity } =
-		useIncreaseAcitveCartItemQuantity();
+		useIncreaseActiveCartItemQuantity();
 	const { mutateAsync: decreaseCartItemQuantity } =
-		useDecreaseAcitveCartItemQuantity();
+		useDecreaseActiveCartItemQuantity();
 	const { mutateAsync: toggleCartItemForDelivery } =
 		useToggleActiveCartItemForDelivery();
 
@@ -87,5 +89,3 @@ const useCartUpdates = () => {
 		toggleItemForDelivery,
 	};
 };
-
-export default useCartUpdates;

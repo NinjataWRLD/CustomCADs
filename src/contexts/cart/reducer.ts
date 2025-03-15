@@ -1,7 +1,10 @@
 import { CartItem } from '@/types/cart-item';
-import CartAction from './action';
+import { CartAction } from './action';
 
-const cartReducer = (state: CartItem[], action: CartAction): CartItem[] => {
+export const cartReducer = (
+	state: CartItem[],
+	action: CartAction,
+): CartItem[] => {
 	switch (action.type) {
 		case 'ADD_ITEM':
 			return state.find(
@@ -60,5 +63,3 @@ const cartReducer = (state: CartItem[], action: CartAction): CartItem[] => {
 			return state;
 	}
 };
-
-export default cartReducer;

@@ -2,11 +2,11 @@ import { usePlaceholdersTranslation } from '@/hooks/locales/common/messages';
 import { useLabelsTranslation } from '@/hooks/locales/components/forms';
 import Password from '@/app/components/fields/password';
 import FieldInfo from '@/app/components/fields/info';
-import { formatMeta } from '@/utils/form-formatter';
-import useForm from './useForm';
+import { formatMeta } from '@/utils/form';
+import { useForm } from './useForm';
 import styles from '@/styles/forms.module.css';
 
-const useFields = (email: string, token: string) => {
+export const useFields = (email: string, token: string) => {
 	const { form, handleSubmit } = useForm(email, token);
 	const tPlaceholders = usePlaceholdersTranslation();
 	const tLabels = useLabelsTranslation();
@@ -66,5 +66,3 @@ const useFields = (email: string, token: string) => {
 		ConfirmPasswordField,
 	};
 };
-
-export default useFields;

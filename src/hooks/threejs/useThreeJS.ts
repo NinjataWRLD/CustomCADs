@@ -1,11 +1,10 @@
 import { useEffect, useRef } from 'react';
 import { GLTFLoader, GLTF } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { Coordinates } from '@/api/catalog/common';
-import initThreeJS from '@/utils/init-three-js';
-import lockGLTF from '@/utils/lock-gltf';
-import removeGLTF from '@/utils/remove-gtlf';
+import { initThreeJS } from '@/utils/init-three-js';
+import { lockGLTF, removeGLTF } from '@/utils/gltf';
 
-const useThreeJS = (
+export const useThreeJS = (
 	url: string,
 	coords: { cam: Coordinates; pan: Coordinates },
 	loadCallback?: (cad: GLTF) => void,
@@ -40,5 +39,3 @@ const useThreeJS = (
 
 	return { ref: mountRef, instance: instanceRef.current };
 };
-
-export default useThreeJS;

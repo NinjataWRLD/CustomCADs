@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { CartItem } from '@/types/cart-item';
-import cartReducer from './reducer';
-import CartAction from './action';
+import { cartReducer } from './reducer';
+import { CartAction } from './action';
 
 const item1: CartItem = {
 	forDelivery: true,

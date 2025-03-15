@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 import { CartItem } from '@/types/cart-item';
-import useAuthStore from '@/hooks/stores/useAuthStore';
-import useAddActiveCartItem from '@/hooks/mutations/active-carts/useAddActiveCartItem';
-import useGetActiveCart from '../queries/active-carts/useGetActiveCart';
+import { useAuthStore } from '@/hooks/stores/useAuthStore';
+import { useAddActiveCartItem } from '@/hooks/mutations/active-carts';
+import { useGetActiveCart } from '@/hooks/queries/active-carts';
 
-const useSyncCarts = () => {
+export const useSyncCarts = () => {
 	const { is } = useAuthStore();
 
 	const { mutateAsync: addItem } = useAddActiveCartItem();
@@ -32,5 +32,3 @@ const useSyncCarts = () => {
 		}
 	}, [is]);
 };
-
-export default useSyncCarts;

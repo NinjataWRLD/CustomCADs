@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const usePagination = (total: number, defaultLimit: number) => {
+export const usePagination = (total: number, defaultLimit: number) => {
 	const [{ page, limit }, setPagination] = useState({
 		page: 1,
 		limit: defaultLimit,
@@ -14,5 +14,3 @@ const usePagination = (total: number, defaultLimit: number) => {
 
 	return { page, limit, handlePageChange };
 };
-
-export default usePagination;

@@ -4,7 +4,7 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { useLoginTranslation } from '@/hooks/locales/pages/guest';
 import Btn from '@/app/components/button';
 import Transition from '@/app/components/transition';
-import useFields from './hooks/useFields';
+import { useFields } from './hooks/useFields';
 import styles from './styles.module.css';
 
 const Login = () => {

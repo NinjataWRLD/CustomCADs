@@ -11,7 +11,7 @@ const defaultState: AuthState = {
 	authn: Boolean(role),
 	authz: role ?? null,
 };
-const store = new Store<AuthState>(defaultState);
+export const store = new Store<AuthState>(defaultState);
 
 export const login = (role: string) => {
 	store.setState(() => ({ authn: true, authz: role }));
@@ -20,5 +20,3 @@ export const login = (role: string) => {
 export const logout = () => {
 	store.setState(() => ({ authn: false, authz: null }));
 };
-
-export default store;

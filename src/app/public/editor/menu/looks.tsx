@@ -1,7 +1,7 @@
-import useGetMaterials from '@/hooks/queries/materials/useGetMaterials';
+import { useGetMaterials } from '@/hooks/queries/materials';
 import { useEditorTranslation } from '@/hooks/locales/pages/public';
 import { useOthersTranslation } from '@/hooks/locales/common/others';
-import useEditorStore from '@/hooks/stores/useEditorStore';
+import { useEditorStore } from '@/hooks/stores/useEditorStore';
 import { setColor, setMaterialId } from '@/stores/editor-store';
 import styles from '../styles.module.css';
 

@@ -2,7 +2,7 @@ import { RouteObject } from 'react-router-dom';
 import UploadProduct from '@/app/private/creator/upload-product';
 import CreatorGuard from './guards/creator-guard';
 
-const routes: RouteObject = {
+export const routes: RouteObject = {
 	element: <CreatorGuard />,
 	children: [
 		{
@@ -11,5 +11,3 @@ const routes: RouteObject = {
 		},
 	],
 };
-
-export default routes;

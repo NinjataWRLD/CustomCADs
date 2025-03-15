@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 import { useResetPasswordTranslation } from '@/hooks/locales/pages/guest';
-import useSearchParams from '@/hooks/useSearchParams';
+import { useSearchParams } from '@/hooks/useSearchParams';
 import Transition from '@/app/components/transition';
 import Btn from '@/app/components/button';
-import useFields from './hooks/useFields';
+import { useFields } from './hooks/useFields';
 import faviconPic from '@/assets/favicons/favicon.svg';
 import styles from './styles.module.css';
 

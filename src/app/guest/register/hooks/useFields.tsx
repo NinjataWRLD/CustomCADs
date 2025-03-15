@@ -2,12 +2,11 @@ import { usePlaceholdersTranslation } from '@/hooks/locales/common/messages';
 import { useLabelsTranslation } from '@/hooks/locales/components/forms';
 import FieldInfo from '@/app/components/fields/info';
 import Password from '@/app/components/fields/password';
-import getErrorClass from '@/utils/get-error-class';
-import { formatMeta } from '@/utils/form-formatter';
-import useForm from './useForm';
+import { getErrorClass, formatMeta } from '@/utils/form';
+import { useForm } from './useForm';
 import styles from '@/styles/forms.module.css';
 
-const useFields = (role: 'Client' | 'Contributor') => {
+export const useFields = (role: 'Client' | 'Contributor') => {
 	const { form, handleSubmit } = useForm(role);
 	const tPlaceholders = usePlaceholdersTranslation();
 	const tLabels = useLabelsTranslation();
@@ -159,5 +158,3 @@ const useFields = (role: 'Client' | 'Contributor') => {
 		ConfirmPasswordField,
 	};
 };
-
-export default useFields;
