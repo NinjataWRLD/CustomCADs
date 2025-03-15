@@ -61,7 +61,7 @@ const Gallery = () => {
 							updateSearch={(categoryId) =>
 								setSearch((prev) => ({
 									...prev,
-									categoryId: categoryId ?? prev.categoryId,
+									categoryId,
 								}))
 							}
 						/>

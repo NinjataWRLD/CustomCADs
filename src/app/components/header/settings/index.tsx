@@ -37,13 +37,13 @@ const SettingsButton = () => {
 		settings = (
 			<>
 				<Setting
-					label={'Carts'}
+					label={tHeader('carts')}
 					link='/carts'
 					icon={faShoppingBag}
 					hide={hide}
 				/>
 				<Setting
-					label={'Orders'}
+					label={tHeader('orders')}
 					link='/orders'
 					icon={faPuzzlePiece}
 					hide={hide}
@@ -56,7 +56,7 @@ const SettingsButton = () => {
 		<>
 			<BaseButton
 				icon={faUserCog}
-				label={tHeader('Settings')}
+				label={tHeader('settings')}
 				onClick={toggle}
 			/>
 			{show && (
@@ -64,13 +64,13 @@ const SettingsButton = () => {
 					<ul className={styles['account']}>
 						{settings}
 						<Setting
-							label={'Account'}
+							label={tHeader('account')}
 							link='/account'
 							icon={faCog}
 							hide={hide}
 						/>
 						<Setting
-							label={'Log Out'}
+							label={tHeader('logout')}
 							link='/'
 							icon={faSignOutAlt}
 							hide={hide}

@@ -14,6 +14,8 @@ const Register = () => {
 	);
 
 	const tRegister = useRegisterTranslation();
+	if (role !== 'client' && role !== 'contributor')
+		throw new Error("You must register as a 'client' or 'contributor'");
 
 	return (
 		<Transition>

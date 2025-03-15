@@ -9,7 +9,6 @@ import useSearchParams from '@/hooks/useSearchParams';
 import { SortingDirection } from '@/api/common/enums/sortings';
 import useGetProductSortings from '@/hooks/queries/products/gallery/useGetProductSortings';
 import { useFetchTranslation } from '@/hooks/locales/common/messages';
-import { useSortingsTranslation } from '@/hooks/locales/common/resources';
 import styles from './styles.module.css';
 
 interface SortingsProps {
@@ -18,7 +17,6 @@ interface SortingsProps {
 
 const Sortings = ({ updateSearch }: SortingsProps) => {
 	const tFetch = useFetchTranslation();
-	const tSortings = useSortingsTranslation();
 
 	const { data: sortings, isLoading, isError } = useGetProductSortings();
 	const [isActiveSort, setIsActiveSort] = useState(false);
@@ -27,10 +25,8 @@ const Sortings = ({ updateSearch }: SortingsProps) => {
 	const sortingParam = getParam('sortingType');
 	const directionParam = getParam('sortingDirection');
 
-	const initial = tSortings('Initial');
-	const [sorting, setSorting] = useState<string>(
-		sortingParam ? tSortings(sortingParam) : initial,
-	);
+	const initial = 'Sort By';
+	const [sorting, setSorting] = useState<string>(sortingParam ?? initial);
 	const [direction, setDirection] = useState<SortingDirection>(
 		directionParam
 			? SortingDirection[directionParam as keyof typeof SortingDirection]
@@ -75,7 +71,7 @@ const Sortings = ({ updateSearch }: SortingsProps) => {
 	};
 
 	const handleInput = (name: string) => {
-		setSorting(() => tSortings(name));
+		setSorting(() => name);
 		setIsActiveSort(false);
 
 		updateSearch(name);
@@ -110,7 +106,7 @@ const Sortings = ({ updateSearch }: SortingsProps) => {
 								onClick={() => handleInput(sorting)}
 							>
 								<span className={`${styles.name}`}>
-									{tSortings(sorting)}
+									{sorting}
 								</span>
 							</li>
 						))}
