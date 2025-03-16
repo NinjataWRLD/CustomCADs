@@ -4,6 +4,14 @@
     color: black;
 }
 
+.error {
+    position: absolute;
+    color: #ff4d4d;
+    font-size: 0.875rem;
+    margin-top: 75px;
+    display: block;
+}
+
 .password-wrapper {
     position: relative;
     width: 100%;

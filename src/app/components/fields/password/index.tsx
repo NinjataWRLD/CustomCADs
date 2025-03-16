@@ -1,50 +1,53 @@
-import { ChangeEventHandler, FocusEventHandler, useState } from 'react';
+import { useState } from 'react';
+import { AnyFieldApi } from '@tanstack/react-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import styles from '@/styles/forms.module.css';
+import Field, { getErrorClass } from '..';
+import styles from '../styles.module.css';
 
 interface PasswordFieldProps {
-	name: string;
-	value?: string;
-	onBlur: FocusEventHandler<HTMLInputElement>;
-	onChange: ChangeEventHandler<HTMLInputElement>;
+	api: AnyFieldApi;
+	label: string;
 	placeholder: string;
-	errors: unknown[];
 }
 
-const PasswordField = ({
-	name,
-	value,
-	onBlur,
-	onChange,
-	placeholder,
-	errors,
-}: PasswordFieldProps) => {
+const PasswordField = ({ api, label, placeholder }: PasswordFieldProps) => {
 	const [isVisible, setIsVisible] = useState(false);
 	const toggleVisibility = () => {
 		setIsVisible((prev) => !prev);
 	};
 
+	const { isBlurred, isTouched, errors } = api.state.meta;
+	const showError = isBlurred && isTouched;
+	const hasError = !!errors.length;
+
 	return (
-		<>
-			<input
-				type={isVisible ? 'text' : 'password'}
-				id={name}
-				name={name}
-				value={value}
-				onBlur={onBlur}
-				onChange={onChange}
-				placeholder={placeholder}
-				className={errors ? styles.invalid : ''}
-			/>
-			<span onClick={toggleVisibility} className={styles.eye}>
-				{isVisible ? (
-					<FontAwesomeIcon icon={faEye} />
-				) : (
-					<FontAwesomeIcon icon={faEyeSlash} />
-				)}
-			</span>
-		</>
+		<Field
+			tag='custom'
+			api={api}
+			label={label}
+			field={
+				<div className={styles['password-wrapper']}>
+					<input
+						type={isVisible ? 'text' : 'password'}
+						id={api.name}
+						name={api.name}
+						value={api.state.value}
+						onBlur={api.handleBlur}
+						onChange={(e) => api.handleChange(e.target.value)}
+						placeholder={placeholder}
+						className={getErrorClass(showError && hasError)}
+					/>
+					<span onClick={toggleVisibility} className={styles.eye}>
+						{isVisible ? (
+							<FontAwesomeIcon icon={faEye} />
+						) : (
+							<FontAwesomeIcon icon={faEyeSlash} />
+						)}
+					</span>
+				</div>
+			}
+		/>
 	);
 };
 
