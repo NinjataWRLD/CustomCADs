@@ -2,6 +2,7 @@ import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { FlatCompat } from '@eslint/eslintrc';
 import prettierPlugin from 'eslint-plugin-prettier';
+import tanstackPlugin from '@tanstack/eslint-plugin-query';
 import vitestPlugin from '@vitest/eslint-plugin';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -97,11 +98,14 @@ const eslintConfig = [
         plugins: {
             prettier: prettierPlugin,
             vitest: vitestPlugin,
+            '@tanstack/query': tanstackPlugin,
         },
         rules: {
             ...possibleErrors,
             ...suggestions,
             'prettier/prettier': 'warn',
+            '@tanstack/query/exhaustive-deps': 'warn',
+            '@tanstack/query/stable-query-client': 'warn',
         },
     },
 ];
