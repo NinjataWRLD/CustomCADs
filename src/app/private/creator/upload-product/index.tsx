@@ -5,7 +5,7 @@ import { useUploadProductTranslation } from '@/hooks/locales/pages/creator';
 import styles from './styles.module.css';
 
 const UploadProduct = () => {
-	const { ref, handleSubmit, ...fields } = useFields();
+	const { ref, cadSet, handleSubmit, ...fields } = useFields();
 	const tUploadProduct = useUploadProductTranslation();
 
 	return (
@@ -60,7 +60,14 @@ const UploadProduct = () => {
 						<Btn type='submit' text={tUploadProduct('btn')} />
 					</div>
 				</form>
-				<div ref={ref} style={{ width: '25%', height: '80%' }} />
+				<div
+					ref={ref}
+					style={
+						cadSet
+							? { width: '25%', height: '80%' }
+							: { display: 'none' }
+					}
+				/>
 			</div>
 		</Transition>
 	);

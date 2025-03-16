@@ -26,26 +26,26 @@ export const useLogout = () =>
 
 export const useRefresh = () =>
 	useMutation({
-		mutationKey: ['sign-in', 'refresh'],
+		mutationKey: ['identity', 'refresh'],
 		mutationFn: async () => (await refresh()).data,
 	});
 
 export const useResetPassword = () =>
 	useMutation({
-		mutationKey: ['sign-in', 'reset-password'],
+		mutationKey: ['identity', 'reset-password'],
 		mutationFn: async (params: ResetPassword) =>
 			(await resetPassword(params)).data,
 	});
 
 export const useRegister = () =>
 	useMutation({
-		mutationKey: ['sign-up', 'register'],
+		mutationKey: ['identity', 'register'],
 		mutationFn: async (params: Register) => (await register(params)).data,
 	});
 
 export const useRetryConfirmEmail = () =>
 	useMutation({
-		mutationKey: ['sign-up', 'retry-confirm-email'],
+		mutationKey: ['identity', 'retry-confirm-email'],
 		mutationFn: async (params: RetryConfirmEmail) =>
 			(await retryConfirmEmail(params)).data,
 	});
