@@ -28,7 +28,7 @@ export const formatMeta = (meta: Meta) =>
 		errors: meta.errors.map((e) => e?.message ?? ''),
 	}) as Meta;
 
-export const fieldEqualityHelper = () => {
+export const equalityHelper = () => {
 	let holder = '';
 
 	const sync = (x: string) => {
@@ -42,6 +42,8 @@ export const fieldEqualityHelper = () => {
 
 	return { sync, check };
 };
+
+export const fileHelper = (file: File) => file.size > 0;
 
 export const getErrorClass = (errors: ValidationError[]) =>
 	errors ? styles.invalid : '';

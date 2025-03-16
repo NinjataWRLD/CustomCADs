@@ -1,19 +1,29 @@
 import { z } from 'zod';
-import { useErrorsTranslation } from '@/hooks/locales/components/forms';
+import {
+	useErrorsTranslation,
+	useLabelsTranslation,
+} from '@/hooks/locales/components/forms';
 import { user as validations } from '@/constants/validations';
-import { fieldEqualityHelper } from '@/utils/form';
+import { equalityHelper } from '@/utils/form';
 
 export const useValidation = () => {
 	const tErrors = useErrorsTranslation();
+	const tLabels = useLabelsTranslation();
+
 	const { password } = validations;
 
 	const passwordArgs = {
-		field: 'Password',
+		field: tLabels('password'),
+		min: password.min,
+		max: password.max,
+	};
+	const confirmPasswordArgs = {
+		field: tLabels('confirm-password'),
 		min: password.min,
 		max: password.max,
 	};
 
-	const passwordEquality = fieldEqualityHelper();
+	const passwordEquality = equalityHelper();
 	const schema = z.object({
 		password: z
 			.string({ message: tErrors('required', passwordArgs) })
@@ -21,8 +31,9 @@ export const useValidation = () => {
 			.min(password.min, tErrors('length', passwordArgs))
 			.refine(passwordEquality.sync),
 		confirmPassword: z
-			.string({ message: tErrors('required', passwordArgs) })
-			.refine(passwordEquality.check),
+			.string()
+			.nonempty({ message: tErrors('required', confirmPasswordArgs) })
+			.refine(passwordEquality.check, tErrors('equal-passwords')),
 	});
 
 	return schema;

@@ -5,7 +5,7 @@ export type ComponentsFormsErrors = {
 	range: string;
 	required_symbol: string;
 	pattern: string;
-	equal: string;
+	'equal-passwords': string;
 	invalid_data: string;
 	sign_in_error: string;
 	locked_out_error: string;

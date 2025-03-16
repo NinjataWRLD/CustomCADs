@@ -7,7 +7,7 @@ export default {
 	range: "The value of '{{field}}' must be between {{min}} and {{max}}",
 	required_symbol: "The field '{{field}}' must contain a '{{symbol}}' symbol",
 	pattern: "The field '{{field}}' is not valid",
-	equal: 'Passwords must be equal',
+	'equal-passwords': 'Passwords must be equal',
 	invalid_data: 'Invalid data!',
 	sign_in_error: 'Non-existent account or wrong password',
 	locked_out_error:
