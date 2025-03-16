@@ -1,21 +1,38 @@
 import { z } from 'zod';
-import { useErrorsTranslation } from '@/hooks/locales/components/forms';
+import {
+	useErrorsTranslation,
+	useLabelsTranslation,
+} from '@/hooks/locales/components/forms';
 import { user as validations } from '@/constants/validations';
 
 export const useValidation = () => {
 	const tErrors = useErrorsTranslation();
+	const tLabels = useLabelsTranslation();
+
 	const { name, password } = validations;
 
-	const usernameArgs = { field: 'Username', min: name.min, max: name.max };
+	const usernameArgs = {
+		field: tLabels('username'),
+		min: name.min,
+		max: name.max,
+	};
 	const passwordArgs = {
-		field: 'Password',
+		field: tLabels('password'),
 		min: password.min,
 		max: password.max,
 	};
 
 	const schema = z.object({
-		username: z.string({ message: tErrors('required', usernameArgs) }),
-		password: z.string({ message: tErrors('required', passwordArgs) }),
+		username: z
+			.string()
+			.nonempty({ message: tErrors('required', usernameArgs) })
+			.max(name.max, { message: tErrors('length', usernameArgs) })
+			.min(name.min, { message: tErrors('length', usernameArgs) }),
+		password: z
+			.string()
+			.nonempty({ message: tErrors('required', passwordArgs) })
+			.max(password.max, { message: tErrors('length', passwordArgs) })
+			.min(password.min, { message: tErrors('length', passwordArgs) }),
 		rememberMe: z.boolean(),
 	});
 

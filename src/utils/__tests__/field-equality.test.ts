@@ -1,11 +1,11 @@
 import { beforeEach, describe, expect, it } from 'vitest';
-import { fieldEqualityHelper } from '../form';
+import { equalityHelper } from '../form';
 
 describe('Field Equality Helper utility tests', () => {
-	let helper: ReturnType<typeof fieldEqualityHelper>;
+	let helper: ReturnType<typeof equalityHelper>;
 
 	beforeEach(() => {
-		helper = fieldEqualityHelper();
+		helper = equalityHelper();
 	});
 
 	it('sync method should return true', () => {

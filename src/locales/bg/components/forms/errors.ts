@@ -8,7 +8,7 @@ export default {
 	required_symbol:
 		"Полето '{{field}}' трябва да съдържа символа '{{symbol}}'",
 	pattern: "Полето '{{field}}' не е валидно",
-	equal: 'Паролите трябва да са еднакви',
+	'equal-passwords': 'Паролите трябва да са еднакви',
 	invalid_data: 'Невалидни данни',
 	sign_in_error: 'Несъществуващ акаунт или грешна парола',
 	locked_out_error:
