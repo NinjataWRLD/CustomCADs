@@ -59,6 +59,7 @@ export const useForm = () => {
 	return {
 		form,
 		handleSubmit,
+		cadSet: !!cad,
 		setCad,
 		ref,
 	};

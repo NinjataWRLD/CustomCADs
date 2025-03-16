@@ -14,7 +14,7 @@ export const useThreeJS = (
 	const instanceRef = useRef<ReturnType<typeof initThreeJS> | null>(null);
 
 	useEffect(() => {
-		if (!instanceRef.current) {
+		if (url && !instanceRef.current) {
 			instanceRef.current = initThreeJS(mountRef.current, coords);
 		}
 		const { exit } = instanceRef.current ?? {};
@@ -22,7 +22,7 @@ export const useThreeJS = (
 			if (exitCallback) exitCallback();
 			if (exit) exit();
 		};
-	}, []);
+	}, [url]);
 
 	useEffect(() => {
 		if (instanceRef.current && url) {
