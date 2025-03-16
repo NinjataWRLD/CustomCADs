@@ -10,7 +10,6 @@ export const useLanguages = () => {
 			localStorage.setItem('language', i18n.language);
 		} else if (i18n.language !== language) {
 			i18n.changeLanguage(language);
-			localStorage.setItem('language', language);
 		}
 	}, [i18n]);
 
