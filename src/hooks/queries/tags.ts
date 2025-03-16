@@ -4,14 +4,14 @@ import { all, single } from '@/api/catalog/tags';
 
 export const useGetTags = (enabled?: boolean) =>
 	useQuery({
-		queryKey: ['catalog', 'tags', 'all'],
+		queryKey: ['tags', 'all'],
 		queryFn: async () => (await all()).data,
 		enabled,
 	});
 
 export const useGetTag = (params: Single, enabled?: boolean) =>
 	useQuery({
-		queryKey: ['catalog', 'tags', 'single', params],
+		queryKey: ['tags', 'single', params],
 		queryFn: async () => (await single(params)).data,
 		enabled,
 	});
