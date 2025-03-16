@@ -14,31 +14,31 @@ import {
 
 export const useCreateOngoingOrder = () =>
 	useMutation({
-		mutationKey: ['ongoing-orders', 'create'],
+		mutationKey: ['ongoing-orders', 'client', 'create'],
 		mutationFn: async (params: Create) => (await create(params)).data,
 	});
 
 export const useEditOngoingOrder = () =>
 	useMutation({
-		mutationKey: ['ongoing-orders', 'edit'],
+		mutationKey: ['ongoing-orders', 'client', 'edit'],
 		mutationFn: async (params: Edit) => (await edit(params)).data,
 	});
 
 export const usePurchaseOngoingOrder = () =>
 	useMutation({
-		mutationKey: ['ongoing-orders', 'purchase'],
+		mutationKey: ['ongoing-orders', 'client', 'purchase'],
 		mutationFn: async (params: Purchase) => (await purchase(params)).data,
 	});
 
 export const usePurchaseOngoingOrderWithDelivery = () =>
 	useMutation({
-		mutationKey: ['ongoing-orders', 'purchase-with-delivery'],
+		mutationKey: ['ongoing-orders', 'client', 'purchase-with-delivery'],
 		mutationFn: async (params: PurchaseWithDelivery) =>
 			(await purchaseWithDelivery(params)).data,
 	});
 
 export const useDeleteOngoingOrder = () =>
 	useMutation({
-		mutationKey: ['ongoing-orders', 'delete'],
+		mutationKey: ['ongoing-orders', 'client', 'delete'],
 		mutationFn: async (params: Delete) => (await delete_(params)).data,
 	});

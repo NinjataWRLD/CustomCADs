@@ -6,7 +6,7 @@ import FileField from '@/app/components/fields/file';
 import { useForm } from './useForm';
 
 export const useFields = () => {
-	const { form, handleSubmit, setCad, ref } = useForm();
+	const { form, handleSubmit, setCad, cadSet, ref } = useForm();
 	const { data: categories } = useGetCategories();
 
 	const tPlaceholders = usePlaceholdersTranslation();
@@ -93,6 +93,7 @@ export const useFields = () => {
 
 	return {
 		ref,
+		cadSet,
 		handleSubmit,
 		NameField,
 		DescriptionField,

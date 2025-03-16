@@ -25,7 +25,6 @@ const FileField = ({ api, label, accept, onChange }: FileFieldProps) => {
 					accept={accept}
 					id={api.name}
 					name={api.name}
-					value={api.state.value}
 					onBlur={api.handleBlur}
 					onChange={(e) => {
 						const file = e.target.files?.[0] ?? null;
