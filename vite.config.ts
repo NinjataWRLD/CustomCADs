@@ -1,5 +1,6 @@
 /// <reference types="vitest/config" />
 import { defineConfig, UserConfig } from 'vite';
+import { TanStackRouterVite } from '@tanstack/router-plugin/vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 import fs from 'fs';
@@ -7,7 +8,10 @@ import child_process from 'child_process';
 import { env } from 'process';
 
 let config: UserConfig = {
-	plugins: [react()],
+	plugins: [
+		TanStackRouterVite({ target: 'react', autoCodeSplitting: true }),
+		react(),
+	],
 	resolve: {
 		alias: {
 			'@': path.resolve(__dirname, './src'),
