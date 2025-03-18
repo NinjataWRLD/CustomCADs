@@ -4,7 +4,7 @@ import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { useGetTags } from '@/hooks/queries/tags';
 import { useGetProducts } from '@/hooks/queries/products/gallery';
 import { useHomeTranslation } from '@/hooks/locales/pages/public';
-import Btn from '@/app/components/button';
+import CustomLink from '@/app/components/link';
 import Item from './item';
 import styles from './styles.module.css';
 
@@ -103,10 +103,9 @@ const PopularProducts = () => {
 					<FontAwesomeIcon icon={faAngleRight} />
 				</div>
 				<div className={`${styles.btn}`}>
-					<Btn
-						type='link'
+					<CustomLink
+						to='/gallery'
 						text={tHome('popular-gallery-btn')}
-						link='/gallery'
 					/>
 				</div>
 			</div>

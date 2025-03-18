@@ -1,5 +1,5 @@
 import { FormEvent, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from '@tanstack/react-router';
 import { useForm as useTanStackForm } from '@tanstack/react-form';
 import { useForceLocaleRefresh } from '@/hooks/locales/useForceLocaleRefresh';
 import { FileData } from '@/types/files';
@@ -34,7 +34,9 @@ export const useForm = () => {
 	const uploadFiles = useUploader(setFiles);
 
 	const [cad, setCad] = useState<File | null>(null);
-	const ref = useCreator(cad, files, value, () => navigate('/gallery'));
+	const ref = useCreator(cad, files, value, () =>
+		navigate({ to: '/gallery' }),
+	);
 
 	useEffect(() => {
 		if (value) {

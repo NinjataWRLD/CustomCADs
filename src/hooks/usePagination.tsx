@@ -7,7 +7,7 @@ export const usePagination = (total: number, defaultLimit: number) => {
 	});
 
 	const handlePageChange = (newPage: number) => {
-		if (!(newPage < 1 || newPage > Math.ceil(total / limit))) {
+		if (newPage >= 1 && newPage <= Math.ceil(total / limit)) {
 			setPagination({ limit, page: newPage });
 		}
 	};

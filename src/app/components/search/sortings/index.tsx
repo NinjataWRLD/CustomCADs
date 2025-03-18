@@ -5,27 +5,25 @@ import {
 	faChevronDown,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useSearchParams } from '@/hooks/useSearchParams';
 import { useGetProductSortings } from '@/hooks/queries/products/gallery';
 import { useFetchTranslation } from '@/hooks/locales/common/messages';
 import { SortingDirection } from '@/types/sorting';
 import styles from './styles.module.css';
 
 interface SortingsProps {
-	updateSearch: (sorting?: string, direction?: string) => void;
+	getSorting: () => { type?: string; direction?: string };
+	updateSorting: (sorting: { type?: string; direction?: string }) => void;
 }
 
-const Sortings = ({ updateSearch }: SortingsProps) => {
+const Sortings = ({ getSorting, updateSorting }: SortingsProps) => {
 	const tFetch = useFetchTranslation();
 
 	const { data: sortings, isLoading, isError } = useGetProductSortings();
 	const [isActiveSort, setIsActiveSort] = useState(false);
 
-	const { getParam, setParams } = useSearchParams();
-	const sortingParam = getParam('sortingType');
-	const directionParam = getParam('sortingDirection');
-
+	const { type: sortingParam, direction: directionParam } = getSorting();
 	const initial = 'Sort By';
+
 	const [sorting, setSorting] = useState<string>(sortingParam ?? initial);
 	const [direction, setDirection] = useState<SortingDirection>(
 		directionParam
@@ -33,49 +31,45 @@ const Sortings = ({ updateSearch }: SortingsProps) => {
 			: SortingDirection.Descending,
 	);
 
-	const setSortingParam = (sorting: string) =>
-		setParams({
-			sortingType: encodeURIComponent(sorting),
-		});
-
-	const setDirectionParam = (direction: string) =>
-		setParams({
-			sortingDirection: encodeURIComponent(direction),
-		});
-
 	useEffect(() => {
 		if (!sortingParam) {
 			setSorting(initial);
 		}
 	}, [initial]);
 
+	useEffect(() => {
+		updateSorting({
+			type: sortingParam,
+			direction: directionParam,
+		});
+	}, [sortingParam]);
+
 	const toggleDropdown = () => {
 		setIsActiveSort((prev) => !prev);
 	};
 
 	const toggleDirection = () => {
-		setDirection((prev) => {
-			const set = (direction: SortingDirection) => {
-				setDirectionParam(SortingDirection[direction]);
-				updateSearch(undefined, SortingDirection[direction]);
-				return direction;
-			};
-			switch (prev) {
-				case SortingDirection.Ascending:
-					return set(SortingDirection.Descending);
-				case SortingDirection.Descending:
-				default:
-					return set(SortingDirection.Ascending);
-			}
-		});
+		if (sorting !== initial) {
+			setDirection((prev) => {
+				const set = (direction: SortingDirection) => {
+					updateSorting({ direction: SortingDirection[direction] });
+					return direction;
+				};
+				switch (prev) {
+					case SortingDirection.Ascending:
+						return set(SortingDirection.Descending);
+					case SortingDirection.Descending:
+					default:
+						return set(SortingDirection.Ascending);
+				}
+			});
+		}
 	};
 
 	const handleInput = (name: string) => {
 		setSorting(() => name);
 		setIsActiveSort(false);
-
-		updateSearch(name);
-		setSortingParam(encodeURIComponent(name));
+		updateSorting({ type: name });
 	};
 
 	if (isLoading) {

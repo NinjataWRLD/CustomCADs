@@ -3,7 +3,12 @@ import { useLabelsTranslation } from '@/hooks/locales/components/forms';
 import Password from '@/app/components/fields/password';
 import { useForm } from './useForm';
 
-export const useFields = (email: string, token: string) => {
+interface Props {
+	email: string;
+	token: string;
+}
+
+export const useFields = ({ email, token }: Props) => {
 	const { form, handleSubmit } = useForm(email, token);
 	const tPlaceholders = usePlaceholdersTranslation();
 	const tLabels = useLabelsTranslation();

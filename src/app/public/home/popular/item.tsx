@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from '@tanstack/react-router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { useGenerateBlobUrl } from '@/hooks/useGenerateBlobUrl';
@@ -24,7 +24,7 @@ const Item = ({ product }: ItemProps) => {
 	);
 
 	const handleDetailsClick = () => {
-		navigate(`/gallery/${product.id}`);
+		navigate({ to: '/gallery/$id', params: { id: product.id } });
 	};
 
 	return (

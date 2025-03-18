@@ -1,32 +1,29 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useSearchParams } from '@/hooks/useSearchParams';
 import styles from './styles.module.css';
 
 interface SearchbarProps {
 	placeholder: string;
-	updateSearch: (name?: string) => void;
+	getName: () => string | undefined;
+	updateName: (searchTerm: string | undefined) => void;
 }
 
-const Searchbar = ({ placeholder, updateSearch }: SearchbarProps) => {
-	const { getParam, setParams } = useSearchParams();
-	const nameParam = getParam('name');
-
-	const [name, setName] = useState(nameParam ?? '');
+const Searchbar = ({ placeholder, getName, updateName }: SearchbarProps) => {
 	const [isHovered, setIsHovered] = useState(false);
 	const [isPermanentHovered, setIsPermanentHovered] = useState(false);
 
-	const setNameParam = (name: string) =>
-		setParams({
-			name: encodeURIComponent(name),
-		});
+	const nameParam = getName();
 
+	useEffect(() => {
+		updateName(nameParam);
+	}, [nameParam]);
+
+	const [name, setName] = useState(nameParam ?? '');
 	const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
 		const { value } = e.target;
 		setName(value);
-		setNameParam(value);
-		updateSearch(value);
+		updateName(value);
 	};
 
 	return (

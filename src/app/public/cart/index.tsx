@@ -9,7 +9,7 @@ import {
 import { useCartTranslation } from '@/hooks/locales/pages/public';
 import { useCartContext } from '@/hooks/contexts/useCartContext';
 import Transition from '@/app/components/transition';
-import Btn from '@/app/components/button';
+import Button from '@/app/components/button';
 import CartItem from './item';
 import * as formatter from './formatter';
 import styles from './styles.module.css';
@@ -40,6 +40,8 @@ const Cart = () => {
 		}
 	});
 
+	const totalPrice = sum.product.total + sum.customization.total;
+	const deliveryPrice = sum.product.delivery + sum.customization.delivery;
 	return (
 		<Transition>
 			<div className={styles.container}>
@@ -84,22 +86,17 @@ const Cart = () => {
 					<p>
 						{tCart('total', {
 							count: items?.length,
-							cost: formatter.price(
-								sum.product.total + sum.customization.total,
-							),
+							cost: formatter.price(totalPrice),
 						})}
 					</p>
 					<p>
 						{tCart('total-delivery', {
 							count: items?.filter((i) => i.forDelivery).length,
-							cost: formatter.price(
-								sum.product.delivery +
-								sum.customization.delivery,
-							),
+							cost: formatter.price(deliveryPrice),
 						})}
 					</p>
 				</h2>
-				<Btn type='button' text={tCart('buy')} />
+				<Button type='button' text={tCart('buy')} />
 				<hr />
 				<div className={styles.cards}>
 					<FontAwesomeIcon icon={faCcVisa} />

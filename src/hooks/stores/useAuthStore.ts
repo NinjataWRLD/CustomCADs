@@ -1,41 +1,11 @@
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import { useStore } from '@tanstack/react-store';
-import { store, login, logout } from '@/stores/auth-store';
-import { useRefresh } from '@/hooks/mutations/identity';
-import { useAuthn, useAuthz } from '@/hooks/queries/identity';
+import { store } from '@/stores/auth-store';
 
 export const useAuthStore = () => {
-	const state = useStore(store);
-	const { mutateAsync: refreshAuth } = useRefresh();
-
-	const { refetch: refetchAuthn } = useAuthn(false);
-	const { refetch: refetchAuthz } = useAuthz(false);
-
-	useEffect(() => {
-		let retries = 0;
-		const sync = async () => {
-			const { data: authn } = await refetchAuthn();
-			if (!authn) {
-				try {
-					retries += 1;
-					await refreshAuth();
-					if (retries < 2) sync();
-				} catch {
-					logout();
-					return;
-				}
-			}
-
-			const { data: authz } = await refetchAuthz();
-			if (authz) {
-				login(authz);
-			}
-		};
-		sync();
-	}, [state.authn, state.authz]);
+	const { authn, authz } = useStore(store);
 
 	const is = useMemo(() => {
-		const { authn, authz } = state;
 		const roles = {
 			guest: !authn,
 			client: authn && authz === 'Client',
@@ -48,7 +18,7 @@ export const useAuthStore = () => {
 			...roles,
 			creator: roles.contributor || roles.designer,
 		};
-	}, [state.authn, state.authz]);
+	}, [authn, authz]);
 
-	return { ...state, is: is };
+	return { authn, authz, is };
 };

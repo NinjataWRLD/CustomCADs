@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from '@tanstack/react-router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { useProductTranslation } from '@/hooks/locales/pages/public';
@@ -37,7 +37,7 @@ const AddToCartPopup = ({
 				quantity: 1,
 				forDelivery: false,
 			});
-		else navigate(`/editor/${id}`, { state: { allow: true } });
+		else navigate({ to: '/editor/$id', params: { id: id } });
 	};
 
 	return (

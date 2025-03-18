@@ -1,19 +1,16 @@
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { useResetPasswordTranslation } from '@/hooks/locales/pages/guest';
-import { useSearchParams } from '@/hooks/useSearchParams';
+import { Route } from '@/routes/_guest/reset-password';
 import Transition from '@/app/components/transition';
-import Btn from '@/app/components/button';
+import Button from '@/app/components/button';
 import { useFields } from './hooks/useFields';
 import faviconPic from '@/assets/favicons/favicon.svg';
 import styles from './styles.module.css';
 
 const ResetPassword = () => {
 	const tResetPassword = useResetPasswordTranslation();
-	const { getParam } = useSearchParams();
-	const { handleSubmit, ...fields } = useFields(
-		getParam('email') ?? '',
-		getParam('token') ?? '',
-	);
+	const search = Route.useSearch();
+	const { handleSubmit, ...fields } = useFields(search);
 
 	return (
 		<Transition>
@@ -50,7 +47,7 @@ const ResetPassword = () => {
 					</div>
 
 					<div className={`${styles.submit}`}>
-						<Btn type='submit' text={tResetPassword('button')} />
+						<Button type='submit' text={tResetPassword('button')} />
 					</div>
 					<div className={`${styles.links}`}>
 						<Link to='/login'>{tResetPassword('back')}</Link>

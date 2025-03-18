@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import {
 	faImage,
 	faShoppingCart,
@@ -10,7 +10,7 @@ import { useCartContext } from '@/hooks/contexts/useCartContext';
 import { useHeaderTranslation } from '@/hooks/locales/components/layout';
 import LanguageButton from './language';
 import SettingsButton from './settings';
-import BaseButton from './base';
+import BaseButton from './base-button';
 import styles from './styles.module.css';
 
 const title = 'CustomCADs';
@@ -32,6 +32,7 @@ const Header = () => {
 					label={tHeader('icon-1')}
 					link='/gallery'
 					icon={faImage}
+					replace
 				/>
 				<span>|</span>
 				{(is.guest || is.client) && items && (

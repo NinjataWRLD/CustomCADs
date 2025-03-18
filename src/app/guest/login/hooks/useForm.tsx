@@ -1,5 +1,5 @@
 import { FormEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from '@tanstack/react-router';
 import { useForm as useTanStackForm } from '@tanstack/react-form';
 import { useLogin } from '@/hooks/mutations/identity';
 import { useForceLocaleRefresh } from '@/hooks/locales/useForceLocaleRefresh';
@@ -33,7 +33,7 @@ export const useForm = () => {
 			await login(value);
 			await updateAuthz();
 
-			navigate('/');
+			navigate({ to: '/' });
 		},
 		validators: {
 			onChange: schema,
