@@ -103,37 +103,6 @@
     margin-bottom: 10px;
 }
 
-.heart {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-    border: none;
-    background-color: transparent;
-    position: relative;
-    transition:
-        background-color 0.2s ease,
-        transform 0.2s ease;
-}
-
-.heart i {
-    font-size: 1.5rem;
-    color: white;
-    transition:
-        transform 0.2s ease,
-        color 0.2s ease;
-}
-
-.heart:hover i {
-    transform: scale(1.1);
-}
-
-.heart.clicked i {
-    color: rgb(255, 0, 0);
-}
-
 .views {
     display: flex;
     align-items: center;
@@ -141,21 +110,14 @@
     font-size: 1rem;
 }
 
-.views i {
+.views svg {
     font-size: 1.2rem;
     color: #afafaf;
     transition: color 0.2s ease;
 }
 
-.views:hover i {
+.views:hover svg {
     color: #c736da;
-}
-
-.heart div {
-    font-size: 1rem;
-    color: white;
-    font-weight: bold;
-    margin-left: 5px;
 }
 
 .views div {

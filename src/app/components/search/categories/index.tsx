@@ -1,33 +1,36 @@
 import { useEffect, useState } from 'react';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { CategoryResponse } from '@/api/categories/common';
 import { useGetCategories } from '@/hooks/queries/categories';
-import { useSearchParams } from '@/hooks/useSearchParams';
 import { useFetchTranslation } from '@/hooks/locales/common/messages';
 import styles from './styles.module.css';
 
 interface CategoriesProps {
-	updateSearch: (categoryId?: number) => void;
+	getCategory: () => string | undefined;
+	updateCategory: (category?: CategoryResponse) => void;
 }
 
-const Categories = ({ updateSearch }: CategoriesProps) => {
+const Categories = ({ getCategory, updateCategory }: CategoriesProps) => {
 	const tFetch = useFetchTranslation();
 
 	const { data: categories, isLoading, isError } = useGetCategories();
 	const [isActiveCategory, setIsActiveCategory] = useState(false);
 
-	const { getParam, setParams } = useSearchParams();
-	const categoryParam = getParam('category');
+	const categoryParam = getCategory();
 
 	const all = 'All Categories';
 	const [category, setCategory] = useState(categoryParam ?? all);
 
 	useEffect(() => {
-		if (categories && categoryParam) {
-			const category = categories.find((c) => c.name === categoryParam);
-			updateSearch(category?.id);
+		if (categories) {
+			if (categoryParam)
+				updateCategory(
+					categories.find((c) => c.name === categoryParam),
+				);
+			else updateCategory();
 		}
-	}, [categories]);
+	}, [categories, categoryParam]);
 
 	useEffect(() => {
 		if (!categoryParam) {
@@ -47,22 +50,16 @@ const Categories = ({ updateSearch }: CategoriesProps) => {
 		setIsActiveCategory((prev) => !prev);
 	};
 
-	const setCategoryParam = (category?: string) => {
-		if (category) setParams({ category: encodeURIComponent(category) });
-	};
-
 	const handleInput = (name: string) => {
 		const category = categories.find((c) => c.name === name);
 
 		setIsActiveCategory(false);
 		if (category) {
 			setCategory(category.name);
-			updateSearch(category.id);
-			setCategoryParam(category.name);
+			updateCategory(category);
 		} else {
 			setCategory(all);
-			updateSearch();
-			setCategoryParam();
+			updateCategory();
 		}
 	};
 

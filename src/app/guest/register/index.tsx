@@ -1,14 +1,15 @@
-import { Link, useParams } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { Route } from '@/routes/_guest/register.$role';
 import { useRegisterTranslation } from '@/hooks/locales/pages/guest';
-import Btn from '@/app/components/button';
+import Button from '@/app/components/button';
 import Transition from '@/app/components/transition';
 import { useFields } from './hooks/useFields';
 import styles from './styles.module.css';
 
 const Register = () => {
-	const { role } = useParams();
+	const { role } = Route.useParams();
 	const { handleSubmit, ...fields } = useFields(
 		role === 'client' ? 'Client' : 'Contributor',
 	);
@@ -77,7 +78,7 @@ const Register = () => {
 					</div>
 
 					<div className={`${styles.submit}`}>
-						<Btn type='submit' text={tRegister('btn')} />
+						<Button type='submit' text={tRegister('btn')} />
 					</div>
 				</form>
 

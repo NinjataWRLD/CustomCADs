@@ -1,9 +1,9 @@
 import { FormEvent, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { useForgotPasswordTranslation } from '@/hooks/locales/pages/guest';
 import { useFields } from './hooks/useFields';
 import Transition from '@/app/components/transition';
-import Btn from '@/app/components/button';
+import Button from '@/app/components/button';
 import faviconImg from '@/assets/favicons/favicon.svg';
 import styles from './styles.module.css';
 
@@ -53,7 +53,10 @@ const ForgotPassword = () => {
 					</div>
 
 					<div className={`${styles.submit}`}>
-						<Btn type='submit' text={tForgotPassword('button')} />
+						<Button
+							type='submit'
+							text={tForgotPassword('button')}
+						/>
 						<div
 							className={`${styles.transitionContainer} ${showMessage ? styles.show : ''}`}
 						>

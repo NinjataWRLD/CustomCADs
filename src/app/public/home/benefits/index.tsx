@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from '@tanstack/react-router';
 import { useHomeTranslation } from '@/hooks/locales/pages/public';
 import Sheet from './sheets';
 import styles from './styles.module.css';
@@ -10,7 +10,7 @@ const Benefits = () => {
 	return (
 		<div className={`${styles.container}`}>
 			<div
-				onClick={() => navigate('/gallery')}
+				onClick={() => navigate({ to: '/gallery' })}
 				className={`${styles.picture}`}
 			></div>
 			<div className={`${styles.content}`}>

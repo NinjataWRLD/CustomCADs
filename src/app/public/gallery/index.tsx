@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
+import { Route } from '@/routes/_public/gallery';
+import { Request as GallerySearch } from '@/api/catalog/products/gallery/resources/all';
 import { usePagination } from '@/hooks/usePagination';
 import { useGetProducts } from '@/hooks/queries/products/gallery';
 import {
 	useFetchTranslation,
 	usePlaceholdersTranslation,
 } from '@/hooks/locales/common/messages';
-import { useSearchParams } from '@/hooks/useSearchParams';
 import Transition from '@/app/components/transition';
 import Categories from '@/app/components/search/categories';
 import Searchbar from '@/app/components/search/searchbar';
@@ -14,37 +15,34 @@ import Pagination from '@/app/components/pagination';
 import Item from './item';
 import styles from './styles.module.css';
 
-interface GallerySearch {
-	name?: string;
-	categoryId?: number;
-	sortingType?: string;
-	sortingDirection?: string;
-}
-
 const Gallery = () => {
 	const tFetch = useFetchTranslation();
 	const tPlaceholders = usePlaceholdersTranslation();
 
-	const { getParam } = useSearchParams();
-	const nameParam = getParam('name');
-	const sortingTypeParam = getParam('sortingType');
-	const sortingDirectionParam = getParam('sortingDirection');
-
-	const [search, setSearch] = useState<GallerySearch>({
-		name: nameParam,
-		categoryId: undefined,
-		sortingType: sortingTypeParam,
-		sortingDirection: sortingDirectionParam,
-	});
-
 	const [total, setTotal] = useState(0);
 	const { page, limit, handlePageChange } = usePagination(total, 12);
 
-	const { data: products } = useGetProducts({
+	const navigate = Route.useNavigate();
+	const { name, categoryName, sortingType, sortingDirection } =
+		Route.useSearch();
+
+	const [search, setSearch] = useState<GallerySearch>({
+		name: name,
+		categoryId: undefined,
+		sortingType: sortingType,
+		sortingDirection: sortingDirection,
 		limit: limit,
 		page: page,
-		...search,
 	});
+	const { data: products } = useGetProducts(search);
+
+	useEffect(() => {
+		setSearch((prev) => ({
+			...prev,
+			page: page,
+			limit: limit,
+		}));
+	}, [page, limit]);
 
 	useEffect(() => {
 		if (products?.count) {
@@ -58,31 +56,57 @@ const Gallery = () => {
 				<section className={`${styles.container}`}>
 					<div className={styles.search}>
 						<Categories
-							updateSearch={(categoryId) =>
+							getCategory={() => categoryName}
+							updateCategory={(category) => {
 								setSearch((prev) => ({
 									...prev,
-									categoryId,
-								}))
-							}
+									categoryId: category?.id,
+								}));
+								navigate({
+									search: (prev) => ({
+										...prev,
+										categoryName: category?.name,
+									}),
+								});
+							}}
 						/>
 						<Searchbar
 							placeholder={tPlaceholders('search-products')}
-							updateSearch={(name) =>
+							getName={() => name}
+							updateName={(name) => {
 								setSearch((prev) => ({
 									...prev,
-									name: name ?? prev.name,
-								}))
-							}
+									name: name,
+								}));
+								navigate({
+									search: (prev) => ({
+										...prev,
+										name: name,
+									}),
+								});
+							}}
 						/>
 						<Sortings
-							updateSearch={(sorting, direction) =>
+							getSorting={() => ({
+								type: sortingType,
+								direction: sortingDirection,
+							})}
+							updateSorting={({ type, direction }) => {
 								setSearch((prev) => ({
 									...prev,
-									sortingType: sorting ?? prev.sortingType,
-									sortingDirection:
-										direction ?? prev.sortingDirection,
-								}))
-							}
+									sortingType: type ? type : prev.sortingType,
+									sortingDirection: direction,
+								}));
+								navigate({
+									search: (prev) => ({
+										...prev,
+										sortingType: type
+											? type
+											: prev.sortingType,
+										sortingDirection: direction,
+									}),
+								});
+							}}
 						/>
 					</div>
 					{products && products.items.length ? (

@@ -1,5 +1,5 @@
 import { FormEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from '@tanstack/react-router';
 import { useForm as useTanStackForm } from '@tanstack/react-form';
 import { useRegister } from '@/hooks/mutations/identity';
 import { useForceLocaleRefresh } from '@/hooks/locales/useForceLocaleRefresh';
@@ -40,7 +40,7 @@ export const useForm = (role: 'Client' | 'Contributor') => {
 			await register({ ...value, role, timeZone });
 			await updateAuthz();
 
-			navigate('/');
+			navigate({ to: '/' });
 		},
 		validators: {
 			onChange: schema,

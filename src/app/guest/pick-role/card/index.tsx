@@ -1,70 +1,27 @@
-import { JSX } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-	faLightbulb,
-	faPlus,
-	faUser,
-	IconDefinition,
-} from '@fortawesome/free-solid-svg-icons';
+import { faLightbulb, faPlus, faUser } from '@fortawesome/free-solid-svg-icons';
 import { usePickRoleTranslation } from '@/hooks/locales/pages/guest';
-import Btn from '@/app/components/button';
+import CustomLink from '@/app/components/link';
 import styles from './styles.module.css';
 
 const Card = ({ id }: { id: 'client' | 'contributor' }) => {
 	const tPickRole = usePickRoleTranslation();
-	let headIcon: IconDefinition = undefined!;
-	let title = '';
-	let pluses: string[] = [];
-	let btn: JSX.Element = <></>;
-
-	switch (id) {
-		case 'client':
-			headIcon = faUser;
-			title = tPickRole('client-subtitle');
-			pluses = [
-				tPickRole('client-plus-1'),
-				tPickRole('client-plus-2'),
-				tPickRole('client-plus-3'),
-			];
-			btn = (
-				<Btn
-					type='link'
-					text={tPickRole('btn')}
-					link='/register/client'
-				/>
-			);
-			break;
-
-		case 'contributor':
-			headIcon = faLightbulb;
-			title = tPickRole('contributor-subtitle');
-			pluses = [
-				tPickRole('contributor-plus-1'),
-				tPickRole('contributor-plus-2'),
-				tPickRole('contributor-plus-3'),
-			];
-			btn = (
-				<Btn
-					type='link'
-					text={tPickRole('btn')}
-					link='/register/contributor'
-				/>
-			);
-			break;
-
-		default:
-			break;
-	}
 
 	return (
 		<div className={`${styles.card}`}>
 			<div className={`${styles.icon}`}>
-				<FontAwesomeIcon icon={headIcon} />
+				<FontAwesomeIcon
+					icon={id === 'client' ? faUser : faLightbulb}
+				/>
 			</div>
 			<div className={`${styles.content}`}>
-				<h2>{title}</h2>
+				<h2>{tPickRole(`${id}-subtitle`)}</h2>
 				<ul className={`fa-ul ${styles.list}`}>
-					{pluses.map((p) => (
+					{[
+						tPickRole(`${id}-plus-1`),
+						tPickRole(`${id}-plus-2`),
+						tPickRole(`${id}-plus-3`),
+					].map((p) => (
 						<li key={p}>
 							<span className='fa-li'>
 								<FontAwesomeIcon icon={faPlus} />
@@ -73,7 +30,11 @@ const Card = ({ id }: { id: 'client' | 'contributor' }) => {
 						</li>
 					))}
 				</ul>
-				{btn}
+				<CustomLink
+					text={tPickRole('btn')}
+					to='/register/$role'
+					params={{ role: id }}
+				/>
 			</div>
 		</div>
 	);

@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { Response as Product } from '@/api/catalog/products/gallery/resources/all';
@@ -12,7 +12,6 @@ interface ItemProps {
 }
 
 const Item = ({ product }: ItemProps) => {
-	const navigate = useNavigate();
 	const tFetch = useFetchTranslation();
 
 	const { data: file, isLoading } = useDownloadProductImage({
@@ -23,10 +22,13 @@ const Item = ({ product }: ItemProps) => {
 	if (isLoading) {
 		return <>{tFetch('loading')}</>;
 	}
-	const handleClick = () => navigate(`${product.id}`);
 
 	return (
-		<div className={`${styles.model}`} onClick={handleClick}>
+		<Link
+			to='/gallery/$id'
+			params={{ id: product.id }}
+			className={`${styles.model}`}
+		>
 			<b></b>
 			{blobUrl && <img src={blobUrl} alt='Product Image' />}
 			<div className={`${styles.content}`}>
@@ -42,7 +44,7 @@ const Item = ({ product }: ItemProps) => {
 					</div>
 				</div>
 			</div>
-		</div>
+		</Link>
 	);
 };
 

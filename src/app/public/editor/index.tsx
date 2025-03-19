@@ -1,4 +1,5 @@
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from '@tanstack/react-router';
+import { Route } from '@/routes/_public/editor.$id';
 import { resetStore } from '@/stores/editor-store';
 import { useEditorTranslation } from '@/hooks/locales/pages/public';
 import { useCartItemManager } from '@/hooks/useCartItemManager';
@@ -7,7 +8,7 @@ import { useGetProduct } from '@/hooks/queries/products/gallery';
 import { useCartUpdates } from '@/hooks/contexts/useCartUpdates';
 import { useEditCustomization } from '@/hooks/mutations/customizations';
 import Transition from '@/app/components/transition';
-import Btn from '@/app/components/button';
+import Button from '@/app/components/button';
 import Cad from '@/app/components/cad';
 import * as calculate3D from '@/utils/calculate-3D';
 import Menu from './menu';
@@ -16,18 +17,14 @@ import Calculations from './menu/calculations';
 import styles from './styles.module.css';
 
 const Editor = () => {
-	const { id } = useParams();
+	const { id } = Route.useParams();
 	const navigate = useNavigate();
 
-	const locationState = useLocation().state;
-	if (!locationState || !locationState.allow)
-		throw new Error('Entry Not Allowed!');
-
 	const tEditor = useEditorTranslation();
-	const store = useEditorStore(id ?? '');
+	const store = useEditorStore(id);
 
-	const { data: product } = useGetProduct({ id: id ?? '' }, !!id);
-	const { item, customization } = useCartItemManager(id ?? '');
+	const { data: product } = useGetProduct({ id: id }, !!id);
+	const { item, customization } = useCartItemManager(id);
 
 	const { addItem, toggleItemForDelivery } = useCartUpdates();
 	const { mutateAsync: editCustomization } = useEditCustomization();
@@ -60,7 +57,7 @@ const Editor = () => {
 			volume: volume,
 		});
 
-		navigate('/cart');
+		navigate({ to: '/cart' });
 	};
 
 	return (
@@ -77,7 +74,7 @@ const Editor = () => {
 					</div>
 
 					<div className={styles.btn}>
-						<Btn
+						<Button
 							type='button'
 							text={tEditor('reset')}
 							onClick={reset}
@@ -98,7 +95,7 @@ const Editor = () => {
 					</div>
 
 					<div className={styles.btn}>
-						<Btn
+						<Button
 							type='button'
 							text={tEditor('save')}
 							onClick={save}

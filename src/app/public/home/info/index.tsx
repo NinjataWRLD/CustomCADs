@@ -1,5 +1,5 @@
 import { useHomeTranslation } from '@/hooks/locales/pages/public';
-import Btn from '@/app/components/button';
+import CustomLink from '@/app/components/link';
 import styles from './styles.module.css';
 
 const Info = () => {
@@ -12,16 +12,16 @@ const Info = () => {
 			<p>{tHome('info-1')}</p>
 			<p>{tHome('info-2')}</p>
 			<div className={`${styles.buttons}`}>
-				<Btn
-					type='link'
+				<CustomLink
+					to='/register/$role'
+					params={{ role: 'client' }}
 					text={tHome('btn-1')}
-					link='/register/client'
 				/>
 				<h2 className={`${styles.or}`}>{tHome('or')}</h2>
-				<Btn
-					type='link'
+				<CustomLink
+					to='/register/$role'
+					params={{ role: 'contributor' }}
 					text={tHome('btn-2')}
-					link='/register/contributor'
 				/>
 			</div>
 		</div>

@@ -1,29 +1,25 @@
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Route } from '@/routes/_public/gallery.$id';
 import { useFetchTranslation } from '@/hooks/locales/common/messages';
 import { useProductTranslation } from '@/hooks/locales/pages/public';
 import { useCartContext } from '@/hooks/contexts/useCartContext';
 import { useGetProduct } from '@/hooks/queries/products/gallery';
 import Transition from '@/app/components/transition';
-import Btn from '@/app/components/button';
+import Button from '@/app/components/button';
+import CustomLink from '@/app/components/link';
 import Cad from '@/app/components/cad';
 import AddToCartPopup from './add-to-cart-popup';
 import styles from './styles.module.css';
 
 const Product = () => {
-	const { id } = useParams();
+	const { id } = Route.useParams();
+	const { data: product, isLoading, isError } = useGetProduct({ id: id });
 
 	const tFetch = useFetchTranslation();
 	const tProduct = useProductTranslation();
 
 	const { items } = useCartContext();
 	const alreadyInCart = items && items.some((i) => i.productId === id);
-
-	const {
-		data: product,
-		isLoading,
-		isError,
-	} = useGetProduct({ id: String(id) });
 
 	const [showPopup, setShowPopup] = useState(false);
 	const toggleForDelivery = () => {
@@ -85,22 +81,21 @@ const Product = () => {
 
 							<div className={`${styles.buttons}`}>
 								{!alreadyInCart ? (
-									<Btn
+									<Button
 										type='button'
 										text={tProduct('button-1')}
 										onClick={toggleForDelivery}
 									/>
 								) : (
-									<Btn
+									<Button
 										type='button'
 										text={tProduct('button-2')}
 										disabled
 									/>
 								)}
-								<Btn
-									type='link'
+								<CustomLink
+									to='/gallery'
 									text={tProduct('button-3')}
-									link='/gallery'
 								/>
 							</div>
 						</div>

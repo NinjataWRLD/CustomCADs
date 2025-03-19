@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from '@tanstack/react-router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import styles from './styles.module.css';
@@ -20,7 +20,7 @@ const Setting = ({ label, link, icon, hide, onClick }: SettingProps) => {
 				className={styles['account-item']}
 				onClick={() => {
 					hide();
-					navigate(link);
+					navigate({ to: link });
 					if (onClick) onClick();
 				}}
 			>

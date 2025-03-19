@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from '@tanstack/react-router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMinus, faPlus, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { useGetCustomization } from '@/hooks/queries/customizations';
@@ -85,7 +85,10 @@ const CartItem = ({ item, addTo, reset }: CartItemProps) => {
 
 			await toggleItemNoDelivery(item.productId);
 		} else {
-			navigate(`/editor/${item.productId}`, { state: { allow: true } });
+			navigate({
+				to: '/editor/$id',
+				params: { id: item.productId },
+			});
 		}
 	};
 
@@ -127,7 +130,12 @@ const CartItem = ({ item, addTo, reset }: CartItemProps) => {
 					)}
 					<button
 						className={styles.btn}
-						onClick={() => navigate(`/gallery/${item.productId}`)}
+						onClick={() =>
+							navigate({
+								to: `/gallery/$id`,
+								params: { id: item.productId },
+							})
+						}
 					>
 						<span>{tCart('view')}</span>
 					</button>
@@ -137,8 +145,9 @@ const CartItem = ({ item, addTo, reset }: CartItemProps) => {
 								className={styles.btn}
 								style={{ bottom: '10%' }}
 								onClick={() =>
-									navigate(`/editor/${item.productId}`, {
-										state: { allow: true },
+									navigate({
+										to: '/editor/$id',
+										params: { id: item.productId },
 									})
 								}
 							>
