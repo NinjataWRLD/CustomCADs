@@ -1,3 +1,3 @@
-import { SIGNIN_BASE_PATH } from '../../common';
+import { IDENTITY_BASE_PATH } from '../../common';
 
-export const url = () => `${SIGNIN_BASE_PATH}/refresh`;
+export const url = () => `${IDENTITY_BASE_PATH}/refresh`;

@@ -1,4 +1,4 @@
-import { SIGNIN_BASE_PATH } from '../../common';
+import { IDENTITY_BASE_PATH } from '../../common';
 
 export interface Request {
 	username: string;
@@ -6,4 +6,4 @@ export interface Request {
 	rememberMe?: boolean;
 }
 
-export const url = () => `${SIGNIN_BASE_PATH}/login`;
+export const url = () => `${IDENTITY_BASE_PATH}/login`;

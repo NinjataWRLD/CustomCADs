@@ -1,4 +1,4 @@
-import { SIGNUP_BASE_PATH } from '../../common';
+import { IDENTITY_BASE_PATH } from '../../common';
 
 export interface Request {
 	role: string;
@@ -11,4 +11,4 @@ export interface Request {
 	lastName?: string;
 }
 
-export const url = () => `${SIGNUP_BASE_PATH}/register`;
+export const url = () => `${IDENTITY_BASE_PATH}/register`;
