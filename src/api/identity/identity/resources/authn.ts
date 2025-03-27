@@ -1,5 +1,5 @@
-import { INFO_BASE_PATH } from '../../common';
+import { IDENTITY_BASE_PATH } from '../../common';
 
 export type Response = boolean;
 
-export const url = () => `${INFO_BASE_PATH}/authentication`;
+export const url = () => `${IDENTITY_BASE_PATH}/authentication`;

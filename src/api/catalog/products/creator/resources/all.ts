@@ -14,7 +14,7 @@ export interface Response {
 	id: string;
 	name: string;
 	creatorName: string;
-	uploadDate: string;
+	uploadedAt: string;
 	category: Category;
 }
 

@@ -13,7 +13,7 @@ export interface Request {
 export interface Response {
 	id: string;
 	name: string;
-	uploadDate: string;
+	uploadedAt: string;
 	creatorName: string;
 	category: Category;
 }

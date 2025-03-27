@@ -8,7 +8,7 @@ export interface Response {
 	id: string;
 	name: string;
 	description: string;
-	orderDate: string;
+	orderedAt: string;
 	status: string;
 	delivery: boolean;
 	buyerName: string;

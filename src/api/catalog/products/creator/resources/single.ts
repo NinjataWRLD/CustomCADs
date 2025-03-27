@@ -9,7 +9,7 @@ export interface Response {
 	name: string;
 	description: string;
 	price: number;
-	uploadDate: string;
+	uploadedAt: string;
 	counts: Counts;
 	category: Category;
 }

@@ -8,8 +8,8 @@ export interface Response {
 	id: string;
 	name: string;
 	description: string;
-	orderDate: string;
-	purchaseDate: string;
+	orderedAt: string;
+	purchasedAt: string;
 	delivery: boolean;
 	designerName: string;
 	shipmentId?: string;

@@ -10,7 +10,7 @@ export interface Response {
 	id: string;
 	name: string;
 	description: string;
-	orderDate: string;
+	orderedAt: string;
 	orderStatus: string;
 	delivery: boolean;
 }

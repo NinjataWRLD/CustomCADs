@@ -11,7 +11,7 @@ export interface Request {
 export interface Response {
 	id: string;
 	total: number;
-	purchaseDate: string;
+	purchasedAt: string;
 	itemsCount: number;
 }
 
