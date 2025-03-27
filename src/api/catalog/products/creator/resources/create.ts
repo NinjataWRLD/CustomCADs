@@ -17,7 +17,7 @@ export interface Response {
 	name: string;
 	description: string;
 	creatorName: string;
-	uploadDate: string;
+	uploadedAt: string;
 	price: number;
 	status: string;
 	category: Category;

@@ -75,7 +75,7 @@ const Product = () => {
 								</p>
 								<p>
 									<strong>{tProduct('uploaded-on')}</strong>
-									{product.uploadDate}
+									{product.uploadedAt}
 								</p>
 							</div>
 

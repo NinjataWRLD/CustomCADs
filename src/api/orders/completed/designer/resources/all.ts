@@ -13,8 +13,8 @@ export interface Request {
 export interface Response {
 	id: string;
 	name: string;
-	orderDate: string;
-	purchaseDate: string;
+	orderedAt: string;
+	purchasedAt: string;
 	buyerName: string;
 	delivery: boolean;
 }

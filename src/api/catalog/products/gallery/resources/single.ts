@@ -15,7 +15,7 @@ export interface Response {
 	description: string;
 	price: number;
 	volume: number;
-	uploadDate: string;
+	uploadedAt: string;
 	creatorName: string;
 	counts: Counts;
 	category: Category;

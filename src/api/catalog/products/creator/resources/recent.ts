@@ -8,7 +8,7 @@ export interface Request {
 export interface Response {
 	id: string;
 	name: string;
-	uploadDate: string;
+	uploadedAt: string;
 	status: string;
 	category: Category;
 }
