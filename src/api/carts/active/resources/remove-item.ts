@@ -4,4 +4,4 @@ export interface Request {
 	productId: string;
 }
 
-export const url = () => `${ACTIVE_CART_BASE_PATH}/items`;
+export const url = () => `${ACTIVE_CART_BASE_PATH}`;
