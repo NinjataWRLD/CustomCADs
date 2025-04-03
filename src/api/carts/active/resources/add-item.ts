@@ -6,4 +6,4 @@ export interface Request {
 	customizationId?: string;
 }
 
-export const url = () => `${ACTIVE_CART_BASE_PATH}/items`;
+export const url = () => `${ACTIVE_CART_BASE_PATH}`;
