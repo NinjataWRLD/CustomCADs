@@ -1,17 +1,14 @@
 import { useEffect, useReducer } from 'react';
 import { ActiveCartItem } from '@/api/carts/common';
 import { useAuthStore } from '@/hooks/stores/useAuthStore';
-import { useGetActiveCart } from '@/hooks/queries/active-carts';
-import { useCreateActiveCart } from '@/hooks/mutations/active-carts';
+import { useGetActiveCartItems } from '@/hooks/queries/active-carts';
 import { CartState } from '@/contexts/cart/context';
 import { cartReducer } from '@/contexts/cart/reducer';
 import { CartItem } from '@/types/cart-item';
-import { isAxiosError } from '@/utils/api';
 
 export const useCartInit = (): CartState => {
 	const { is } = useAuthStore();
-	const { refetch } = useGetActiveCart(false);
-	const { mutateAsync: createCart } = useCreateActiveCart();
+	const { refetch } = useGetActiveCartItems(false);
 
 	const loadFromLocalStorage = () => {
 		const items = localStorage.getItem('cart');
@@ -43,15 +40,13 @@ export const useCartInit = (): CartState => {
 	useEffect(() => {
 		if (is.client) {
 			const initCart = async () => {
-				const { data: cart, error } = await refetch();
+				const { data: items } = await refetch();
 
-				if (cart) {
+				if (items) {
 					dispatch({
 						type: 'FILL_CART',
-						items: mapItems(cart.items),
+						items: mapItems(items),
 					});
-				} else if (isAxiosError(error, 404)) {
-					await createCart();
 				}
 			};
 			initCart();
