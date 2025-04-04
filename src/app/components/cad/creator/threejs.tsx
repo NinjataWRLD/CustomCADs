@@ -13,10 +13,8 @@ const CreatorThreeJS = ({ url, cam, pan }: ThreeJSProps) => {
 	const { ref, instance } = useThreeJS(url, { cam, pan });
 
 	useEffect(() => {
-		if (!instance) return;
-		const { updateCoords } = instance;
-		updateCoords({ cam, pan });
-	}, [cam, pan]);
+		instance?.updateCoords({ cam, pan });
+	}, [cam, instance, pan]);
 
 	return <div ref={ref} className={styles.model} />;
 };

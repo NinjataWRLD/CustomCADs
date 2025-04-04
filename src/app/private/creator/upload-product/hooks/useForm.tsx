@@ -47,7 +47,7 @@ export const useForm = () => {
 
 	const form = useTanStackForm({
 		defaultValues: defaultValues,
-		onSubmit: async ({ value }) => setValue(value),
+		onSubmit: ({ value }) => setValue(value),
 		validators: { onChange: schema },
 	});
 	useForceLocaleRefresh(() => form.validate('change'));

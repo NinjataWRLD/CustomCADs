@@ -30,8 +30,8 @@ export const useUpdateThreeJS = () => {
 		}
 	};
 
-	const updateLooks = (event: CustomizeCad, cad: GLTF) => {
-		const { texture, color } = event;
+	const updateLooks = (data: CustomizeCad, cad: GLTF) => {
+		const { texture, color } = data;
 
 		cad.scene.traverse((child) => {
 			if (child instanceof THREE.Mesh) {

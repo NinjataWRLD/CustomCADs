@@ -36,7 +36,7 @@ const Categories = ({ getCategory, updateCategory }: CategoriesProps) => {
 		if (!categoryParam) {
 			setCategory(all);
 		}
-	}, [all]);
+	}, [all, categoryParam]);
 
 	if (isLoading) {
 		return <>{tFetch('loading')}</>;

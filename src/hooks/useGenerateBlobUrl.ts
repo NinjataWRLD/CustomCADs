@@ -17,7 +17,12 @@ export const useGenerateBlobUrl = (
 		getFile();
 
 		return () => {
-			URL.revokeObjectURL(blobUrl);
+			setBlobUrl((prevBlobUrl) => {
+				if (prevBlobUrl) {
+					URL.revokeObjectURL(prevBlobUrl);
+				}
+				return '';
+			});
 		};
 	}, [presignedUrl, contentType]);
 

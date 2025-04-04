@@ -19,7 +19,7 @@ const Product = () => {
 	const tProduct = useProductTranslation();
 
 	const { items } = useCartContext();
-	const alreadyInCart = items && items.some((i) => i.productId === id);
+	const alreadyInCart = items?.some((i) => i.productId === id);
 
 	const [showPopup, setShowPopup] = useState(false);
 	const toggleForDelivery = () => {

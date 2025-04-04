@@ -25,7 +25,7 @@ const PopularProducts = () => {
 	);
 
 	useEffect(() => {
-		if (products && products.items.length) {
+		if (products?.items.length) {
 			setCurrentId(products.items[0].id);
 		}
 	}, [products]);

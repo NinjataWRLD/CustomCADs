@@ -17,9 +17,10 @@ export const useThreeJS = (
 		if (url && !instanceRef.current) {
 			instanceRef.current = initThreeJS(mountRef.current, coords);
 		}
-		const { exit } = instanceRef.current ?? {};
 		return () => {
 			if (exitCallback) exitCallback();
+
+			const { exit } = instanceRef.current ?? {};
 			if (exit) exit();
 		};
 	}, [url]);
