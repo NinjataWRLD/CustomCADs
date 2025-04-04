@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Route } from '@/routes/_public/gallery.$id';
+import { Route } from '@/routes/_public/gallery/$id';
 import { useFetchTranslation } from '@/hooks/locales/common/messages';
 import { useProductTranslation } from '@/hooks/locales/pages/public';
 import { useCartContext } from '@/hooks/contexts/useCartContext';

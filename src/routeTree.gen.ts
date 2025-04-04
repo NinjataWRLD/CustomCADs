@@ -16,16 +16,16 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as GuestImport } from './routes/_guest'
 import { Route as PublicIndexImport } from './routes/_public/index'
 import { Route as PublicPrivacyPolicyImport } from './routes/_public/privacy-policy'
-import { Route as PublicGalleryImport } from './routes/_public/gallery'
 import { Route as PublicCartImport } from './routes/_public/cart'
 import { Route as GuestResetPasswordImport } from './routes/_guest/reset-password'
-import { Route as GuestRegisterImport } from './routes/_guest/register'
 import { Route as GuestLoginImport } from './routes/_guest/login'
 import { Route as GuestForgotPasswordImport } from './routes/_guest/forgot-password'
 import { Route as privateCreatorImport } from './routes/(private)/_creator'
-import { Route as PublicGalleryIdImport } from './routes/_public/gallery.$id'
+import { Route as PublicGalleryIndexImport } from './routes/_public/gallery/index'
+import { Route as GuestRegisterIndexImport } from './routes/_guest/register/index'
+import { Route as PublicGalleryIdImport } from './routes/_public/gallery/$id'
 import { Route as PublicEditorIdImport } from './routes/_public/editor.$id'
-import { Route as GuestRegisterRoleImport } from './routes/_guest/register.$role'
+import { Route as GuestRegisterRoleImport } from './routes/_guest/register/$role'
 import { Route as privateCreatorUploadProductImport } from './routes/(private)/_creator/upload-product'
 
 // Create Virtual Routes
@@ -56,12 +56,6 @@ const PublicPrivacyPolicyRoute = PublicPrivacyPolicyImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const PublicGalleryRoute = PublicGalleryImport.update({
-  id: '/_public/gallery',
-  path: '/gallery',
-  getParentRoute: () => rootRoute,
-} as any)
-
 const PublicCartRoute = PublicCartImport.update({
   id: '/_public/cart',
   path: '/cart',
@@ -71,12 +65,6 @@ const PublicCartRoute = PublicCartImport.update({
 const GuestResetPasswordRoute = GuestResetPasswordImport.update({
   id: '/reset-password',
   path: '/reset-password',
-  getParentRoute: () => GuestRoute,
-} as any)
-
-const GuestRegisterRoute = GuestRegisterImport.update({
-  id: '/register',
-  path: '/register',
   getParentRoute: () => GuestRoute,
 } as any)
 
@@ -97,10 +85,22 @@ const privateCreatorRoute = privateCreatorImport.update({
   getParentRoute: () => privateRoute,
 } as any)
 
+const PublicGalleryIndexRoute = PublicGalleryIndexImport.update({
+  id: '/_public/gallery/',
+  path: '/gallery/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const GuestRegisterIndexRoute = GuestRegisterIndexImport.update({
+  id: '/register/',
+  path: '/register/',
+  getParentRoute: () => GuestRoute,
+} as any)
+
 const PublicGalleryIdRoute = PublicGalleryIdImport.update({
-  id: '/$id',
-  path: '/$id',
-  getParentRoute: () => PublicGalleryRoute,
+  id: '/_public/gallery/$id',
+  path: '/gallery/$id',
+  getParentRoute: () => rootRoute,
 } as any)
 
 const PublicEditorIdRoute = PublicEditorIdImport.update({
@@ -110,9 +110,9 @@ const PublicEditorIdRoute = PublicEditorIdImport.update({
 } as any)
 
 const GuestRegisterRoleRoute = GuestRegisterRoleImport.update({
-  id: '/$role',
-  path: '/$role',
-  getParentRoute: () => GuestRegisterRoute,
+  id: '/register/$role',
+  path: '/register/$role',
+  getParentRoute: () => GuestRoute,
 } as any)
 
 const privateCreatorUploadProductRoute =
@@ -161,13 +161,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GuestLoginImport
       parentRoute: typeof GuestImport
     }
-    '/_guest/register': {
-      id: '/_guest/register'
-      path: '/register'
-      fullPath: '/register'
-      preLoaderRoute: typeof GuestRegisterImport
-      parentRoute: typeof GuestImport
-    }
     '/_guest/reset-password': {
       id: '/_guest/reset-password'
       path: '/reset-password'
@@ -180,13 +173,6 @@ declare module '@tanstack/react-router' {
       path: '/cart'
       fullPath: '/cart'
       preLoaderRoute: typeof PublicCartImport
-      parentRoute: typeof rootRoute
-    }
-    '/_public/gallery': {
-      id: '/_public/gallery'
-      path: '/gallery'
-      fullPath: '/gallery'
-      preLoaderRoute: typeof PublicGalleryImport
       parentRoute: typeof rootRoute
     }
     '/_public/privacy-policy': {
@@ -212,10 +198,10 @@ declare module '@tanstack/react-router' {
     }
     '/_guest/register/$role': {
       id: '/_guest/register/$role'
-      path: '/$role'
+      path: '/register/$role'
       fullPath: '/register/$role'
       preLoaderRoute: typeof GuestRegisterRoleImport
-      parentRoute: typeof GuestRegisterImport
+      parentRoute: typeof GuestImport
     }
     '/_public/editor/$id': {
       id: '/_public/editor/$id'
@@ -226,40 +212,44 @@ declare module '@tanstack/react-router' {
     }
     '/_public/gallery/$id': {
       id: '/_public/gallery/$id'
-      path: '/$id'
+      path: '/gallery/$id'
       fullPath: '/gallery/$id'
       preLoaderRoute: typeof PublicGalleryIdImport
-      parentRoute: typeof PublicGalleryImport
+      parentRoute: typeof rootRoute
+    }
+    '/_guest/register/': {
+      id: '/_guest/register/'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof GuestRegisterIndexImport
+      parentRoute: typeof GuestImport
+    }
+    '/_public/gallery/': {
+      id: '/_public/gallery/'
+      path: '/gallery'
+      fullPath: '/gallery'
+      preLoaderRoute: typeof PublicGalleryIndexImport
+      parentRoute: typeof rootRoute
     }
   }
 }
 
 // Create and export the route tree
 
-interface GuestRegisterRouteChildren {
-  GuestRegisterRoleRoute: typeof GuestRegisterRoleRoute
-}
-
-const GuestRegisterRouteChildren: GuestRegisterRouteChildren = {
-  GuestRegisterRoleRoute: GuestRegisterRoleRoute,
-}
-
-const GuestRegisterRouteWithChildren = GuestRegisterRoute._addFileChildren(
-  GuestRegisterRouteChildren,
-)
-
 interface GuestRouteChildren {
   GuestForgotPasswordRoute: typeof GuestForgotPasswordRoute
   GuestLoginRoute: typeof GuestLoginRoute
-  GuestRegisterRoute: typeof GuestRegisterRouteWithChildren
   GuestResetPasswordRoute: typeof GuestResetPasswordRoute
+  GuestRegisterRoleRoute: typeof GuestRegisterRoleRoute
+  GuestRegisterIndexRoute: typeof GuestRegisterIndexRoute
 }
 
 const GuestRouteChildren: GuestRouteChildren = {
   GuestForgotPasswordRoute: GuestForgotPasswordRoute,
   GuestLoginRoute: GuestLoginRoute,
-  GuestRegisterRoute: GuestRegisterRouteWithChildren,
   GuestResetPasswordRoute: GuestResetPasswordRoute,
+  GuestRegisterRoleRoute: GuestRegisterRoleRoute,
+  GuestRegisterIndexRoute: GuestRegisterIndexRoute,
 }
 
 const GuestRouteWithChildren = GuestRoute._addFileChildren(GuestRouteChildren)
@@ -287,32 +277,20 @@ const privateRouteChildren: privateRouteChildren = {
 const privateRouteWithChildren =
   privateRoute._addFileChildren(privateRouteChildren)
 
-interface PublicGalleryRouteChildren {
-  PublicGalleryIdRoute: typeof PublicGalleryIdRoute
-}
-
-const PublicGalleryRouteChildren: PublicGalleryRouteChildren = {
-  PublicGalleryIdRoute: PublicGalleryIdRoute,
-}
-
-const PublicGalleryRouteWithChildren = PublicGalleryRoute._addFileChildren(
-  PublicGalleryRouteChildren,
-)
-
 export interface FileRoutesByFullPath {
   '': typeof GuestRouteWithChildren
   '/': typeof PublicIndexRoute
   '/forgot-password': typeof GuestForgotPasswordRoute
   '/login': typeof GuestLoginRoute
-  '/register': typeof GuestRegisterRouteWithChildren
   '/reset-password': typeof GuestResetPasswordRoute
   '/cart': typeof PublicCartRoute
-  '/gallery': typeof PublicGalleryRouteWithChildren
   '/privacy-policy': typeof PublicPrivacyPolicyRoute
   '/upload-product': typeof privateCreatorUploadProductRoute
   '/register/$role': typeof GuestRegisterRoleRoute
   '/editor/$id': typeof PublicEditorIdRoute
   '/gallery/$id': typeof PublicGalleryIdRoute
+  '/register': typeof GuestRegisterIndexRoute
+  '/gallery': typeof PublicGalleryIndexRoute
 }
 
 export interface FileRoutesByTo {
@@ -320,15 +298,15 @@ export interface FileRoutesByTo {
   '/': typeof PublicIndexRoute
   '/forgot-password': typeof GuestForgotPasswordRoute
   '/login': typeof GuestLoginRoute
-  '/register': typeof GuestRegisterRouteWithChildren
   '/reset-password': typeof GuestResetPasswordRoute
   '/cart': typeof PublicCartRoute
-  '/gallery': typeof PublicGalleryRouteWithChildren
   '/privacy-policy': typeof PublicPrivacyPolicyRoute
   '/upload-product': typeof privateCreatorUploadProductRoute
   '/register/$role': typeof GuestRegisterRoleRoute
   '/editor/$id': typeof PublicEditorIdRoute
   '/gallery/$id': typeof PublicGalleryIdRoute
+  '/register': typeof GuestRegisterIndexRoute
+  '/gallery': typeof PublicGalleryIndexRoute
 }
 
 export interface FileRoutesById {
@@ -338,16 +316,16 @@ export interface FileRoutesById {
   '/(private)/_creator': typeof privateCreatorRouteWithChildren
   '/_guest/forgot-password': typeof GuestForgotPasswordRoute
   '/_guest/login': typeof GuestLoginRoute
-  '/_guest/register': typeof GuestRegisterRouteWithChildren
   '/_guest/reset-password': typeof GuestResetPasswordRoute
   '/_public/cart': typeof PublicCartRoute
-  '/_public/gallery': typeof PublicGalleryRouteWithChildren
   '/_public/privacy-policy': typeof PublicPrivacyPolicyRoute
   '/_public/': typeof PublicIndexRoute
   '/(private)/_creator/upload-product': typeof privateCreatorUploadProductRoute
   '/_guest/register/$role': typeof GuestRegisterRoleRoute
   '/_public/editor/$id': typeof PublicEditorIdRoute
   '/_public/gallery/$id': typeof PublicGalleryIdRoute
+  '/_guest/register/': typeof GuestRegisterIndexRoute
+  '/_public/gallery/': typeof PublicGalleryIndexRoute
 }
 
 export interface FileRouteTypes {
@@ -357,30 +335,30 @@ export interface FileRouteTypes {
     | '/'
     | '/forgot-password'
     | '/login'
-    | '/register'
     | '/reset-password'
     | '/cart'
-    | '/gallery'
     | '/privacy-policy'
     | '/upload-product'
     | '/register/$role'
     | '/editor/$id'
     | '/gallery/$id'
+    | '/register'
+    | '/gallery'
   fileRoutesByTo: FileRoutesByTo
   to:
     | ''
     | '/'
     | '/forgot-password'
     | '/login'
-    | '/register'
     | '/reset-password'
     | '/cart'
-    | '/gallery'
     | '/privacy-policy'
     | '/upload-product'
     | '/register/$role'
     | '/editor/$id'
     | '/gallery/$id'
+    | '/register'
+    | '/gallery'
   id:
     | '__root__'
     | '/_guest'
@@ -388,16 +366,16 @@ export interface FileRouteTypes {
     | '/(private)/_creator'
     | '/_guest/forgot-password'
     | '/_guest/login'
-    | '/_guest/register'
     | '/_guest/reset-password'
     | '/_public/cart'
-    | '/_public/gallery'
     | '/_public/privacy-policy'
     | '/_public/'
     | '/(private)/_creator/upload-product'
     | '/_guest/register/$role'
     | '/_public/editor/$id'
     | '/_public/gallery/$id'
+    | '/_guest/register/'
+    | '/_public/gallery/'
   fileRoutesById: FileRoutesById
 }
 
@@ -405,20 +383,22 @@ export interface RootRouteChildren {
   GuestRoute: typeof GuestRouteWithChildren
   privateRoute: typeof privateRouteWithChildren
   PublicCartRoute: typeof PublicCartRoute
-  PublicGalleryRoute: typeof PublicGalleryRouteWithChildren
   PublicPrivacyPolicyRoute: typeof PublicPrivacyPolicyRoute
   PublicIndexRoute: typeof PublicIndexRoute
   PublicEditorIdRoute: typeof PublicEditorIdRoute
+  PublicGalleryIdRoute: typeof PublicGalleryIdRoute
+  PublicGalleryIndexRoute: typeof PublicGalleryIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   GuestRoute: GuestRouteWithChildren,
   privateRoute: privateRouteWithChildren,
   PublicCartRoute: PublicCartRoute,
-  PublicGalleryRoute: PublicGalleryRouteWithChildren,
   PublicPrivacyPolicyRoute: PublicPrivacyPolicyRoute,
   PublicIndexRoute: PublicIndexRoute,
   PublicEditorIdRoute: PublicEditorIdRoute,
+  PublicGalleryIdRoute: PublicGalleryIdRoute,
+  PublicGalleryIndexRoute: PublicGalleryIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -434,10 +414,11 @@ export const routeTree = rootRoute
         "/_guest",
         "/(private)",
         "/_public/cart",
-        "/_public/gallery",
         "/_public/privacy-policy",
         "/_public/",
-        "/_public/editor/$id"
+        "/_public/editor/$id",
+        "/_public/gallery/$id",
+        "/_public/gallery/"
       ]
     },
     "/_guest": {
@@ -445,8 +426,9 @@ export const routeTree = rootRoute
       "children": [
         "/_guest/forgot-password",
         "/_guest/login",
-        "/_guest/register",
-        "/_guest/reset-password"
+        "/_guest/reset-password",
+        "/_guest/register/$role",
+        "/_guest/register/"
       ]
     },
     "/(private)": {
@@ -470,25 +452,12 @@ export const routeTree = rootRoute
       "filePath": "_guest/login.tsx",
       "parent": "/_guest"
     },
-    "/_guest/register": {
-      "filePath": "_guest/register.tsx",
-      "parent": "/_guest",
-      "children": [
-        "/_guest/register/$role"
-      ]
-    },
     "/_guest/reset-password": {
       "filePath": "_guest/reset-password.tsx",
       "parent": "/_guest"
     },
     "/_public/cart": {
       "filePath": "_public/cart.tsx"
-    },
-    "/_public/gallery": {
-      "filePath": "_public/gallery.tsx",
-      "children": [
-        "/_public/gallery/$id"
-      ]
     },
     "/_public/privacy-policy": {
       "filePath": "_public/privacy-policy.tsx"
@@ -501,15 +470,21 @@ export const routeTree = rootRoute
       "parent": "/(private)/_creator"
     },
     "/_guest/register/$role": {
-      "filePath": "_guest/register.$role.tsx",
-      "parent": "/_guest/register"
+      "filePath": "_guest/register/$role.tsx",
+      "parent": "/_guest"
     },
     "/_public/editor/$id": {
       "filePath": "_public/editor.$id.tsx"
     },
     "/_public/gallery/$id": {
-      "filePath": "_public/gallery.$id.tsx",
-      "parent": "/_public/gallery"
+      "filePath": "_public/gallery/$id.tsx"
+    },
+    "/_guest/register/": {
+      "filePath": "_guest/register/index.tsx",
+      "parent": "/_guest"
+    },
+    "/_public/gallery/": {
+      "filePath": "_public/gallery/index.tsx"
     }
   }
 }

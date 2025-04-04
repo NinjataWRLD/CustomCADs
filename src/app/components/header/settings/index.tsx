@@ -33,12 +33,14 @@ const SettingsButton = () => {
 
 	const settings = [
 		<Setting
+			key='account'
 			label={tHeader('account')}
 			link='/account'
 			icon={faCog}
 			hide={hide}
 		/>,
 		<Setting
+			key='logout'
 			label={tHeader('logout')}
 			link='/'
 			icon={faSignOutAlt}
@@ -49,12 +51,14 @@ const SettingsButton = () => {
 	if (is.client)
 		settings.unshift(
 			<Setting
+				key='carts'
 				label={tHeader('carts')}
 				link='/carts'
 				icon={faShoppingBag}
 				hide={hide}
 			/>,
 			<Setting
+				key='orders'
 				label={tHeader('orders')}
 				link='/orders'
 				icon={faPuzzlePiece}
