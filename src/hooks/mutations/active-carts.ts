@@ -1,10 +1,10 @@
 import { useMutation } from '@tanstack/react-query';
-import { Request as AddItem } from '@/api/carts/active/resources/add-item';
-import { Request as ChangeItemQuantity } from '@/api/carts/active/resources/change-quantity';
-import { Request as ToggleItemDelivery } from '@/api/carts/active/resources/toggle-for-delivery';
-import { Request as RemoveItem } from '@/api/carts/active/resources/remove-item';
-import { Request as Purchase } from '@/api/carts/active/resources/purchase';
-import { Request as PurchaseWithDelivery } from '@/api/carts/active/resources/purchase-delivery';
+import { Request as AddItem } from '@/api/carts/active/add-item';
+import { Request as ChangeItemQuantity } from '@/api/carts/active/change-quantity';
+import { Request as ToggleItemDelivery } from '@/api/carts/active/toggle-for-delivery';
+import { Request as RemoveItem } from '@/api/carts/active/remove-item';
+import { Request as Purchase } from '@/api/carts/active/purchase';
+import { Request as PurchaseWithDelivery } from '@/api/carts/active/purchase-delivery';
 import {
 	addItem,
 	decreaseItemQuantity,

@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { Request as Single } from '@/api/catalog/tags/resources/single';
+import { Request as Single } from '@/api/catalog/tags/single';
 import { all, single } from '@/api/catalog/tags';
 
 export const useGetTags = (enabled?: boolean) =>

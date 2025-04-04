@@ -1,16 +1,16 @@
 import { axios } from '@/api/axios';
-import * as createResources from './resources/create';
-import * as statsResources from './resources/stats';
-import * as recentResources from './resources/recent';
-import * as singleResources from './resources/single';
-import * as sortingsResources from './resources/sortings';
-import * as editResources from './resources/edit';
-import * as allResources from './resources/all';
-import * as deleteResources from './resources/delete';
-import * as purchaseResources from './resources/purchase';
-import * as caluclateResources from './resources/calculate-shipment';
-import * as purchaseWithDeliveryResources from './resources/purchase-delivery';
-import * as downloadResources from './resources/download';
+import * as createResources from './create';
+import * as statsResources from './stats';
+import * as recentResources from './recent';
+import * as singleResources from './single';
+import * as sortingsResources from './sortings';
+import * as editResources from './edit';
+import * as allResources from './all';
+import * as deleteResources from './delete';
+import * as purchaseResources from './purchase';
+import * as caluclateResources from './calculate-shipment';
+import * as purchaseWithDeliveryResources from './purchase-delivery';
+import * as downloadResources from './download';
 
 export const create = async (req: createResources.Request) =>
 	await axios.post<createResources.Response>(createResources.url(), req);

@@ -1,9 +1,9 @@
 import { axios } from '@/api/axios';
 import { RoleResponse } from '../common';
-import * as allResources from './resources/all';
-import * as singleResources from './resources/single';
-import * as createResources from './resources/create';
-import * as deleteResources from './resources/delete';
+import * as allResources from './all';
+import * as singleResources from './single';
+import * as createResources from './create';
+import * as deleteResources from './delete';
 
 export const all = async () =>
 	await axios.get<RoleResponse[]>(allResources.url());

@@ -1,8 +1,8 @@
 import { useMutation } from '@tanstack/react-query';
-import { Request as Login } from '@/api/identity/identity/resources/login';
-import { Request as ResetPassword } from '@/api/identity/identity/resources/reset-password';
-import { Request as Register } from '@/api/identity/identity/resources/register';
-import { Request as RetryConfirmEmail } from '@/api/identity/identity/resources/retry-confirm-email';
+import { Request as Login } from '@/api/identity/identity/login';
+import { Request as ResetPassword } from '@/api/identity/identity/reset-password';
+import { Request as Register } from '@/api/identity/identity/register';
+import { Request as RetryConfirmEmail } from '@/api/identity/identity/retry-confirm-email';
 import {
 	login,
 	logout,

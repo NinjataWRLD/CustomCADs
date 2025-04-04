@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
-import { Request as All } from '@/api/delivery/shipments/resources/all';
-import { Request as Waybill } from '@/api/delivery/shipments/resources/waybill';
-import { Request as Track } from '@/api/delivery/shipments/resources/track';
+import { Request as All } from '@/api/delivery/shipments/all';
+import { Request as Waybill } from '@/api/delivery/shipments/waybill';
+import { Request as Track } from '@/api/delivery/shipments/track';
 import { all, sortings, track, waybill } from '@/api/delivery/shipments';
 
 export const useGetShipments = (params: All, enabled?: boolean) =>

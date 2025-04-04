@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
-import { Request as Create } from '@/api/catalog/tags/resources/create';
-import { Request as Edit } from '@/api/catalog/tags/resources/edit';
-import { Request as Delete } from '@/api/catalog/tags/resources/delete';
+import { Request as Create } from '@/api/catalog/tags/create';
+import { Request as Edit } from '@/api/catalog/tags/edit';
+import { Request as Delete } from '@/api/catalog/tags/delete';
 import { create, edit, delete_ } from '@/api/catalog/tags';
 
 export const useCreateTag = () =>

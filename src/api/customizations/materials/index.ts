@@ -1,13 +1,13 @@
 import { axios } from '@/api/axios';
 import { MaterialResponse } from '@/api/customizations/common';
-import * as allResources from './resources/all';
-import * as singleResources from './resources/single';
-import * as downloadResources from './resources/download';
-import * as createResources from './resources/create';
-import * as uploadResources from './resources/upload';
-import * as replaceResources from './resources/replace';
-import * as editResources from './resources/edit';
-import * as deleteResources from './resources/delete';
+import * as allResources from './all';
+import * as singleResources from './single';
+import * as downloadResources from './download';
+import * as createResources from './create';
+import * as uploadResources from './upload';
+import * as replaceResources from './replace';
+import * as editResources from './edit';
+import * as deleteResources from './delete';
 
 export const all = () => axios.get<MaterialResponse[]>(allResources.url());
 

@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
-import { Request as All } from '@/api/carts/purchased/resources/all';
-import { Request as Single } from '@/api/carts/purchased/resources/single';
-import { Request as Download } from '@/api/carts/purchased/resources/download';
+import { Request as All } from '@/api/carts/purchased/all';
+import { Request as Single } from '@/api/carts/purchased/single';
+import { Request as Download } from '@/api/carts/purchased/download';
 import { all, download, single, sortings, stats } from '@/api/carts/purchased';
 
 export const useGetPurchasedCarts = (params: All, enabled?: boolean) =>

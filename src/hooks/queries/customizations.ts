@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { single } from '@/api/customizations/customizations';
-import { Request as Single } from '@/api/customizations/customizations/resources/single';
+import { Request as Single } from '@/api/customizations/customizations/single';
 
 export const useGetCustomization = (params: Single, enabled?: boolean) =>
 	useQuery({

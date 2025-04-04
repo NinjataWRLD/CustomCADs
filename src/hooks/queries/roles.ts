@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { Request as Single } from '@/api/accounts/roles/resources/single';
+import { Request as Single } from '@/api/accounts/roles/single';
 import { all, single } from '@/api/accounts/roles';
 
 export const useGetRoles = (enabled?: boolean) =>

@@ -1,7 +1,7 @@
 import { Link } from '@tanstack/react-router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
-import { Response as Product } from '@/api/catalog/products/gallery/resources/all';
+import { Response as Product } from '@/api/catalog/products/gallery/all';
 import { useDownloadProductImage } from '@/hooks/queries/products/gallery';
 import { useGenerateBlobUrl } from '@/hooks/useGenerateBlobUrl';
 import { useFetchTranslation } from '@/hooks/locales/common/messages';

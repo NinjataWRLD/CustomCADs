@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
-import { Request as Create } from '@/api/customizations/customizations/resources/create';
-import { Request as Edit } from '@/api/customizations/customizations/resources/edit';
-import { Request as Delete } from '@/api/customizations/customizations/resources/delete';
+import { Request as Create } from '@/api/customizations/customizations/create';
+import { Request as Edit } from '@/api/customizations/customizations/edit';
+import { Request as Delete } from '@/api/customizations/customizations/delete';
 import { create, edit, delete_ } from '@/api/customizations/customizations';
 
 export const useCreateCustomization = () =>

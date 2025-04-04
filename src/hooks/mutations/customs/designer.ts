@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
-import { Request as Status } from '@/api/customs/customs/designer/resources/status';
-import { Request as Finish } from '@/api/customs/customs/designer/resources/finish';
+import { Request as Status } from '@/api/customs/customs/designer/status';
+import { Request as Finish } from '@/api/customs/customs/designer/finish';
 import {
 	accept,
 	begin,

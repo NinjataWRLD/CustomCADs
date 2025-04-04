@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { Request as Single } from '@/api/categories/categories/resources/single';
+import { Request as Single } from '@/api/categories/categories/single';
 import { all, single } from '@/api/categories/categories';
 
 export const useGetCategories = (enabled?: boolean) =>

@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
-import { Request as All } from '@/api/customs/customs/client/resources/all';
-import { Request as Recent } from '@/api/customs/customs/client/resources/recent';
-import { Request as Single } from '@/api/customs/customs/client/resources/single';
-import { Request as Caluclate } from '@/api/customs/customs/client/resources/calculate-shipment';
-import { Request as Download } from '@/api/customs/customs/client/resources/download';
+import { Request as All } from '@/api/customs/customs/client/all';
+import { Request as Recent } from '@/api/customs/customs/client/recent';
+import { Request as Single } from '@/api/customs/customs/client/single';
+import { Request as Caluclate } from '@/api/customs/customs/client/calculate-shipment';
+import { Request as Download } from '@/api/customs/customs/client/download';
 import {
 	all,
 	calculateShipment,

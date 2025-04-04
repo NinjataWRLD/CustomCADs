@@ -1,9 +1,9 @@
 import { axios } from '@/api/axios';
 import { CustomizationResponse } from '@/api/customizations/common';
-import * as singleResources from './resources/single';
-import * as createResources from './resources/create';
-import * as editResources from './resources/edit';
-import * as deleteResources from './resources/delete';
+import * as singleResources from './single';
+import * as createResources from './create';
+import * as editResources from './edit';
+import * as deleteResources from './delete';
 
 export const create = (request: createResources.Request) =>
 	axios.post<CustomizationResponse>(createResources.url(), request);

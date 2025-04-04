@@ -1,16 +1,16 @@
 import { axios } from '@/api/axios';
 import { Result } from '@/api/common/result';
-import * as uploadResources from './resources/upload';
-import * as createResources from './resources/create';
-import * as recentResources from './resources/recent';
-import * as statsResources from './resources/stats';
-import * as editResources from './resources/edit';
-import * as singleResources from './resources/single';
-import * as downloadResources from './resources/download';
-import * as replaceResources from './resources/replace';
-import * as setCoordsResources from './resources/set-coords';
-import * as deleteResources from './resources/delete';
-import * as allResources from './resources/all';
+import * as uploadResources from './upload';
+import * as createResources from './create';
+import * as recentResources from './recent';
+import * as statsResources from './stats';
+import * as editResources from './edit';
+import * as singleResources from './single';
+import * as downloadResources from './download';
+import * as replaceResources from './replace';
+import * as setCoordsResources from './set-coords';
+import * as deleteResources from './delete';
+import * as allResources from './all';
 
 export const create = async (req: createResources.Request) =>
 	await axios.post<createResources.Response>(createResources.url(), req);

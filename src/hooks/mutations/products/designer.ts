@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
-import { Request as Report } from '@/api/catalog/products/designer/resources/report';
-import { Request as Validate } from '@/api/catalog/products/designer/resources/validate';
+import { Request as Report } from '@/api/catalog/products/designer/report';
+import { Request as Validate } from '@/api/catalog/products/designer/validate';
 import { report, validate } from '@/api/catalog/products/designer';
 
 export const useReportProduct = () =>

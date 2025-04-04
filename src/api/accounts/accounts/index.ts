@@ -1,11 +1,11 @@
 import { axios } from '@/api/axios';
 import { Result } from '@/api/common/result';
 import { AccountResponse } from '../common';
-import * as allResources from './resources/all';
-import * as sinlgeResources from './resources/single';
-import * as sortingResources from './resources/sortings';
-import * as createResources from './resources/create';
-import * as deleteResources from './resources/delete';
+import * as allResources from './all';
+import * as sinlgeResources from './single';
+import * as sortingResources from './sortings';
+import * as createResources from './create';
+import * as deleteResources from './delete';
 
 export const all = async (req: allResources.Request) =>
 	await axios.get<Result<AccountResponse>>(allResources.url(req));

@@ -1,9 +1,9 @@
 import { useMutation } from '@tanstack/react-query';
-import { Request as Create } from '@/api/customs/customs/client/resources/create';
-import { Request as Edit } from '@/api/customs/customs/client/resources/edit';
-import { Request as Purchase } from '@/api/customs/customs/client/resources/purchase';
-import { Request as PurchaseWithDelivery } from '@/api/customs/customs/client/resources/purchase-delivery';
-import { Request as Delete } from '@/api/customs/customs/client/resources/delete';
+import { Request as Create } from '@/api/customs/customs/client/create';
+import { Request as Edit } from '@/api/customs/customs/client/edit';
+import { Request as Purchase } from '@/api/customs/customs/client/purchase';
+import { Request as PurchaseWithDelivery } from '@/api/customs/customs/client/purchase-delivery';
+import { Request as Delete } from '@/api/customs/customs/client/delete';
 import {
 	edit,
 	create,
