@@ -1,4 +1,4 @@
-import { CUSTOMS_CLIENT_BASE_PATH } from '@/api/customs/common';
+import { CUSTOMS_CUSTOMER_BASE_PATH } from '@/api/customs/common';
 
 export interface Request {
 	name: string;
@@ -15,4 +15,4 @@ export interface Response {
 	forDelivery: boolean;
 }
 
-export const url = () => `${CUSTOMS_CLIENT_BASE_PATH}`;
+export const url = () => `${CUSTOMS_CUSTOMER_BASE_PATH}`;

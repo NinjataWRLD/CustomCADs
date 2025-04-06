@@ -1,4 +1,4 @@
-import { CUSTOMS_CLIENT_BASE_PATH } from '@/api/customs/common';
+import { CUSTOMS_CUSTOMER_BASE_PATH } from '@/api/customs/common';
 
 export interface Response {
 	pendingCount: number;
@@ -9,4 +9,4 @@ export interface Response {
 	reportedCount: number;
 }
 
-export const url = () => `${CUSTOMS_CLIENT_BASE_PATH}/stats`;
+export const url = () => `${CUSTOMS_CUSTOMER_BASE_PATH}/stats`;

@@ -22,7 +22,7 @@ const defaultValues: Fields = {
 	lastName: '',
 };
 
-export const useForm = (role: 'Client' | 'Contributor') => {
+export const useForm = (role: 'Customer' | 'Contributor') => {
 	const schema = useValidation();
 	useSyncCarts();
 

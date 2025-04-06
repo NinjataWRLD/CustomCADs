@@ -1,4 +1,4 @@
-import { CUSTOMS_CLIENT_BASE_PATH } from '@/api/customs/common';
+import { CUSTOMS_CUSTOMER_BASE_PATH } from '@/api/customs/common';
 
 export interface Request {
 	id: string;
@@ -14,4 +14,4 @@ export interface Response {
 	designerName?: string;
 }
 
-export const url = (req: Request) => `${CUSTOMS_CLIENT_BASE_PATH}/${req.id}`;
+export const url = (req: Request) => `${CUSTOMS_CUSTOMER_BASE_PATH}/${req.id}`;

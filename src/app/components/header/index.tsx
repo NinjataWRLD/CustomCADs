@@ -35,7 +35,7 @@ const Header = () => {
 					replace
 				/>
 				<span>|</span>
-				{(is.guest || is.client) && items && (
+				{(is.guest || is.customer) && items && (
 					<>
 						<BaseButton
 							label={tHeader('icon-2')}

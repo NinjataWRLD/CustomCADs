@@ -1,5 +1,5 @@
 import { Calculation } from '@/api/common/calculation';
-import { CUSTOMS_CLIENT_BASE_PATH } from '@/api/customs/common';
+import { CUSTOMS_CUSTOMER_BASE_PATH } from '@/api/customs/common';
 import { objectToSearchParams } from '@/utils/api';
 
 export interface Request {
@@ -13,4 +13,4 @@ export interface Request {
 export type Response = Calculation;
 
 export const url = (req: Request) =>
-	`${CUSTOMS_CLIENT_BASE_PATH}/calculate/${req.id}?${objectToSearchParams({ ...req, id: undefined })}`;
+	`${CUSTOMS_CUSTOMER_BASE_PATH}/calculate/${req.id}?${objectToSearchParams({ ...req, id: undefined })}`;

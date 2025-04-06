@@ -1,5 +1,5 @@
 import { objectToSearchParams } from '@/utils/api';
-import { CUSTOMS_CLIENT_BASE_PATH } from '@/api/customs/common';
+import { CUSTOMS_CUSTOMER_BASE_PATH } from '@/api/customs/common';
 
 export interface Request {
 	limit: number;
@@ -13,4 +13,4 @@ export interface Response {
 }
 
 export const url = (req: Request) =>
-	`${CUSTOMS_CLIENT_BASE_PATH}/recent?${objectToSearchParams(req)}`;
+	`${CUSTOMS_CUSTOMER_BASE_PATH}/recent?${objectToSearchParams(req)}`;

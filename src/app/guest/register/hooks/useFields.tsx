@@ -4,7 +4,7 @@ import Field from '@/app/components/fields';
 import Password from '@/app/components/fields/password';
 import { useForm } from './useForm';
 
-export const useFields = (role: 'Client' | 'Contributor') => {
+export const useFields = (role: 'Customer' | 'Contributor') => {
 	const { form, handleSubmit } = useForm(role);
 	const tPlaceholders = usePlaceholdersTranslation();
 	const tLabels = useLabelsTranslation();

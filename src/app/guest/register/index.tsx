@@ -11,12 +11,12 @@ import styles from './styles.module.css';
 const Register = () => {
 	const { role } = Route.useParams();
 	const { handleSubmit, ...fields } = useFields(
-		role === 'client' ? 'Client' : 'Contributor',
+		role === 'customer' ? 'Customer' : 'Contributor',
 	);
 
 	const tRegister = useRegisterTranslation();
-	if (role !== 'client' && role !== 'contributor')
-		throw new Error("You must register as a 'client' or 'contributor'");
+	if (role !== 'customer' && role !== 'contributor')
+		throw new Error("You must register as a 'customer' or 'contributor'");
 
 	return (
 		<Transition>

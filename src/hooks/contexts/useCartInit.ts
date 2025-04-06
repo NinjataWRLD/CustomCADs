@@ -38,7 +38,7 @@ export const useCartInit = (): CartState => {
 		);
 
 	useEffect(() => {
-		if (is.client) {
+		if (is.customer) {
 			const initCart = async () => {
 				const { data: items } = await refetch();
 

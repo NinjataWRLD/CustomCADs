@@ -2,7 +2,7 @@ import { PagesGuestRegister } from '@/locales/types/pages/guest';
 
 export default {
 	'go-back': 'Go back',
-	'title-client': 'Become a Client',
+	'title-customer': 'Become a Customer',
 	'title-contributor': 'Become a Contributor',
 	btn: 'Reigster',
 	'login-message': 'Already have an account?',

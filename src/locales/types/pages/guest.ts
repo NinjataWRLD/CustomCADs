@@ -17,10 +17,10 @@ export type PagesGuestLogin = {
 
 export type PagesGuestPickRole = {
 	title: string;
-	'client-subtitle': string;
-	'client-plus-1': string;
-	'client-plus-2': string;
-	'client-plus-3': string;
+	'customer-subtitle': string;
+	'customer-plus-1': string;
+	'customer-plus-2': string;
+	'customer-plus-3': string;
 	'contributor-subtitle': string;
 	'contributor-plus-1': string;
 	'contributor-plus-2': string;
@@ -30,7 +30,7 @@ export type PagesGuestPickRole = {
 
 export type PagesGuestRegister = {
 	'go-back': string;
-	'title-client': string;
+	'title-customer': string;
 	'title-contributor': string;
 	btn: string;
 	'login-message': string;

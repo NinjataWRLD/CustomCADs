@@ -14,7 +14,7 @@ const Info = () => {
 			<div className={`${styles.buttons}`}>
 				<CustomLink
 					to='/register/$role'
-					params={{ role: 'client' }}
+					params={{ role: 'customer' }}
 					text={tHome('btn-1')}
 				/>
 				<h2 className={`${styles.or}`}>{tHome('or')}</h2>

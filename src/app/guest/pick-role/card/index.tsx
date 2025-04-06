@@ -4,14 +4,14 @@ import { usePickRoleTranslation } from '@/hooks/locales/pages/guest';
 import CustomLink from '@/app/components/link';
 import styles from './styles.module.css';
 
-const Card = ({ id }: { id: 'client' | 'contributor' }) => {
+const Card = ({ id }: { id: 'customer' | 'contributor' }) => {
 	const tPickRole = usePickRoleTranslation();
 
 	return (
 		<div className={`${styles.card}`}>
 			<div className={`${styles.icon}`}>
 				<FontAwesomeIcon
-					icon={id === 'client' ? faUser : faLightbulb}
+					icon={id === 'customer' ? faUser : faLightbulb}
 				/>
 			</div>
 			<div className={`${styles.content}`}>
