@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
+import { DownloadResponse } from '@/api/common/files';
 import { fetchFile } from '@/utils/file';
 
-export const useGenerateBlobUrl = (
-	presignedUrl?: string,
-	contentType?: string,
-) => {
+export const useGenerateBlobUrl = (download?: DownloadResponse) => {
 	const [blobUrl, setBlobUrl] = useState('');
 
 	useEffect(() => {
 		const getFile = async () => {
-			if (presignedUrl && contentType) {
+			if (download) {
+				const { presignedUrl, contentType } = download;
+
 				const blob = await fetchFile(presignedUrl, contentType);
 				setBlobUrl(URL.createObjectURL(blob));
 			}
@@ -24,7 +24,7 @@ export const useGenerateBlobUrl = (
 				return '';
 			});
 		};
-	}, [presignedUrl, contentType]);
+	}, [download]);
 
 	return blobUrl;
 };

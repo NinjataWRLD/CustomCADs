@@ -1,18 +1,11 @@
 import { MATERIALS_BASE_PATH } from '@/api/customizations/common';
+import { UploadRequest, UploadResponse } from '@/api/common/files';
 
 export interface Request {
-	productName: string;
-	imageContentType: string;
-	imageFileName: string;
-	cadContentType: string;
-	cadFileName: string;
+	materialName: string;
+	image: UploadRequest;
 }
 
-export interface Response {
-	generatedImageKey: string;
-	presignedImageUrl: string;
-	generatedCadKey: string;
-	presignedCadUrl: string;
-}
+export type Response = UploadResponse;
 
 export const url = () => `${MATERIALS_BASE_PATH}/presignedUrls/upload`;

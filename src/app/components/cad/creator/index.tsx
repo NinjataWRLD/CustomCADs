@@ -8,7 +8,7 @@ const CreatorCad = ({ product }: { product: Product }) => {
 	const { camCoordinates: cam, panCoordinates: pan } = product;
 	const { data: cad } = useDownloadProductCad({ id: product.id });
 
-	const cadBlobUrl = useGenerateBlobUrl(cad?.presignedUrl, cad?.contentType);
+	const cadBlobUrl = useGenerateBlobUrl(cad);
 	if (!cadBlobUrl) return;
 
 	return (

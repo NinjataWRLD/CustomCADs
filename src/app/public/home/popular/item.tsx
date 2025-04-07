@@ -17,11 +17,8 @@ interface ItemProps {
 const Item = ({ product }: ItemProps) => {
 	const navigate = useNavigate();
 
-	const { data: download } = useDownloadProductImage({ id: product.id });
-	const blobUrl = useGenerateBlobUrl(
-		download?.presignedUrl,
-		download?.contentType,
-	);
+	const { data: image } = useDownloadProductImage({ id: product.id });
+	const blobUrl = useGenerateBlobUrl(image);
 
 	const handleDetailsClick = () => {
 		navigate({ to: '/gallery/$id', params: { id: product.id } });

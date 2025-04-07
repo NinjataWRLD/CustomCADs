@@ -1,15 +1,12 @@
 import { CUSTOMS_DESIGNER_BASE_PATH } from '@/api/customs/common';
+import { UploadRequest, UploadResponse } from '@/api/common/files';
 
 export interface Request {
 	id: string;
-	contentType: string;
-	fileName: string;
+	cad: UploadRequest;
 }
 
-export interface Response {
-	cadKey: string;
-	cadUrl: string;
-}
+export type Response = UploadResponse;
 
 export const url = () =>
 	`${CUSTOMS_DESIGNER_BASE_PATH}/presignedUrls/upload/cad`;

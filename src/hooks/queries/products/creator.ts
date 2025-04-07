@@ -4,7 +4,7 @@ import { Request as Single } from '@/api/catalog/products/creator/single';
 import { Request as Recent } from '@/api/catalog/products/creator/recent';
 import { Request as Download } from '@/api/catalog/products/creator/download';
 import { Request as Upload } from '@/api/catalog/products/creator/upload';
-import { Request as Replace } from '@/api/catalog/products/creator/change';
+import { Request as Replace } from '@/api/catalog/products/creator/replace';
 import {
 	all,
 	downloadCad,

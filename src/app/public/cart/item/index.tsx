@@ -36,11 +36,11 @@ const CartItem = ({ item, addTo, reset }: CartItemProps) => {
 		toggleItemNoDelivery,
 	} = useCartUpdates();
 
-	const { data: file, isError: isFileError } = useDownloadProductImage({
+	const { data: image, isError: isFileError } = useDownloadProductImage({
 		id: item.productId,
 	});
 	const { data: product, isError } = useGetProduct({ id: item.productId });
-	const blobUrl = useGenerateBlobUrl(file?.presignedUrl, file?.contentType);
+	const blobUrl = useGenerateBlobUrl(image);
 
 	const id = item.forDelivery ? item.customizationId : '';
 	const { data: customization } = useGetCustomization({ id }, !!id);

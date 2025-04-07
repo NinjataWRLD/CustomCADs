@@ -15,7 +15,7 @@ interface EditorCadProps {
 
 const EditorCad = ({ id }: EditorCadProps) => {
 	const { data: cad } = useDownloadProductCad({ id: id });
-	const cadBlobUrl = useGenerateBlobUrl(cad?.presignedUrl, cad?.contentType);
+	const cadBlobUrl = useGenerateBlobUrl(cad);
 
 	const { data: product } = useGetProduct({ id: id });
 	const { materialId, color, scale, size, infill } = useEditorStore(id);

@@ -1,9 +1,9 @@
 import { MATERIALS_BASE_PATH } from '@/api/customizations/common';
+import { UploadRequest } from '@/api/common/files';
 
 export interface Request {
 	id: number;
-	contentType: string;
-	fileName: string;
+	file: UploadRequest;
 }
 
 export interface Response {

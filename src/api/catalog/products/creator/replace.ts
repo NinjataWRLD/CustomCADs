@@ -1,9 +1,9 @@
 import { CREATOR_BASE_PATH } from '@/api/catalog/common';
+import { UploadRequest } from '@/api/common/files';
 
 export interface Request {
 	id: string;
-	contentType: string;
-	fileName: string;
+	file: UploadRequest;
 }
 
 export interface Response {

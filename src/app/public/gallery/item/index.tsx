@@ -14,10 +14,10 @@ interface ItemProps {
 const Item = ({ product }: ItemProps) => {
 	const tFetch = useFetchTranslation();
 
-	const { data: file, isLoading } = useDownloadProductImage({
+	const { data: image, isLoading } = useDownloadProductImage({
 		id: product.id,
 	});
-	const blobUrl = useGenerateBlobUrl(file?.presignedUrl, file?.contentType);
+	const blobUrl = useGenerateBlobUrl(image);
 
 	if (isLoading) {
 		return <>{tFetch('loading')}</>;

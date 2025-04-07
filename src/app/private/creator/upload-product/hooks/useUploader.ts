@@ -17,30 +17,23 @@ export const useUploader = (
 		if (!image || !cad) throw new Error('Image and Cad are required!');
 		cad = new File([cad], cad.name, { type: getCadType(cad) });
 
-		const { type: imageType, name: imageName } = image;
-		const { name: cadName, type: cadType } = cad;
-
 		const {
 			data: {
-				generatedImageKey: imageKey,
-				presignedImageUrl: imageUrl,
-				generatedCadKey: cadKey,
-				presignedCadUrl: cadUrl,
+				image: { generatedKey: imageKey, presignedUrl: imageUrl },
+				cad: { generatedKey: cadKey, presignedUrl: cadUrl },
 			},
 		} = await upload({
 			productName: name,
-			imageContentType: imageType,
-			imageFileName: imageName,
-			cadContentType: cadType,
-			cadFileName: cadName,
+			image: { contentType: image.type, fileName: image.name },
+			cad: { contentType: cad.type, fileName: cad.name },
 		});
 
 		await uploadFile(imageUrl, image);
 		await uploadFile(cadUrl, cad);
 
 		setFiles({
-			image: { key: imageKey, type: imageType },
-			cad: { key: cadKey, type: cadType },
+			image: { key: imageKey, type: image.type },
+			cad: { key: cadKey, type: cad.type },
 		});
 	};
 

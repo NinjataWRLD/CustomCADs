@@ -1,18 +1,15 @@
 import { CREATOR_BASE_PATH } from '@/api/catalog/common';
+import { UploadRequest, UploadResponse } from '@/api/common/files';
 
 export interface Request {
 	productName: string;
-	imageContentType: string;
-	imageFileName: string;
-	cadContentType: string;
-	cadFileName: string;
+	image: UploadRequest;
+	cad: UploadRequest;
 }
 
 export interface Response {
-	generatedImageKey: string;
-	presignedImageUrl: string;
-	generatedCadKey: string;
-	presignedCadUrl: string;
+	image: UploadResponse;
+	cad: UploadResponse;
 }
 
 export const url = () => `${CREATOR_BASE_PATH}/presignedUrls/upload`;
