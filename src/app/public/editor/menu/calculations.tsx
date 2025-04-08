@@ -3,7 +3,7 @@ import { Metric } from '@/types/threejs';
 import { useOthersTranslation } from '@/hooks/locales/common/others';
 import RangeField from '@/app/components/fields/range';
 import RadioField from '@/app/components/fields/radio';
-import { INFILL, SCALE } from '@/constants/threejs';
+import { INFILL } from '@/constants/threejs';
 import { useEditorStore } from '@/hooks/stores/useEditorStore';
 import { setInfill, setScale } from '@/stores/editor-store';
 import * as calculate3D from '@/utils/calculate-3D';
@@ -43,8 +43,8 @@ const Calculations = ({ id, volume }: CalculationsProps) => {
 			<RangeField
 				id='scale'
 				label={tOthers('scale')}
-				min={SCALE.min}
-				max={SCALE.max}
+				min={1 * 100}
+				max={calculate3D.getMaxRatio(ratio) * 100}
 				value={scale}
 				onChange={(e) => setScale(id, e.target.valueAsNumber)}
 				percentage

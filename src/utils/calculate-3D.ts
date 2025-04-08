@@ -2,31 +2,37 @@ import * as THREE from 'three';
 import { COST, RATIO, WEIGHT } from '@/constants/threejs';
 import { Cad, Ratio } from '@/types/threejs';
 
+const getMinSize = (size: Ratio) => {
+	const { x, y, z } = {
+		x: RATIO.min.x / size.x,
+		y: RATIO.min.y / size.y,
+		z: RATIO.min.z / size.z,
+	};
+	return Math.max(x, y, z);
+};
+
+export const getMaxRatio = (ratio: Ratio) => {
+	const { x, y, z } = {
+		x: RATIO.max.x / ratio.x,
+		y: RATIO.max.y / ratio.y,
+		z: RATIO.max.z / ratio.z,
+	};
+	return Math.min(x, y, z);
+};
+
 export const boxSize = (scene: Cad) =>
 	new THREE.Box3().setFromObject(scene).getSize(new THREE.Vector3());
 
-export const getBase = (size: Ratio) => {
-	const { x, y, z } = size;
-	const smallest = Math.min(x, y, z);
-
-	if (smallest === 0) return 0;
-	return RATIO.base / smallest;
-};
-
 export const baseRatio = (size: Ratio) => {
 	const { x, y, z } = size;
-	const base = getBase(size);
-
-	if (base === 0) return { x: 0, y: 0, z: 0 };
+	const base = getMinSize(size);
 	return { x: base * x, y: base * y, z: base * z };
 };
 
 export const volumeMm3 = (volume: number, scale: number, size: Ratio) => {
 	const scaledVolume = volume * scale ** 3;
-	const base = getBase(size);
-
-	if (base === 0) return 0;
-	return scaledVolume * base ** 3;
+	const min = getMinSize(size);
+	return scaledVolume * min ** 3;
 };
 
 export const weightGrams = (
