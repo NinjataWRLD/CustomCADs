@@ -24,12 +24,14 @@ const Editor = () => {
 	const store = useEditorStore(id);
 
 	const { data: product } = useGetProduct({ id: id }, !!id);
-	const { item, customization } = useCartItemManager(id);
+	const isPrintable = product?.tags.includes('Printable');
 
+	const { item, customization } = useCartItemManager(id);
 	const { addItem, toggleItemForDelivery } = useCartUpdates();
 	const { mutateAsync: editCustomization } = useEditCustomization();
 
 	if (!id || !customization || !product) return;
+	if (!isPrintable) throw new Error('Unprintable CAD!');
 
 	const volume = calculate3D.volumeMm3(
 		product.volume,

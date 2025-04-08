@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Route } from '@/routes/_public/gallery/$id';
+import { useCartUpdates } from '@/hooks/contexts/useCartUpdates';
 import { useFetchTranslation } from '@/hooks/locales/common/messages';
 import { useProductTranslation } from '@/hooks/locales/pages/public';
 import { useCartContext } from '@/hooks/contexts/useCartContext';
@@ -14,17 +15,14 @@ import styles from './styles.module.css';
 const Product = () => {
 	const { id } = Route.useParams();
 	const { data: product, isLoading, isError } = useGetProduct({ id: id });
+	const isPrintable = product?.tags.includes('Printable');
 
 	const tFetch = useFetchTranslation();
 	const tProduct = useProductTranslation();
 
 	const { items } = useCartContext();
 	const alreadyInCart = items?.some((i) => i.productId === id);
-
-	const [showPopup, setShowPopup] = useState(false);
-	const toggleForDelivery = () => {
-		setShowPopup((prev) => !prev);
-	};
+	const { addItem } = useCartUpdates();
 
 	const [showPopupMessage, setShowPopupMessage] = useState(false);
 	const flashPopupMessage = () => {
@@ -33,6 +31,20 @@ const Product = () => {
 		setTimeout(() => {
 			setShowPopupMessage(false);
 		}, 3000);
+	};
+
+	const [showPopup, setShowPopup] = useState(false);
+	const toggleForDelivery = async () => {
+		if (isPrintable) {
+			setShowPopup((prev) => !prev);
+		} else {
+			await addItem({
+				productId: id,
+				quantity: 1,
+				forDelivery: false,
+			});
+			flashPopupMessage();
+		}
 	};
 
 	if (isLoading) {
