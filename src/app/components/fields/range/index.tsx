@@ -8,9 +8,9 @@ interface RangeFieldProps {
 	max: number;
 	step?: number;
 	value: number;
+	text?: string;
 	onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 	style?: string;
-	percentage?: boolean;
 }
 
 const RangeField = ({
@@ -18,11 +18,11 @@ const RangeField = ({
 	label,
 	min,
 	max,
-	step = 1,
+	step = 0.0001,
 	value,
+	text,
 	onChange,
 	style,
-	percentage,
 }: RangeFieldProps) => {
 	return (
 		<>
@@ -37,8 +37,7 @@ const RangeField = ({
 				onChange={onChange}
 				className={style ?? styles['input-range']}
 			/>
-			{value}
-			{percentage ? '%' : ''}
+			{text ?? value}
 		</>
 	);
 };

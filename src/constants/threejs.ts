@@ -1,4 +1,4 @@
-export const INFILL = { min: 20, max: 100 };
+export const INFILL = { min: 0.2, max: 1 };
 export const RATIO = {
 	min: { x: 35, y: 10, z: 35 },
 	max: { x: 350, y: 600, z: 350 },

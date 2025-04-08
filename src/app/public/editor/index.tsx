@@ -33,7 +33,7 @@ const Editor = () => {
 
 	const volume = calculate3D.volumeMm3(
 		product.volume,
-		store.scale / 100,
+		store.scale,
 		store.size,
 	);
 
@@ -52,8 +52,8 @@ const Editor = () => {
 			id: customization.id,
 			color: store.color,
 			materialId: store.materialId,
-			infill: store.infill / 100,
-			scale: store.scale / 100,
+			infill: store.infill,
+			scale: store.scale,
 			volume: volume,
 		});
 

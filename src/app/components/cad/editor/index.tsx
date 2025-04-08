@@ -37,8 +37,8 @@ const EditorCad = ({ id }: EditorCadProps) => {
 					texture: textureBlobUrls[materialId].blobUrl,
 					volume: product.volume,
 					density: textureBlobUrls[materialId].density,
-					infill: infill / 100,
-					scale: scale / 100,
+					infill: infill,
+					scale: scale,
 					size: size,
 				}}
 				setState={{
