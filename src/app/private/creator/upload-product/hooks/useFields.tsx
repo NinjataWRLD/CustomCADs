@@ -84,7 +84,7 @@ export const useFields = () => {
 				<FileField
 					api={api}
 					label={tLabels('cad')}
-					accept='.glb'
+					accept='.glb,.stl'
 					onChange={(e) => setCad(e.target.files?.[0] ?? null)}
 				/>
 			)}

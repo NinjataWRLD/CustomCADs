@@ -1,15 +1,14 @@
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
-import { GLTF } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { Coordinates } from '@/api/catalog/common';
 import { useThreeJS } from '@/hooks/threejs/useThreeJS';
 import { useUpdateThreeJS } from '@/hooks/threejs/useUpdateThreeJS';
 import * as calculate3D from '@/utils/calculate-3D';
-import { Ratio, CustomizeCad, CalculateCad } from '@/types/threejs';
+import { Ratio, CustomizeCad, CalculateCad, Cad } from '@/types/threejs';
 import styles from '../styles.module.css';
 
 interface ThreeJSProps {
-	url: string;
+	file: { url: string; type: string };
 	coords: { cam: Coordinates; pan: Coordinates };
 	state: {
 		color?: string;
@@ -27,12 +26,12 @@ interface ThreeJSProps {
 	};
 }
 
-const EditorThreeJS = ({ url, coords, state, setState }: ThreeJSProps) => {
+const EditorThreeJS = ({ file, coords, state, setState }: ThreeJSProps) => {
 	const { color, texture, volume, density, scale, infill, size } = state;
 	const { setSize, setWeight, setCost } = setState;
 
 	const originalScaleRef = useRef<THREE.Vector3>(new THREE.Vector3(0, 0, 0));
-	const cadRef = useRef<GLTF>(null);
+	const cadRef = useRef<Cad>(null);
 	const update = useUpdateThreeJS();
 
 	const updateLooks = (data: CustomizeCad) => {
@@ -50,23 +49,23 @@ const EditorThreeJS = ({ url, coords, state, setState }: ThreeJSProps) => {
 		setCost(cost);
 
 		if (cadRef.current) {
-			cadRef.current.scene.scale.copy(originalScaleRef.current);
-			cadRef.current.scene.scale.multiplyScalar(scale);
+			cadRef.current.scale.copy(originalScaleRef.current);
+			cadRef.current.scale.multiplyScalar(scale);
 		}
 	};
 
-	const { ref } = useThreeJS(url, coords, (cad) => {
-		originalScaleRef.current = cad.scene.scale.clone();
+	const { ref } = useThreeJS(file.url, file.type, coords, (cad) => {
+		originalScaleRef.current = cad.scale.clone();
 		cadRef.current = cad;
 
-		cad.scene.traverse((child) => {
+		cad.traverse((child) => {
 			if (child instanceof THREE.Mesh) {
 				child.material.map = undefined;
 			}
 		});
 		updateLooks({ texture, color });
 
-		const size = calculate3D.boxSize(cadRef.current.scene);
+		const size = calculate3D.boxSize(cadRef.current);
 		setSize(size);
 
 		updateMetrics({ volume, density, size, scale, infill });

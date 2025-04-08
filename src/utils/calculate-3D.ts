@@ -1,8 +1,8 @@
 import * as THREE from 'three';
 import { COST, RATIO, WEIGHT } from '@/constants/threejs';
-import { Ratio } from '@/types/threejs';
+import { Cad, Ratio } from '@/types/threejs';
 
-export const boxSize = (scene: THREE.Group<THREE.Object3DEventMap>) =>
+export const boxSize = (scene: Cad) =>
 	new THREE.Box3().setFromObject(scene).getSize(new THREE.Vector3());
 
 export const getBase = (size: Ratio) => {

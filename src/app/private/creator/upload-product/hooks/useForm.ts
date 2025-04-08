@@ -4,7 +4,7 @@ import { useForm as useTanStackForm } from '@tanstack/react-form';
 import { useForceLocaleRefresh } from '@/hooks/locales/useForceLocaleRefresh';
 import { FileData } from '@/types/files';
 import { useValidation } from './useValidation';
-import { useUploader } from './useUploader';
+import { uploadFiles } from '@/utils/uploader';
 import { useCreator } from './useCreator';
 
 interface Fields {
@@ -31,8 +31,6 @@ export const useForm = () => {
 	const [value, setValue] = useState<Fields>();
 
 	const [files, setFiles] = useState<{ image: FileData; cad: FileData }>();
-	const uploadFiles = useUploader(setFiles);
-
 	const [cad, setCad] = useState<File | null>(null);
 	const ref = useCreator(cad, files, value, () =>
 		navigate({ to: '/gallery' }),
@@ -41,7 +39,7 @@ export const useForm = () => {
 	useEffect(() => {
 		if (value) {
 			const { name, image, cad } = value;
-			uploadFiles(name, image, cad);
+			uploadFiles(name, image, cad, setFiles);
 		}
 	}, [value]);
 

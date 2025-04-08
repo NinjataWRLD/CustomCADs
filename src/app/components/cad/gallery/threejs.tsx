@@ -3,13 +3,13 @@ import { useThreeJS } from '@/hooks/threejs/useThreeJS';
 import styles from '../styles.module.css';
 
 interface ThreeJSProps {
-	url: string;
+	file: { url: string; type: string };
 	cam: Coordinates;
 	pan: Coordinates;
 }
 
-const GalleryThreeJS = ({ url, cam, pan }: ThreeJSProps) => {
-	const { ref } = useThreeJS(url, { cam, pan });
+const GalleryThreeJS = ({ file, cam, pan }: ThreeJSProps) => {
+	const { ref } = useThreeJS(file.url, file.type, { cam, pan });
 	return <div ref={ref} className={styles.model} />;
 };
 

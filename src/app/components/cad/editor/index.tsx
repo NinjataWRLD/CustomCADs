@@ -6,6 +6,7 @@ import {
 	useDownloadProductCad,
 } from '@/hooks/queries/products/gallery';
 import { useTextures } from '@/hooks/threejs/useTextures';
+import { getCadType } from '@/utils/get-cad-type';
 import EditorThreeJS from './threejs';
 import styles from '../styles.module.css';
 
@@ -21,7 +22,7 @@ const EditorCad = ({ id }: EditorCadProps) => {
 	const { materialId, color, scale, size, infill } = useEditorStore(id);
 
 	const textureBlobUrls = useTextures();
-	if (!product || !cadBlobUrl || !textureBlobUrls[materialId]) {
+	if (!product || !cad || !cadBlobUrl || !textureBlobUrls[materialId]) {
 		return <></>;
 	}
 	const { camCoordinates: cam, panCoordinates: pan } = product;
@@ -29,7 +30,7 @@ const EditorCad = ({ id }: EditorCadProps) => {
 	return (
 		<div className={styles.container}>
 			<EditorThreeJS
-				url={cadBlobUrl}
+				file={{ url: cadBlobUrl, type: getCadType(cad.contentType) }}
 				coords={{ cam, pan }}
 				state={{
 					color: color ?? undefined,

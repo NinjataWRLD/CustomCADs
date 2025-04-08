@@ -4,13 +4,13 @@ import { useThreeJS } from '@/hooks/threejs/useThreeJS';
 import styles from '../styles.module.css';
 
 interface ThreeJSProps {
-	url: string;
+	file: { url: string; type: string };
 	cam: Coordinates;
 	pan: Coordinates;
 }
 
-const CreatorThreeJS = ({ url, cam, pan }: ThreeJSProps) => {
-	const { ref, instance } = useThreeJS(url, { cam, pan });
+const CreatorThreeJS = ({ file, cam, pan }: ThreeJSProps) => {
+	const { ref, instance } = useThreeJS(file.url, file.type, { cam, pan });
 
 	useEffect(() => {
 		instance?.updateCoords({ cam, pan });
