@@ -9,6 +9,7 @@ import Transition from '@/app/components/transition';
 import Button from '@/app/components/button';
 import CustomLink from '@/app/components/link';
 import Cad from '@/app/components/cad';
+import { format } from '@/utils/date-time';
 import AddToCartPopup from './add-to-cart-popup';
 import styles from './styles.module.css';
 
@@ -87,7 +88,7 @@ const Product = () => {
 								</p>
 								<p>
 									<strong>{tProduct('uploaded-on')}</strong>
-									{product.uploadedAt}
+									{format({ date: product.uploadedAt })}
 								</p>
 							</div>
 

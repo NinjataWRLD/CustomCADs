@@ -30,8 +30,7 @@ export const useForm = (role: 'Customer' | 'Contributor') => {
 	const form = useTanStackForm({
 		defaultValues: defaultValues,
 		onSubmit: async ({ value }) => {
-			const { timeZone } = Intl.DateTimeFormat().resolvedOptions();
-			await register({ ...value, role, timeZone });
+			await register({ ...value, role });
 		},
 		validators: {
 			onChange: schema,
