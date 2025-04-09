@@ -87,6 +87,7 @@ export const typescriptRules = {
 	'@typescript-eslint/consistent-indexed-object-style': 'warn',
 	'@typescript-eslint/no-empty-object-type': 'warn',
 	'@typescript-eslint/no-explicit-any': 'warn',
+	'@typescript-eslint/no-unused-vars': 'warn',
 	'@typescript-eslint/no-misused-spread': 'warn',
 	'@typescript-eslint/no-use-before-define': 'warn',
 	'@typescript-eslint/prefer-nullish-coalescing': 'warn',
