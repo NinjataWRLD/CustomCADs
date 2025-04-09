@@ -18,7 +18,7 @@ export const useForm = () => {
 
 	const form = useTanStackForm({
 		defaultValues: defaultValues,
-		onSubmit: async ({ value }) => {
+		onSubmit: ({ value }) => {
 			setEmail(value.email);
 		},
 		validators: {

@@ -35,7 +35,7 @@ const Sortings = ({ getSorting, updateSorting }: SortingsProps) => {
 		if (!sortingParam) {
 			setSorting(initial);
 		}
-	}, [initial]);
+	}, [initial, sortingParam]);
 
 	useEffect(() => {
 		updateSorting({

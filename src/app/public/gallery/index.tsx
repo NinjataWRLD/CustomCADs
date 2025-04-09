@@ -94,22 +94,20 @@ const Gallery = () => {
 							updateSorting={({ type, direction }) => {
 								setSearch((prev) => ({
 									...prev,
-									sortingType: type ? type : prev.sortingType,
+									sortingType: type ?? prev.sortingType,
 									sortingDirection: direction,
 								}));
 								navigate({
 									search: (prev) => ({
 										...prev,
-										sortingType: type
-											? type
-											: prev.sortingType,
+										sortingType: type ?? prev.sortingType,
 										sortingDirection: direction,
 									}),
 								});
 							}}
 						/>
 					</div>
-					{products && products.items.length ? (
+					{products?.items.length ? (
 						<div className={`${styles.models}`}>
 							{products.items.map((product) => (
 								<Item key={product.id} product={product} />

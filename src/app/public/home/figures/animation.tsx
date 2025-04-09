@@ -20,7 +20,7 @@ const FiguresAnimation = () => {
 			delay: anime.random(600, 800),
 			rotate: [
 				anime.random(-360, 360),
-				(el: HTMLElement) => el.getAttribute('data-rotation') || '0deg',
+				(el: HTMLElement) => el.getAttribute('data-rotation') ?? '0deg',
 			],
 			scale: [0.7, 1],
 			opacity: [0, 1],

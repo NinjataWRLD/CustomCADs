@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Route } from '@/routes/_public/gallery.$id';
+import { Route } from '@/routes/_public/gallery/$id';
 import { useFetchTranslation } from '@/hooks/locales/common/messages';
 import { useProductTranslation } from '@/hooks/locales/pages/public';
 import { useCartContext } from '@/hooks/contexts/useCartContext';
@@ -19,7 +19,7 @@ const Product = () => {
 	const tProduct = useProductTranslation();
 
 	const { items } = useCartContext();
-	const alreadyInCart = items && items.some((i) => i.productId === id);
+	const alreadyInCart = items?.some((i) => i.productId === id);
 
 	const [showPopup, setShowPopup] = useState(false);
 	const toggleForDelivery = () => {

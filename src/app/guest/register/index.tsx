@@ -1,7 +1,7 @@
 import { Link } from '@tanstack/react-router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import { Route } from '@/routes/_guest/register.$role';
+import { Route } from '@/routes/_guest/register/$role';
 import { useRegisterTranslation } from '@/hooks/locales/pages/guest';
 import Button from '@/app/components/button';
 import Transition from '@/app/components/transition';

@@ -27,7 +27,7 @@ const AddToCartPopup = ({
 		setShow((prev) => !prev);
 	};
 
-	const addToCart = async (forDelivery: boolean) => {
+	const addToCart = (forDelivery: boolean) => {
 		setShow(false);
 		flashMessage();
 
