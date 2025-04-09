@@ -11,7 +11,7 @@ const PickRole = () => {
 			<div className={`${styles.container}`}>
 				<h1>{tPickRole('title')}</h1>
 				<div className={`${styles.cards}`}>
-					<Card id='client' />
+					<Card id='customer' />
 					<Card id='contributor' />
 				</div>
 			</div>

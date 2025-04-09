@@ -25,7 +25,7 @@ export const useCartUpdates = () => {
 	const addItem = async (item: CartItem) => {
 		dispatch({ type: 'ADD_ITEM', item: item });
 
-		if (is.client) {
+		if (is.customer) {
 			await addCartItem(item);
 		}
 	};
@@ -33,7 +33,7 @@ export const useCartUpdates = () => {
 	const removeItem = async (id: string) => {
 		dispatch({ type: 'REMOVE_ITEM', id: id });
 
-		if (is.client) {
+		if (is.customer) {
 			await removeCartItem({ productId: id });
 		}
 	};
@@ -41,7 +41,7 @@ export const useCartUpdates = () => {
 	const incrementItemQuantity = async (id: string) => {
 		dispatch({ type: 'INCREMENT_QUANTITY', id: id });
 
-		if (is.client) {
+		if (is.customer) {
 			await increaseCartItemQuantity({ productId: id, amount: 1 });
 		}
 	};
@@ -49,7 +49,7 @@ export const useCartUpdates = () => {
 	const toggleItemNoDelivery = async (id: string) => {
 		dispatch({ type: 'SET_NO_DELIVERY', id: id });
 
-		if (is.client) {
+		if (is.customer) {
 			await toggleCartItemForDelivery({ productId: id });
 		}
 	};
@@ -64,7 +64,7 @@ export const useCartUpdates = () => {
 			customizationId: customizationId,
 		});
 
-		if (is.client) {
+		if (is.customer) {
 			await toggleCartItemForDelivery({
 				productId: id,
 				customizationId: customizationId,
@@ -75,7 +75,7 @@ export const useCartUpdates = () => {
 	const decrementItemQuantity = async (id: string) => {
 		dispatch({ type: 'DECREMENT_QUANTITY', id: id });
 
-		if (is.client) {
+		if (is.customer) {
 			await decreaseCartItemQuantity({ productId: id, amount: 1 });
 		}
 	};

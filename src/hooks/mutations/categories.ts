@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
-import { Request as Create } from '@/api/categories/categories/resources/create';
-import { Request as Edit } from '@/api/categories/categories/resources/edit';
-import { Request as Delete } from '@/api/categories/categories/resources/delete';
+import { Request as Create } from '@/api/categories/categories/create';
+import { Request as Edit } from '@/api/categories/categories/edit';
+import { Request as Delete } from '@/api/categories/categories/delete';
 import { create, edit, delete_ } from '@/api/categories/categories';
 
 export const useCreateCategory = () =>

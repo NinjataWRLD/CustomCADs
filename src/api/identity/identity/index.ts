@@ -1,13 +1,13 @@
 import { axios } from '@/api/axios';
-import * as authnResources from './resources/authn';
-import * as authzResources from './resources/authz';
-import * as loginResources from './resources/login';
-import * as refreshResources from './resources/refresh';
-import * as logoutResources from './resources/logout';
-import * as forgotPasswordResources from './resources/forgot-password';
-import * as resetPasswordResources from './resources/reset-password';
-import * as registerResources from './resources/register';
-import * as retryConfirmEmailResources from './resources/retry-confirm-email';
+import * as authnResources from './authn';
+import * as authzResources from './authz';
+import * as loginResources from './login';
+import * as refreshResources from './refresh';
+import * as logoutResources from './logout';
+import * as forgotPasswordResources from './forgot-password';
+import * as resetPasswordResources from './reset-password';
+import * as registerResources from './register';
+import * as retryConfirmEmailResources from './retry-confirm-email';
 
 export const authn = async () =>
 	await axios.get<authnResources.Response>(authnResources.url());

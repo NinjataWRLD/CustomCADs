@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
-import { Request as AddTag } from '@/api/catalog/products/gallery/resources/add-tag';
-import { Request as RemoveTag } from '@/api/catalog/products/gallery/resources/remove-tag';
+import { Request as AddTag } from '@/api/catalog/products/gallery/add-tag';
+import { Request as RemoveTag } from '@/api/catalog/products/gallery/remove-tag';
 import { addTag, removeTag } from '@/api/catalog/products/gallery';
 
 export const useAddProductTag = (params: AddTag) =>

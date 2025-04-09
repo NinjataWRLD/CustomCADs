@@ -1,9 +1,9 @@
 import { axios } from '@/api/axios';
 import { Result } from '@/api/common/result';
-import * as allResources from './resources/all';
-import * as singleResources from './resources/single';
-import * as validateResources from './resources/validate';
-import * as reportResources from './resources/report';
+import * as allResources from './all';
+import * as singleResources from './single';
+import * as validateResources from './validate';
+import * as reportResources from './report';
 
 export const unchecked = async (req: allResources.Request) =>
 	await axios.get<Result<allResources.Response>>(

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Route } from '@/routes/_public/gallery';
-import { Request as GallerySearch } from '@/api/catalog/products/gallery/resources/all';
+import { Request as GallerySearch } from '@/api/catalog/products/gallery/all';
 import { usePagination } from '@/hooks/usePagination';
 import { useGetProducts } from '@/hooks/queries/products/gallery';
 import {

@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { Request as ForgotPassword } from '@/api/identity/identity/resources/forgot-password';
+import { Request as ForgotPassword } from '@/api/identity/identity/forgot-password';
 import { authn, authz, forgotPassword } from '@/api/identity/identity';
 
 export const useAuthn = (enabled?: boolean) =>

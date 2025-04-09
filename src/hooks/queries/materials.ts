@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
-import { Request as Single } from '@/api/customizations/materials/resources/single';
-import { Request as Download } from '@/api/customizations/materials/resources/download';
-import { Request as Upload } from '@/api/customizations/materials/resources/upload';
-import { Request as Replace } from '@/api/customizations/materials/resources/replace';
+import { Request as Single } from '@/api/customizations/materials/single';
+import { Request as Download } from '@/api/customizations/materials/download';
+import { Request as Upload } from '@/api/customizations/materials/upload';
+import { Request as Replace } from '@/api/customizations/materials/replace';
 import {
 	all,
 	downloadTexture,

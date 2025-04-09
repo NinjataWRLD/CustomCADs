@@ -1,8 +1,8 @@
 import { useMutation } from '@tanstack/react-query';
-import { Request as Create } from '@/api/catalog/products/creator/resources/create';
-import { Request as SetCoords } from '@/api/catalog/products/creator/resources/set-coords';
-import { Request as Edit } from '@/api/catalog/products/creator/resources/edit';
-import { Request as Delete } from '@/api/catalog/products/creator/resources/delete';
+import { Request as Create } from '@/api/catalog/products/creator/create';
+import { Request as SetCoords } from '@/api/catalog/products/creator/set-coords';
+import { Request as Edit } from '@/api/catalog/products/creator/edit';
+import { Request as Delete } from '@/api/catalog/products/creator/delete';
 import {
 	create,
 	edit,

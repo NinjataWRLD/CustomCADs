@@ -8,12 +8,12 @@ export const useSyncCarts = () => {
 	const { is } = useAuthStore();
 
 	const { mutateAsync: addItem } = useAddActiveCartItem();
-	const { data: items } = useGetActiveCartItems(is.client);
+	const { data: items } = useGetActiveCartItems(is.customer);
 
 	useEffect(() => {
 		const cartString = localStorage.getItem('cart');
 
-		if (is.client && cartString) {
+		if (is.customer && cartString) {
 			localStorage.removeItem('cart');
 			const cart = JSON.parse(cartString) as CartItem[];
 

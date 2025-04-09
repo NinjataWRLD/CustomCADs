@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { Request as Single } from '@/api/accounts/accounts/resources/single';
-import { Request as All } from '@/api/accounts/accounts/resources/all';
+import { Request as Single } from '@/api/accounts/accounts/single';
+import { Request as All } from '@/api/accounts/accounts/all';
 import { all, single, sortings } from '@/api/accounts/accounts';
 
 export const useGetAccount = (params: Single, enabled?: boolean) =>

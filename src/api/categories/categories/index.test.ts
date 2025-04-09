@@ -1,11 +1,11 @@
 import { afterEach, describe, expect, it, Mock, vi } from 'vitest';
 import { axios } from '@/api/axios';
 import * as categories from './index';
-import * as allResources from './resources/all';
-import * as singleResources from './resources/single';
-import * as createResources from './resources/create';
-import * as editResources from './resources/edit';
-import * as deleteResources from './resources/delete';
+import * as allResources from './all';
+import * as singleResources from './single';
+import * as createResources from './create';
+import * as editResources from './edit';
+import * as deleteResources from './delete';
 import { CategoryResponse } from '../common';
 
 vi.mock('@/api/axios');

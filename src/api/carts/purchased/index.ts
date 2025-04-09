@@ -1,9 +1,9 @@
 import { axios } from '@/api/axios';
-import * as downloadResources from './resources/download';
-import * as allResources from './resources/all';
-import * as singleResources from './resources/single';
-import * as sortingsResources from './resources/sortings';
-import * as statsResources from './resources/stats';
+import * as downloadResources from './download';
+import * as allResources from './all';
+import * as singleResources from './single';
+import * as sortingsResources from './sortings';
+import * as statsResources from './stats';
 
 export const all = async (req: allResources.Request) =>
 	await axios.get<allResources.Response>(allResources.url(req));

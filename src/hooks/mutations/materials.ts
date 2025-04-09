@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
-import { Request as Create } from '@/api/customizations/materials/resources/create';
-import { Request as Edit } from '@/api/customizations/materials/resources/edit';
-import { Request as Delete } from '@/api/customizations/materials/resources/delete';
+import { Request as Create } from '@/api/customizations/materials/create';
+import { Request as Edit } from '@/api/customizations/materials/edit';
+import { Request as Delete } from '@/api/customizations/materials/delete';
 import { create, edit, delete_ } from '@/api/customizations/materials';
 
 export const useCreateMaterial = () =>

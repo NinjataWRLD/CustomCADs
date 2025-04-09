@@ -48,7 +48,7 @@ const SettingsButton = () => {
 			onClick={logout}
 		/>,
 	];
-	if (is.client)
+	if (is.customer)
 		settings.unshift(
 			<Setting
 				key='carts'

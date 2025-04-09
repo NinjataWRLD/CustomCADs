@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
-import { Request as All } from '@/api/catalog/products/gallery/resources/all';
-import { Request as Download } from '@/api/catalog/products/gallery/resources/download';
-import { Request as Single } from '@/api/catalog/products/gallery/resources/single';
+import { Request as All } from '@/api/catalog/products/gallery/all';
+import { Request as Download } from '@/api/catalog/products/gallery/download';
+import { Request as Single } from '@/api/catalog/products/gallery/single';
 import {
 	all,
 	downloadCad,

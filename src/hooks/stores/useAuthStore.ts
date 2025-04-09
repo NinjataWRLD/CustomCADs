@@ -8,7 +8,7 @@ export const useAuthStore = () => {
 	const is = useMemo(() => {
 		const roles = {
 			guest: !authn,
-			client: authn && authz === 'Client',
+			customer: authn && authz === 'Customer',
 			contributor: authn && authz === 'Contributor',
 			designer: authn && authz === 'Designer',
 			admin: authn && authz === 'Admin',

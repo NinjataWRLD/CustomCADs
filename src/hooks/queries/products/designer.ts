@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { Request as All } from '@/api/catalog/products/designer/resources/all';
-import { Request as Single } from '@/api/catalog/products/designer/resources/single';
+import { Request as All } from '@/api/catalog/products/designer/all';
+import { Request as Single } from '@/api/catalog/products/designer/single';
 import {
 	unchecked,
 	validated,

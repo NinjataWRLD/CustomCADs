@@ -1,10 +1,10 @@
 import { axios } from '@/api/axios';
 import { Result } from '@/api/common/result';
-import * as allResources from './resources/all';
-import * as singleResources from './resources/single';
-import * as statusResources from './resources/status';
-import * as finishResources from './resources/finish';
-import * as uploadResources from './resources/upload';
+import * as allResources from './all';
+import * as singleResources from './single';
+import * as statusResources from './status';
+import * as finishResources from './finish';
+import * as uploadResources from './upload';
 
 export const all = async (req: allResources.Request) =>
 	await axios.get<Result<allResources.Response>>(allResources.url(req));
