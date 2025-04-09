@@ -8,8 +8,13 @@ const MM_PER_UNIT: Record<Metric, number> = {
 
 const POINT_PER_UNIT: Record<Metric, number> = {
 	mm: 1,
-	cm: 4,
-	inch: 4,
+	cm: 3,
+	inch: 3,
+};
+
+export const percentage = (scale: number) => {
+	const value = parseFloat(scale.toFixed(2));
+	return `${value}%`;
 };
 
 export const size = (size: number, metric: Metric) => {

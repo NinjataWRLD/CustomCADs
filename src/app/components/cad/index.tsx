@@ -1,13 +1,7 @@
-import { Coordinates } from '@/api/catalog/common.js';
+import { Response as Product } from '@/api/catalog/products/gallery/single';
 import GalleryCad from './gallery';
 import CreatorCad from './creator';
 import EditorCad from './editor';
-
-export type Product = {
-	id: string;
-	camCoordinates: Coordinates;
-	panCoordinates: Coordinates;
-};
 
 type CadProps =
 	| { type: 'gallery'; product: Product }

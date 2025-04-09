@@ -3,7 +3,7 @@ import { Metric } from '@/types/threejs';
 import { useOthersTranslation } from '@/hooks/locales/common/others';
 import RangeField from '@/app/components/fields/range';
 import RadioField from '@/app/components/fields/radio';
-import { INFILL, SCALE } from '@/constants/threejs';
+import { INFILL } from '@/constants/threejs';
 import { useEditorStore } from '@/hooks/stores/useEditorStore';
 import { setInfill, setScale } from '@/stores/editor-store';
 import * as calculate3D from '@/utils/calculate-3D';
@@ -16,7 +16,7 @@ interface CalculationsProps {
 }
 
 const Calculations = ({ id, volume }: CalculationsProps) => {
-	const [metric, setMetric] = useState<Metric>('mm');
+	const [metric, setMetric] = useState<Metric>('cm');
 	const { infill, scale, size, weight, cost } = useEditorStore(id);
 	const ratio = calculate3D.baseRatio(size);
 
@@ -35,19 +35,19 @@ const Calculations = ({ id, volume }: CalculationsProps) => {
 				min={INFILL.min}
 				max={INFILL.max}
 				value={infill}
+				text={formatter.percentage(infill * 100)}
 				onChange={(e) => setInfill(id, e.target.valueAsNumber)}
-				percentage
 			/>
-			{infill > 30 && unrecommended}
+			{infill > 0.3 && unrecommended}
 			<br />
 			<RangeField
 				id='scale'
 				label={tOthers('scale')}
-				min={SCALE.min}
-				max={SCALE.max}
+				min={1}
+				max={calculate3D.getMaxRatio(ratio)}
 				value={scale}
+				text={formatter.percentage(scale * 100)}
 				onChange={(e) => setScale(id, e.target.valueAsNumber)}
-				percentage
 			/>
 			<br />
 			<div>
@@ -71,9 +71,9 @@ const Calculations = ({ id, volume }: CalculationsProps) => {
 				/>
 			</div>
 			<div>
-				<p>{`${tOthers('width')}: ${formatter.size((ratio.x * scale) / 100, metric)}`}</p>
-				<p>{`${tOthers('height')}: ${formatter.size((ratio.y * scale) / 100, metric)}`}</p>
-				<p>{`${tOthers('length')}: ${formatter.size((ratio.z * scale) / 100, metric)}`}</p>
+				<p>{`${tOthers('width')}: ${formatter.size(ratio.x * scale, metric)}`}</p>
+				<p>{`${tOthers('height')}: ${formatter.size(ratio.y * scale, metric)}`}</p>
+				<p>{`${tOthers('length')}: ${formatter.size(ratio.z * scale, metric)}`}</p>
 				<p>{`${tOthers('volume')}: ${formatter.volume(volume, metric)}`}</p>
 				<p>{`${tOthers('weight')}: ${formatter.weight(weight)}`}</p>
 				<p>{`${tOthers('cost')}: ${formatter.cost(cost)}`}</p>

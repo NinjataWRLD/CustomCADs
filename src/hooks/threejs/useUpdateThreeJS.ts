@@ -1,12 +1,15 @@
 import { useRef } from 'react';
 import * as THREE from 'three';
-import { GLTF } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import { Mesh, CustomizeCad } from '@/types/threejs';
+import { CustomizeCad, Cad } from '@/types/threejs';
 
 export const useUpdateThreeJS = () => {
 	const lastTexturesRef = useRef<Map<THREE.Object3D, string>>(new Map());
 
-	const setNewTexture = (child: Mesh, texture: string, color?: string) => {
+	const setNewTexture = (
+		child: THREE.Mesh,
+		texture: string,
+		color?: string,
+	) => {
 		lastTexturesRef.current.set(child, texture);
 
 		const loader = new THREE.TextureLoader();
@@ -22,24 +25,21 @@ export const useUpdateThreeJS = () => {
 		}
 	};
 
-	const updateColor = (child: Mesh, color?: string) => {
-		if (color) {
-			child.material.color.set(color);
-		} else {
-			child.material.color.setHex(0xffffff);
-		}
-	};
-
-	const updateLooks = (data: CustomizeCad, cad: GLTF) => {
+	const updateLooks = (data: CustomizeCad, cad: Cad) => {
 		const { texture, color } = data;
 
-		cad.scene.traverse((child) => {
+		cad.traverse((child) => {
 			if (child instanceof THREE.Mesh) {
 				const lastTexture = lastTexturesRef.current.get(child);
 				if (texture !== lastTexture) {
 					setNewTexture(child, texture, color);
 				}
-				updateColor(child, color);
+
+				if (color) {
+					child.material.color.set(color);
+				} else {
+					child.material.color.setHex(0xffffff);
+				}
 			}
 		});
 	};

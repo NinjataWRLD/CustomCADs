@@ -39,8 +39,10 @@ const CartItem = ({ item, addTo, reset }: CartItemProps) => {
 	const { data: image, isError: isFileError } = useDownloadProductImage({
 		id: item.productId,
 	});
-	const { data: product, isError } = useGetProduct({ id: item.productId });
 	const blobUrl = useGenerateBlobUrl(image);
+
+	const { data: product, isError } = useGetProduct({ id: item.productId });
+	const isPrintable = product?.tags.includes('Printable');
 
 	const id = item.forDelivery ? item.customizationId : '';
 	const { data: customization } = useGetCustomization({ id }, !!id);
@@ -100,16 +102,18 @@ const CartItem = ({ item, addTo, reset }: CartItemProps) => {
 		<div className={styles.purchase}>
 			<div className={styles.content}>
 				<div className={styles.head}>
-					<h2>
-						<div>
-							<Checkbox
-								id={item.productId}
-								label={tCart('delivery')}
-								checked={item.forDelivery}
-								onClick={toggleDelivery}
-							/>
-						</div>
-					</h2>
+					{isPrintable && (
+						<h2>
+							<div>
+								<Checkbox
+									id={item.productId}
+									label={tCart('delivery')}
+									checked={item.forDelivery}
+									onClick={toggleDelivery}
+								/>
+							</div>
+						</h2>
+					)}
 					{blobUrl && <img src={blobUrl} alt='Item Image' />}
 				</div>
 				<div className={styles.data}>

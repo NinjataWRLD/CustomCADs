@@ -1,7 +1,7 @@
 import * as THREE from 'three';
-import { GLTF } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { Cad } from '@/types/threejs';
 
-export const removeGLTF = (scene: THREE.Scene) => {
+export const clearScene = (scene: THREE.Scene) => {
 	const cads = scene.children.filter((c) => c.type === 'Group');
 	if (!cads.length) return;
 
@@ -22,9 +22,9 @@ export const removeGLTF = (scene: THREE.Scene) => {
 	cads.forEach((c) => scene.remove(c));
 };
 
-export const lockGLTF = (cad: GLTF) => {
-	const box = new THREE.Box3().setFromObject(cad.scene);
+export const lockCad = (cad: Cad) => {
+	const box = new THREE.Box3().setFromObject(cad);
 	const center = new THREE.Vector3();
 	box.getCenter(center);
-	cad.scene.position.sub(center);
+	cad.position.sub(center);
 };

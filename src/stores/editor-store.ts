@@ -15,9 +15,9 @@ interface EditorState {
 export const defaultEditorState: EditorState = {
 	materialId: 1,
 	color: '#ffffff',
-	infill: 20,
+	infill: 0.2,
 	size: { x: 0, y: 0, z: 0 },
-	scale: 100,
+	scale: 1,
 	weight: 0,
 	cost: 0,
 };

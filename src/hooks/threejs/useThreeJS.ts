@@ -1,14 +1,15 @@
 import { useEffect, useRef } from 'react';
-import { GLTFLoader, GLTF } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { Cad } from '@/types/threejs';
 import { Coordinates } from '@/api/catalog/common';
 import { initThreeJS } from '@/utils/init-three-js';
-import { lockGLTF, removeGLTF } from '@/utils/gltf';
+import { clearScene } from '@/utils/cad';
+import * as loader from '@/utils/loader';
 
 export const useThreeJS = (
 	url: string,
+	type: string,
 	coords: { cam: Coordinates; pan: Coordinates },
-	loadCallback?: (cad: GLTF) => void,
-	exitCallback?: VoidFunction,
+	loadCallback?: (cad: Cad) => void,
 ) => {
 	const mountRef = useRef<HTMLDivElement>(null);
 	const instanceRef = useRef<ReturnType<typeof initThreeJS> | null>(null);
@@ -18,23 +19,21 @@ export const useThreeJS = (
 			instanceRef.current = initThreeJS(mountRef.current, coords);
 		}
 		return () => {
-			if (exitCallback) exitCallback();
-
-			const { exit } = instanceRef.current ?? {};
-			if (exit) exit();
+			instanceRef.current?.exit();
+			instanceRef.current = null;
 		};
 	}, [url]);
 
 	useEffect(() => {
 		if (instanceRef.current && url) {
 			const { scene } = instanceRef.current;
-			removeGLTF(scene);
+			clearScene(scene);
 
-			new GLTFLoader().load(url, (cad) => {
-				lockGLTF(cad);
-				if (loadCallback) loadCallback(cad);
-				scene.add(cad.scene);
-			});
+			if (type === 'glb' || type === 'gltf') {
+				loader.gltf(scene, url, loadCallback);
+			} else if (type === 'stl') {
+				loader.stl(scene, url, loadCallback);
+			}
 		}
 	}, [url]);
 

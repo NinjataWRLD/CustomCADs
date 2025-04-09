@@ -14,6 +14,7 @@ export interface Request {
 export interface Response {
 	id: string;
 	name: string;
+	tags: string[];
 	category: string;
 	views: number;
 }

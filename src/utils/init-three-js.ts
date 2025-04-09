@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { Coordinates } from '@/api/catalog/common';
-import { removeGLTF } from './gltf';
+import { clearScene } from './cad';
 
 const init = {
 	camera: (cam: Coordinates) => {
@@ -125,7 +125,7 @@ export const initThreeJS = (
 		renderer.dispose();
 		renderer.domElement.remove();
 
-		removeGLTF(scene);
+		clearScene(scene);
 		while (scene.children.length > 0) {
 			scene.remove(scene.children[0]);
 		}
