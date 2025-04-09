@@ -34,7 +34,6 @@ const AddToCartPopup = ({
 		if (!forDelivery)
 			addItem({
 				productId: id,
-				quantity: 1,
 				forDelivery: false,
 			});
 		else navigate({ to: '/editor/$id', params: { id: id } });

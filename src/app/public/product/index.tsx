@@ -41,7 +41,6 @@ const Product = () => {
 		} else {
 			await addItem({
 				productId: id,
-				quantity: 1,
 				forDelivery: false,
 			});
 			flashPopupMessage();

@@ -32,6 +32,7 @@ export const cartReducer = (
 					? {
 							...item,
 							forDelivery: true,
+							quantity: 1,
 							customizationId: action.customizationId,
 						}
 					: item,
@@ -43,7 +44,6 @@ export const cartReducer = (
 							...item,
 							forDelivery: false,
 							customizationId: undefined,
-							quantity: 1,
 						}
 					: item,
 			);

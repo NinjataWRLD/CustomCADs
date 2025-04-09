@@ -12,7 +12,6 @@ const item1: CartItem = {
 const item2: CartItem = {
 	forDelivery: false,
 	productId: '789',
-	quantity: 1,
 };
 
 describe('Cart Reducer tests', () => {
@@ -29,18 +28,18 @@ describe('Cart Reducer tests', () => {
 		const initialState: CartItem[] = [item1];
 		const action: CartAction = { type: 'INCREMENT_QUANTITY', id: '123' };
 
-		const newState = cartReducer(initialState, action);
+		const [item] = cartReducer(initialState, action);
 
-		expect(newState[0].quantity).toBe(2);
+		if (item.forDelivery) expect(item.quantity).toBe(2);
 	});
 
 	it('should decrement quantity for an existing item', () => {
 		const initialState: CartItem[] = [{ ...item1, quantity: 2 }];
 		const action: CartAction = { type: 'DECREMENT_QUANTITY', id: '123' };
 
-		const newState = cartReducer(initialState, action);
+		const [item] = cartReducer(initialState, action);
 
-		expect(newState[0].quantity).toBe(1);
+		if (item.forDelivery) expect(item.quantity).toBe(1);
 	});
 
 	it('should not decrement quantity below 1', () => {
@@ -50,9 +49,9 @@ describe('Cart Reducer tests', () => {
 			id: item1.productId,
 		};
 
-		const newState = cartReducer(initialState, action);
+		const [item] = cartReducer(initialState, action);
 
-		expect(newState[0].quantity).toBe(1);
+		if (item.forDelivery) expect(item.quantity).toBe(1);
 	});
 
 	it('should set no delivery for an existing item with delivery', () => {
