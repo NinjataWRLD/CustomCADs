@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useThreeJS } from '@/hooks/threejs/useThreeJS';
 import { calculateCadVolume } from '@/utils/volume-calculator';
-import { getCadType } from '@/utils/get-cad-type';
+import { getCadContentType, getCadType } from '@/utils/get-cad-type';
 
 const emptyCoords = { x: 0, y: 0, z: 0 };
 
@@ -20,7 +20,7 @@ export const useCalculateVolume = (file: File | null) => {
 
 	const { instance, ref } = useThreeJS(
 		blobUrl ?? '',
-		getCadType(file?.type ?? ''),
+		file ? getCadType(getCadContentType(file)) : '',
 		{ cam: emptyCoords, pan: emptyCoords },
 		(cad) => setVolume(calculateCadVolume(cad)),
 	);
