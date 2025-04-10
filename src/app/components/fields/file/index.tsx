@@ -34,6 +34,7 @@ const FileField = ({ api, label, accept, onChange }: FileFieldProps) => {
 					className={getErrorClass(showError && hasError)}
 				/>
 			}
+			showErrorWhenDirty
 		/>
 	);
 };
