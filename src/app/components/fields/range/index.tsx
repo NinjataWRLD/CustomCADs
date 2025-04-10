@@ -18,7 +18,7 @@ const RangeField = ({
 	label,
 	min,
 	max,
-	step = 0.0001,
+	step = 0.00001,
 	value,
 	text,
 	onChange,

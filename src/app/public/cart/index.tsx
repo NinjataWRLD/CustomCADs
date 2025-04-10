@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
 	faApplePay,
@@ -6,6 +5,7 @@ import {
 	faCcVisa,
 	faGooglePay,
 } from '@fortawesome/free-brands-svg-icons';
+import { useMoneyManager } from '@/hooks/useMoneyManager';
 import { useCartTranslation } from '@/hooks/locales/pages/public';
 import { useCartContext } from '@/hooks/contexts/useCartContext';
 import Transition from '@/app/components/transition';
@@ -18,30 +18,30 @@ const Cart = () => {
 	const { items } = useCartContext();
 	const tCart = useCartTranslation();
 
-	const [prices, setPrices] = useState<Record<string, number>>({});
-	const [costs, setCosts] = useState<Record<string, number>>({});
-	const sum = {
-		product: { total: 0, delivery: 0 },
-		customization: { total: 0, delivery: 0 },
+	const { money: prices, setMoney: setPrice } = useMoneyManager();
+	const { money: costs, setMoney: setCost } = useMoneyManager();
+
+	const calculate = (money: Record<string, number>) => {
+		let total = 0;
+		let delivery = 0;
+
+		Object.entries(money).forEach(([id, price]) => {
+			total += price;
+			if (items?.find((i) => i.productId === id)?.forDelivery) {
+				delivery += price;
+			}
+		});
+
+		return { total, delivery };
 	};
 
-	Object.entries(prices).forEach(([id, price]) => {
-		sum.product.total += price;
-		const item = items?.find((i) => i.productId === id);
-		if (item?.forDelivery) {
-			sum.product.delivery += price;
-		}
-	});
-	Object.entries(costs).forEach(([id, cost]) => {
-		sum.customization.total += cost;
-		const item = items?.find((i) => i.productId === id);
-		if (item?.forDelivery) {
-			sum.customization.delivery += cost;
-		}
-	});
+	const sum = {
+		product: calculate(prices),
+		customization: calculate(costs),
+	};
+	const total = sum.product.total + sum.customization.total;
+	const delivery = sum.product.delivery + sum.customization.delivery;
 
-	const totalPrice = sum.product.total + sum.customization.total;
-	const deliveryPrice = sum.product.delivery + sum.customization.delivery;
 	return (
 		<Transition>
 			<div className={styles.container}>
@@ -51,31 +51,19 @@ const Cart = () => {
 						<CartItem
 							key={item.productId}
 							item={item}
-							reset={{
-								price: () =>
-									setPrices((prev) => ({
-										...prev,
-										[item.productId]: 0,
-									})),
-								cost: () =>
-									setCosts((prev) => ({
-										...prev,
-										[item.productId]: 0,
-									})),
-							}}
-							addTo={{
-								price: (price) =>
-									setPrices((prev) => ({
-										...prev,
-										[item.productId]:
-											(prev[item.productId] ?? 0) + price,
-									})),
-								cost: (cost) =>
-									setCosts((prev) => ({
-										...prev,
-										[item.productId]:
-											(prev[item.productId] ?? 0) + cost,
-									})),
+							set={{
+								cost: (cost, accumulate?: boolean) =>
+									setCost({
+										id: item.productId,
+										set: (prev) =>
+											accumulate ? prev + cost : cost,
+									}),
+								price: (price, accumulate?: boolean) =>
+									setPrice({
+										id: item.productId,
+										set: (prev) =>
+											accumulate ? prev + price : price,
+									}),
 							}}
 						/>
 					))}
@@ -86,13 +74,13 @@ const Cart = () => {
 					<p>
 						{tCart('total', {
 							count: items?.length,
-							cost: formatter.price(totalPrice),
+							cost: formatter.price(total),
 						})}
 					</p>
 					<p>
 						{tCart('total-delivery', {
 							count: items?.filter((i) => i.forDelivery).length,
-							cost: formatter.price(deliveryPrice),
+							cost: formatter.price(delivery),
 						})}
 					</p>
 				</h2>
