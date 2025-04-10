@@ -20,7 +20,6 @@ import { Route as PublicCartImport } from './routes/_public/cart'
 import { Route as GuestResetPasswordImport } from './routes/_guest/reset-password'
 import { Route as GuestLoginImport } from './routes/_guest/login'
 import { Route as GuestForgotPasswordImport } from './routes/_guest/forgot-password'
-import { Route as GuestGuestImport } from './routes/_guest/_guest'
 import { Route as privateCreatorImport } from './routes/(private)/_creator'
 import { Route as PublicGalleryIndexImport } from './routes/_public/gallery/index'
 import { Route as GuestRegisterIndexImport } from './routes/_guest/register/index'
@@ -78,11 +77,6 @@ const GuestLoginRoute = GuestLoginImport.update({
 const GuestForgotPasswordRoute = GuestForgotPasswordImport.update({
   id: '/forgot-password',
   path: '/forgot-password',
-  getParentRoute: () => GuestRoute,
-} as any)
-
-const GuestGuestRoute = GuestGuestImport.update({
-  id: '/_guest',
   getParentRoute: () => GuestRoute,
 } as any)
 
@@ -152,13 +146,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof privateCreatorImport
       parentRoute: typeof privateRoute
-    }
-    '/_guest/_guest': {
-      id: '/_guest/_guest'
-      path: ''
-      fullPath: ''
-      preLoaderRoute: typeof GuestGuestImport
-      parentRoute: typeof GuestImport
     }
     '/_guest/forgot-password': {
       id: '/_guest/forgot-password'
@@ -250,7 +237,6 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 interface GuestRouteChildren {
-  GuestGuestRoute: typeof GuestGuestRoute
   GuestForgotPasswordRoute: typeof GuestForgotPasswordRoute
   GuestLoginRoute: typeof GuestLoginRoute
   GuestResetPasswordRoute: typeof GuestResetPasswordRoute
@@ -259,7 +245,6 @@ interface GuestRouteChildren {
 }
 
 const GuestRouteChildren: GuestRouteChildren = {
-  GuestGuestRoute: GuestGuestRoute,
   GuestForgotPasswordRoute: GuestForgotPasswordRoute,
   GuestLoginRoute: GuestLoginRoute,
   GuestResetPasswordRoute: GuestResetPasswordRoute,
@@ -293,7 +278,7 @@ const privateRouteWithChildren =
   privateRoute._addFileChildren(privateRouteChildren)
 
 export interface FileRoutesByFullPath {
-  '': typeof GuestGuestRoute
+  '': typeof GuestRouteWithChildren
   '/': typeof PublicIndexRoute
   '/forgot-password': typeof GuestForgotPasswordRoute
   '/login': typeof GuestLoginRoute
@@ -309,7 +294,7 @@ export interface FileRoutesByFullPath {
 }
 
 export interface FileRoutesByTo {
-  '': typeof GuestGuestRoute
+  '': typeof GuestRouteWithChildren
   '/': typeof PublicIndexRoute
   '/forgot-password': typeof GuestForgotPasswordRoute
   '/login': typeof GuestLoginRoute
@@ -329,7 +314,6 @@ export interface FileRoutesById {
   '/_guest': typeof GuestRouteWithChildren
   '/(private)': typeof privateRouteWithChildren
   '/(private)/_creator': typeof privateCreatorRouteWithChildren
-  '/_guest/_guest': typeof GuestGuestRoute
   '/_guest/forgot-password': typeof GuestForgotPasswordRoute
   '/_guest/login': typeof GuestLoginRoute
   '/_guest/reset-password': typeof GuestResetPasswordRoute
@@ -380,7 +364,6 @@ export interface FileRouteTypes {
     | '/_guest'
     | '/(private)'
     | '/(private)/_creator'
-    | '/_guest/_guest'
     | '/_guest/forgot-password'
     | '/_guest/login'
     | '/_guest/reset-password'
@@ -441,7 +424,6 @@ export const routeTree = rootRoute
     "/_guest": {
       "filePath": "_guest.tsx",
       "children": [
-        "/_guest/_guest",
         "/_guest/forgot-password",
         "/_guest/login",
         "/_guest/reset-password",
@@ -461,10 +443,6 @@ export const routeTree = rootRoute
       "children": [
         "/(private)/_creator/upload-product"
       ]
-    },
-    "/_guest/_guest": {
-      "filePath": "_guest/_guest.tsx",
-      "parent": "/_guest"
     },
     "/_guest/forgot-password": {
       "filePath": "_guest/forgot-password.tsx",

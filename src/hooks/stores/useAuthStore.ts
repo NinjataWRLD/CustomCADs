@@ -1,24 +1,10 @@
 import { useMemo } from 'react';
 import { useStore } from '@tanstack/react-store';
 import { store } from '@/stores/auth-store';
+import * as auth from '@/utils/auth';
 
 export const useAuthStore = () => {
-	const { authn, authz } = useStore(store);
-
-	const is = useMemo(() => {
-		const roles = {
-			guest: !authn,
-			customer: authn && authz === 'Customer',
-			contributor: authn && authz === 'Contributor',
-			designer: authn && authz === 'Designer',
-			admin: authn && authz === 'Admin',
-		};
-
-		return {
-			...roles,
-			creator: roles.contributor || roles.designer,
-		};
-	}, [authn, authz]);
-
-	return { authn, authz, is };
+	const state = useStore(store);
+	const is = useMemo(() => auth.is(state), [state]);
+	return { ...state, is };
 };
