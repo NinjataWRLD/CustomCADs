@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Route } from '@/routes/_public/gallery/$id';
+import { useAuthStore } from '@/hooks/stores/useAuthStore';
 import { useCartUpdates } from '@/hooks/contexts/useCartUpdates';
 import { useFetchTranslation } from '@/hooks/locales/common/messages';
 import { useProductTranslation } from '@/hooks/locales/pages/public';
@@ -15,6 +16,8 @@ import styles from './styles.module.css';
 
 const Product = () => {
 	const { id } = Route.useParams();
+	const { is } = useAuthStore();
+
 	const { data: product, isLoading, isError } = useGetProduct({ id: id });
 	const isPrintable = product?.tags.includes('Printable');
 
@@ -92,18 +95,22 @@ const Product = () => {
 							</div>
 
 							<div className={`${styles.buttons}`}>
-								{!alreadyInCart ? (
-									<Button
-										type='button'
-										text={tProduct('button-1')}
-										onClick={toggleForDelivery}
-									/>
+								{is.customer || is.guest ? (
+									!alreadyInCart ? (
+										<Button
+											type='button'
+											text={tProduct('button-1')}
+											onClick={toggleForDelivery}
+										/>
+									) : (
+										<Button
+											type='button'
+											text={tProduct('button-2')}
+											disabled
+										/>
+									)
 								) : (
-									<Button
-										type='button'
-										text={tProduct('button-2')}
-										disabled
-									/>
+									<></>
 								)}
 								<CustomLink
 									to='/gallery'
