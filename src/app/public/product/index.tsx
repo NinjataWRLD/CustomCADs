@@ -1,13 +1,13 @@
 import { useState } from 'react';
+import { useCanGoBack } from '@tanstack/react-router';
 import { Route } from '@/routes/_public/gallery/$id';
 import { useCartUpdates } from '@/hooks/contexts/useCartUpdates';
-import { useFetchTranslation } from '@/hooks/locales/common/messages';
 import { useProductTranslation } from '@/hooks/locales/pages/public';
 import { useCartContext } from '@/hooks/contexts/useCartContext';
-import { useGetProduct } from '@/hooks/queries/products/gallery';
 import Transition from '@/app/components/transition';
 import Button from '@/app/components/button';
 import CustomLink from '@/app/components/link';
+import BackButton from '@/app/components/link/back-button';
 import Cad from '@/app/components/cad';
 import * as dateTime from '@/utils/date-time';
 import * as money from '@/utils/money';
@@ -15,15 +15,15 @@ import AddToCartPopup from './add-to-cart-popup';
 import styles from './styles.module.css';
 
 const Product = () => {
-	const { id } = Route.useParams();
-	const { data: product, isLoading, isError } = useGetProduct({ id: id });
+	const canGoBack = useCanGoBack();
+
+	const { product } = Route.useLoaderData();
 	const isPrintable = product?.tags.includes('Printable');
 
-	const tFetch = useFetchTranslation();
 	const tProduct = useProductTranslation();
-
 	const { items } = useCartContext();
-	const alreadyInCart = items?.some((i) => i.productId === id);
+
+	const alreadyInCart = items?.some((i) => i.productId === product.id);
 	const { addItem } = useCartUpdates();
 
 	const [showPopupMessage, setShowPopupMessage] = useState(false);
@@ -41,20 +41,12 @@ const Product = () => {
 			setShowPopup((prev) => !prev);
 		} else {
 			await addItem({
-				productId: id,
+				productId: product.id,
 				forDelivery: false,
 			});
 			flashPopupMessage();
 		}
 	};
-
-	if (isLoading) {
-		return <>{tFetch('loading')}</>;
-	}
-
-	if (isError || !product) {
-		return <>{tFetch('error')}</>;
-	}
 
 	return (
 		<>
@@ -112,10 +104,14 @@ const Product = () => {
 										disabled
 									/>
 								)}
-								<CustomLink
-									to='/gallery'
-									text={tProduct('button-3')}
-								/>
+								{canGoBack ? (
+									<BackButton text={tProduct('button-3')} />
+								) : (
+									<CustomLink
+										to='/gallery'
+										text={tProduct('button-3')}
+									/>
+								)}
 							</div>
 						</div>
 					</div>

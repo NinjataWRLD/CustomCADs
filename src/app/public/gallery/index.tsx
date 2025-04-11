@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Route } from '@/routes/_public/gallery';
-import { Request as GallerySearch } from '@/api/catalog/products/gallery/all';
 import { usePagination } from '@/hooks/usePagination';
-import { useGetProducts } from '@/hooks/queries/products/gallery';
 import {
 	useFetchTranslation,
 	usePlaceholdersTranslation,
@@ -19,29 +17,24 @@ const Gallery = () => {
 	const tFetch = useFetchTranslation();
 	const tPlaceholders = usePlaceholdersTranslation();
 
-	const [total, setTotal] = useState(0);
-	const { page, limit, handlePageChange } = usePagination(total, 12);
-
+	const { gallery: products } = Route.useLoaderData();
 	const navigate = Route.useNavigate();
-	const { name, categoryName, sortingType, sortingDirection } =
-		Route.useSearch();
+	const search = Route.useSearch();
 
-	const [search, setSearch] = useState<GallerySearch>({
-		name: name,
-		categoryId: undefined,
-		sortingType: sortingType,
-		sortingDirection: sortingDirection,
-		limit: limit,
-		page: page,
-	});
-	const { data: products } = useGetProducts(search);
+	const [total, setTotal] = useState(0);
+	const { page, limit, handlePageChange } = usePagination(
+		total,
+		search.limit ?? 12,
+	);
 
 	useEffect(() => {
-		setSearch((prev) => ({
-			...prev,
-			page: page,
-			limit: limit,
-		}));
+		navigate({
+			search: (prev) => ({
+				...prev,
+				page,
+				limit,
+			}),
+		});
 	}, [page, limit]);
 
 	useEffect(() => {
@@ -56,12 +49,8 @@ const Gallery = () => {
 				<section className={`${styles.container}`}>
 					<div className={styles.search}>
 						<Categories
-							getCategory={() => categoryName}
+							getCategory={() => search.categoryName}
 							updateCategory={(category) => {
-								setSearch((prev) => ({
-									...prev,
-									categoryId: category?.id,
-								}));
 								navigate({
 									search: (prev) => ({
 										...prev,
@@ -72,12 +61,8 @@ const Gallery = () => {
 						/>
 						<Searchbar
 							placeholder={tPlaceholders('search-products')}
-							getName={() => name}
+							getName={() => search.name}
 							updateName={(name) => {
-								setSearch((prev) => ({
-									...prev,
-									name: name,
-								}));
 								navigate({
 									search: (prev) => ({
 										...prev,
@@ -88,15 +73,10 @@ const Gallery = () => {
 						/>
 						<Sortings
 							getSorting={() => ({
-								type: sortingType,
-								direction: sortingDirection,
+								type: search.sortingType,
+								direction: search.sortingDirection,
 							})}
 							updateSorting={({ type, direction }) => {
-								setSearch((prev) => ({
-									...prev,
-									sortingType: type ?? prev.sortingType,
-									sortingDirection: direction,
-								}));
 								navigate({
 									search: (prev) => ({
 										...prev,
