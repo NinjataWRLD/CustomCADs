@@ -9,6 +9,7 @@ type Common = {
 	api: AnyFieldApi;
 	label: string;
 	format?: (value: string) => unknown;
+	showErrorWhenDirty?: boolean;
 };
 
 type Input = {
@@ -47,7 +48,8 @@ const Field = (props: FieldProps) => {
 	const handleChange = (value: string) =>
 		api.handleChange(format ? format(value) : value);
 
-	const showError = meta.isBlurred && meta.isTouched;
+	const dirty = props.showErrorWhenDirty ? meta.isDirty : true;
+	const showError = meta.isBlurred && meta.isTouched && dirty;
 	const hasError = !!meta.errors.length;
 
 	let input;

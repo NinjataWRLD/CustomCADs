@@ -10,8 +10,8 @@ import { useCartTranslation } from '@/hooks/locales/pages/public';
 import { useCartContext } from '@/hooks/contexts/useCartContext';
 import Transition from '@/app/components/transition';
 import Button from '@/app/components/button';
+import * as money from '@/utils/money';
 import CartItem from './item';
-import * as formatter from './formatter';
 import styles from './styles.module.css';
 
 const Cart = () => {
@@ -74,13 +74,17 @@ const Cart = () => {
 					<p>
 						{tCart('total', {
 							count: items?.length,
-							cost: formatter.price(total),
+							cost: money.format(
+								money.fromBase({ money: total }),
+							),
 						})}
 					</p>
 					<p>
 						{tCart('total-delivery', {
 							count: items?.filter((i) => i.forDelivery).length,
-							cost: formatter.price(delivery),
+							cost: money.format(
+								money.fromBase({ money: delivery }),
+							),
 						})}
 					</p>
 				</h2>

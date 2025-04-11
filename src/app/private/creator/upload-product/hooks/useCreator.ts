@@ -5,6 +5,7 @@ import {
 } from '@/hooks/mutations/products/creator';
 import { useCalculateVolume } from '@/hooks/threejs/useCalculateVolume';
 import { FileData } from '@/types/files';
+import * as money from '@/utils/money';
 
 type Files = { image: FileData; cad: FileData };
 
@@ -34,7 +35,7 @@ export const useCreator = (
 					name: data.name,
 					description: data.description,
 					categoryId: data.categoryId,
-					price: data.price,
+					price: money.toBase({ money: data.price }),
 					imageKey: files.image.key,
 					imageContentType: files.image.type,
 					cadKey: files.cad.key,

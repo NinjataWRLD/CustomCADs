@@ -1,10 +1,10 @@
-const opts = () => new Intl.DateTimeFormat().resolvedOptions();
+const getUserLanguage = () => (navigator.languages || [navigator.language])[0];
 
 interface FormatOptions {
 	date: string;
 	locale?: string;
 }
-export const format = ({ date, locale = opts().locale }: FormatOptions) =>
+export const format = ({ date, locale = getUserLanguage() }: FormatOptions) =>
 	new Date(date).toLocaleString(locale, {
 		hour12: false,
 		year: 'numeric',
