@@ -36,7 +36,7 @@ export const weight = (weight: number) => {
 	return `${value} kg`;
 };
 
-export const cost = (cost: number) => {
+export const cost = (cost: number, currency: string) => {
 	const value = parseFloat(cost.toFixed(2));
-	return `${value}$`;
+	return `${value}${currency}`;
 };

@@ -3,6 +3,7 @@ import { useLabelsTranslation } from '@/hooks/locales/components/forms';
 import { useGetCategories } from '@/hooks/queries/categories';
 import Field from '@/app/components/fields';
 import FileField from '@/app/components/fields/file';
+import * as money from '@/utils/money';
 import { useForm } from './useForm';
 
 export const useFields = () => {
@@ -60,7 +61,7 @@ export const useFields = () => {
 				<Field
 					tag='input'
 					api={api}
-					label={tLabels('price')}
+					label={`${tLabels('price')} (${money.fromBase({}).symbol})`}
 					type='number'
 					format={(value) => Number(value)}
 				/>

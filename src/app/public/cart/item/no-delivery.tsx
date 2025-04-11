@@ -13,7 +13,7 @@ import { useCartTranslation } from '@/hooks/locales/pages/public';
 import { removeRecord } from '@/stores/editor-store';
 import Checkbox from '@/app/components/fields/checkbox';
 import { CartItemWithoutDelivery as Item } from '@/types/cart-item';
-import * as formatter from '../formatter';
+import * as money from '@/utils/money';
 import styles from './styles.module.css';
 
 interface CartItemProps {
@@ -100,7 +100,9 @@ const CartItemWithoutDelivery = ({
 					</button>
 					<p>
 						{tCart('product-price', {
-							price: formatter.price(product.price),
+							price: money.format(
+								money.fromBase({ money: product.price }),
+							),
 						})}
 					</p>
 					<div

@@ -24,7 +24,6 @@ const Card = forwardRef<HTMLDivElement, CardProps>(({ id }, ref) => {
 
 	let title = '';
 	const checks: string[] = [];
-	let pricing = '';
 	let icon: IconProp = '0';
 	let image: string = '';
 	let link = '';
@@ -37,7 +36,6 @@ const Card = forwardRef<HTMLDivElement, CardProps>(({ id }, ref) => {
 				tHome('card-desc-2_cart'),
 				tHome('card-desc-3_cart'),
 			);
-			pricing = '15';
 			icon = faImages;
 			image = galleryPic;
 			link = '/gallery';
@@ -50,7 +48,6 @@ const Card = forwardRef<HTMLDivElement, CardProps>(({ id }, ref) => {
 				tHome('card-desc-3_order'),
 			);
 			icon = faCube;
-			pricing = '25';
 			image = customPic;
 			link = '/orders';
 			break;
@@ -61,7 +58,6 @@ const Card = forwardRef<HTMLDivElement, CardProps>(({ id }, ref) => {
 				tHome('card-desc-2_delivery'),
 				tHome('card-desc-3_delivery'),
 			);
-			pricing = '35';
 			icon = faPrint;
 			image = printerPic;
 			link = '/shipments';
@@ -77,9 +73,6 @@ const Card = forwardRef<HTMLDivElement, CardProps>(({ id }, ref) => {
 
 				<div className={`${styles['card-data']}`}>
 					<h3 className={`${styles['card-title']}`}>{title}</h3>
-					<span className={`${styles['card-price']}`}>
-						${pricing}
-					</span>
 				</div>
 
 				<img

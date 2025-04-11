@@ -7,6 +7,7 @@ import { INFILL } from '@/constants/threejs';
 import { useEditorStore } from '@/hooks/stores/useEditorStore';
 import { setInfill, setScale } from '@/stores/editor-store';
 import * as calculate3D from '@/utils/calculate-3D';
+import * as money from '@/utils/money';
 import * as formatter from '../formatter';
 import styles from '../styles.module.css';
 
@@ -76,7 +77,7 @@ const Calculations = ({ id, volume }: CalculationsProps) => {
 				<p>{`${tOthers('length')}: ${formatter.size(ratio.z * scale, metric)}`}</p>
 				<p>{`${tOthers('volume')}: ${formatter.volume(volume, metric)}`}</p>
 				<p>{`${tOthers('weight')}: ${formatter.weight(weight)}`}</p>
-				<p>{`${tOthers('cost')}: ${formatter.cost(cost)}`}</p>
+				<p>{`${tOthers('cost')}: ${money.format(money.fromBase({ money: cost }))}`}</p>
 			</div>
 		</div>
 	);

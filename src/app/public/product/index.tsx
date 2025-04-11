@@ -9,7 +9,8 @@ import Transition from '@/app/components/transition';
 import Button from '@/app/components/button';
 import CustomLink from '@/app/components/link';
 import Cad from '@/app/components/cad';
-import { format } from '@/utils/date-time';
+import * as dateTime from '@/utils/date-time';
+import * as money from '@/utils/money';
 import AddToCartPopup from './add-to-cart-popup';
 import styles from './styles.module.css';
 
@@ -83,11 +84,17 @@ const Product = () => {
 								<hr />
 								<p>
 									<strong>{tProduct('price')}</strong>
-									{product.price}
+									{money.format(
+										money.fromBase({
+											money: product.price,
+										}),
+									)}
 								</p>
 								<p>
 									<strong>{tProduct('uploaded-on')}</strong>
-									{format({ date: product.uploadedAt })}
+									{dateTime.format({
+										date: product.uploadedAt,
+									})}
 								</p>
 							</div>
 
