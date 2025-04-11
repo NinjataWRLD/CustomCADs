@@ -12,14 +12,11 @@ export const useAuth = () => {
 	const { refetch: refetchAuthz } = useAuthz(false);
 
 	useEffect(() => {
-		let retries = 0;
 		const sync = async () => {
 			const { data: authn } = await refetchAuthn();
 			if (!authn) {
 				try {
-					retries += 1;
 					await refreshAuth();
-					if (retries < 2) sync();
 				} catch {
 					logout();
 					return;

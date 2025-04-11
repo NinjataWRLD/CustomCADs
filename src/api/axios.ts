@@ -18,7 +18,7 @@ instance.interceptors.response.use(
 	async (error) => {
 		if (
 			!(isAxiosError(error) && error.response?.status === 401) ||
-			error.config?.url === '/identity/signin/refresh'
+			error.config?.url === '/identity/refresh'
 		)
 			return Promise.reject(error);
 
