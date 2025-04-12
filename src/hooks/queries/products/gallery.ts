@@ -26,7 +26,7 @@ export const useGetProduct = (params: Single, enabled?: boolean) =>
 
 export const useGetProductSortings = (enabled?: boolean) =>
 	useQuery({
-		queryKey: ['products', 'gallery', 'single'],
+		queryKey: ['products', 'gallery', 'sortings'],
 		queryFn: async () => (await sortings()).data,
 		enabled,
 	});

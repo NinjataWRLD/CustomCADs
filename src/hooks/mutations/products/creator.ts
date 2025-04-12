@@ -18,7 +18,7 @@ export const useCreateProduct = () =>
 
 export const useSetProductCadCoords = () =>
 	useMutation({
-		mutationKey: ['products', 'creator', 'edit'],
+		mutationKey: ['products', 'creator', 'set-coords'],
 		mutationFn: async (params: SetCoords) =>
 			(await setCadCoords(params)).data,
 	});

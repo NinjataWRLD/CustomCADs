@@ -3,16 +3,16 @@ import { Request as AddTag } from '@/api/catalog/products/gallery/add-tag';
 import { Request as RemoveTag } from '@/api/catalog/products/gallery/remove-tag';
 import { addTag, removeTag } from '@/api/catalog/products/gallery';
 
-export const useAddProductTag = (params: AddTag) =>
+export const useAddProductTag = () =>
 	useMutation({
-		mutationKey: ['products', 'gallery', 'add-tag', params],
-		mutationFn: async () => (await addTag(params)).data,
+		mutationKey: ['products', 'gallery', 'add-tag'],
+		mutationFn: async (params: AddTag) => (await addTag(params)).data,
 	});
 
-export const useRemoveProductTag = (params: RemoveTag) =>
+export const useRemoveProductTag = () =>
 	useMutation({
-		mutationKey: ['products', 'gallery', 'remove-tag', params],
-		mutationFn: async () => (await removeTag(params)).data,
+		mutationKey: ['products', 'gallery', 'remove-tag'],
+		mutationFn: async (params: RemoveTag) => (await removeTag(params)).data,
 	});
 
 export default useAddProductTag;
