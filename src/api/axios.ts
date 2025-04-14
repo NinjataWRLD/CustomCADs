@@ -1,4 +1,5 @@
 import axios, { isAxiosError } from 'axios';
+import Cookies from 'js-cookie';
 import * as authStore from '@/stores/auth-store';
 import { authz, refresh } from './identity/identity';
 
@@ -11,6 +12,11 @@ const instance = axios.create({
 	headers: {
 		'Content-Type': 'application/json',
 	},
+});
+
+instance.interceptors.request.use((cfg) => {
+	cfg.headers['Csrf-Token'] = Cookies.get('csrf');
+	return cfg;
 });
 
 instance.interceptors.response.use(
