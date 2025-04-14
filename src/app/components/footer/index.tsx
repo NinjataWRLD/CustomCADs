@@ -24,81 +24,84 @@ const Footer = () => {
 	};
 
 	return (
-		<footer className={`${styles.footer}`}>
+		<>
 			<div className={`${styles['gradient-border-top']}`}></div>
-			<div className={`${styles.content}`}>
-				<div className={`${styles.info}`}>
-					<h1>{tFooter('title')}</h1>
-					<p>{tFooter('description')}</p>
-					<p>
-						<Link to='/privacy-policy'>{tFooter('link-1')}</Link>
-					</p>
-				</div>
-				<div className={`${styles.links}`}>
-					<div className={`${styles.contacts}`}>
-						<div className={`${styles.icon}`}>
-							<div id='1' onClick={getLink}>
-								<FontAwesomeIcon
-									icon={faEnvelope}
-									className={styles.iconfr}
-								/>
-							</div>
-							<a
-								href='https://mail.google.com/mail/?view=cm&fs=1&to=customcads2023@gmail.com'
-								target='_blank'
-							>
-								{tFooter('icon-1')}
-							</a>
-						</div>
+			<footer className={`${styles.footer}`}>
 
-						<div className={`${styles.icon}`}>
-							<div id='2' onClick={getLink}>
-								<FontAwesomeIcon
-									icon={faInstagram}
-									className={styles.iconfr}
-								/>
+				<div className={`${styles.content}`}>
+					<div className={`${styles.info}`}>
+						<h1>{tFooter('title')}</h1>
+						<p>{tFooter('description')}</p>
+						<p>
+							<Link to='/privacy-policy'>{tFooter('link-1')}</Link>
+						</p>
+					</div>
+					<div className={`${styles.links}`}>
+						<div className={`${styles.contacts}`}>
+							<div className={`${styles.icon}`}>
+								<div id='1' onClick={getLink}>
+									<FontAwesomeIcon
+										icon={faEnvelope}
+										className={styles.iconfr}
+									/>
+								</div>
+								<a
+									href='https://mail.google.com/mail/?view=cm&fs=1&to=customcads2023@gmail.com'
+									target='_blank'
+								>
+									{tFooter('icon-1')}
+								</a>
 							</div>
-							<a
-								href='https://www.instagram.com/custom_cads/'
-								target='_blank'
-							>
-								{tFooter('icon-2')}
-							</a>
-						</div>
 
-						<div className={`${styles.icon}`}>
-							<div id='3' onClick={getLink}>
-								<FontAwesomeIcon
-									icon={faFacebook}
-									className={styles.iconfr}
-								/>
+							<div className={`${styles.icon}`}>
+								<div id='2' onClick={getLink}>
+									<FontAwesomeIcon
+										icon={faInstagram}
+										className={styles.iconfr}
+									/>
+								</div>
+								<a
+									href='https://www.instagram.com/custom_cads/'
+									target='_blank'
+								>
+									{tFooter('icon-2')}
+								</a>
 							</div>
-							<a
-								href='https://www.facebook.com/profile.php?id=61569972183042'
-								target='_blank'
-							>
-								{tFooter('icon-3')}
-							</a>
-						</div>
 
-						<div className={`${styles.icon}`}>
-							<div id='4' onClick={getLink}>
-								<FontAwesomeIcon
-									icon={faLinkedin}
-									className={styles.iconfr}
-								/>
+							<div className={`${styles.icon}`}>
+								<div id='3' onClick={getLink}>
+									<FontAwesomeIcon
+										icon={faFacebook}
+										className={styles.iconfr}
+									/>
+								</div>
+								<a
+									href='https://www.facebook.com/profile.php?id=61569972183042'
+									target='_blank'
+								>
+									{tFooter('icon-3')}
+								</a>
 							</div>
-							<a
-								href='https://www.linkedin.com/company/customcads/'
-								target='_blank'
-							>
-								{tFooter('icon-4')}
-							</a>
+
+							<div className={`${styles.icon}`}>
+								<div id='4' onClick={getLink}>
+									<FontAwesomeIcon
+										icon={faLinkedin}
+										className={styles.iconfr}
+									/>
+								</div>
+								<a
+									href='https://www.linkedin.com/company/customcads/'
+									target='_blank'
+								>
+									{tFooter('icon-4')}
+								</a>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-		</footer>
+			</footer>
+		</>
 	);
 };
 
