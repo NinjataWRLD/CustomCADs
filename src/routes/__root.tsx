@@ -1,11 +1,10 @@
-import * as React from 'react';
+import { isAxiosError } from 'axios';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { createRootRouteWithContext } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import Layout from '@/app/layout';
 import ErrorPage from '@/app/components/state/error/error';
-import { isAxiosError } from 'axios';
 
 const queryClient = new QueryClient({
 	defaultOptions: {

@@ -2,7 +2,7 @@ import { ReactNode } from '@tanstack/react-router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCog } from '@fortawesome/free-solid-svg-icons';
 import styles from '../styles.module.css';
-import accountStyles from './styles.module.css'
+import accountStyles from './styles.module.css';
 
 interface BaseButtonProps {
 	label: string;

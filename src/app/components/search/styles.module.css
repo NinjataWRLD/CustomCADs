@@ -19,7 +19,8 @@
     cursor: pointer;
 }
 
-.menu .category, .menu .sort {
+.menu .category,
+.menu .sort {
     margin-left: 5%;
     font-size: 1rem;
     font-weight: 400;
@@ -133,8 +134,8 @@
 }
 
 .grey {
-	color: hsl(0, 0%, 50%)(169, 169, 169, 0.485);
-	opacity: 0.5;
-	cursor: default;
+    color: hsl(0, 0%, 50%) (169, 169, 169, 0.485);
+    opacity: 0.5;
+    cursor: default;
     cursor: not-allowed;
 }

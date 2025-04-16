@@ -23,7 +23,8 @@
     cursor: pointer;
 }
 
-.pageBtn::before, .pageBtn::after {
+.pageBtn::before,
+.pageBtn::after {
     position: absolute;
     content: '';
     left: 0;
@@ -47,7 +48,8 @@
     transform: translateX(-100%);
 }
 
-.pageBtn:hover:before, .pageBtn:hover:after {
+.pageBtn:hover:before,
+.pageBtn:hover:after {
     border-color: hsl(265, 85%, 39%);
     height: 100%;
     transform: translateX(0);

@@ -20,7 +20,7 @@ const Product = () => {
 	const { is } = useAuthStore();
 
 	const { product } = Route.useLoaderData();
-	const isPrintable = product?.tags.includes('Printable');
+	const isPrintable = product.tags.includes('Printable');
 
 	const tProduct = useProductTranslation();
 	const { items } = useCartContext();

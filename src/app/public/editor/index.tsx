@@ -19,7 +19,7 @@ const Editor = () => {
 	const navigate = useNavigate();
 
 	const { product } = Route.useLoaderData();
-	const isPrintable = product?.tags.includes('Printable');
+	const isPrintable = product.tags.includes('Printable');
 
 	const tEditor = useEditorTranslation();
 	const store = useEditorStore(product.id);
