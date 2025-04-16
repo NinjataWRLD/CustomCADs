@@ -12,7 +12,6 @@ import { useLogout } from '@/hooks/mutations/identity';
 import * as authStore from '@/stores/auth-store';
 import AccountButton from './account-button';
 import Setting from './setting';
-import styles from './styles.module.css';
 
 const SettingsButton = () => {
 	const { is } = useAuthStore();
@@ -67,14 +66,12 @@ const SettingsButton = () => {
 		);
 
 	return (
-		<>
-			<AccountButton label={tHeader('settings')} toggle={toggle} />
-			{show && (
-				<div className={styles['account-wrapper']}>
-					<ul className={styles['account']}>{settings}</ul>
-				</div>
-			)}
-		</>
+		<AccountButton
+			label={tHeader('settings')}
+			settings={settings}
+			show={show}
+			toggle={toggle}
+		/>
 	);
 };
 

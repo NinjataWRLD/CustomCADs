@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useGetProductSortings } from '@/hooks/queries/products/gallery';
 import { useFetchTranslation } from '@/hooks/locales/common/messages';
 import { SortingDirection } from '@/types/sorting';
-import styles from './styles.module.css';
+import styles from '../styles.module.css';
 
 interface SortingsProps {
 	getSorting: () => { type?: string; direction?: string };
@@ -90,13 +90,19 @@ const Sortings = ({ getSorting, updateSorting }: SortingsProps) => {
 					<span className={`${styles.sort}`}>{sorting}</span>
 					<FontAwesomeIcon icon={faChevronDown} />
 				</div>
+
 				{sortings && (
 					<ul className={`${styles.list}`}>
-						{sortings.map((sorting) => (
+						{sortings.map((sorting, index) => (
 							<li
 								key={sorting}
 								value={sorting}
 								className={`${styles.option}`}
+								style={
+									{
+										'--i': index,
+									} as React.CSSProperties
+								}
 								onClick={() => handleInput(sorting)}
 							>
 								<span className={`${styles.name}`}>
@@ -129,6 +135,7 @@ const Sortings = ({ getSorting, updateSorting }: SortingsProps) => {
 								? faArrowUp
 								: faArrowDown
 						}
+						className={sorting === initial ? styles.grey : ''}
 					/>
 				</div>
 			</div>

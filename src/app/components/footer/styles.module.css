@@ -1,12 +1,11 @@
 .footer {
     background-color: black;
     color: white;
-    height: 300px;
+    padding: 2rem 1rem;
 }
 
 .gradient-border-top {
     position: relative;
-    padding-top: 5px;
 }
 
 .gradient-border-top::before {
@@ -22,9 +21,8 @@
 .content {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 20%;
-    margin-top: 3%;
+    justify-content: space-around;
+    flex-shrink: 1;
 }
 
 .content .info {
@@ -95,5 +93,30 @@
 
 .contacts .iconfr:hover {
     stroke: rgba(115, 52, 187, 0.721);
-    transform: scale(1.1);
+    transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+    .content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .contacts {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .content .info {
+        font-size: 1rem;
+    }
+
+    .contacts {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .contacts .iconfr {
+        font-size: 2.2rem;
+    }
 }

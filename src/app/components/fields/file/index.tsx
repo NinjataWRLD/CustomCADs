@@ -1,6 +1,7 @@
 import { ChangeEvent } from 'react';
 import { AnyFieldApi } from '@tanstack/react-form';
 import Field, { getErrorClass } from '..';
+import styles from './styles.module.css';
 
 interface FileFieldProps {
 	api: AnyFieldApi;
@@ -31,7 +32,7 @@ const FileField = ({ api, label, accept, onChange }: FileFieldProps) => {
 						api.handleChange(file);
 						if (onChange) onChange(e);
 					}}
-					className={getErrorClass(showError && hasError)}
+					className={`${getErrorClass(showError && hasError)} ${styles.file}`}
 				/>
 			}
 			showErrorWhenDirty

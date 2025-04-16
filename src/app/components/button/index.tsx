@@ -20,7 +20,7 @@ const Button = ({ text, type, disabled, onClick }: ButtonProps) => {
 			return (
 				<button
 					type='submit'
-					className={`${styles.link} ${styles.buttonWrapper}`}
+					className={`${styles.link} ${styles[`button-wrapper`]}`}
 					onClick={onClick}
 					disabled={disabled}
 				>
