@@ -1,6 +1,5 @@
 .searchbar {
     position: relative;
-    height: 34px;
     display: flex;
     cursor: pointer;
     padding: 10px 20px;

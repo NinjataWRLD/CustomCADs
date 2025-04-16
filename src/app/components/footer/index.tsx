@@ -27,13 +27,14 @@ const Footer = () => {
 		<>
 			<div className={`${styles['gradient-border-top']}`}></div>
 			<footer className={`${styles.footer}`}>
-
 				<div className={`${styles.content}`}>
 					<div className={`${styles.info}`}>
 						<h1>{tFooter('title')}</h1>
 						<p>{tFooter('description')}</p>
 						<p>
-							<Link to='/privacy-policy'>{tFooter('link-1')}</Link>
+							<Link to='/privacy-policy'>
+								{tFooter('link-1')}
+							</Link>
 						</p>
 					</div>
 					<div className={`${styles.links}`}>

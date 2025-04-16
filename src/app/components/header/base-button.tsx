@@ -26,6 +26,7 @@ const BaseButton = ({
 					icon={icon}
 					size='2x'
 					style={{ cursor: 'pointer' }}
+					className={styles.icon}
 				/>
 				{children}
 			</Link>

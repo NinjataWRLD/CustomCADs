@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { CategoryResponse } from '@/api/categories/common';
 import { useGetCategories } from '@/hooks/queries/categories';
 import { useFetchTranslation } from '@/hooks/locales/common/messages';
-import styles from './styles.module.css';
+import styles from '../styles.module.css';
 
 interface CategoriesProps {
 	getCategory: () => string | undefined;

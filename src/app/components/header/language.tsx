@@ -21,6 +21,7 @@ const LanguageButton = () => {
 			size='2x'
 			onClick={handleClick}
 			data-tooltip={tHeader('language')}
+			style={{ cursor: 'pointer' }}
 		/>
 	);
 };
