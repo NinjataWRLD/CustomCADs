@@ -1,10 +1,11 @@
 .container {
     position: relative;
-    height: 100vh;
+    height: 100dvh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     color: white;
+    overflow: hidden;
 }
 
 .container h1 {
@@ -22,33 +23,42 @@
     position: relative;
     margin-left: 10%;
     display: flex;
+    flex: 1;
     flex-direction: column;
     gap: 30px;
     width: 50%;
-    height: 70%;
+    max-height: 70%;
+    padding-right: 10px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #aaa transparent;
+}
+
+.purchases::-webkit-scrollbar {
+    width: 8px;
+}
+
+.purchases::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 10px;
 }
 
 .options {
-    position: absolute;
-    top: 30%;
-    right: 10%;
-    margin-left: 65%;
+    position: fixed;
+    top: 20%;
+    right: 5%;
     width: 30%;
-    height: 44%;
-    background: linear-gradient(to bottom, rgb(46, 3, 46), black);
+    padding: 2rem 1.5rem;
+    background: linear-gradient(to bottom, hsl(300, 88%, 10%), hsl(0, 0%, 0%));
     color: white;
-    border: 2px solid rgb(90, 69, 91);
+    border: 2px solid hsl(297, 14%, 31%);
     display: flex;
     flex-direction: column;
     gap: 10px;
     justify-content: center;
     align-items: center;
     border-radius: 10%;
-    box-shadow: 0 3px 20px rgba(0, 0, 0, 0.8);
-}
-
-.options a {
-    width: 50%;
+    box-shadow: 0 3px 20px hsla(0, 0%, 0%, 0.8);
 }
 
 .cards {
@@ -62,5 +72,5 @@
 
 .cards svg {
     font-size: 2rem;
-    color: rgb(255, 255, 255);
+    color: hsl(0, 0%, 100%);
 }
