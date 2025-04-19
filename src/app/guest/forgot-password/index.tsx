@@ -4,6 +4,7 @@ import { useForgotPasswordTranslation } from '@/hooks/locales/pages/guest';
 import { useFields } from './hooks/useFields';
 import Transition from '@/app/components/transition';
 import Button from '@/app/components/button';
+import Border from '@/app/components/border';
 import faviconImg from '@/assets/favicons/favicon.svg';
 import styles from './styles.module.css';
 
@@ -26,24 +27,7 @@ const ForgotPassword = () => {
 		<Transition>
 			<div className={`${styles.container}`}>
 				<form onSubmit={handleSubmit} className={`${styles.form}`}>
-					<i
-						className={`${styles.border}`}
-						style={
-							{ '--color': '#8c09ff5f' } as React.CSSProperties
-						}
-					></i>
-					<i
-						className={`${styles.border}`}
-						style={
-							{ '--color': '#550cf377' } as React.CSSProperties
-						}
-					></i>
-					<i
-						className={`${styles.border}`}
-						style={
-							{ '--color': '#e43bc85e' } as React.CSSProperties
-						}
-					></i>
+					<Border />
 					<img src={faviconImg} alt='CustomCADs' />
 					<h1>{tForgotPassword('title')}</h1>
 					<h3>{tForgotPassword('instruction')}</h3>
