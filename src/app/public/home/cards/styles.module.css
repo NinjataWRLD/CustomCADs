@@ -1,20 +1,14 @@
-.container {
-    display: flex;
-    flex-direction: column;
-}
-
 .card-container a {
     text-decoration: none;
 }
 
 .card-container .card-icon {
-    display: block;
     margin-inline: auto;
 }
 
 .card-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(230px, 348px));
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 20rem));
     justify-content: center;
     gap: 2rem;
 }
@@ -35,7 +29,7 @@
 .card-icon {
     align-self: center;
     scale: 3.5;
-    filter: drop-shadow(0 8px 24px hsla(170, 12%, 8%, 0.1));
+    filter: drop-shadow(0 0.5rem 1.5rem hsla(170, 12%, 8%, 0.1));
     transition:
         transform 0.4s,
         opacity 0.4s;
@@ -82,7 +76,7 @@
     align-items: center;
     column-gap: 0.5rem;
     justify-self: center;
-    box-shadow: 0 8px 24px hsla(170, 12%, 8%, 0.1);
+    box-shadow: 0 0.5rem 1.5rem hsla(170, 12%, 8%, 0.1);
     position: absolute;
     bottom: -1.5rem;
     opacity: 0;
@@ -126,7 +120,7 @@
 }
 
 .card-container:hover .description {
-    max-height: 150px;
+    max-height: 10rem;
     opacity: 1;
     padding: 1rem;
 }
@@ -156,6 +150,11 @@
     transform: translateY(-3.75rem);
     opacity: 1;
     pointer-events: initial;
+    transition: background-color 0.5s linear;
+}
+
+.card-article:hover .card-button:hover {
+    background-color: hsl(0, 0%, 75%);
 }
 
 .card-article:hover .card-icon {
