@@ -1,9 +1,8 @@
 import { Link } from '@tanstack/react-router';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { Route } from '@/routes/_guest/register/$role';
 import { useRegisterTranslation } from '@/hooks/locales/pages/guest';
 import Button from '@/app/components/button';
+import Border from '@/app/components/border';
 import Transition from '@/app/components/transition';
 import { useFields } from './hooks/useFields';
 import styles from './styles.module.css';
@@ -21,36 +20,8 @@ const Register = () => {
 	return (
 		<Transition>
 			<div className={`${styles.register}`}>
-				<div className={`${styles.back}`}>
-					<FontAwesomeIcon icon={faArrowLeft} />
-					<Link to='/register'>{tRegister('go-back')}</Link>
-				</div>
-
 				<form onSubmit={handleSubmit} className={`${styles.form}`}>
-					<i
-						className={`${styles.border}`}
-						style={
-							{
-								'--color': '#8c09ff5f',
-							} as React.CSSProperties
-						}
-					></i>
-					<i
-						className={`${styles.border}`}
-						style={
-							{
-								'--color': '#550cf377',
-							} as React.CSSProperties
-						}
-					></i>
-					<i
-						className={`${styles.border}`}
-						style={
-							{
-								'--color': '#e43bc85e',
-							} as React.CSSProperties
-						}
-					></i>
+					<Border />
 					<h1>{tRegister(`title-${role}`)}</h1>
 					<div className={`${styles.optionals}`}>
 						<div className={`${styles['form-field']}`}>
@@ -80,12 +51,12 @@ const Register = () => {
 					<div className={`${styles.submit}`}>
 						<Button type='submit' text={tRegister('btn')} />
 					</div>
-				</form>
 
-				<p>
-					{tRegister('login-message')}
-					<Link to='/login'> {tRegister('login')} </Link>
-				</p>
+					<p>
+						{tRegister('login-message')}
+						<Link to='/login'> {tRegister('login')} </Link>
+					</p>
+				</form>
 			</div>
 		</Transition>
 	);

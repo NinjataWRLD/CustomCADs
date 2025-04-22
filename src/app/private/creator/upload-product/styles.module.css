@@ -12,10 +12,9 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 60%;
-    height: 70%;
-    gap: 3rem;
-    padding: 4em 0 5em 0;
+    width: 50%;
+    padding: 5em 3em;
+    gap: 2em;
 }
 
 .form h1 {
@@ -35,31 +34,6 @@
         0 0 30px rgba(186, 85, 211, 0.7),
         0 0 40px rgba(186, 85, 211, 0.5);
     transition: text-shadow 0.3s linear;
-}
-
-.form .border {
-    position: absolute;
-    inset: 0;
-    border: 2px solid rgba(255, 255, 255, 0.315);
-    transition: 0.2s;
-    z-index: -1;
-}
-
-.form:hover .border {
-    border: 6px solid var(--color);
-    filter: drop-shadow(0 0 20px var(--color));
-}
-
-.form .border:nth-child(1) {
-    border-radius: 22% 62% 36% 27% / 33% 21% 60% 59%;
-}
-
-.form .border:nth-child(2) {
-    border-radius: 35% 37% 78% 59% / 27% 28% 34% 33%;
-}
-
-.form .border:nth-child(3) {
-    border-radius: 36% 20% 50% 51% / 14% 22% 40% 33%;
 }
 
 .form input:focus,
@@ -83,6 +57,7 @@
     outline: none;
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
     transition: border-color 0.3s ease;
+    resize: none;
 }
 
 .form-field {

@@ -1,6 +1,7 @@
 import Transition from '@/app/components/transition';
 import { useFields } from './hooks/useFields';
 import Button from '@/app/components/button';
+import Border from '@/app/components/border';
 import { useUploadProductTranslation } from '@/hooks/locales/pages/creator';
 import styles from './styles.module.css';
 
@@ -12,30 +13,7 @@ const UploadProduct = () => {
 		<Transition>
 			<div className={styles.upload}>
 				<form onSubmit={handleSubmit} className={styles.form}>
-					<i
-						className={`${styles.border}`}
-						style={
-							{
-								'--color': '#8c09ff5f',
-							} as React.CSSProperties
-						}
-					></i>
-					<i
-						className={`${styles.border}`}
-						style={
-							{
-								'--color': '#550cf377',
-							} as React.CSSProperties
-						}
-					></i>
-					<i
-						className={`${styles.border}`}
-						style={
-							{
-								'--color': '#e43bc85e',
-							} as React.CSSProperties
-						}
-					></i>
+					<Border />
 					<h1>{tUploadProduct('title')}</h1>
 
 					<div className={`${styles['form-field']}`}>

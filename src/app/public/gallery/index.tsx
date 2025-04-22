@@ -45,67 +45,67 @@ const Gallery = () => {
 
 	return (
 		<Transition>
-			<div className={`${styles.gallery}`}>
-				<section className={`${styles.container}`}>
-					<div className={styles.search}>
-						<Categories
-							getCategory={() => search.categoryName}
-							updateCategory={(category) => {
-								navigate({
-									search: (prev) => ({
-										...prev,
-										categoryName: category?.name,
-									}),
-								});
-							}}
-						/>
-						<Searchbar
-							placeholder={tPlaceholders('search-products')}
-							getName={() => search.name}
-							updateName={(name) => {
-								navigate({
-									search: (prev) => ({
-										...prev,
-										name: name,
-									}),
-								});
-							}}
-						/>
-						<Sortings
-							getSorting={() => ({
-								type: search.sortingType,
-								direction: search.sortingDirection,
-							})}
-							updateSorting={({ type, direction }) => {
-								navigate({
-									search: (prev) => ({
-										...prev,
-										sortingType: type ?? prev.sortingType,
-										sortingDirection: direction,
-									}),
-								});
-							}}
-						/>
+			<section className={`${styles.gallery}`}>
+				<div className={styles.toolbar}>
+					<Categories
+						getCategory={() => search.categoryName}
+						updateCategory={(category) => {
+							navigate({
+								search: (prev) => ({
+									...prev,
+									categoryName: category?.name,
+								}),
+							});
+						}}
+					/>
+					<Searchbar
+						placeholder={tPlaceholders('search-products')}
+						getName={() => search.name}
+						updateName={(name) => {
+							navigate({
+								search: (prev) => ({
+									...prev,
+									name: name,
+								}),
+							});
+						}}
+					/>
+					<Sortings
+						getSorting={() => ({
+							type: search.sortingType,
+							direction: search.sortingDirection,
+						})}
+						updateSorting={({ type, direction }) => {
+							navigate({
+								search: (prev) => ({
+									...prev,
+									sortingType: type ?? prev.sortingType,
+									sortingDirection: direction,
+								}),
+							});
+						}}
+					/>
+				</div>
+				{products?.items.length ? (
+					<div className={`${styles.models}`}>
+						{products.items.map((product) => (
+							<Item key={product.id} product={product} />
+						))}
 					</div>
-					{products?.items.length ? (
-						<div className={`${styles.models}`}>
-							{products.items.map((product) => (
-								<Item key={product.id} product={product} />
-							))}
-						</div>
-					) : (
-						<>{tFetch('no-products')}</>
-					)}
-					<div className={`${styles.pagination}`}>
-						<Pagination
-							total={products?.count ?? 0}
-							limit={limit}
-							page={page}
-							onPageChange={handlePageChange}
-						/>
+				) : (
+					<div className={`${styles.empty}`}>
+						{tFetch('no-products')}
 					</div>
-				</section>
-			</div>
+				)}
+				<div className={`${styles.pagination}`}>
+					<Pagination
+						total={products?.count ?? 0}
+						limit={limit}
+						page={page}
+						onPageChange={handlePageChange}
+					/>
+				</div>
+			</section>
 		</Transition>
 	);
 };

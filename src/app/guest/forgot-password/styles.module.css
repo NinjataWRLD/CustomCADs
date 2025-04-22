@@ -1,5 +1,5 @@
 .container {
-    height: 100vh;
+    height: 100dvh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -8,73 +8,47 @@
 .container h1 {
     color: white;
     text-shadow:
-        2px 2px 5px rgba(106, 13, 173, 0.7),
-        -2px -2px 5px rgba(160, 32, 240, 0.6),
-        0px 0px 15px rgba(75, 0, 130, 0.5);
+        2px 2px 5px hsla(275, 86%, 36%, 0.7),
+        -2px -2px 5px hsla(277, 87%, 53%, 0.6),
+        0px 0px 15px hsla(275, 100%, 25%, 0.5);
 }
 
 .container h3 {
     width: 80%;
     text-align: center;
     text-shadow:
-        3px 3px 0px black,
-        -1px -1px 0px black,
-        1px 1px 2px rgba(0, 0, 0, 0.7);
+        3px 3px 0px hsl(0, 0%, 0%),
+        -1px -1px 0px hsl(0, 0%, 0%),
+        1px 1px 2px hsla(0, 0%, 0%, 0.7);
 }
 
 .form {
     position: relative;
-    width: 40%;
-    height: 80%;
     color: white;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
     justify-content: center;
     align-items: center;
-}
-
-.form .border {
-    position: absolute;
-    inset: 0;
-    border: 2px solid rgba(255, 255, 255, 0.315);
-    transition: 0.2s;
-    z-index: -1;
-}
-
-.form:hover .border {
-    border: 6px solid var(--color);
-    filter: drop-shadow(0 0 20px var(--color));
-}
-
-.form .border:nth-child(1) {
-    border-radius: 22% 62% 36% 27% / 33% 21% 60% 59%;
-}
-
-.form .border:nth-child(2) {
-    border-radius: 35% 37% 78% 59% / 27% 28% 34% 33%;
-}
-
-.form .border:nth-child(3) {
-    border-radius: 36% 20% 50% 51% / 14% 22% 40% 33%;
+    padding: 5rem;
+    gap: 1rem;
 }
 
 .form input[type='email'] {
     font-family: 'Ubuntu', sans-serif;
     width: 100%;
-    padding: 10px;
+    padding: 0.6rem;
     font-size: 1rem;
-    color: white;
-    background-color: black;
-    border: 2px solid #dddddd81;
-    border-radius: 6px;
+    color: hsl(0, 0%, 100%);
+    background-color: hsl(0, 0%, 0%);
+    border: 2px solid hsla(0, 0%, 87%, 0.506);
+    border-radius: 10px;
     outline: none;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 1px 3px hsla(0, 0%, 0%, 0.1);
     transition: border-color 0.3s ease;
 }
 
 .form input[type='email']:focus {
-    border-color: #8c09ff;
+    border-color: hsl(272, 100%, 52%);
     box-shadow: 0px 0px 5px hsla(0, 0%, 100%, 0.562);
 }
 
@@ -83,35 +57,35 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    margin-top: 10px;
 }
 
 .form img {
     width: 50px;
+    aspect-ratio: 1;
 }
 
 .submit a {
-    background: linear-gradient(45deg, #6a11cb, #3c0f5a);
+    background: linear-gradient(45deg, hsl(269, 85%, 43%), hsl(276, 71%, 21%));
     color: white;
     font-size: 1rem;
     font-weight: bold;
     border: none;
     border-radius: 30px;
     padding: 10px 25px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 6px hsla(0, 0%, 0%, 0.2);
     cursor: pointer;
     transition: all 0.3s ease-in-out;
 }
 
 .submit a:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
-    background: linear-gradient(45deg, #cd1cc1, #6a11cb);
+    box-shadow: 0 8px 12px hsla(0, 0%, 0%, 0.3);
+    background: linear-gradient(45deg, hsl(304, 76%, 46%), hsl(269, 85%, 43%));
 }
 
 .submit a:active {
     transform: translateY(1px);
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 3px 5px hsla(0, 0%, 0%, 0.2);
 }
 
 .submit {
@@ -120,7 +94,7 @@
     justify-content: center;
     align-items: center;
     gap: 10px;
-    margin-top: 10px;
+    margin-top: 1rem;
 }
 
 .submit p {
@@ -135,11 +109,11 @@
 }
 
 .form .links a {
-    color: bisque;
+    color: hsl(33, 100%, 88%);
 }
 
 .form .links a:hover {
-    color: white;
+    color: hsl(0, 0%, 100%);
 }
 
 .transitionContainer {
