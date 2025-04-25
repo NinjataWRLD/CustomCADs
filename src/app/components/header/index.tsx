@@ -1,14 +1,16 @@
+import { useState, useRef } from 'react';
 import { Link } from '@tanstack/react-router';
 import {
 	faImage,
 	faShoppingCart,
 	faSignInAlt,
-	faUserPlus,
+	faGlobe,
 } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useAuthStore } from '@/hooks/stores/useAuthStore';
 import { useCartContext } from '@/hooks/contexts/useCartContext';
 import { useHeaderTranslation } from '@/hooks/locales/components/layout';
-import LanguageButton from './language';
+import LanguageMenu from './language-menu';
 import SettingsButton from './settings';
 import BaseButton from './base-button';
 import styles from './styles.module.css';
@@ -19,6 +21,9 @@ const Header = () => {
 	const { items } = useCartContext();
 
 	const tHeader = useHeaderTranslation();
+
+	const [showLangMenu, setShowLangMenu] = useState(false);
+	const langRef = useRef<HTMLDivElement>(null);
 
 	return (
 		<header className={styles.header}>
@@ -50,26 +55,34 @@ const Header = () => {
 				{!is.guest ? (
 					<SettingsButton />
 				) : (
-					<>
-						<BaseButton
-							label={tHeader('icon-3')}
-							link='/login'
-							icon={faSignInAlt}
-						/>
-						<span>|</span>
-						<BaseButton
-							label={tHeader('icon-4')}
-							link='/register'
-							icon={faUserPlus}
-						/>
-					</>
+					<BaseButton
+						label={tHeader('icon-3')}
+						link='/login'
+						icon={faSignInAlt}
+					/>
 				)}
 				<span>|</span>
 				<div
 					className={styles['icon-wrapper']}
 					data-tooltip={tHeader('icon-5')}
+					ref={langRef}
 				>
-					<LanguageButton />
+					<div onClick={() => setShowLangMenu((prev) => !prev)}>
+						<FontAwesomeIcon
+							icon={faGlobe}
+							size='2x'
+							data-tooltip={tHeader('language')}
+							style={{ cursor: 'pointer' }}
+						/>
+					</div>
+					{showLangMenu && (
+						<>
+							<div className={styles.blur}></div>
+							<LanguageMenu
+								closeMenu={() => setShowLangMenu(false)}
+							/>
+						</>
+					)}
 				</div>
 			</div>
 		</header>

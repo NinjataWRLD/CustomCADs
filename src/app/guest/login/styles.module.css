@@ -83,24 +83,11 @@
 .form p a:first-child {
     color: rgba(225, 116, 255, 0.813);
     position: relative;
+    transition: color 0.2s linear;
 }
 
-.form p a:first-child:after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: -2px;
-    width: 100%;
-    height: 1px;
-    background-color: hsla(295, 81%, 55%, 0.632);
-    transition: transform 0.3s ease;
-    transform: scaleX(0);
-    transform-origin: bottom right;
-}
-
-.form p a:hover::after {
-    transform: scaleX(1);
-    transform-origin: bottom left;
+.form p a:first-child:hover {
+    color: rgba(225, 116, 255, 0.358);
 }
 
 .back {

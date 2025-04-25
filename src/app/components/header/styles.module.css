@@ -84,3 +84,65 @@
     border: 2px solid white;
     transform: translate(50%, 50%);
 }
+
+.language-menu {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40%;
+    height: 50%;
+    background: white;
+    background: radial-gradient(
+        125% 125% at 50% 10%,
+        white 40%,
+        rgb(102, 51, 238) 100%
+    );
+    color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    padding: 1rem;
+    overflow-y: auto;
+    z-index: 1000;
+}
+
+.language-menu div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.language-menu hr {
+    margin: 5px auto;
+    height: 1px;
+    width: 300px;
+}
+
+.blur {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.627);
+    z-index: 999;
+}
+
+.close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    scale: 1.7;
+    color: rgb(51, 51, 51);
+}
+
+.language-menu:hover + .icon-wrapper[data-tooltip]:hover::after {
+    visibility: hidden;
+    opacity: 0;
+}
