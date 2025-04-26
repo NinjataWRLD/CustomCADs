@@ -46,7 +46,12 @@ const Cart = () => {
 		<Transition>
 			<div className={styles.container}>
 				<h1>{tCart('title')}</h1>
-				<div className={styles.purchases}>
+				<div
+					className={styles.purchases}
+					style={{
+						overflowY: items && items.length > 2 ? 'auto' : 'unset',
+					}}
+				>
 					{items?.map((item) => (
 						<CartItem
 							key={item.productId}

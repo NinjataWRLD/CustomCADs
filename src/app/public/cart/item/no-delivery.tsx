@@ -87,17 +87,6 @@ const CartItemWithoutDelivery = ({
 				<div className={styles.data}>
 					<h2>{product.name}</h2>
 					<p>{tCart('by', { by: product.creatorName })}</p>
-					<button
-						className={styles.btn}
-						onClick={() =>
-							navigate({
-								to: `/gallery/$id`,
-								params: { id: item.productId },
-							})
-						}
-					>
-						<span>{tCart('view')}</span>
-					</button>
 					<p>
 						{tCart('product-price', {
 							price: money.format(
@@ -105,16 +94,28 @@ const CartItemWithoutDelivery = ({
 							),
 						})}
 					</p>
-					<div
-						className={styles.bin}
-						data-tooltip={tCart('remove')}
-						onClick={remove}
-					>
-						<FontAwesomeIcon icon={faTrashCan} />
+					<div className={styles.buttons}>
+						<button
+							className={styles.btn}
+							onClick={() =>
+								navigate({
+									to: `/gallery/$id`,
+									params: { id: item.productId },
+								})
+							}
+						>
+							<span>{tCart('view')}</span>
+						</button>
+						<button
+							className={`${styles.btn} ${styles['bin-btn']}`}
+							onClick={remove}
+						>
+							<FontAwesomeIcon icon={faTrashCan} />
+						</button>
 					</div>
 				</div>
+				<div className={styles.blur}></div>
 			</div>
-			<div className={styles.blur}></div>
 		</div>
 	);
 };
