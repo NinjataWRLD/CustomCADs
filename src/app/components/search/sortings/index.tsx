@@ -13,13 +13,19 @@ import styles from '../styles.module.css';
 interface SortingsProps {
 	getSorting: () => { type?: string; direction?: string };
 	updateSorting: (sorting: { type?: string; direction?: string }) => void;
+	isActive: boolean;
+	setActive: (active: boolean) => void;
 }
 
-const Sortings = ({ getSorting, updateSorting }: SortingsProps) => {
+const Sortings = ({
+	getSorting,
+	updateSorting,
+	isActive,
+	setActive,
+}: SortingsProps) => {
 	const tFetch = useFetchTranslation();
 
 	const { data: sortings, isLoading, isError } = useGetProductSortings();
-	const [isActiveSort, setIsActiveSort] = useState(false);
 
 	const { type: sortingParam, direction: directionParam } = getSorting();
 	const initial = 'Sort By';
@@ -45,7 +51,7 @@ const Sortings = ({ getSorting, updateSorting }: SortingsProps) => {
 	}, [sortingParam]);
 
 	const toggleDropdown = () => {
-		setIsActiveSort((prev) => !prev);
+		setActive(!isActive);
 	};
 
 	const toggleDirection = () => {
@@ -68,7 +74,6 @@ const Sortings = ({ getSorting, updateSorting }: SortingsProps) => {
 
 	const handleInput = (name: string) => {
 		setSorting(() => name);
-		setIsActiveSort(false);
 		updateSorting({ type: name });
 	};
 
@@ -84,7 +89,7 @@ const Sortings = ({ getSorting, updateSorting }: SortingsProps) => {
 		<>
 			<div className={`${styles.menu}`}>
 				<div
-					className={`${styles['select-btn']} ${isActiveSort ? styles.active : ''}`}
+					className={`${styles['select-btn']} ${isActive ? styles.active : ''}`}
 					onClick={toggleDropdown}
 				>
 					<span className={`${styles.sort}`}>{sorting}</span>
