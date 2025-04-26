@@ -29,7 +29,7 @@ const LanguageMenu = ({ closeMenu }: LanguageMenuProps) => {
 			<div className={styles.close} onClick={closeMenu}>
 				<FontAwesomeIcon icon={faTimes} />
 			</div>
-			<h3>{tHeader('tip')}</h3>
+			<h3>{tHeader('choose-language')}</h3>
 			<section className={styles['language-container']}>
 				<div onClick={i18n.language === 'bg' ? handleClick : closeMenu}>
 					<img src={gbFlag} width={50} height={50} />

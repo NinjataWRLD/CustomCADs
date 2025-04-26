@@ -7,7 +7,7 @@ export default {
 	orders: 'Orders',
 	account: 'Account',
 	logout: 'Log Out',
-	tip: 'Choose a language:',
+	'choose-language': 'Choose a language:',
 	english: 'English',
 	bulgarian: 'Bulgarian',
 	'sidebar-link-1': 'Home',
