@@ -59,13 +59,13 @@
 }
 
 .optionals {
-    width: 75%;
+    width: 100%;
     display: flex;
     justify-content: space-between;
 }
 
 .optionals div {
-    width: 40%;
+    width: 80%;
 }
 
 .form-field {

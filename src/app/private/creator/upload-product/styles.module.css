@@ -46,6 +46,7 @@
 .form input,
 .form textarea,
 .form select {
+    position: relative;
     font-family: 'Ubuntu', sans-serif;
     width: 100%;
     padding: 10px;

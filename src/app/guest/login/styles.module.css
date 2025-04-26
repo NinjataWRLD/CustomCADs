@@ -67,6 +67,7 @@
 
 .form-field a {
     align-self: flex-start;
+    margin-left: 10px;
     color: white;
     font-size: 0.9rem;
     transition: all 0.3s ease;
