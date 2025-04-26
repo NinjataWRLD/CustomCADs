@@ -8,8 +8,11 @@
     height: 70%;
     overflow: hidden;
     border: 5px solid transparent;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(75, 0, 130, 0.8);
+    border-radius: 20px;
+    box-shadow:
+        0 0 10px rgba(75, 0, 130, 0.8),
+        0 0 20px rgba(138, 43, 226, 0.6),
+        0 0 30px rgba(147, 112, 219, 0.4);
     padding: 20px;
 }
 
