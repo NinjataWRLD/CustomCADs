@@ -18,7 +18,7 @@ interface Fields {
 const defaultValues: Fields = {
 	name: '',
 	description: '',
-	categoryId: 0,
+	categoryId: 1,
 	price: 0,
 	image: null,
 	cad: null,
