@@ -1,0 +1,110 @@
+.container {
+    width: 80%;
+    max-width: 1200px;
+    color: hsl(264, 100%, 95%);
+    text-align: center;
+    margin: 5% auto;
+    line-height: 1.6;
+}
+
+.container h1 {
+    color: hsl(266, 100%, 85%);
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 0 10px hsla(273, 100%, 70%, 0.4);
+    letter-spacing: 1px;
+}
+
+.container h2 {
+    color: hsl(273, 100%, 70%);
+    font-size: 2rem;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 6px hsla(273, 100%, 70%, 0.3);
+}
+
+.container h3 {
+    color: hsl(276, 68%, 75%);
+    font-size: 1.5rem;
+    margin-top: 2rem;
+    margin-bottom: 0.8rem;
+}
+
+.container h4 {
+    color: hsl(264, 100%, 78%);
+    font-size: 1.2rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.6rem;
+}
+
+.container p {
+    margin-bottom: 1.2rem;
+    text-align: left;
+    font-size: 1rem;
+}
+
+.container ul {
+    text-align: left;
+    margin-left: 2rem;
+    margin-bottom: 1.5rem;
+    list-style-type: circle;
+}
+
+.container ul li {
+    margin-bottom: 0.8rem;
+    color: hsl(260, 100%, 91%);
+}
+
+.container ul li strong {
+    color: hsl(270, 100%, 76%);
+    font-weight: 600;
+}
+
+.container a {
+    color: hsl(288, 100%, 70%);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+    text-shadow: 0 0 3px hsla(288, 100%, 70%, 0.3);
+}
+
+.container a:hover {
+    color: hsl(288, 100%, 85%);
+    text-shadow: 0 0 6px hsla(288, 100%, 70%, 0.6);
+}
+
+.container a:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 1px;
+    bottom: -2px;
+    left: 0;
+    background-color: hsl(288, 100%, 70%);
+    transition: width 0.3s ease;
+}
+
+.container a:hover:after {
+    width: 100%;
+}
+
+.container strong {
+    color: hsl(267, 100%, 83%);
+    font-weight: bold;
+}
+
+.container p:nth-of-type(1) {
+    color: hsl(254, 100%, 78%);
+    font-style: italic;
+    font-size: 0.9rem;
+}
+
+.container h2:last-of-type {
+    color: hsl(288, 100%, 70%);
+    text-shadow: 0 0 8px hsla(288, 100%, 70%, 0.5);
+}
+
+.container h2:not(:first-of-type) {
+    border-top: 1px solid hsla(273, 100%, 70%, 0.3);
+    padding-top: 2rem;
+}
