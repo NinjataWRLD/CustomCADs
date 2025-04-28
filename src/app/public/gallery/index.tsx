@@ -27,9 +27,7 @@ const Gallery = () => {
 		search.limit ?? 12,
 	);
 
-	const [isCategoriesActive, setCategoriesActive] = useState(false);
-	const [isSortingsActive, setSortingsActive] = useState(false);
-
+	const [dropdown, setDropdown] = useState<'categories' | 'sorting'>();
 	useEffect(() => {
 		navigate({
 			search: (prev) => ({
@@ -60,11 +58,8 @@ const Gallery = () => {
 								}),
 							});
 						}}
-						isActive={isCategoriesActive}
-						setActive={(active) => {
-							setCategoriesActive(active);
-							if (active) setSortingsActive(false);
-						}}
+						isActive={dropdown === 'categories'}
+						setActive={() => setDropdown('categories')}
 					/>
 					<Searchbar
 						placeholder={tPlaceholders('search-products')}
@@ -92,11 +87,8 @@ const Gallery = () => {
 								}),
 							});
 						}}
-						isActive={isSortingsActive}
-						setActive={(active) => {
-							setSortingsActive(active);
-							if (active) setCategoriesActive(false);
-						}}
+						isActive={dropdown === 'sorting'}
+						setActive={() => setDropdown('sorting')}
 					/>
 				</div>
 				{products?.items.length ? (
