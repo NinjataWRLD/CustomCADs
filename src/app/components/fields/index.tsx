@@ -105,10 +105,14 @@ const Field = (props: FieldProps) => {
 	return (
 		<>
 			<label>{label}</label>
-			{input}
-			{showError && hasError ? (
-				<small className={styles.error}>{meta.errors[0].message}</small>
-			) : null}
+			<div className={styles['input-wrapper']}>
+				{input}
+				{showError && hasError ? (
+					<small className={styles.error}>
+						{meta.errors[0].message}
+					</small>
+				) : null}
+			</div>
 		</>
 	);
 };

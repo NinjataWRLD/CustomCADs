@@ -3,14 +3,13 @@ import {
 	faImage,
 	faShoppingCart,
 	faSignInAlt,
-	faUserPlus,
 } from '@fortawesome/free-solid-svg-icons';
 import { useAuthStore } from '@/hooks/stores/useAuthStore';
 import { useCartContext } from '@/hooks/contexts/useCartContext';
 import { useHeaderTranslation } from '@/hooks/locales/components/layout';
-import LanguageButton from './language';
 import SettingsButton from './settings';
 import BaseButton from './base-button';
+import Language from './language';
 import styles from './styles.module.css';
 
 const title = 'CustomCADs';
@@ -50,27 +49,14 @@ const Header = () => {
 				{!is.guest ? (
 					<SettingsButton />
 				) : (
-					<>
-						<BaseButton
-							label={tHeader('icon-3')}
-							link='/login'
-							icon={faSignInAlt}
-						/>
-						<span>|</span>
-						<BaseButton
-							label={tHeader('icon-4')}
-							link='/register'
-							icon={faUserPlus}
-						/>
-					</>
+					<BaseButton
+						label={tHeader('icon-3')}
+						link='/login'
+						icon={faSignInAlt}
+					/>
 				)}
 				<span>|</span>
-				<div
-					className={styles['icon-wrapper']}
-					data-tooltip={tHeader('icon-5')}
-				>
-					<LanguageButton />
-				</div>
+				<Language />
 			</div>
 		</header>
 	);

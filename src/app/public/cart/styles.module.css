@@ -29,9 +29,9 @@
     width: 50%;
     max-height: 70%;
     padding-right: 10px;
-    overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: #aaa transparent;
+    scroll-behavior: smooth;
 }
 
 .purchases::-webkit-scrollbar {
@@ -43,8 +43,12 @@
     border-radius: 10px;
 }
 
+.purchases > * {
+    flex: 0 0 auto;
+}
+
 .options {
-    position: fixed;
+    position: absolute;
     top: 20%;
     right: 5%;
     width: 30%;

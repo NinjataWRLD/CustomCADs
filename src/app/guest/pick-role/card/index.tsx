@@ -30,12 +30,12 @@ const Card = ({ id }: { id: 'customer' | 'contributor' }) => {
 						</li>
 					))}
 				</ul>
-				<CustomLink
-					text={tPickRole('btn')}
-					to='/register/$role'
-					params={{ role: id }}
-				/>
 			</div>
+			<CustomLink
+				text={tPickRole('btn')}
+				to='/register/$role'
+				params={{ role: id }}
+			/>
 		</div>
 	);
 };

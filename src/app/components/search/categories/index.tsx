@@ -9,13 +9,19 @@ import styles from '../styles.module.css';
 interface CategoriesProps {
 	getCategory: () => string | undefined;
 	updateCategory: (category?: CategoryResponse) => void;
+	isActive: boolean;
+	setActive: (active: boolean) => void;
 }
 
-const Categories = ({ getCategory, updateCategory }: CategoriesProps) => {
+const Categories = ({
+	getCategory,
+	updateCategory,
+	isActive,
+	setActive,
+}: CategoriesProps) => {
 	const tFetch = useFetchTranslation();
 
 	const { data: categories, isLoading, isError } = useGetCategories();
-	const [isActiveCategory, setIsActiveCategory] = useState(false);
 
 	const categoryParam = getCategory();
 
@@ -47,13 +53,12 @@ const Categories = ({ getCategory, updateCategory }: CategoriesProps) => {
 	}
 
 	const toggleDropdown = () => {
-		setIsActiveCategory((prev) => !prev);
+		setActive(!isActive);
 	};
 
 	const handleInput = (name: string) => {
 		const category = categories.find((c) => c.name === name);
 
-		setIsActiveCategory(false);
 		if (category) {
 			setCategory(category.name);
 			updateCategory(category);
@@ -66,7 +71,7 @@ const Categories = ({ getCategory, updateCategory }: CategoriesProps) => {
 	return (
 		<div className={`${styles.menu}`}>
 			<div
-				className={`${styles['select-btn']} ${isActiveCategory ? styles.active : ''}`}
+				className={`${styles['select-btn']} ${isActive ? styles.active : ''}`}
 				onClick={toggleDropdown}
 			>
 				<span className={`${styles.category}`}>{category}</span>

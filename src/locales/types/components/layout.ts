@@ -15,6 +15,9 @@ export type ComponentsLayoutHeader = {
 	orders: string;
 	account: string;
 	logout: string;
+	'choose-language': string;
+	english: string;
+	bulgarian: string;
 	'sidebar-link-1': string;
 	'sidebar-link-2': string;
 	'icon-1': string;

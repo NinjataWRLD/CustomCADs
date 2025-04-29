@@ -6,17 +6,25 @@
 
 .error {
     position: absolute;
+    top: 100%;
+    right: 0;
     color: #ff4d4d;
-    font-size: 0.875rem;
-    margin-top: 75px;
-    align-self: flex-end;
-    display: block;
+    font-size: 0.85rem;
+    margin-top: 2px;
+    white-space: nowrap;
+}
+
+.input-wrapper {
+    position: relative;
+    width: 100%;
 }
 
 .password-wrapper {
-    position: relative;
+    display: flex;
+    flex-direction: column;
     width: 100%;
     margin-right: 25px;
+    position: relative;
 }
 
 .eye {

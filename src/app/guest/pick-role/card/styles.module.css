@@ -94,3 +94,8 @@
 .content ul li span {
     color: rgba(255, 255, 255, 0.557);
 }
+
+.card a {
+    position: absolute;
+    bottom: 15%;
+}
