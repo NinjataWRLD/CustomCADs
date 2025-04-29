@@ -131,7 +131,7 @@ const Sortings = ({
 				<div
 					className={`${styles.tooltip} ${!sorting ? styles.disabled : ''}`}
 					data-tooltip={
-						!sorting ? 'Select Sorting' : direction?.toString()
+						!sorting ? 'Select Sorting' : direction.toString()
 					}
 				>
 					<FontAwesomeIcon

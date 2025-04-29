@@ -1,61 +1,48 @@
 import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
-import { useGetTags } from '@/hooks/queries/tags';
-import { useGetProducts } from '@/hooks/queries/products/gallery';
+import { Response as Product } from '@/api/catalog/products/gallery/all';
 import { useHomeTranslation } from '@/hooks/locales/pages/public';
 import CustomLink from '@/app/components/link';
 import Item from './item';
 import styles from './styles.module.css';
 
-const PopularProducts = () => {
+interface PopularProductsProps {
+	total: number;
+	products: Product[];
+}
+
+const PopularProducts = ({ total, products }: PopularProductsProps) => {
 	const tHome = useHomeTranslation();
 	const [currentId, setCurrentId] = useState('');
 
-	const { data: tags } = useGetTags();
-	const popularTag = tags?.find((x) => x.name === 'Popular');
-
-	const { data: products } = useGetProducts(
-		{
-			page: 1,
-			limit: 10,
-			tagIds: popularTag ? [popularTag.id] : undefined,
-		},
-		!!tags,
-	);
-
 	useEffect(() => {
-		if (products?.items.length) {
-			setCurrentId(products.items[0].id);
+		if (products.length) {
+			setCurrentId(products[0].id);
 		}
 	}, [products]);
 
-	if (!products) {
-		return <></>;
-	}
-
-	const findIndex = (id: string) =>
-		products.items.findIndex((p) => p.id === id);
+	const findIndex = (id: string) => products.findIndex((p) => p.id === id);
 
 	const handlePrev = () => {
 		setCurrentId((prev) => {
 			const newIndex = findIndex(prev) - 1;
 			if (newIndex === -1) {
-				return products.items[0].id;
+				return products[0].id;
 			}
 
-			return products.items[newIndex].id;
+			return products[newIndex].id;
 		});
 	};
 
 	const handleNext = () => {
 		setCurrentId((prev) => {
 			const newIndex = findIndex(prev) + 1;
-			if (newIndex === products.count) {
-				return products.items[0].id;
+			if (newIndex === total) {
+				return products[0].id;
 			}
 
-			return products.items[newIndex].id;
+			return products[newIndex].id;
 		});
 	};
 
@@ -74,13 +61,11 @@ const PopularProducts = () => {
 						} as React.CSSProperties
 					}
 				>
-					{products.items.map((product) => {
+					{products.map((product) => {
 						const productIndex = findIndex(product.id);
 
-						const prevIndex =
-							(currentIndex - 1 + products.count) %
-							products.count;
-						const nextIndex = (currentIndex + 1) % products.count;
+						const prevIndex = (currentIndex - 1 + total) % total;
+						const nextIndex = (currentIndex + 1) % total;
 
 						if (
 							productIndex === prevIndex ||

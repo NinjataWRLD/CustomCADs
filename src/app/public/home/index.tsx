@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { Route } from '@/routes/_public';
 import { useHomeTranslation } from '@/hooks/locales/pages/public';
 import Info from './info';
 import Benefits from './benefits';
@@ -11,7 +12,9 @@ import styles from './styles.module.css';
 const Home = () => {
 	const sectionsRef = useRef<(HTMLElement | null)[]>([]);
 	const boxRef = useRef<HTMLDivElement | null>(null);
+
 	const tHome = useHomeTranslation();
+	const { products } = Route.useLoaderData();
 
 	useEffect(() => {
 		const sectionObserver = new IntersectionObserver(
@@ -81,18 +84,25 @@ const Home = () => {
 
 			<hr />
 
-			<section
-				ref={(el) => {
-					sectionsRef.current[2] = el;
-				}}
-				id='section3'
-				className={`${styles.models} ${styles.section}`}
-			>
-				<h1>{tHome('title_popular')}</h1>
-				<PopularProducts />
-			</section>
+			{products?.count && (
+				<>
+					<section
+						ref={(el) => {
+							sectionsRef.current[2] = el;
+						}}
+						id='section3'
+						className={`${styles.models} ${styles.section}`}
+					>
+						<h1>{tHome('title_popular')}</h1>
+						<PopularProducts
+							total={products.count}
+							products={products.items}
+						/>
+					</section>
 
-			<hr />
+					<hr />
+				</>
+			)}
 
 			<section
 				ref={(el) => {

@@ -1,4 +1,3 @@
-import { useState, useRef } from 'react';
 import { Link } from '@tanstack/react-router';
 import {
 	faImage,
@@ -7,13 +6,12 @@ import {
 	faGlobe,
 	faTools,
 } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useAuthStore } from '@/hooks/stores/useAuthStore';
 import { useCartContext } from '@/hooks/contexts/useCartContext';
 import { useHeaderTranslation } from '@/hooks/locales/components/layout';
-import LanguageMenu from './language-menu';
 import SettingsButton from './settings';
 import BaseButton from './base-button';
+import Language from './language';
 import styles from './styles.module.css';
 
 const title = 'CustomCADs';
@@ -22,9 +20,6 @@ const Header = () => {
 	const { items } = useCartContext();
 
 	const tHeader = useHeaderTranslation();
-
-	const [showLangMenu, setShowLangMenu] = useState(false);
-	const langRef = useRef<HTMLDivElement>(null);
 
 	return (
 		<header className={styles.header}>
@@ -71,28 +66,7 @@ const Header = () => {
 					</>
 				)}
 				<span>|</span>
-				<div
-					className={styles['icon-wrapper']}
-					data-tooltip={tHeader('icon-5')}
-					ref={langRef}
-				>
-					<div onClick={() => setShowLangMenu((prev) => !prev)}>
-						<FontAwesomeIcon
-							icon={faGlobe}
-							size='2x'
-							data-tooltip={tHeader('language')}
-							style={{ cursor: 'pointer' }}
-						/>
-					</div>
-					{showLangMenu && (
-						<>
-							<div className={styles.blur}></div>
-							<LanguageMenu
-								closeMenu={() => setShowLangMenu(false)}
-							/>
-						</>
-					)}
-				</div>
+				<Language />
 			</div>
 		</header>
 	);
