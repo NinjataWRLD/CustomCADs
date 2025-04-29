@@ -13,6 +13,7 @@ import Pagination from '@/app/components/pagination';
 import Item from './item';
 import styles from './styles.module.css';
 
+const GALLERY_ITEMS_PER_PAGE = 12;
 const Gallery = () => {
 	const tFetch = useFetchTranslation();
 	const tPlaceholders = usePlaceholdersTranslation();
@@ -24,7 +25,7 @@ const Gallery = () => {
 	const [total, setTotal] = useState(0);
 	const { page, limit, handlePageChange } = usePagination(
 		total,
-		search.limit ?? 12,
+		search.limit ?? GALLERY_ITEMS_PER_PAGE,
 	);
 
 	const [dropdown, setDropdown] = useState<'categories' | 'sorting'>();
@@ -39,7 +40,7 @@ const Gallery = () => {
 	}, [page, limit]);
 
 	useEffect(() => {
-		if (products?.count) {
+		if (products.count) {
 			setTotal(products.count);
 		}
 	}, [products]);
@@ -91,7 +92,7 @@ const Gallery = () => {
 						setActive={() => setDropdown('sorting')}
 					/>
 				</div>
-				{products?.items.length ? (
+				{products.items.length ? (
 					<div className={`${styles.models}`}>
 						{products.items.map((product) => (
 							<Item key={product.id} product={product} />
@@ -104,7 +105,7 @@ const Gallery = () => {
 				)}
 				<div className={`${styles.pagination}`}>
 					<Pagination
-						total={products?.count ?? 0}
+						total={products.count ?? 0}
 						limit={limit}
 						page={page}
 						onPageChange={handlePageChange}
