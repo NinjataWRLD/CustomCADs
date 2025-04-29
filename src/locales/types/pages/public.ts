@@ -66,6 +66,36 @@ export type PagesPublicHome = {
 	'card-desc-3_delivery': string;
 };
 
+export type PagesPublicServicesInfo = {
+	title: string;
+	subTitle: string;
+	serviceTitle1: string;
+	serviceDetails1: string;
+	serviceRoles1: string;
+	serviceButtonText1: string;
+	serviceTitle2: string;
+	serviceDetails2: string;
+	serviceRoles2: string;
+	serviceButtonText2: string;
+	serviceTitle3: string;
+	serviceDetails3: string;
+	serviceRoles3: string;
+	serviceButtonText3: string;
+	serviceTitle4: string;
+	serviceDetails4: string;
+	serviceRoles4: string;
+	serviceButtonText4: string;
+	serviceTitle5: string;
+	serviceDetails5: string;
+	serviceRoles5: string;
+	serviceButtonText5: string;
+	serviceTitle6: string;
+	serviceDetails6: string;
+	serviceRoles6: string;
+	serviceButtonText6: string;
+	helperText: string;
+};
+
 export type PagesPublicProduct = {
 	category: string;
 	creator: string;

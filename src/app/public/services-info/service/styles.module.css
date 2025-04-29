@@ -1,0 +1,85 @@
+.service {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 6px 15px hsla(260, 54%, 45%, 0.1);
+    padding: 35px 25px;
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+    overflow: hidden;
+    border-top: 4px solid hsl(291, 64%, 42%);
+}
+
+.service:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 25px rgba(94, 53, 177, 0.2);
+    .circle {
+        background-color: rgba(63, 12, 72, 0.862);
+    }
+}
+
+.circle {
+    position: absolute;
+    bottom: -50px;
+    right: -40px;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background-color: rgba(63, 12, 72, 0.588);
+    z-index: 0;
+    transition: background-color 0.3s linear;
+}
+
+.text {
+    position: relative;
+    z-index: 1;
+    margin-bottom: 20px;
+}
+
+.title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #4a148c;
+    margin-bottom: 15px;
+}
+
+.details {
+    font-size: 1rem;
+    color: #6a1b9a;
+    line-height: 1.6;
+    opacity: 0.9;
+}
+
+.role {
+    font-size: 1rem;
+    color: #9a1b96;
+    line-height: 1.6;
+    opacity: 0.9;
+    margin-top: 10px;
+}
+
+.role span {
+    font-weight: bold;
+}
+
+.btn {
+    position: relative;
+    align-self: flex-start;
+}
+
+.icon {
+    font-size: 2.5rem;
+    color: hsl(0, 0%, 100%);
+    margin-bottom: 25px;
+    position: absolute;
+    width: 50px;
+    aspect-ratio: 1/1;
+    top: 40%;
+    left: 40%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}

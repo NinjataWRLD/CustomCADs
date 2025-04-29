@@ -15,6 +15,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { Route as rootRoute } from './routes/__root'
 import { Route as GuestImport } from './routes/_guest'
 import { Route as PublicIndexImport } from './routes/_public/index'
+import { Route as PublicServicesInfoImport } from './routes/_public/services-info'
 import { Route as PublicPrivacyPolicyImport } from './routes/_public/privacy-policy'
 import { Route as PublicCartImport } from './routes/_public/cart'
 import { Route as GuestResetPasswordImport } from './routes/_guest/reset-password'
@@ -47,6 +48,12 @@ const GuestRoute = GuestImport.update({
 const PublicIndexRoute = PublicIndexImport.update({
   id: '/_public/',
   path: '/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const PublicServicesInfoRoute = PublicServicesInfoImport.update({
+  id: '/_public/services-info',
+  path: '/services-info',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -182,6 +189,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicPrivacyPolicyImport
       parentRoute: typeof rootRoute
     }
+    '/_public/services-info': {
+      id: '/_public/services-info'
+      path: '/services-info'
+      fullPath: '/services-info'
+      preLoaderRoute: typeof PublicServicesInfoImport
+      parentRoute: typeof rootRoute
+    }
     '/_public/': {
       id: '/_public/'
       path: '/'
@@ -285,6 +299,7 @@ export interface FileRoutesByFullPath {
   '/reset-password': typeof GuestResetPasswordRoute
   '/cart': typeof PublicCartRoute
   '/privacy-policy': typeof PublicPrivacyPolicyRoute
+  '/services-info': typeof PublicServicesInfoRoute
   '/upload-product': typeof privateCreatorUploadProductRoute
   '/register/$role': typeof GuestRegisterRoleRoute
   '/editor/$id': typeof PublicEditorIdRoute
@@ -301,6 +316,7 @@ export interface FileRoutesByTo {
   '/reset-password': typeof GuestResetPasswordRoute
   '/cart': typeof PublicCartRoute
   '/privacy-policy': typeof PublicPrivacyPolicyRoute
+  '/services-info': typeof PublicServicesInfoRoute
   '/upload-product': typeof privateCreatorUploadProductRoute
   '/register/$role': typeof GuestRegisterRoleRoute
   '/editor/$id': typeof PublicEditorIdRoute
@@ -319,6 +335,7 @@ export interface FileRoutesById {
   '/_guest/reset-password': typeof GuestResetPasswordRoute
   '/_public/cart': typeof PublicCartRoute
   '/_public/privacy-policy': typeof PublicPrivacyPolicyRoute
+  '/_public/services-info': typeof PublicServicesInfoRoute
   '/_public/': typeof PublicIndexRoute
   '/(private)/_creator/upload-product': typeof privateCreatorUploadProductRoute
   '/_guest/register/$role': typeof GuestRegisterRoleRoute
@@ -338,6 +355,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/cart'
     | '/privacy-policy'
+    | '/services-info'
     | '/upload-product'
     | '/register/$role'
     | '/editor/$id'
@@ -353,6 +371,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/cart'
     | '/privacy-policy'
+    | '/services-info'
     | '/upload-product'
     | '/register/$role'
     | '/editor/$id'
@@ -369,6 +388,7 @@ export interface FileRouteTypes {
     | '/_guest/reset-password'
     | '/_public/cart'
     | '/_public/privacy-policy'
+    | '/_public/services-info'
     | '/_public/'
     | '/(private)/_creator/upload-product'
     | '/_guest/register/$role'
@@ -384,6 +404,7 @@ export interface RootRouteChildren {
   privateRoute: typeof privateRouteWithChildren
   PublicCartRoute: typeof PublicCartRoute
   PublicPrivacyPolicyRoute: typeof PublicPrivacyPolicyRoute
+  PublicServicesInfoRoute: typeof PublicServicesInfoRoute
   PublicIndexRoute: typeof PublicIndexRoute
   PublicEditorIdRoute: typeof PublicEditorIdRoute
   PublicGalleryIdRoute: typeof PublicGalleryIdRoute
@@ -395,6 +416,7 @@ const rootRouteChildren: RootRouteChildren = {
   privateRoute: privateRouteWithChildren,
   PublicCartRoute: PublicCartRoute,
   PublicPrivacyPolicyRoute: PublicPrivacyPolicyRoute,
+  PublicServicesInfoRoute: PublicServicesInfoRoute,
   PublicIndexRoute: PublicIndexRoute,
   PublicEditorIdRoute: PublicEditorIdRoute,
   PublicGalleryIdRoute: PublicGalleryIdRoute,
@@ -415,6 +437,7 @@ export const routeTree = rootRoute
         "/(private)",
         "/_public/cart",
         "/_public/privacy-policy",
+        "/_public/services-info",
         "/_public/",
         "/_public/editor/$id",
         "/_public/gallery/$id",
@@ -461,6 +484,9 @@ export const routeTree = rootRoute
     },
     "/_public/privacy-policy": {
       "filePath": "_public/privacy-policy.tsx"
+    },
+    "/_public/services-info": {
+      "filePath": "_public/services-info.tsx"
     },
     "/_public/": {
       "filePath": "_public/index.tsx"

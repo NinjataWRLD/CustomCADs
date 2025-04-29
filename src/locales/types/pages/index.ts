@@ -11,6 +11,7 @@ import {
 	PagesPublicEditor,
 	PagesPublicHome,
 	PagesPublicProduct,
+	PagesPublicServicesInfo,
 } from './public';
 
 export type PagesTranslations = {
@@ -24,4 +25,5 @@ export type PagesTranslations = {
 	'pages.public.editor': PagesPublicEditor;
 	'pages.public.home': PagesPublicHome;
 	'pages.public.product': PagesPublicProduct;
+	'pages.public.services': PagesPublicServicesInfo;
 };
