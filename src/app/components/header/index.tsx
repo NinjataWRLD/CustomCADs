@@ -5,6 +5,7 @@ import {
 	faShoppingCart,
 	faSignInAlt,
 	faGlobe,
+	faTools,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useAuthStore } from '@/hooks/stores/useAuthStore';
@@ -55,11 +56,19 @@ const Header = () => {
 				{!is.guest ? (
 					<SettingsButton />
 				) : (
-					<BaseButton
-						label={tHeader('icon-3')}
-						link='/login'
-						icon={faSignInAlt}
-					/>
+					<>
+						<BaseButton
+							label={tHeader('icon-3')}
+							link='/login'
+							icon={faSignInAlt}
+						/>
+						<span>|</span>
+						<BaseButton
+							label={tHeader('icon-6')}
+							link='/services-info'
+							icon={faTools}
+						/>
+					</>
 				)}
 				<span>|</span>
 				<div
