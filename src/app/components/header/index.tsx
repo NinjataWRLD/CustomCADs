@@ -3,7 +3,6 @@ import {
 	faImage,
 	faShoppingCart,
 	faSignInAlt,
-	faGlobe,
 	faTools,
 } from '@fortawesome/free-solid-svg-icons';
 import { useAuthStore } from '@/hooks/stores/useAuthStore';

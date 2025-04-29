@@ -1,13 +1,15 @@
-import { ReactNode } from '@tanstack/react-router';
+import { IconDefinition } from '@fortawesome/fontawesome-common-types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useServicesTranslation } from '@/hooks/locales/pages/public';
+import Button from '@/app/components/button';
 import styles from './styles.module.css';
 
 interface ServiceProps {
 	title: string;
 	details: string;
 	role: string;
-	icon: ReactNode;
-	button: ReactNode;
+	icon: IconDefinition;
+	button: string;
 }
 
 const Service = ({ title, details, role, icon, button }: ServiceProps) => {
@@ -15,7 +17,9 @@ const Service = ({ title, details, role, icon, button }: ServiceProps) => {
 
 	return (
 		<div className={`${styles.service}`}>
-			<div className={`${styles.circle}`}>{icon}</div>
+			<div className={`${styles.circle}`}>
+				<FontAwesomeIcon className={styles.icon} icon={icon} />
+			</div>
 
 			<div className={`${styles.text}`}>
 				<div className={`${styles.title}`}>{title}</div>
@@ -24,7 +28,9 @@ const Service = ({ title, details, role, icon, button }: ServiceProps) => {
 					{tServices('helperText')} <span>{role}</span>
 				</div>
 			</div>
-			<div className={`${styles.btn}`}>{button}</div>
+			<div className={`${styles.btn}`}>
+				<Button type='button' text={button} />
+			</div>
 		</div>
 	);
 };
