@@ -17,6 +17,9 @@ let config: UserConfig = {
 			'@': path.resolve(__dirname, './src'),
 		},
 	},
+	build: {
+		assetsInlineLimit: 0,
+	},
 	test: {
 		globals: true,
 		environment: 'jsdom',
