@@ -60,7 +60,9 @@ const Gallery = () => {
 							});
 						}}
 						isActive={dropdown === 'categories'}
-						setActive={() => setDropdown('categories')}
+						setActive={(active) =>
+							setDropdown(active ? 'categories' : undefined)
+						}
 					/>
 					<Searchbar
 						placeholder={tPlaceholders('search-products')}
@@ -89,7 +91,9 @@ const Gallery = () => {
 							});
 						}}
 						isActive={dropdown === 'sorting'}
-						setActive={() => setDropdown('sorting')}
+						setActive={(active) =>
+							setDropdown(active ? 'sorting' : undefined)
+						}
 					/>
 				</div>
 				{products.items.length ? (
