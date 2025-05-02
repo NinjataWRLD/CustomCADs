@@ -2,13 +2,27 @@ import { useRef, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGlobe } from '@fortawesome/free-solid-svg-icons';
 import { useHeaderTranslation } from '@/hooks/locales/components/layout';
-import Menu from './menu';
-import styles from './styles.module.css';
+import LanguageMenu from './menu';
+import styles from '../styles.module.css';
 
 const Language = () => {
 	const tHeader = useHeaderTranslation();
-	const [showLangMenu, setShowLangMenu] = useState(false);
+	const [isMenuVisible, setIsMenuVisible] = useState(false);
+	const [isMounted, setIsMounted] = useState(false);
 	const langRef = useRef<HTMLDivElement>(null);
+
+	const openMenu = () => {
+		setIsMounted((prev) => !prev);
+		setIsMenuVisible(true);
+	};
+
+	const closeMenu = () => {
+		setIsMenuVisible(false);
+	};
+
+	const handleExited = () => {
+		setIsMounted(false);
+	};
 
 	return (
 		<>
@@ -17,7 +31,7 @@ const Language = () => {
 				data-tooltip={tHeader('icon-5')}
 				ref={langRef}
 			>
-				<div onClick={() => setShowLangMenu((prev) => !prev)}>
+				<div onClick={openMenu}>
 					<FontAwesomeIcon
 						icon={faGlobe}
 						size='2x'
@@ -25,11 +39,12 @@ const Language = () => {
 						style={{ cursor: 'pointer' }}
 					/>
 				</div>
-				{showLangMenu && (
-					<>
-						<div className={styles.blur}></div>
-						<Menu closeMenu={() => setShowLangMenu(false)} />
-					</>
+				{isMounted && (
+					<LanguageMenu
+						isVisible={isMenuVisible}
+						closeMenu={closeMenu}
+						onExited={handleExited}
+					/>
 				)}
 			</div>
 		</>
