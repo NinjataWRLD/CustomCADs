@@ -1,6 +1,7 @@
 /// <reference types="vitest/config" />
 import { defineConfig, UserConfig } from 'vite';
 import { TanStackRouterVite } from '@tanstack/router-plugin/vite';
+import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 import fs from 'fs';
@@ -11,6 +12,7 @@ let config: UserConfig = {
 	plugins: [
 		TanStackRouterVite({ target: 'react', autoCodeSplitting: true }),
 		react(),
+		tailwindcss(),
 	],
 	resolve: {
 		alias: {
