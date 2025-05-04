@@ -1,5 +1,8 @@
 import { PagesCreatorUploadProduct } from './creator';
-import { PagesCustomerShipmentForm } from './customer';
+import {
+	PagesCustomerShipmentForm,
+	PagesCustomerCheckoutForm,
+} from './customer';
 import {
 	PagesGuestForgotPassword,
 	PagesGuestLogin,
@@ -17,6 +20,7 @@ import {
 
 export type PagesTranslations = {
 	'pages.customer.shipment-form': PagesCustomerShipmentForm;
+	'pages.customer.checkout-form': PagesCustomerCheckoutForm;
 	'pages.creator.upload-product': PagesCreatorUploadProduct;
 	'pages.guest.forgot-password': PagesGuestForgotPassword;
 	'pages.guest.login': PagesGuestLogin;
