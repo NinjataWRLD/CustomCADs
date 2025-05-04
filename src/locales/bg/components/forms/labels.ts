@@ -15,4 +15,8 @@ export default {
 	price: 'Цена',
 	image: 'Изображение',
 	cad: 'Модел',
+	country: 'Държава',
+	city: 'Град',
+	phone: 'Телефон',
+	count: 'Бройка',
 } satisfies ComponentsFormsLabels;

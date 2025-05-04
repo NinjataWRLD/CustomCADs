@@ -15,4 +15,8 @@ export default {
 	price: 'Price',
 	image: 'Image',
 	cad: 'Cad',
+	country: 'Country',
+	city: 'City',
+	phone: 'Phone',
+	count: 'Count',
 } satisfies ComponentsFormsLabels;

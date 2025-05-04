@@ -26,4 +26,8 @@ export type ComponentsFormsLabels = {
 	price: string;
 	image: string;
 	cad: string;
+	country: string;
+	city: string;
+	phone: string;
+	count: string;
 };
