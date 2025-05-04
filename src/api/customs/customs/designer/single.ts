@@ -1,4 +1,9 @@
-import { CUSTOMS_DESIGNER_BASE_PATH } from '@/api/customs/common';
+import {
+	AcceptedCustomDto,
+	CompletedCustomDto,
+	FinishedCustomDto,
+	CUSTOMS_DESIGNER_BASE_PATH,
+} from '@/api/customs/common';
 
 export interface Request {
 	id: string;
@@ -10,8 +15,11 @@ export interface Response {
 	description: string;
 	orderedAt: string;
 	status: string;
-	delivery: boolean;
+	forDelivery: boolean;
 	buyerName: string;
+	accepted?: AcceptedCustomDto;
+	finished?: FinishedCustomDto;
+	completed?: CompletedCustomDto;
 }
 
 export const url = (req: Request) => `${CUSTOMS_DESIGNER_BASE_PATH}/${req.id}`;

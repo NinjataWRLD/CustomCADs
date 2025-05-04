@@ -16,11 +16,15 @@ export const create = async (req: createResources.Request) =>
 	await axios.post<createResources.Response>(createResources.url(), req);
 
 export const purchase = async (req: purchaseResources.Request) =>
-	await axios.post(purchaseResources.url(), req);
+	await axios.post<purchaseResources.Response>(purchaseResources.url(), req);
 
 export const purchaseWithDelivery = async (
 	req: purchaseWithDeliveryResources.Request,
-) => await axios.post(purchaseWithDeliveryResources.url(), req);
+) =>
+	await axios.post<purchaseWithDeliveryResources.Response>(
+		purchaseWithDeliveryResources.url(),
+		req,
+	);
 
 export const download = async (req: downloadResources.Request) =>
 	await axios.post<downloadResources.Response>(downloadResources.url(), req);
