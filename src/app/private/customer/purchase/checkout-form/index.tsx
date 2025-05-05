@@ -7,7 +7,7 @@ import { useCheckout } from './hooks/useCheckout';
 
 interface CheckoutFormProps {
 	onSubmit: (req: payment.Request) => Promise<payment.Response>;
-	back: () => void; // TODO: add 'back' link
+	back?: VoidFunction; // TODO: add 'back' link
 	details?: BillingDetails;
 }
 const CheckoutForm = ({ onSubmit, details }: CheckoutFormProps) => {
