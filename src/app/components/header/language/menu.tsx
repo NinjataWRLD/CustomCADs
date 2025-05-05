@@ -4,8 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faCheck } from '@fortawesome/free-solid-svg-icons';
 import gbFlag from '@/assets/images/flags/gb.svg';
 import bgFlag from '@/assets/images/flags/bg.svg';
-import styles from './styles.module.css';
 import { useEffect, useState, useRef } from 'react';
+import clsx from 'clsx';
 
 type LanguageMenuProps = {
 	closeMenu: () => void;
@@ -43,7 +43,6 @@ const LanguageMenu = ({
 				setAnimationState('visible');
 			}, 50);
 		}
-
 		return () => {
 			if (timeoutRef.current) clearTimeout(timeoutRef.current);
 		};
@@ -64,7 +63,6 @@ const LanguageMenu = ({
 		const handleEscape = (e: KeyboardEvent) => {
 			if (e.key === 'Escape') handleClose();
 		};
-
 		document.addEventListener('keydown', handleEscape);
 		return () => document.removeEventListener('keydown', handleEscape);
 	}, []);
@@ -72,11 +70,9 @@ const LanguageMenu = ({
 	useEffect(() => {
 		const handleClickOutside = (e: MouseEvent) => {
 			const target = e.target as Node;
-			const menuElement = document.querySelector(
-				`.${styles['language-menu']}`,
-			);
-			const iconWrapper = document.querySelector(
-				`.${styles['icon-wrapper']}`,
+			const menuElement = document.getElementById('language-menu');
+			const iconWrapper = document.getElementById(
+				'language-icon-wrapper',
 			);
 
 			if (
@@ -94,64 +90,82 @@ const LanguageMenu = ({
 			document.removeEventListener('mousedown', handleClickOutside);
 	}, []);
 
-	const getAnimationClass = () => {
-		switch (animationState) {
-			case 'entering':
-				return styles.entering;
-			case 'visible':
-				return styles.visible;
-			case 'exiting':
-				return styles.exiting;
-			default:
-				return '';
-		}
+	const animationClasses = {
+		entering: 'translate-x-full opacity-0',
+		visible: 'translate-x-0 opacity-100',
+		exiting: 'translate-x-full opacity-0',
 	};
 
 	return (
-		<aside className={`${styles['language-menu']} ${getAnimationClass()}`}>
+		<aside
+			id='language-menu'
+			className={clsx(
+				'fixed top-[10%] right-0 z-[1000] h-[80dvh] w-[300px] max-w-full rounded-tl-[30px] rounded-bl-[30px] bg-white p-6 shadow-[–2px_0_10px_rgba(0,0,0,0.15)] transition-all duration-300 ease-in-out flex flex-col',
+				'pointer-events-auto',
+				animationClasses[animationState],
+			)}
+		>
 			<div
-				className={styles.close}
+				className='absolute top-5 right-5 text-gray-600 cursor-pointer hover:text-gray-800 text-xl'
 				onClick={handleClose}
 				aria-label='Close menu'
 			>
 				<FontAwesomeIcon icon={faTimes} />
 			</div>
-			<h3>{tHeader('choose-language')}</h3>
-			<section className={styles['language-container']}>
+			<h3 className='text-xl font-semibold text-gray-800 mt-5 mb-8'>
+				{tHeader('choose-language')}
+			</h3>
+			<section className='flex flex-col gap-4'>
 				<div
 					onClick={() => handleLanguageChange('en')}
-					className={i18n.language === 'en' ? styles.active : ''}
+					className={clsx(
+						'flex items-center px-4 py-3 rounded-lg cursor-pointer transition-colors relative',
+						i18n.language === 'en'
+							? 'bg-blue-50 border border-blue-100'
+							: 'hover:bg-gray-100',
+					)}
 				>
 					<img
 						src={gbFlag}
 						width={50}
 						height={50}
 						alt='English flag'
+						className='rounded-full object-cover shadow'
 					/>
-					<span>{tHeader('english')}</span>
+					<span className='ml-4 text-[1.1rem] text-gray-700 font-medium flex-grow'>
+						{tHeader('english')}
+					</span>
 					{i18n.language === 'en' && (
 						<FontAwesomeIcon
 							icon={faCheck}
-							className={styles.checkmark}
+							className='text-blue-500 ml-auto text-sm'
 						/>
 					)}
 				</div>
-				<hr />
+				<hr className='border-none h-px bg-gray-200 my-2' />
 				<div
 					onClick={() => handleLanguageChange('bg')}
-					className={i18n.language === 'bg' ? styles.active : ''}
+					className={clsx(
+						'flex items-center px-4 py-3 rounded-lg cursor-pointer transition-colors relative',
+						i18n.language === 'bg'
+							? 'bg-blue-50 border border-blue-100'
+							: 'hover:bg-gray-100',
+					)}
 				>
 					<img
 						src={bgFlag}
 						width={50}
 						height={50}
 						alt='Bulgarian flag'
+						className='rounded-full object-cover shadow'
 					/>
-					<span>{tHeader('bulgarian')}</span>
+					<span className='ml-4 text-[1.1rem] text-gray-700 font-medium flex-grow'>
+						{tHeader('bulgarian')}
+					</span>
 					{i18n.language === 'bg' && (
 						<FontAwesomeIcon
 							icon={faCheck}
-							className={styles.checkmark}
+							className='text-blue-500 ml-auto text-sm'
 						/>
 					)}
 				</div>

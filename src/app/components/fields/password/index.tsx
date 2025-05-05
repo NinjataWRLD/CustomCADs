@@ -2,8 +2,7 @@ import { useState } from 'react';
 import { AnyFieldApi } from '@tanstack/react-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import Field, { getErrorClass } from '..';
-import styles from '../styles.module.css';
+import Field from '..';
 
 interface PasswordFieldProps {
 	api: AnyFieldApi;
@@ -13,13 +12,16 @@ interface PasswordFieldProps {
 
 const PasswordField = ({ api, label, placeholder }: PasswordFieldProps) => {
 	const [isVisible, setIsVisible] = useState(false);
-	const toggleVisibility = () => {
-		setIsVisible((prev) => !prev);
-	};
+	const toggleVisibility = () => setIsVisible((prev) => !prev);
 
 	const { isBlurred, isTouched, errors } = api.state.meta;
 	const showError = isBlurred && isTouched;
 	const hasError = !!errors.length;
+
+	const inputClass = `
+		w-full px-3 py-2 border rounded
+		${showError && hasError ? 'border-red-500 bg-red-100 text-black' : 'border-gray-300'}
+	`;
 
 	return (
 		<Field
@@ -27,7 +29,7 @@ const PasswordField = ({ api, label, placeholder }: PasswordFieldProps) => {
 			api={api}
 			label={label}
 			field={
-				<div className={styles['password-wrapper']}>
+				<div className='flex flex-col w-full mr-[25px] relative'>
 					<input
 						type={isVisible ? 'text' : 'password'}
 						id={api.name}
@@ -36,14 +38,15 @@ const PasswordField = ({ api, label, placeholder }: PasswordFieldProps) => {
 						onBlur={api.handleBlur}
 						onChange={(e) => api.handleChange(e.target.value)}
 						placeholder={placeholder}
-						className={getErrorClass(showError && hasError)}
+						className={inputClass}
 					/>
-					<span onClick={toggleVisibility} className={styles.eye}>
-						{isVisible ? (
-							<FontAwesomeIcon icon={faEye} />
-						) : (
-							<FontAwesomeIcon icon={faEyeSlash} />
-						)}
+					<span
+						onClick={toggleVisibility}
+						className='absolute right-[5px] top-1/2 -translate-y-1/2 cursor-pointer text-[10px]'
+					>
+						<FontAwesomeIcon
+							icon={isVisible ? faEye : faEyeSlash}
+						/>
 					</span>
 				</div>
 			}

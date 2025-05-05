@@ -1,5 +1,3 @@
-import styles from './styles.module.css';
-
 interface ButtonProps {
 	type: 'button' | 'submit';
 	text: string;
@@ -11,21 +9,40 @@ const Button = ({ text, type, disabled, onClick }: ButtonProps) => {
 	switch (type) {
 		case 'button':
 			return (
-				<div className={`${styles.link}`} onClick={onClick}>
-					<div className={`${styles.button}`}>{text}</div>
-					<div className={`${styles['button-gradient']}`}></div>
+				<div
+					className='text-center text-white relative inline-block no-underline cursor-pointer'
+					onClick={onClick}
+				>
+					<div className='font-bold bg-[hsla(271,42%,54%,0.358)] backdrop-blur-[10px] no-underline text-inherit relative z-10 px-6 py-3 rounded-[2em] scale-110 transition-transform transition-shadow ease-in-out duration-200 hover:translate-y-2.5 hover:shadow-[-10px_0_50px_hsl(270,30%,40%),10px_0_50px_hsl(250,10%,18%)] active:translate-y-[5px] text-[1.05rem]'>
+						{text}
+					</div>
+					<div
+						className='absolute z-[9] shadow-[5px_0_10px_hsl(270,30%,40%),5px_0_10px_hsl(250,10%,18%)] translate-y-2.5 rounded-[2em] inset-0'
+						style={{
+							background:
+								'linear-gradient(20deg, hsl(270, 30%, 40%), hsl(289, 88%, 19%))',
+						}}
+					></div>
 				</div>
 			);
 		case 'submit':
 			return (
 				<button
 					type='submit'
-					className={`${styles.link} ${styles[`button-wrapper`]}`}
+					className='text-center text-white relative inline-block no-underline cursor-pointer bg-transparent border-none'
 					onClick={onClick}
 					disabled={disabled}
 				>
-					<div className={`${styles.button}`}>{text}</div>
-					<div className={`${styles['button-gradient']}`}></div>
+					<div className='font-bold bg-[hsla(271,42%,54%,0.358)] backdrop-blur-[10px] no-underline text-inherit relative z-10 px-6 py-3 rounded-[2em] scale-110 transition-transform transition-shadow ease-in-out duration-200 hover:translate-y-2.5 hover:shadow-[-10px_0_50px_hsl(270,30%,40%),10px_0_50px_hsl(250,10%,18%)] active:translate-y-[5px] text-[1.05rem]'>
+						{text}
+					</div>
+					<div
+						className='absolute z-[9] shadow-[5px_0_10px_hsl(270,30%,40%),5px_0_10px_hsl(250,10%,18%)] translate-y-2.5 rounded-[2em] inset-0'
+						style={{
+							background:
+								'linear-gradient(20deg, hsl(270, 30%, 40%), hsl(289, 88%, 19%))',
+						}}
+					></div>
 				</button>
 			);
 		default:

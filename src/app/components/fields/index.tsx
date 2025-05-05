@@ -1,9 +1,10 @@
 import { HTMLInputTypeAttribute, ReactNode } from 'react';
 import type { AnyFieldApi } from '@tanstack/react-form';
-import styles from './styles.module.css';
 
 export const getErrorClass = (hasError: boolean) =>
-	hasError ? styles.invalid : '';
+	hasError
+		? 'border border-red-500 bg-red-100 text-black'
+		: 'border border-gray-300';
 
 type Common = {
 	api: AnyFieldApi;
@@ -35,15 +36,16 @@ type Custom = {
 };
 
 type FieldProps = Common & (Input | TextArea | Select | Custom);
+
 const Field = (props: FieldProps) => {
 	const { api, label, format } = props;
-
 	const {
 		name,
 		state: { value, meta },
 		handleBlur,
 	} = api;
-	if (value === undefined) return;
+
+	if (value === undefined) return null;
 
 	const handleChange = (value: string) =>
 		api.handleChange(format ? format(value) : value);
@@ -51,6 +53,9 @@ const Field = (props: FieldProps) => {
 	const dirty = props.showErrorWhenDirty ? meta.isDirty : true;
 	const showError = meta.isBlurred && meta.isTouched && dirty;
 	const hasError = !!meta.errors.length;
+
+	const baseInputClass =
+		'w-full px-3 py-2 rounded focus:outline-none focus:ring focus:ring-purple-300';
 
 	let input;
 	switch (props.tag) {
@@ -64,7 +69,7 @@ const Field = (props: FieldProps) => {
 					onBlur={handleBlur}
 					onChange={(e) => handleChange(e.target.value)}
 					placeholder={props.placeholder}
-					className={getErrorClass(showError && hasError)}
+					className={`${baseInputClass} ${getErrorClass(showError && hasError)}`}
 				/>
 			);
 			break;
@@ -77,7 +82,7 @@ const Field = (props: FieldProps) => {
 					onBlur={handleBlur}
 					onChange={(e) => handleChange(e.target.value)}
 					placeholder={props.placeholder}
-					className={getErrorClass(showError && hasError)}
+					className={`${baseInputClass} ${getErrorClass(showError && hasError)}`}
 				/>
 			);
 			break;
@@ -89,7 +94,7 @@ const Field = (props: FieldProps) => {
 					value={value}
 					onBlur={handleBlur}
 					onChange={(e) => handleChange(e.target.value)}
-					className={getErrorClass(showError && hasError)}
+					className={`${baseInputClass} ${getErrorClass(showError && hasError)}`}
 				>
 					{props.options}
 				</select>
@@ -104,14 +109,14 @@ const Field = (props: FieldProps) => {
 
 	return (
 		<>
-			<label>{label}</label>
-			<div className={styles['input-wrapper']}>
+			<label className='block mb-1 font-medium'>{label}</label>
+			<div className='relative w-full'>
 				{input}
-				{showError && hasError ? (
-					<small className={styles.error}>
+				{showError && hasError && (
+					<small className='absolute top-full right-0 text-red-500 text-[0.85rem] mt-0.5 whitespace-nowrap'>
 						{meta.errors[0].message}
 					</small>
-				) : null}
+				)}
 			</div>
 		</>
 	);

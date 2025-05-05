@@ -8,7 +8,6 @@ import {
 import { useTextures } from '@/hooks/threejs/useTextures';
 import { getCadType } from '@/utils/get-cad-type';
 import EditorThreeJS from './threejs';
-import styles from '../styles.module.css';
 
 interface EditorCadProps {
 	id: string;
@@ -28,7 +27,7 @@ const EditorCad = ({ id }: EditorCadProps) => {
 	const { camCoordinates: cam, panCoordinates: pan } = product;
 
 	return (
-		<div className={styles.container}>
+		<div className='h-full w-full'>
 			<EditorThreeJS
 				file={{ url: cadBlobUrl, type: getCadType(cad.contentType) }}
 				coords={{ cam, pan }}
