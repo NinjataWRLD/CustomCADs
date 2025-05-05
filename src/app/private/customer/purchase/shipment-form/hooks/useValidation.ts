@@ -16,6 +16,9 @@ export const useValidation = () => {
 	const cityArgs = {
 		field: tLabels('city'),
 	};
+	const serviceArgs = {
+		field: tLabels('shipment-service'),
+	};
 	const emailArgs = {
 		field: tLabels('email'),
 		regex: email.regex,
@@ -35,6 +38,9 @@ export const useValidation = () => {
 			.string()
 			.nonempty({ message: tErrors('required', countryArgs) }),
 		city: z.string().nonempty({ message: tErrors('required', cityArgs) }),
+		service: z
+			.string()
+			.nonempty({ message: tErrors('required', serviceArgs) }),
 		email: z
 			.string()
 			.nonempty({ message: tErrors('required', emailArgs) })

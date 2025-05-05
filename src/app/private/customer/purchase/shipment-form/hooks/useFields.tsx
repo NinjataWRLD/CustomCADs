@@ -1,15 +1,29 @@
+import { useStore } from '@tanstack/react-store';
+import { useCalculateActiveCartShipment } from '@/hooks/queries/active-carts';
 import { usePlaceholdersTranslation } from '@/hooks/locales/common/messages';
 import { useLabelsTranslation } from '@/hooks/locales/components/forms';
 import Field from '@/app/components/fields';
+import ShipmentService from '../service';
 import { Fields, useForm } from './useForm';
 
 export const useFields = (onSubmit: (values: Fields) => void) => {
 	const { form, handleSubmit } = useForm(onSubmit);
+	const { country, city } = useStore(form.store, ({ values }) => ({
+		country: values.country,
+		city: values.city,
+	}));
+	const resetCity = () => form.setFieldValue('city', '');
+
+	const { data: calculations } = useCalculateActiveCartShipment(
+		{ country, city },
+		!!city && !!country,
+	);
+
 	const tPlaceholders = usePlaceholdersTranslation();
 	const tLabels = useLabelsTranslation();
 
 	const CountryField = (
-		<form.Field name='country'>
+		<form.Field name='country' listeners={{ onChange: () => resetCity() }}>
 			{(api) => (
 				<Field
 					tag='input'
@@ -30,6 +44,25 @@ export const useFields = (onSubmit: (values: Fields) => void) => {
 					label={tLabels('city')}
 					type='text'
 					placeholder={tPlaceholders('city')}
+				/>
+			)}
+		</form.Field>
+	);
+	const ServiceField = (
+		<form.Field name='service'>
+			{(api) => (
+				<Field
+					tag='select'
+					api={api}
+					label={tLabels('shipment-service')}
+					options={
+						<>
+							<option>{'Select a Service'}</option>
+							{calculations?.map((calculation) => (
+								<ShipmentService calculation={calculation} />
+							))}
+						</>
+					}
 				/>
 			)}
 		</form.Field>
@@ -78,6 +111,7 @@ export const useFields = (onSubmit: (values: Fields) => void) => {
 		handleSubmit,
 		CountryField,
 		CityField,
+		ServiceField,
 		EmailField,
 		PhoneField,
 		CountField,

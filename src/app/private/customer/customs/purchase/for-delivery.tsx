@@ -18,6 +18,7 @@ const PurchaseCustomForDelivery = ({ id }: PurchaseCustomForDeliveryProps) => {
 		city: '',
 		country: '',
 		count: 0,
+		service: '',
 	});
 
 	if (step === 'shipment')
@@ -31,6 +32,7 @@ const PurchaseCustomForDelivery = ({ id }: PurchaseCustomForDeliveryProps) => {
 						city: values.city,
 						country: values.country,
 						count: values.count,
+						service: values.service,
 					});
 				}}
 				requestCount
@@ -46,10 +48,11 @@ const PurchaseCustomForDelivery = ({ id }: PurchaseCustomForDeliveryProps) => {
 					address: details,
 					contact: details,
 					count: details.count,
+					shipmentService: details.service,
 					customizationId: '',
-					shipmentService: '',
 				})
 			}
+			back={() => setStep('shipment')}
 		/>
 	);
 };

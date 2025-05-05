@@ -14,6 +14,7 @@ const PurchaseCartForDelivery = () => {
 		phone: '',
 		city: '',
 		country: '',
+		service: '',
 	});
 
 	if (step === 'shipment')
@@ -26,6 +27,7 @@ const PurchaseCartForDelivery = () => {
 						phone: values.phone,
 						city: values.city,
 						country: values.country,
+						service: values.service,
 					});
 				}}
 			/>
@@ -38,9 +40,10 @@ const PurchaseCartForDelivery = () => {
 					...req,
 					address: details,
 					contact: details,
-					shipmentService: '',
+					shipmentService: details.service,
 				})
 			}
+			back={() => setStep('shipment')}
 		/>
 	);
 };

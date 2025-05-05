@@ -28,6 +28,7 @@ export type ComponentsFormsLabels = {
 	cad: string;
 	country: string;
 	city: string;
+	'shipment-service': string;
 	phone: string;
 	count: string;
 };

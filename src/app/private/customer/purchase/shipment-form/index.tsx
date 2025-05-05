@@ -31,6 +31,10 @@ const ShipmentForm = ({ onSubmit, requestCount }: ShipmentFormProps) => {
 					</div>
 
 					<div className={`${styles['form-field']}`}>
+						{fields.ServiceField}
+					</div>
+
+					<div className={`${styles['form-field']}`}>
 						{fields.EmailField}
 					</div>
 

@@ -5,6 +5,7 @@ import { FormEvent } from 'react';
 export interface Fields {
 	country: string;
 	city: string;
+	service: string;
 	email: string;
 	phone: string;
 	count: number;
@@ -12,6 +13,7 @@ export interface Fields {
 const defaultValues: Fields = {
 	country: '',
 	city: '',
+	service: '',
 	email: '',
 	phone: '',
 	count: 1,

@@ -17,6 +17,7 @@ export default {
 	cad: 'Модел',
 	country: 'Държава',
 	city: 'Град',
+	'shipment-service': 'Сервиз',
 	phone: 'Телефон',
 	count: 'Бройка',
 } satisfies ComponentsFormsLabels;

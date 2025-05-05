@@ -7,7 +7,7 @@ export interface Request {
 	city: string;
 }
 
-export type Response = Calculation;
+export type Response = Calculation[];
 
 export const url = (req: Request) =>
 	`${ACTIVE_CART_BASE_PATH}/calculate?${objectToSearchParams(req)}`;

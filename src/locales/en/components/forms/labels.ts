@@ -17,6 +17,7 @@ export default {
 	cad: 'Cad',
 	country: 'Country',
 	city: 'City',
+	'shipment-service': 'Service',
 	phone: 'Phone',
 	count: 'Count',
 } satisfies ComponentsFormsLabels;
