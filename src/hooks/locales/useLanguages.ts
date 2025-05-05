@@ -11,7 +11,13 @@ export const useLanguages = () => {
 		} else if (i18n.language !== language) {
 			i18n.changeLanguage(language);
 		}
-	}, [i18n]);
+	}, []);
+
+	useEffect(() => {
+		if (localStorage.getItem('language') !== i18n.language) {
+			localStorage.setItem('language', i18n.language);
+		}
+	}, [i18n.language]);
 
 	return i18n.language;
 };
