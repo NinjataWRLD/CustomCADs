@@ -22,8 +22,9 @@ const Setting = ({ label, link, icon, hide, onClick }: SettingProps) => {
 	return (
 		<div className='relative w-full group'>
 			<li
-				className='w-full px-4 py-2 cursor-pointer border-b border-purple-500 last:border-none hover:bg-gray-500/30 transition-colors duration-200'
 				onClick={handleClick}
+				className='flex items-center gap-3 w-[30%] px-4 py-3 cursor-pointer border-b border-purple-500 last:border-none 
+								text-white hover:bg-purple-700/20 rounded transition-all duration-200'
 			>
 				<FontAwesomeIcon
 					icon={icon}

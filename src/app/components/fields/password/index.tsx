@@ -4,6 +4,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import Field from '..';
 
+export const getErrorClass = (hasError: boolean) =>
+	hasError
+		? 'border border-red-500 bg-red-100 text-black'
+		: 'border border-gray-300';
+
 interface PasswordFieldProps {
 	api: AnyFieldApi;
 	label: string;
@@ -18,10 +23,13 @@ const PasswordField = ({ api, label, placeholder }: PasswordFieldProps) => {
 	const showError = isBlurred && isTouched;
 	const hasError = !!errors.length;
 
-	const inputClass = `
-		w-full px-3 py-2 border rounded
-		${showError && hasError ? 'border-red-500 bg-red-100 text-black' : 'border-gray-300'}
-	`;
+	const inputClass = `w-full p-2.5 
+						${showError && hasError ? 'text-black bg-red-100' : 'text-white bg-black'} 
+						border-2 rounded-[10px] outline-none 
+					    transition-colors duration-300 
+						focus:border-purple-500 focus:shadow-white/60 
+						font-['Ubuntu'] text-base border-gray-500
+						focus:outline-none focus:ring focus:ring-purple-300`;
 
 	return (
 		<Field
@@ -38,11 +46,11 @@ const PasswordField = ({ api, label, placeholder }: PasswordFieldProps) => {
 						onBlur={api.handleBlur}
 						onChange={(e) => api.handleChange(e.target.value)}
 						placeholder={placeholder}
-						className={inputClass}
+						className={`${inputClass} ${getErrorClass(showError && hasError)}`}
 					/>
 					<span
 						onClick={toggleVisibility}
-						className='absolute right-[5px] top-1/2 -translate-y-1/2 cursor-pointer text-[10px]'
+						className={`absolute right-[5px] top-1/2 -translate-y-1/2 cursor-pointer text-[0.8rem] ${showError && hasError ? 'text-black' : 'text-white'}`}
 					>
 						<FontAwesomeIcon
 							icon={isVisible ? faEye : faEyeSlash}

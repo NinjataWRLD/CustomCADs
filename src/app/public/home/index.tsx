@@ -68,10 +68,9 @@ const Home = () => {
 				className={`${styles.main} ${styles.section}`}
 			>
 				<Info />
-				<div className={styles.cover}></div>
 				<Figures />
 				<FiguresAnimation />
-				<Loader></Loader>
+				<div className={styles.cover}></div>
 			</section>
 
 			<section
