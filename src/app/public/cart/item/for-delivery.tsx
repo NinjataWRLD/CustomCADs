@@ -15,7 +15,6 @@ import * as editorStore from '@/stores/editor-store';
 import Checkbox from '@/app/components/fields/checkbox';
 import { CartItemForDelivery as Item } from '@/types/cart-item';
 import * as money from '@/utils/money';
-import styles from './styles.module.css';
 
 interface CartItemProps {
 	item: Item;
@@ -92,12 +91,22 @@ const CartItemForDelivery = ({ item, addTo, reset }: CartItemProps) => {
 	}
 
 	return (
-		<div className={styles.purchase}>
-			<div className={styles.content}>
-				<div className={styles.head}>
-					{isPrintable && (
-						<h2>
-							<div>
+		<div className='flex flex-col w-[90%] bg-[hsla(267,42%,10%,0.79)] overflow-hidden shadow-[0_4px_6px_rgba(0,0,0,0.1)] gap-4 relative p-[0.3rem] rounded-[1rem]'>
+			<div className='flex items-center gap-8 bg-[hsla(300,14%,15%,0.445)] text-[white] relative z-[1] p-4 rounded-2xl'>
+				<div className='flex flex-col items-center gap-2 w-[30%]'>
+					{blobUrl && (
+						<img
+							className='w-full aspect-[1/1] object-cover object-center rounded-[20%] border-[5px] border-solid border-[hsla(259,59%,70%,0.371)]'
+							src={blobUrl}
+							alt='Item Image'
+						/>
+					)}
+				</div>
+				<div className='flex flex-col gap-2 grow'>
+					<div className='w-full flex items-center justify-between'>
+						<h2 className='m-0'>{product.name}</h2>
+						{isPrintable && (
+							<div className='font-bold mr-[30%]'>
 								<Checkbox
 									id={item.productId}
 									label={tCart('delivery')}
@@ -105,53 +114,63 @@ const CartItemForDelivery = ({ item, addTo, reset }: CartItemProps) => {
 									checked
 								/>
 							</div>
-						</h2>
-					)}
-					{blobUrl && <img src={blobUrl} alt='Item Image' />}
-				</div>
-				<div className={styles.data}>
-					<h2>{product.name}</h2>
-					<p>{tCart('by', { by: product.creatorName })}</p>
-					<div className={styles.quantity}>
-						<FontAwesomeIcon
-							icon={faMinus}
-							onClick={decrementQuantity}
-						/>
-						<div className={styles.number}>{item.quantity}</div>
-						<FontAwesomeIcon
-							icon={faPlus}
-							onClick={incrementQuantity}
-						/>
+						)}
 					</div>
-					<button
-						className={styles.btn}
-						style={{ bottom: '10%' }}
-						onClick={() =>
-							navigate({
-								to: '/editor/$id',
-								params: { id: item.productId },
-							})
-						}
-					>
-						<span>{tCart('customize')}</span>
-					</button>
-					<p>
-						{tCart('product-price', {
-							price: money.format(
-								money.fromBase({ money: product.price }),
-							),
-						})}
-					</p>
-					<p>
-						{tCart('customization-cost', {
-							cost: money.format(
-								money.fromBase({ money: customization.cost }),
-							),
-						})}
-					</p>
-					<div className={styles.buttons}>
-						<button
-							className={styles.btn}
+					<div className='relative w-full flex items-center justify-between'>
+						<p>{tCart('by', { by: product.creatorName })}</p>
+						<div className='flex items-center gap-2 bg-[rgba(255,255,255,0.305)] text-[white] w-fit text-[1.2rem] px-4 py-2 rounded-[20px] mr-[11%]'>
+							<FontAwesomeIcon
+								icon={faMinus}
+								onClick={decrementQuantity}
+								className='text-[rgb(213,177,235)] cursor-pointer hover:text-gray'
+							/>
+							<div className='min-w-[20px] text-center'>
+								{item.quantity}
+							</div>
+							<FontAwesomeIcon
+								icon={faPlus}
+								onClick={incrementQuantity}
+								className='text-[rgb(213,177,235)] cursor-pointer hover:text-gray'
+							/>
+						</div>
+					</div>
+					<div className='relative w-full flex flex-col gap-4'>
+						<p className='m-0'>
+							{tCart('product-price', {
+								price: money.format(
+									money.fromBase({
+										money: product.price,
+									}),
+								),
+							})}
+						</p>
+						<p className='m-0'>
+							{tCart('customization-cost', {
+								cost: money.format(
+									money.fromBase({
+										money: customization.cost,
+									}),
+								),
+							})}
+						</p>
+					</div>
+					<div className='relative w-full flex flex-row items-center justify-start gap-2.5 mt-3'>
+						<div
+							className='relative overflow-hidden bg-purple-700 text-indigo-50 py-3.5 px-8 text-base font-bold tracking-wider rounded-full cursor-pointer w-fit transition-colors duration-400 group'
+							onClick={() =>
+								navigate({
+									to: '/editor/$id',
+									params: { id: item.productId },
+								})
+							}
+						>
+							<span className='relative z-10 transition-colors duration-400 text-white/75 group-hover:text-white'>
+								{tCart('customize')}
+							</span>
+							<div className='absolute top-0 -left-[10%] w-[120%] h-full bg-black skew-x-30 transform transition-transform duration-400 ease-out origin-left group-hover:translate-x-full z-0'></div>
+						</div>
+						<div
+							className='relative overflow-hidden bg-purple-700 text-indigo-50 py-3.5 px-8 text-base font-bold tracking-wider rounded-full cursor-pointer w-fit transition-colors duration-400 group'
 							onClick={() =>
 								navigate({
 									to: `/gallery/$id`,
@@ -159,17 +178,23 @@ const CartItemForDelivery = ({ item, addTo, reset }: CartItemProps) => {
 								})
 							}
 						>
-							<span>{tCart('view')}</span>
-						</button>
-						<button
-							className={`${styles.btn} ${styles['bin-btn']}`}
+							<span className='relative z-10 transition-colors duration-400 text-white/75 group-hover:text-white'>
+								{tCart('view')}
+							</span>
+							<div className='absolute top-0 -left-[10%] w-[120%] h-full bg-black skew-x-30 transform transition-transform duration-400 ease-out origin-left group-hover:translate-x-full z-0'></div>
+						</div>
+						<div
+							className='relative overflow-hidden bg-red-600 text-white py-3.5 px-8 text-base font-bold tracking-wider rounded-full cursor-pointer w-fit transition-colors hover:bg-red-500 duration-400 group'
 							onClick={remove}
 						>
-							<FontAwesomeIcon icon={faTrashCan} />
-						</button>
+							<span className='relative z-10 transition-colors duration-400 text-white/75 group-hover:text-white'>
+								<FontAwesomeIcon icon={faTrashCan} />
+							</span>
+							<div className='absolute top-0 -left-[10%] w-[120%] h-full bg-gray-300/25 skew-x-30 transform transition-transform duration-400 ease-out origin-left group-hover:translate-x-full z-0'></div>
+						</div>
 					</div>
 				</div>
-				<div className={styles.blur}></div>
+				<div className='absolute w-[10%] h-full blur-[100px] z-[2] pointer-events-none right-0 top-0 bg-purple-700'></div>
 			</div>
 		</div>
 	);
