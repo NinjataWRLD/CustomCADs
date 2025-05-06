@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Metric } from '@/types/threejs';
 import { useOthersTranslation } from '@/hooks/locales/common/others';
 import RangeField from '@/app/components/fields/range';
@@ -9,7 +9,6 @@ import { setInfill, setScale } from '@/stores/editor-store';
 import * as calculate3D from '@/utils/calculate-3D';
 import * as money from '@/utils/money';
 import * as formatter from '../formatter';
-import styles from '../styles.module.css';
 
 interface CalculationsProps {
 	id: string;
@@ -28,8 +27,37 @@ const Calculations = ({ id, volume }: CalculationsProps) => {
 		</>
 	);
 
+	const [fadeIn, setFadeIn] = useState(false);
+
+	useEffect(() => {
+		const styleEl = document.createElement('style');
+		styleEl.textContent = `
+			  .fade-in {
+					opacity: 0;
+					transform: translateY(100px);
+					animation: fadeIn 0.5s ease-in-out forwards;
+				}
+	
+				@keyframes fadeIn {
+					to {
+						opacity: 1;
+						transform: translateY(0);
+					}
+				}
+			`;
+		document.head.appendChild(styleEl);
+
+		setFadeIn(true);
+
+		return () => {
+			document.head.removeChild(styleEl);
+		};
+	}, []);
+
 	return (
-		<div className={`${styles.expanded} ${styles.fade}`}>
+		<div
+			className={`py-2.5 px-4 bg-blue-200 rounded-b-lg border-t-0 border-2 border-purple-500 mb-2.5 opacity-0 ${fadeIn ? 'fade-in' : ''}`}
+		>
 			<RangeField
 				id='infill'
 				label={tOthers('infill')}
