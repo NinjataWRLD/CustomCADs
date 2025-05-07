@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGlobe } from '@fortawesome/free-solid-svg-icons';
 import { useHeaderTranslation } from '@/hooks/locales/components/layout';
 import LanguageMenu from './menu';
-import styles from '../styles.module.css';
 
 const Language = () => {
 	const tHeader = useHeaderTranslation();
@@ -12,7 +11,7 @@ const Language = () => {
 	const langRef = useRef<HTMLDivElement>(null);
 
 	const openMenu = () => {
-		setIsMounted((prev) => !prev);
+		setIsMounted(true);
 		setIsMenuVisible(true);
 	};
 
@@ -28,6 +27,7 @@ const Language = () => {
 		<>
 			<div
 				ref={langRef}
+				id='language-icon-wrapper'
 				className='relative inline-block transition-all duration-100 ease-linear group'
 				data-tooltip={tHeader('icon-5')}
 			>
