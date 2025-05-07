@@ -8,3 +8,6 @@ export const useShipmentFormTranslation = () =>
 
 export const useCheckoutFormTranslation = () =>
 	useTranslation(`${NAMESPACE}.${SUB_NAMESPACE}.checkout-form`).t;
+
+export const usePurchasedCartsTranslation = () =>
+	useTranslation(`${NAMESPACE}.${SUB_NAMESPACE}.purchased-carts`).t;
