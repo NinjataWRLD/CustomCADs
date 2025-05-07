@@ -41,6 +41,7 @@ const PurchaseCustomForDelivery = ({ id }: PurchaseCustomForDeliveryProps) => {
 
 	return (
 		<CheckoutForm
+			type='custom'
 			onSubmit={(req) =>
 				mutateAsync({
 					...req,

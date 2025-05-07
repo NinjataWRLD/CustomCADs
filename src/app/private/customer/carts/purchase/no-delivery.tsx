@@ -3,7 +3,7 @@ import CheckoutForm from '@/app/private/customer/purchase/checkout-form';
 
 const PurchaseCartNoDelivery = () => {
 	const { mutateAsync } = usePurchaseActiveCart();
-	return <CheckoutForm onSubmit={(req) => mutateAsync(req)} />;
+	return <CheckoutForm type='cart' onSubmit={(req) => mutateAsync(req)} />;
 };
 
 export default PurchaseCartNoDelivery;

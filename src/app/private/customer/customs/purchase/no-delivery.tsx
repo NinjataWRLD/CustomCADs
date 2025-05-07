@@ -6,7 +6,12 @@ interface PurchaseCustomNoDeliveryProps {
 }
 const PurchaseCustomNoDelivery = ({ id }: PurchaseCustomNoDeliveryProps) => {
 	const { mutateAsync } = usePurchaseCustom();
-	return <CheckoutForm onSubmit={(req) => mutateAsync({ ...req, id })} />;
+	return (
+		<CheckoutForm
+			type='custom'
+			onSubmit={(req) => mutateAsync({ ...req, id })}
+		/>
+	);
 };
 
 export default PurchaseCustomNoDelivery;

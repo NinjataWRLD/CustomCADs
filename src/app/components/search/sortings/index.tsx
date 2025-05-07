@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
+import { UseQueryResult } from '@tanstack/react-query';
 import {
 	faArrowDown,
 	faArrowUp,
 	faChevronDown,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useGetProductSortings } from '@/hooks/queries/products/gallery';
 import { useFetchTranslation } from '@/hooks/locales/common/messages';
 import { SortingDirection } from '@/types/sorting';
 import styles from '../styles.module.css';
@@ -13,6 +13,7 @@ import styles from '../styles.module.css';
 interface SortingsProps {
 	getSorting: () => { type?: string; direction?: string };
 	updateSorting: (sorting: { type?: string; direction?: string }) => void;
+	fetch: UseQueryResult<string[], Error>;
 	isActive: boolean;
 	setActive: (active: boolean) => void;
 }
@@ -22,10 +23,10 @@ const Sortings = ({
 	updateSorting,
 	isActive,
 	setActive,
+	fetch,
 }: SortingsProps) => {
 	const tFetch = useFetchTranslation();
-
-	const { data: sortings, isLoading, isError } = useGetProductSortings();
+	const { data: sortings, isLoading, isError } = fetch;
 
 	const { type: sortingParam, direction: directionParam } = getSorting();
 	const initial = 'Sort By';

@@ -35,6 +35,7 @@ const PurchaseCartForDelivery = () => {
 
 	return (
 		<CheckoutForm
+			type='cart'
 			onSubmit={(req) =>
 				mutateAsync({
 					...req,

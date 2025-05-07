@@ -6,11 +6,12 @@ import { useCheckoutFormTranslation } from '@/hooks/locales/pages/customer';
 import { useCheckout } from './hooks/useCheckout';
 
 interface CheckoutFormProps {
+	type: 'cart' | 'custom';
 	onSubmit: (req: payment.Request) => Promise<payment.Response>;
 	back?: VoidFunction; // TODO: add 'back' link
 	details?: BillingDetails;
 }
-const CheckoutForm = ({ onSubmit, details }: CheckoutFormProps) => {
+const CheckoutForm = ({ type, onSubmit, details }: CheckoutFormProps) => {
 	const tCheckout = useCheckoutFormTranslation();
 	const {
 		isStripeLoaded,
@@ -37,6 +38,18 @@ const CheckoutForm = ({ onSubmit, details }: CheckoutFormProps) => {
 		await handleCheckoutSubmit(onSubmit);
 	};
 
+	let link;
+	switch (type) {
+		case 'cart':
+			link = <Link to='/carts'>{tCheckout('here')}!</Link>;
+			break;
+		case 'custom':
+			link = <Link to='/'>{tCheckout('here')}!</Link>;
+			break;
+		default:
+			throw new Error('Unsupported resource');
+	}
+
 	return (
 		<div style={{ marginBlock: 300 }}>
 			<form onSubmit={handleSubmit}>
@@ -49,7 +62,7 @@ const CheckoutForm = ({ onSubmit, details }: CheckoutFormProps) => {
 						{status === 'success' && (
 							<span>
 								<span>{tCheckout('check_out')} </span>
-								<Link to={'/'}>{tCheckout('here')}!</Link>
+								{link}
 							</span>
 						)}
 						<button

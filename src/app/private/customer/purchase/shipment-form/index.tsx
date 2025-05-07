@@ -31,10 +31,6 @@ const ShipmentForm = ({ onSubmit, requestCount }: ShipmentFormProps) => {
 					</div>
 
 					<div className={`${styles['form-field']}`}>
-						{fields.ServiceField}
-					</div>
-
-					<div className={`${styles['form-field']}`}>
 						{fields.EmailField}
 					</div>
 
@@ -47,6 +43,10 @@ const ShipmentForm = ({ onSubmit, requestCount }: ShipmentFormProps) => {
 							{fields.CountField}
 						</div>
 					)}
+
+					<div className={`${styles['form-field']}`}>
+						{fields.ServiceField}
+					</div>
 
 					<div className={`${styles.submit}`}>
 						<Button type='submit' text={tShipmentForm('btn')} />

@@ -5,6 +5,7 @@ import {
 	useFetchTranslation,
 	usePlaceholdersTranslation,
 } from '@/hooks/locales/common/messages';
+import { useGetProductSortings } from '@/hooks/queries/products/gallery';
 import Transition from '@/app/components/transition';
 import Categories from '@/app/components/search/categories';
 import Searchbar from '@/app/components/search/searchbar';
@@ -27,6 +28,7 @@ const Gallery = () => {
 		total,
 		search.limit ?? GALLERY_ITEMS_PER_PAGE,
 	);
+	const sortings = useGetProductSortings();
 
 	const [dropdown, setDropdown] = useState<'categories' | 'sorting'>();
 	useEffect(() => {
@@ -77,6 +79,7 @@ const Gallery = () => {
 						}}
 					/>
 					<Sortings
+						fetch={sortings}
 						getSorting={() => ({
 							type: search.sortingType,
 							direction: search.sortingDirection,
