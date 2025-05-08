@@ -17,6 +17,7 @@ export default {
 	cad: 'Модел',
 	country: 'Държава',
 	city: 'Град',
+	street: 'Улица',
 	'shipment-service': 'Сервиз',
 	phone: 'Телефон',
 	count: 'Бройка',

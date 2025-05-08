@@ -16,5 +16,6 @@ export type CommonMessagesPlaceholders = {
 	description: string;
 	country: string;
 	city: string;
+	street: string;
 	phone: string;
 };

@@ -17,6 +17,7 @@ const PurchaseCustomForDelivery = ({ id }: PurchaseCustomForDeliveryProps) => {
 		phone: '',
 		city: '',
 		country: '',
+		street: '',
 		count: 0,
 		service: '',
 	});
@@ -26,16 +27,9 @@ const PurchaseCustomForDelivery = ({ id }: PurchaseCustomForDeliveryProps) => {
 			<ShipmentForm
 				onSubmit={(values) => {
 					setStep('customization');
-					setDetails({
-						email: values.email,
-						phone: values.phone,
-						city: values.city,
-						country: values.country,
-						count: values.count,
-						service: values.service,
-					});
+					setDetails(values);
 				}}
-				requestCount
+				requireCount
 			/>
 		);
 

@@ -8,22 +8,26 @@ import { Fields, useForm } from './useForm';
 
 export const useFields = (onSubmit: (values: Fields) => void) => {
 	const { form, handleSubmit } = useForm(onSubmit);
-	const { country, city } = useStore(form.store, ({ values }) => ({
+	const { country, city, street } = useStore(form.store, ({ values }) => ({
 		country: values.country,
 		city: values.city,
+		street: values.street,
 	}));
-	const resetCity = () => form.setFieldValue('city', '');
+	const reset = {
+		city: () => form.setFieldValue('city', ''),
+		street: () => form.setFieldValue('street', ''),
+	};
 
 	const { data: calculations } = useCalculateActiveCartShipment(
-		{ country, city },
-		!!city && !!country,
+		{ country, city, street },
+		!!city && !!country && !!street,
 	);
 
 	const tPlaceholders = usePlaceholdersTranslation();
 	const tLabels = useLabelsTranslation();
 
 	const CountryField = (
-		<form.Field name='country' listeners={{ onChange: () => resetCity() }}>
+		<form.Field name='country' listeners={{ onChange: () => reset.city() }}>
 			{(api) => (
 				<Field
 					tag='input'
@@ -36,7 +40,7 @@ export const useFields = (onSubmit: (values: Fields) => void) => {
 		</form.Field>
 	);
 	const CityField = (
-		<form.Field name='city'>
+		<form.Field name='city' listeners={{ onChange: () => reset.street() }}>
 			{(api) => (
 				<Field
 					tag='input'
@@ -44,6 +48,19 @@ export const useFields = (onSubmit: (values: Fields) => void) => {
 					label={tLabels('city')}
 					type='text'
 					placeholder={tPlaceholders('city')}
+				/>
+			)}
+		</form.Field>
+	);
+	const StreetField = (
+		<form.Field name='street'>
+			{(api) => (
+				<Field
+					tag='input'
+					api={api}
+					label={tLabels('street')}
+					type='text'
+					placeholder={tPlaceholders('street')}
 				/>
 			)}
 		</form.Field>
@@ -59,7 +76,10 @@ export const useFields = (onSubmit: (values: Fields) => void) => {
 						<>
 							<option>{'Select a Service'}</option>
 							{calculations?.map((calculation) => (
-								<ShipmentService calculation={calculation} />
+								<ShipmentService
+									key={calculation.service}
+									calculation={calculation}
+								/>
 							))}
 						</>
 					}
@@ -111,6 +131,7 @@ export const useFields = (onSubmit: (values: Fields) => void) => {
 		handleSubmit,
 		CountryField,
 		CityField,
+		StreetField,
 		ServiceField,
 		EmailField,
 		PhoneField,

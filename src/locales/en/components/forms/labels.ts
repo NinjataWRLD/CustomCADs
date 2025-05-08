@@ -17,6 +17,7 @@ export default {
 	cad: 'Cad',
 	country: 'Country',
 	city: 'City',
+	street: 'Street',
 	'shipment-service': 'Service',
 	phone: 'Phone',
 	count: 'Count',

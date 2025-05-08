@@ -16,6 +16,9 @@ export const useValidation = () => {
 	const cityArgs = {
 		field: tLabels('city'),
 	};
+	const streetArgs = {
+		field: tLabels('street'),
+	};
 	const serviceArgs = {
 		field: tLabels('shipment-service'),
 	};
@@ -38,6 +41,9 @@ export const useValidation = () => {
 			.string()
 			.nonempty({ message: tErrors('required', countryArgs) }),
 		city: z.string().nonempty({ message: tErrors('required', cityArgs) }),
+		street: z
+			.string()
+			.nonempty({ message: tErrors('required', streetArgs) }),
 		service: z
 			.string()
 			.nonempty({ message: tErrors('required', serviceArgs) }),

@@ -12,5 +12,6 @@ export default {
 	description: 'Най-персонализираният Модел',
 	country: 'Къстомландия',
 	city: 'Кадия',
+	street: 'ул. Сътрудническа',
 	phone: '0123 456 789',
 } satisfies CommonMessagesPlaceholders;

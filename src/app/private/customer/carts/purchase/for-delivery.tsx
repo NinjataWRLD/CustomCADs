@@ -14,6 +14,7 @@ const PurchaseCartForDelivery = () => {
 		phone: '',
 		city: '',
 		country: '',
+		street: '',
 		service: '',
 	});
 
@@ -22,13 +23,7 @@ const PurchaseCartForDelivery = () => {
 			<ShipmentForm
 				onSubmit={(values) => {
 					setStep('checkout');
-					setDetails({
-						email: values.email,
-						phone: values.phone,
-						city: values.city,
-						country: values.country,
-						service: values.service,
-					});
+					setDetails(values);
 				}}
 			/>
 		);

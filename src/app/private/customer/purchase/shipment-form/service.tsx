@@ -6,15 +6,12 @@ interface ShipmentServiceProps {
 }
 const ShipmentService = ({ calculation }: ShipmentServiceProps) => {
 	const { service, total, currency, pickupDate } = calculation;
-
 	const serviceInfo = `${service} - ${total} ${currency}`;
 	const pickUpInfo = `Pick up - ${dateTime.format({ date: pickupDate, dateOnly: true })}`;
 
 	return (
 		<option key={service}>
-			<span>
-				{serviceInfo}; {pickUpInfo}
-			</span>
+			{serviceInfo}; {pickUpInfo}
 		</option>
 	);
 };

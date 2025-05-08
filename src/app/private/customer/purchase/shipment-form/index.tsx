@@ -9,9 +9,9 @@ import styles from './styles.module.css';
 
 interface ShipmentFormProps {
 	onSubmit: (values: Fields) => void;
-	requestCount?: boolean;
+	requireCount?: boolean;
 }
-const ShipmentForm = ({ onSubmit, requestCount }: ShipmentFormProps) => {
+const ShipmentForm = ({ onSubmit, requireCount }: ShipmentFormProps) => {
 	const { handleSubmit, ...fields } = useFields(onSubmit);
 	const tShipmentForm = useShipmentFormTranslation();
 
@@ -31,6 +31,10 @@ const ShipmentForm = ({ onSubmit, requestCount }: ShipmentFormProps) => {
 					</div>
 
 					<div className={`${styles['form-field']}`}>
+						{fields.StreetField}
+					</div>
+
+					<div className={`${styles['form-field']}`}>
 						{fields.EmailField}
 					</div>
 
@@ -38,7 +42,7 @@ const ShipmentForm = ({ onSubmit, requestCount }: ShipmentFormProps) => {
 						{fields.PhoneField}
 					</div>
 
-					{requestCount && (
+					{requireCount && (
 						<div className={`${styles['form-field']}`}>
 							{fields.CountField}
 						</div>

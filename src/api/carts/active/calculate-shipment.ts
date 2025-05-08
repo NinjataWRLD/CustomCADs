@@ -5,6 +5,7 @@ import { ACTIVE_CART_BASE_PATH } from '../common';
 export interface Request {
 	country: string;
 	city: string;
+	street: string;
 }
 
 export type Response = Calculation[];

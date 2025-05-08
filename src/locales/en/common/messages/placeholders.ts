@@ -12,5 +12,6 @@ export default {
 	description: 'The most Customizable CAD',
 	country: 'Customland',
 	city: 'Cadia',
+	street: 'Contributor St.',
 	phone: '0123 456 789',
 } satisfies CommonMessagesPlaceholders;
