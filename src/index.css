@@ -88,6 +88,23 @@ textarea.invalid {
         4px 4px 8px rgba(0, 0, 0, 0.555);
 }
 
+.home-gradient {
+    background: linear-gradient(
+        to bottom,
+        hsla(300, 77%, 17%, 0.405),
+        hsl(218, 33%, 6%)
+    );
+}
+
+.cover-gradient {
+    background: linear-gradient(
+        to right,
+        rgba(25, 3, 46, 0.263),
+        rgba(25, 3, 46, 0.088),
+        transparent
+    );
+}
+
 .gradient-overlay::before,
 .gradient-overlay::after {
     content: '';

@@ -17,7 +17,9 @@ const Benefits = () => {
 				}}
 			></div>
 			<div className='flex flex-col flex-wrap items-center min-h-[60vh]'>
-				<h1>{tHome('title_benefits')}?</h1>
+				<h1 className='title-text-shadow'>
+					{tHome('title_benefits')}?
+				</h1>
 
 				<Sheet
 					icon='fas fa-eye'
