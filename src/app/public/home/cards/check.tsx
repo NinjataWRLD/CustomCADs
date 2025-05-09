@@ -5,7 +5,10 @@ const Check = ({ desc }: { desc: string }) => {
 	return (
 		<li>
 			<span className='fa-li'>
-				<FontAwesomeIcon icon={faCheck}></FontAwesomeIcon>
+				<FontAwesomeIcon
+					className='text-[hsl(258,100%,76%)]'
+					icon={faCheck}
+				></FontAwesomeIcon>
 			</span>
 			{desc}
 		</li>

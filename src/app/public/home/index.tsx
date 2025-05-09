@@ -7,7 +7,6 @@ import PopularProducts from './popular';
 import Card from './cards';
 import Figures from './figures';
 import FiguresAnimation from './figures/animation';
-import Loader from '@/app/components/state/loading';
 import styles from './styles.module.css';
 
 const Home = () => {
