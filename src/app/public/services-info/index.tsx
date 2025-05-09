@@ -10,7 +10,6 @@ import {
 import { useServicesTranslation } from '@/hooks/locales/pages/public';
 import Transition from '@/app/components/transition';
 import Service from './service';
-import styles from './styles.module.css';
 
 const ServicesInfo: React.FC = () => {
 	const tServices = useServicesTranslation();
@@ -21,10 +20,14 @@ const ServicesInfo: React.FC = () => {
 
 	return (
 		<Transition>
-			<div className={`${styles.container}`}>
-				<h1>{tServices('title')}</h1>
-				<h2>{tServices('subTitle')}</h2>
-				<div className={`${styles['services-container']}`}>
+			<div className='relative max-w-[1200px] mx-auto my-0 px-5 py-10'>
+				<h1 className='text-[2.8rem] text-[white] text-center mb-2.5 title-text-shadow'>
+					{tServices('title')}
+				</h1>
+				<h2 className='text-[1.6rem] text-[#e0b0ff] text-center font-normal tracking-[1px]'>
+					{tServices('subTitle')}
+				</h2>
+				<div className='grid grid-cols-[repeat(auto-fill,minmax(320px,1fr))] gap-[40px] mt-[50px]'>
 					<Service
 						title={tServices('serviceTitle1')}
 						details={tServices('serviceDetails1')}
@@ -50,14 +53,14 @@ const ServicesInfo: React.FC = () => {
 						title={tServices('serviceTitle4')}
 						details={tServices('serviceDetails4')}
 						role={tServices('serviceRoles4')}
-						icon={faUpload}
+						icon={faDownload}
 						button={tServices('serviceButtonText4')}
 					/>
 					<Service
 						title={tServices('serviceTitle5')}
 						details={tServices('serviceDetails5')}
 						role={tServices('serviceRoles5')}
-						icon={faDownload}
+						icon={faUpload}
 						button={tServices('serviceButtonText5')}
 					/>
 					<Service

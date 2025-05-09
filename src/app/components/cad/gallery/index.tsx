@@ -3,7 +3,6 @@ import { useGenerateBlobUrl } from '@/hooks/useGenerateBlobUrl';
 import { useDownloadProductCad } from '@/hooks/queries/products/gallery';
 import { getCadType } from '@/utils/get-cad-type';
 import GalleryThreeJS from './threejs';
-import styles from '../styles.module.css';
 
 const GalleryCad = ({ product }: { product: Product }) => {
 	const { camCoordinates: cam, panCoordinates: pan } = product;
@@ -13,7 +12,7 @@ const GalleryCad = ({ product }: { product: Product }) => {
 	if (!cad || !cadBlobUrl) return;
 
 	return (
-		<div className={styles.container}>
+		<div className='h-full w-full'>
 			<GalleryThreeJS
 				file={{ url: cadBlobUrl, type: getCadType(cad.contentType) }}
 				cam={cam}

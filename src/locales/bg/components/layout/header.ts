@@ -18,4 +18,5 @@ export default {
 	'icon-4': 'Регистрация',
 	'icon-5': 'Език',
 	'icon-6': 'Услуги',
+	'icon-7': 'За нас',
 } satisfies ComponentsLayoutHeader;

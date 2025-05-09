@@ -18,4 +18,5 @@ export default {
 	'icon-4': 'Register',
 	'icon-5': 'Language',
 	'icon-6': 'Services',
+	'icon-7': 'About Us',
 } satisfies ComponentsLayoutHeader;

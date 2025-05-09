@@ -33,7 +33,10 @@ export const useFields = () => {
 						label={tLabels('password')}
 						placeholder={tPlaceholders('password')}
 					/>
-					<Link to='/forgot-password'>
+					<Link
+						to='/forgot-password'
+						className='self-start ml-2 text-white text-sm transition-colors duration-300 hover:text-purple-300/60'
+					>
 						{tLabels('forgot-password')}
 					</Link>
 				</>

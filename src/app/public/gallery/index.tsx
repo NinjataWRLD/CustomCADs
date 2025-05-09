@@ -11,7 +11,6 @@ import Searchbar from '@/app/components/search/searchbar';
 import Sortings from '@/app/components/search/sortings';
 import Pagination from '@/app/components/pagination';
 import Item from './item';
-import styles from './styles.module.css';
 
 const GALLERY_ITEMS_PER_PAGE = 12;
 const Gallery = () => {
@@ -47,8 +46,14 @@ const Gallery = () => {
 
 	return (
 		<Transition>
-			<section className={`${styles.gallery}`}>
-				<div className={styles.toolbar}>
+			<section
+				className='relative flex flex-col items-center justify-center text-[white] overflow-hidden gap-[2em] z-[80] px-[2em] py-[4em]'
+				style={{
+					background:
+						'linear-gradient(to bottom,hsla(0, 0%, 0%, 0.327) 1%,hsla(0, 0%, 13%, 0.352) 60%,hsla(300, 58%, 23%, 0.585) 100%)',
+				}}
+			>
+				<div className='relative flex justify-center w-full max-w-[1200px] gap-[30px] p-5'>
 					<Categories
 						getCategory={() => search.categoryName}
 						updateCategory={(category) => {
@@ -97,17 +102,22 @@ const Gallery = () => {
 					/>
 				</div>
 				{products.items.length ? (
-					<div className={`${styles.models}`}>
+					<div className='w-4/5 flex flex-wrap justify-center gap-y-[100px] gap-x-[70px] p-5'>
 						{products.items.map((product) => (
-							<Item key={product.id} product={product} />
+							<div
+								key={product.id}
+								className='flex-[0_0_calc((100%-140px)/3)]'
+							>
+								<Item product={product} />
+							</div>
 						))}
 					</div>
 				) : (
-					<div className={`${styles.empty}`}>
+					<div className='min-h-[60dvh] flex items-center text-white text-2xl text-shadow-custom'>
 						{tFetch('no-products')}
 					</div>
 				)}
-				<div className={`${styles.pagination}`}>
+				<div className='flex items-center justify-center'>
 					<Pagination
 						total={products.count ?? 0}
 						limit={limit}

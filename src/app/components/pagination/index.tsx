@@ -1,6 +1,5 @@
 import Button from './button';
 import Num from './num';
-import styles from './styles.module.css';
 
 interface PaginationProps {
 	total: number;
@@ -43,7 +42,7 @@ const Pagination = ({ total, limit, page, onPageChange }: PaginationProps) => {
 	};
 
 	return (
-		<div className={styles.paginationContainer}>
+		<div className='flex justify-center items-center gap-4'>
 			<Button
 				direction='prev'
 				disabled={page === 1}

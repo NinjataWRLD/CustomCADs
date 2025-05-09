@@ -35,6 +35,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
+    "@tailwindcss/vite": "^4.1.5",
     "@tanstack/eslint-plugin-query": "^5.68.0",
     "@tanstack/eslint-plugin-router": "^1.114.12",
     "@tanstack/react-query-devtools": "^5.69.0",
@@ -58,6 +59,7 @@
     "eslint-plugin-react-i18next": "^1.1.0",
     "eslint-plugin-react-refresh": "^0.4.18",
     "prettier": "^3.4.2",
+    "tailwindcss": "^4.1.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.2.2",
     "vite": "^6.2.1",
