@@ -1,7 +1,6 @@
 import { ChangeEvent } from 'react';
 import { AnyFieldApi } from '@tanstack/react-form';
 import Field, { getErrorClass } from '..';
-import styles from './styles.module.css';
 
 interface FileFieldProps {
 	api: AnyFieldApi;

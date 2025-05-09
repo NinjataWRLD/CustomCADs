@@ -33,10 +33,7 @@ const Item = ({ product }: ItemProps) => {
          after:content-[''] after:absolute after:w-full after:h-full after:left-0 after:top-0 after:blur-[30px]
          after:bg-[linear-gradient(315deg,hsla(278,73%,71%,0.6),hsla(320,70%,22%,0.6))] group"
 		>
-			<b
-				className='absolute z-[2] inset-[5px]'
-				style={{ background: 'rgba(0, 0, 0, 0.6)' }}
-			></b>
+			<b className='absolute z-[2] inset-[5px] bg-[rgba(0,0,0,0.6)]'></b>
 			{blobUrl && (
 				<img
 					className='w-full h-full object-cover scale-[0.8] absolute origin-[center_center] opacity-[0.45] blur-[1px] contrast-100 z-[3] cursor-pointer transition-all duration-[0.5s] ease-[ease] rounded-[5px] group-hover:translate-y-[-15%] group-hover:opacity-90 group-hover:shadow-[0_15px_30px_rgba(0,0,0,0.5),0_0_10px_rgba(255,255,255,0.3)] group-hover:blur-none group-hover:contrast-[1.2] group-hover:rounded-[50%] group-hover:border-[3px] group-hover:border-solid group-hover:border-[rgba(255,255,255,0.7)] group-hover:scale-[0.55]'

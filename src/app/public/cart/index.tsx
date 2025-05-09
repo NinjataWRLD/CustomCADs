@@ -68,13 +68,7 @@ const Cart = () => {
 	return (
 		<Transition>
 			<div className='relative h-[100dvh] flex flex-col justify-center text-white overflow-hidden'>
-				<h1
-					className='text-[2.3rem] ml-[10%]'
-					style={{
-						textShadow:
-							'3px 3px 5px rgba(75, 0, 130, 0.5), -3px -3px 5px rgba(138, 43, 226, 0.4), 0px 0px 8px rgba(138, 43, 226, 0.8), 0px 0px 20px rgba(138, 43, 226, 0.6)',
-					}}
-				>
+				<h1 className='text-[2.3rem] ml-[10%] title-text-shadow'>
 					{tCart('title')}
 				</h1>
 				<div

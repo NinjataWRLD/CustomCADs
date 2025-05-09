@@ -24,14 +24,9 @@ const Item = ({ product }: ItemProps) => {
 	};
 
 	return (
-		<div
-			className={`relative w-6/12 h-[70%] flex justify-center items-center mb-20 rounded-[15px] before:content-[''] before:absolute before:bg-[linear-gradient(315deg, #7b03f459, #ff00a24f)] before:w-full before:h-full before:rounded-[15px] before:left-0 before:top-0 after:content-[''] after:absolute after:w-full after:h-full after:bg-[linear-gradient(315deg, #7b03f459, #ff00a24f)] after:blur-[30px] after:rounded-[15px] after:left-0 after:top-0 group/model`}
-			style={{ background: 'rgba(109, 0, 255, 0.482)' }}
-		>
-			<b
-				className='absolute z-[2] rounded-[15px] inset-1.5'
-				style={{ background: 'rgba(0, 0, 0, 0.6)' }}
-			></b>
+		<div className='relative w-6/12 h-[70%] flex justify-center items-center mb-20 rounded-[15px] bg-[rgba(109,0,255,0.482)] gradient-overlay group/model'>
+			<b className='absolute z-[2] inset-[5px] bg-[rgba(0,0,0,0.6)]'></b>
+
 			{blobUrl && (
 				<img
 					onClick={handleDetailsClick}

@@ -25,10 +25,7 @@ const Card = ({ id }: { id: 'customer' | 'contributor' }) => {
 			</div>
 
 			<div className='absolute top-[25%] w-full flex flex-col items-center justify-center'>
-				<h2
-					className='text-center text-3xl'
-					style={{ textShadow: '2px 2px 14px rgba(0, 0, 0, 0.5)' }}
-				>
+				<h2 className='text-center text-3xl subtitle-text-shadow'>
 					{tPickRole(`${id}-subtitle`)}
 				</h2>
 				<ul className='fa-ul mt-2'>

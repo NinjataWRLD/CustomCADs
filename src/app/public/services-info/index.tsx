@@ -10,7 +10,6 @@ import {
 import { useServicesTranslation } from '@/hooks/locales/pages/public';
 import Transition from '@/app/components/transition';
 import Service from './service';
-import styles from './styles.module.css';
 
 const ServicesInfo: React.FC = () => {
 	const tServices = useServicesTranslation();
@@ -22,13 +21,7 @@ const ServicesInfo: React.FC = () => {
 	return (
 		<Transition>
 			<div className='relative max-w-[1200px] mx-auto my-0 px-5 py-10'>
-				<h1
-					className='text-[2.8rem] text-[white] text-center mb-2.5'
-					style={{
-						textShadow:
-							'3px 3px 5px rgba(75, 0, 130, 0.5),-3px -3px 5px rgba(138, 43, 226, 0.4), 0px 0px 8px rgba(138, 43, 226, 0.8),0px 0px 20px rgba(138, 43, 226, 0.6)',
-					}}
-				>
+				<h1 className='text-[2.8rem] text-[white] text-center mb-2.5 title-text-shadow'>
 					{tServices('title')}
 				</h1>
 				<h2 className='text-[1.6rem] text-[#e0b0ff] text-center font-normal tracking-[1px]'>

@@ -1,40 +1,4 @@
-import { useEffect } from 'react';
-
 export default function Gradient() {
-	useEffect(() => {
-		const style = document.createElement('style');
-		style.innerHTML = `
-      @keyframes animate {
-        0% {
-          transform: scale(0) translateY(0) rotate(0);
-          opacity: 1;
-        }
-        100% {
-          transform: scale(1.3) translateY(-90px) rotate(360deg);
-          opacity: 0;
-        }
-      }
-      
-      .box-animate-1 { animation: animate 10s linear infinite; }
-      .box-animate-2 { animation: animate 7s linear infinite; }
-      .box-animate-3 { animation: animate 9s linear infinite; }
-      .box-animate-4 { animation: animate 10s linear infinite; }
-      .box-animate-5 { animation: animate 6s linear infinite; }
-      .box-animate-6 { animation: animate 12s linear infinite; }
-      .box-animate-7 { animation: animate 15s linear infinite; }
-      .box-animate-8 { animation: animate 16s linear infinite; }
-      .box-animate-9 { animation: animate 9s linear infinite; }
-      .box-animate-10 { animation: animate 9s linear infinite; }
-      .box-animate-11 { animation: animate 7s linear infinite; }
-      .box-animate-12 { animation: animate 13s linear infinite; }
-    `;
-		document.head.appendChild(style);
-
-		return () => {
-			document.head.removeChild(style);
-		};
-	}, []);
-
 	return (
 		<div className='fixed w-full h-full z-[-1] overflow-hidden bg-gradient-to-br from-purple-900/180 via-purple-800/30 to-purple-900/60'>
 			<div className='relative w-full h-full'>

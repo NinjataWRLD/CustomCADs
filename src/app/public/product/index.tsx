@@ -86,45 +86,24 @@ const Product = () => {
 						}}
 					>
 						<div className='w-1/2 flex items-center justify-center bg-transparent'>
-							<div
-								className='w-4/5 h-4/5 flex justify-center items-center rounded-lg transition-all duration-800 ease-out border-4 border-[#313131] shadow-lg hover:shadow-[0_0_30px_rgb(96,22,118)] hover:border-[#721f83]'
-								style={{ background: 'hsl(228, 21%, 14%)' }}
-							>
+							<div className='w-4/5 h-4/5 flex justify-center items-center rounded-lg transition-all duration-[800ms] ease-out border-4 border-[#313131] shadow-lg bg-[hsl(228,21%,14%)] hover:shadow-[0_0_30px_rgb(96,22,118)] hover:border-[#721f83]'>
 								<Cad type='gallery' product={product} />
 							</div>
 						</div>
 
 						<div className='relative flex flex-col justify-center items-center w-1/2 h-full gap-5'>
 							<div className='w-[90%] h-3/5 flex flex-col justify-center items-center text-center overflow-hidden rounded-lg bg-gray-800 border-4 border-[#313131] shadow-lg transition-all duration-800 ease-out hover:shadow-[0_0_30px_rgb(96,22,118)] hover:border-[#721f83]'>
-								<h1
-									className='text-5xl capitalize'
-									style={{
-										textShadow:
-											'3px 3px 5px rgba(75, 0, 130, 0.5), -3px -3px 5px rgba(138, 43, 226, 0.4), 0px 0px 8px rgba(138, 43, 226, 0.8), 0px 0px 20px rgba(138, 43, 226, 0.6)',
-									}}
-								>
+								<h1 className='text-5xl capitalize title-text-shadow'>
 									{product.name}
 								</h1>
 								<p className='text-base leading-normal text-white/70 mb-3 transition-colors duration-400 hover:text-white'>
-									<strong
-										className='font-semibold mr-2.5 text-white/55 uppercase'
-										style={{
-											textShadow:
-												'2px 2px 4px rgba(0, 0, 0, 0.2), 0 0 10px rgba(122, 13, 144, 0.945)',
-										}}
-									>
+									<strong className='font-semibold mr-2.5 text-white/55 uppercase product-text-shadow'>
 										{tProduct('category')}
 									</strong>
 									{product.category.name}
 								</p>
 								<p className='text-base leading-normal text-white/70 mb-3 transition-colors duration-400 hover:text-white'>
-									<strong
-										className='font-semibold mr-2.5 text-white/55 uppercase'
-										style={{
-											textShadow:
-												'2px 2px 4px rgba(0, 0, 0, 0.2), 0 0 10px rgba(122, 13, 144, 0.945)',
-										}}
-									>
+									<strong className='font-semibold mr-2.5 text-white/55 uppercase product-text-shadow'>
 										{tProduct('creator')}
 									</strong>
 									{product.creatorName}
@@ -135,13 +114,7 @@ const Product = () => {
 								</p>
 								<hr className='my-2.5 w-full' />
 								<p className='text-base leading-normal text-white/70 mb-3 transition-colors duration-400 hover:text-white'>
-									<strong
-										className='font-semibold mr-2.5 text-white/55 uppercase'
-										style={{
-											textShadow:
-												'2px 2px 4px rgba(0, 0, 0, 0.2), 0 0 10px rgba(122, 13, 144, 0.945)',
-										}}
-									>
+									<strong className='font-semibold mr-2.5 text-white/55 uppercase product-text-shadow'>
 										{tProduct('price')}
 									</strong>
 									{money.format(
@@ -151,13 +124,7 @@ const Product = () => {
 									)}
 								</p>
 								<p className='text-base leading-normal text-white/70 mb-3 transition-colors duration-400 hover:text-white'>
-									<strong
-										className='font-semibold mr-2.5 text-white/55 uppercase'
-										style={{
-											textShadow:
-												'2px 2px 4px rgba(0, 0, 0, 0.2), 0 0 10px rgba(122, 13, 144, 0.945)',
-										}}
-									>
+									<strong className='font-semibold mr-2.5 text-white/55 uppercase product-text-shadow'>
 										{tProduct('uploaded-on')}
 									</strong>
 									{dateTime.format({

@@ -8,21 +8,11 @@ const Info = () => {
 
 	return (
 		<div className='text-[white] absolute w-2/5 flex flex-col items-center z-50 left-[5%] bottom-[30%]'>
-			<h1
-				className='w-full text-[3.5rem] text-center text-white'
-				style={{
-					textShadow:
-						'3px 3px 5px rgba(75, 0, 130, 0.5),-3px -3px 5px rgba(138, 43, 226, 0.4), 0px 0px 8px rgba(138, 43, 226, 0.8),0px 0px 20px rgba(138, 43, 226, 0.6)',
-				}}
-			>
+			<h1 className='w-full text-[3.5rem] text-center text-white title-text-shadow'>
 				{tHome('title_info')}
 			</h1>
 			<h2
-				className={`text-2xl text-[hsl(0,0%,73%)] italic relative before:content-['“'] before:text-[2rem] before:text-[hsla(290,70%,70%,0.61)] before:absolute before:left-[-17px] before:-top-2.5 after:content-['”'] after:text-[2rem] after:text-[hsla(290,70%,70%,0.61)] after:absolute after:right-[-17px] after:-bottom-2.5`}
-				style={{
-					textShadow:
-						'2px 2px 4px rgba(120, 120, 120, 0.5),4px 4px 8px rgba(0, 0, 0, 0.555)',
-				}}
+				className={`text-2xl text-[hsl(0,0%,73%)] italic relative before:content-['“'] before:text-[2rem] before:text-[hsla(290,70%,70%,0.61)] before:absolute before:left-[-17px] before:-top-2.5 after:content-['”'] after:text-[2rem] after:text-[hsla(290,70%,70%,0.61)] after:absolute after:right-[-17px] after:-bottom-2.5 custom-text-shadow`}
 			>
 				{tHome('subtitle_info')}
 			</h2>
