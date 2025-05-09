@@ -26,4 +26,5 @@ export type ComponentsLayoutHeader = {
 	'icon-4': string;
 	'icon-5': string;
 	'icon-6': string;
+	'icon-7': string;
 };

@@ -8,7 +8,6 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useFetchTranslation } from '@/hooks/locales/common/messages';
 import { SortingDirection } from '@/types/sorting';
-import styles from '../styles.module.css';
 
 interface SortingsProps {
 	getSorting: () => { type?: string; direction?: string };
@@ -76,6 +75,7 @@ const Sortings = ({
 	const handleInput = (name: string) => {
 		setSorting(() => name);
 		updateSorting({ type: name });
+		setActive(false); // Close dropdown when option is selected
 	};
 
 	if (isLoading) {
@@ -88,31 +88,38 @@ const Sortings = ({
 
 	return (
 		<>
-			<div className={`${styles.menu}`}>
+			<div className='relative w-1/5 z-50'>
 				<div
-					className={`${styles['select-btn']} ${isActive ? styles.active : ''}`}
+					className={`relative flex justify-between items-center p-5 bg-black text-white border-2 border-purple-900/75 rounded-2xl shadow-md shadow-purple-900/20 cursor-pointer ${
+						isActive ? 'active' : ''
+					}`}
 					onClick={toggleDropdown}
 				>
-					<span className={`${styles.sort}`}>{sorting}</span>
-					<FontAwesomeIcon icon={faChevronDown} />
+					<span className='ml-[5%] text-base font-normal drop-shadow-[1px_1px_2px_white,_2px_2px_1px_rgb(128,0,128)]'>
+						{sorting}
+					</span>
+					<FontAwesomeIcon
+						icon={faChevronDown}
+						className={`text-sm mr-2.5 transition-transform duration-1000 ${isActive ? 'rotate-180' : ''}`}
+					/>
 				</div>
 
 				{sortings && (
-					<ul className={`${styles.list}`}>
-						{sortings.map((sorting, index) => (
+					<ul className='absolute w-[90%] right-[7%] -translate-y-1.5'>
+						{sortings.map((sortingOption, index) => (
 							<li
-								key={sorting}
-								value={sorting}
-								className={`${styles.option}`}
-								style={
-									{
-										'--i': index,
-									} as React.CSSProperties
-								}
-								onClick={() => handleInput(sorting)}
+								key={sortingOption}
+								value={sortingOption}
+								className={`flex items-center justify-center text-center w-full bg-black border-r-2 border-l-2 border-purple-900 border-b-2 border-b-dashed border-b-purple-400/40 py-2 px-1 cursor-pointer transition-all duration-500 hover:bg-purple-900/80 ${
+									isActive
+										? 'opacity-100 scale-100 translate-y-0 mb-0'
+										: 'opacity-0 scale-0 -translate-y-16 -mb-10'
+								}`}
+								style={{ transitionDelay: `${index * 0.1}s` }}
+								onClick={() => handleInput(sortingOption)}
 							>
-								<span className={`${styles.name}`}>
-									{sorting}
+								<span className='text-lg text-gray-400 hover:text-purple-300 transition-colors duration-300 font-medium w-full px-2'>
+									{sortingOption}
 								</span>
 							</li>
 						))}
@@ -121,16 +128,15 @@ const Sortings = ({
 			</div>
 
 			<div
-				className={styles.arrows}
-				style={{ height: '55px' }}
+				className='w-[5%] h-16 rounded-2xl bg-black text-white border-2 border-purple-900/75 flex justify-center items-center cursor-pointer'
 				onClick={() => {
-					if (sorting) {
+					if (sorting !== initial) {
 						toggleDirection();
 					}
 				}}
 			>
 				<div
-					className={`${styles.tooltip} ${!sorting ? styles.disabled : ''}`}
+					className={`relative inline-block text-center ${sorting === initial ? 'cursor-not-allowed' : ''}`}
 					data-tooltip={
 						!sorting ? 'Select Sorting' : direction.toString()
 					}
@@ -141,7 +147,11 @@ const Sortings = ({
 								? faArrowUp
 								: faArrowDown
 						}
-						className={sorting === initial ? styles.grey : ''}
+						className={`text-xl text-purple-800 transition-colors duration-400 ${
+							sorting === initial
+								? 'text-gray-500 opacity-50'
+								: ''
+						}`}
 					/>
 				</div>
 			</div>

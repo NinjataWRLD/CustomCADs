@@ -1,5 +1,4 @@
 import { useEffect, useRef } from 'react';
-import styles from './styles.module.css';
 
 const Border = () => {
 	const borderRefs = useRef<(HTMLElement | null)[]>([]);
@@ -37,21 +36,21 @@ const Border = () => {
 				ref={(el) => {
 					borderRefs.current[0] = el;
 				}}
-				className={styles.border}
+				className='absolute transition-[0.2s] z-[-1] border-2 border-solid border-[rgba(255,255,255,0.315)] inset-0 rounded-[22%_62%_36%_27%_/_33%_21%_60%_59%]'
 				style={{ '--color': '#8c09ff5f' } as React.CSSProperties}
 			></i>
 			<i
 				ref={(el) => {
 					borderRefs.current[1] = el;
 				}}
-				className={styles.border}
+				className='absolute transition-[0.2s] z-[-1] border-2 border-solid border-[rgba(255,255,255,0.315)] inset-0 rounded-[35%_37%_78%_59%_/_27%_28%_34%_33%]'
 				style={{ '--color': '#550cf377' } as React.CSSProperties}
 			></i>
 			<i
 				ref={(el) => {
 					borderRefs.current[2] = el;
 				}}
-				className={styles.border}
+				className='absolute transition-[0.2s] z-[-1] border-2 border-solid border-[rgba(255,255,255,0.315)] inset-0 rounded-[36%_20%_50%_51%_/_14%_22%_40%_33%]'
 				style={{ '--color': '#e43bc85e' } as React.CSSProperties}
 			></i>
 		</>

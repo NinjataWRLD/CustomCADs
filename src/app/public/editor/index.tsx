@@ -13,7 +13,6 @@ import * as calculate3D from '@/utils/calculate-3D';
 import Menu from './menu';
 import Looks from './menu/looks';
 import Calculations from './menu/calculations';
-import styles from './styles.module.css';
 
 const Editor = () => {
 	const navigate = useNavigate();
@@ -63,8 +62,8 @@ const Editor = () => {
 
 	return (
 		<Transition>
-			<div className={styles['viewer-page']}>
-				<div className={`${styles['material-section']} ${styles.idk1}`}>
+			<div className='h-screen relative flex justify-between'>
+				<div className='w-[25%] p-5 bg-[hsla(228,21%,14%,0.77)] rounded-lg shadow-md flex flex-col justify-center gap-2.5 overflow-y-auto border-r-2 border-r-purple-500/60'>
 					<div>
 						<Menu
 							title={tEditor('title-1')}
@@ -74,7 +73,7 @@ const Editor = () => {
 						</Menu>
 					</div>
 
-					<div className={styles.btn}>
+					<div className='w-full flex justify-center gap-12 mt-8'>
 						<Button
 							type='button'
 							text={tEditor('reset')}
@@ -82,10 +81,10 @@ const Editor = () => {
 						/>
 					</div>
 				</div>
-				<div className={styles.cad}>
+				<div className='flex-1'>
 					<Cad type='editor' id={product.id} />
 				</div>
-				<div className={`${styles['material-section']} ${styles.idk2}`}>
+				<div className='w-[25%] p-5 bg-[hsla(228,21%,14%,0.77)] rounded-lg shadow-md flex flex-col justify-center gap-2.5 overflow-y-auto border-l-2 border-l-purple-500/60'>
 					<div>
 						<Menu
 							title={tEditor('title-2')}
@@ -95,7 +94,7 @@ const Editor = () => {
 						</Menu>
 					</div>
 
-					<div className={styles.btn}>
+					<div className='w-full flex justify-center gap-12 mt-8'>
 						<Button
 							type='button'
 							text={tEditor('save')}

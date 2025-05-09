@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { Coordinates } from '@/api/catalog/common';
 import { useThreeJS } from '@/hooks/threejs/useThreeJS';
-import styles from '../styles.module.css';
 
 interface ThreeJSProps {
 	file: { url: string; type: string };
@@ -16,7 +15,7 @@ const CreatorThreeJS = ({ file, cam, pan }: ThreeJSProps) => {
 		instance?.updateCoords({ cam, pan });
 	}, [cam, instance, pan]);
 
-	return <div ref={ref} className={styles.model} />;
+	return <div ref={ref} className='h-full w-full' />;
 };
 
 export default CreatorThreeJS;

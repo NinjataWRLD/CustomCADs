@@ -1,5 +1,4 @@
 import { ChangeEvent } from 'react';
-import styles from './styles.module.css';
 
 interface RangeFieldProps {
 	id: string;
@@ -35,7 +34,7 @@ const RangeField = ({
 				step={step}
 				value={value}
 				onChange={onChange}
-				className={style ?? styles['input-range']}
+				className={style ?? 'cursor-pointer mx-0 my-[5px]'}
 			/>
 			{text ?? value}
 		</>
