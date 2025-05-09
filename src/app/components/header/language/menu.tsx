@@ -1,11 +1,11 @@
+import { useEffect, useState, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
+import clsx from 'clsx';
 import { useHeaderTranslation } from '@/hooks/locales/components/layout';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faCheck } from '@fortawesome/free-solid-svg-icons';
 import gbFlag from '@/assets/images/flags/gb.svg';
 import bgFlag from '@/assets/images/flags/bg.svg';
-import { useEffect, useState, useRef } from 'react';
-import clsx from 'clsx';
 
 type LanguageMenuProps = {
 	closeMenu: () => void;
@@ -43,6 +43,7 @@ const LanguageMenu = ({
 				setAnimationState('visible');
 			}, 50);
 		}
+
 		return () => {
 			if (timeoutRef.current) clearTimeout(timeoutRef.current);
 		};
@@ -63,6 +64,7 @@ const LanguageMenu = ({
 		const handleEscape = (e: KeyboardEvent) => {
 			if (e.key === 'Escape') handleClose();
 		};
+
 		document.addEventListener('keydown', handleEscape);
 		return () => document.removeEventListener('keydown', handleEscape);
 	}, []);
