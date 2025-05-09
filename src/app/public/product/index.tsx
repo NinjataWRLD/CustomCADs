@@ -1,4 +1,3 @@
-/* eslint-disable max-lines */
 import { useState, useEffect } from 'react';
 import { useCanGoBack } from '@tanstack/react-router';
 import { Route } from '@/routes/_public/gallery/$id';
