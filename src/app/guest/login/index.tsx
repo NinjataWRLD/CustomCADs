@@ -36,7 +36,7 @@ const Login = () => {
 				onSubmit={handleSubmit}
 				className='h-[100dvh] flex justify-center items-center text-white'
 			>
-				<div className='form-hover-heading relative flex flex-col justify-center items-center w-2/5 p-12 gap-8'>
+				<div className='form-hover-heading relative flex flex-col justify-center items-center w-2/5 p-12 gap-8 mt-10'>
 					<Border />
 					<h1 className='text-white transition-all duration-300'>
 						{tLogin(`title`)}
