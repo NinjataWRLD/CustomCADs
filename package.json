@@ -60,6 +60,7 @@
     "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-react-i18next": "^1.1.0",
     "eslint-plugin-react-refresh": "^0.4.18",
+    "jsdom": "^26.1.0",
     "prettier": "^3.4.2",
     "tailwindcss": "^4.1.5",
     "ts-node": "^10.9.2",
