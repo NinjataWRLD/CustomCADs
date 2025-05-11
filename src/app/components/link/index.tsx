@@ -18,7 +18,7 @@ const BasicLinkComponent = forwardRef<HTMLAnchorElement, BasicLinkProps>(
           rounded-full scale-110 bg-[hsla(271,42%,54%,0.358)] backdrop-blur-[10px]
           hover:translate-y-2.5 hover:shadow-[-10px_0_50px_hsl(270,30%,40%),10px_0_50px_hsl(250,10%,18%)]
           active:translate-y-[5px]
-          transition-transform transition-shadow duration-200 ease-in-out
+          transition-all duration-200 ease-in-out
         '
 			>
 				{props.text}

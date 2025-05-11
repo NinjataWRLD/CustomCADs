@@ -32,4 +32,5 @@ export type ComponentsFormsLabels = {
 	'shipment-service': string;
 	phone: string;
 	count: string;
+	'select-option': string;
 };

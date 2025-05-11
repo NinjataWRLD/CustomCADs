@@ -66,7 +66,7 @@ const Categories = ({
 			updateCategory();
 		}
 
-		setActive(false); // Close dropdown when option is selected
+		setActive(false);
 	};
 
 	return (

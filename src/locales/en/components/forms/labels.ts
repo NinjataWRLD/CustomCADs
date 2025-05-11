@@ -21,4 +21,5 @@ export default {
 	'shipment-service': 'Service',
 	phone: 'Phone',
 	count: 'Count',
+	'select-option': 'Choose an option',
 } satisfies ComponentsFormsLabels;

@@ -1,5 +1,6 @@
 import { HTMLInputTypeAttribute, ReactNode } from 'react';
 import type { AnyFieldApi } from '@tanstack/react-form';
+import StyledSelect from './select';
 
 export const getErrorClass = (hasError: boolean) =>
 	hasError
@@ -93,16 +94,15 @@ const Field = (props: FieldProps) => {
 			break;
 		case 'select':
 			input = (
-				<select
-					id={name}
-					name={name}
+				<StyledSelect
+					id='categorySelect'
+					name='category'
 					value={value}
+					onChange={handleChange}
 					onBlur={handleBlur}
-					onChange={(e) => handleChange(e.target.value)}
-					className={`${baseInputClass} ${getErrorClass(showError && hasError)}`}
-				>
-					{props.options}
-				</select>
+					hasError={showError && hasError}
+					options={props.options}
+				/>
 			);
 			break;
 		case 'custom':
