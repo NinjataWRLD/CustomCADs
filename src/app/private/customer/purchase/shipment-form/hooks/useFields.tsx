@@ -74,7 +74,6 @@ export const useFields = (onSubmit: (values: Fields) => void) => {
 					label={tLabels('shipment-service')}
 					options={
 						<>
-							<option>{'Select a Service'}</option>
 							{calculations?.map((calculation) => (
 								<ShipmentService
 									key={calculation.service}
