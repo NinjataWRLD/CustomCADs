@@ -9,11 +9,9 @@ import {
 import { usePagination } from '@/hooks/usePagination';
 import { useGetPurchasedCart } from '@/hooks/queries/purchased-carts';
 import { usePurchasedCartsTranslation } from '@/hooks/locales/pages/customer';
-import Button from '@/app/components/button';
 import CustomLink from '@/app/components/link';
 import * as dateTime from '@/utils/date-time';
 import Item from './item';
-import styles from './styles.module.css';
 
 interface CartProps {
 	id: string;
@@ -54,47 +52,71 @@ const Cart = ({ id, navigate }: CartProps) => {
 	const start = limit * (page - 1);
 	const end = start + limit;
 	return (
-		<div className={styles.cart}>
+		<div
+			className='w-[70%] h-1/5 m-auto rounded-xl border-2 border-solid border-[purple]'
+			style={{ perspective: '1500px', transformStyle: 'preserve-3d' }}
+		>
 			<div
-				className={`${styles.inner} ${isClicked ? styles.flipped : ''}`}
+				className={`w-full h-full relative transition-transform duration-[1s] ease-[cubic-bezier(0.68,-0.55,0.27,1.55)] rounded-[10px] inner ${isClicked ? 'flipped' : ''}`}
+				style={{ transformStyle: 'preserve-3d' }}
 			>
-				<div className={styles.front}>
-					<p>
+				<div
+					className='absolute w-full h-full bg-[#6a2c7069] text-white flex items-center gap-10 rounded-[10px] cursor-pointer'
+					style={{
+						backfaceVisibility: 'hidden',
+						transform: 'rotateY(0deg)',
+					}}
+					onClick={toggleIsClicked}
+				>
+					<p className='font-bold ml-[30px]'>
 						{tCarts('first-column')} #
 						<span>{id.split('-').at(-1)}</span>
 					</p>
-					<div className={styles.info}>
-						<p>{tCarts('second-column')}</p>
-						<p>{dateTime.format({ date: purchasedAt })}</p>
+					<div>
+						<p className='font-bold ml-[30px] text-[gray]'>
+							{tCarts('second-column')}
+						</p>
+						<p className='font-bold ml-[30px]'>
+							{dateTime.format({ date: purchasedAt })}
+						</p>
 					</div>
-					<div className={styles.info}>
-						<p>{tCarts('third-column')}</p>
-						<p>${total.toFixed(2)}</p>
+					<div>
+						<p className='font-bold ml-[30px] text-[gray]'>
+							{tCarts('third-column')}
+						</p>
+						<p className='font-bold ml-[30px]'>
+							${total.toFixed(2)}
+						</p>
 					</div>
-					<div className={styles.info}>
-						<p>{tCarts('fourth-column')}</p>
-						<p>{tCarts('items-length', { count: items.length })}</p>
+					<div>
+						<p className='font-bold ml-[30px] text-[gray]'>
+							{tCarts('fourth-column')}
+						</p>
+						<p className='font-bold ml-[30px]'>
+							{tCarts('items-length', { count: items.length })}
+						</p>
 					</div>
-					<div className={styles.buttons}>
-						<Button
-							type='button'
-							text={tCarts('button-1')}
-							onClick={toggleIsClicked}
-						/>
+					<div className='absolute flex gap-[30px] right-[3%]'>
 						<CustomLink
 							text={tCarts('button-2')}
 							to='/'
 						></CustomLink>
 					</div>
 				</div>
-				<div className={styles.back}>
+				<div
+					className='bg-[#3f20445f] w-full h-full text-white flex items-center justify-around rounded-[10px]'
+					style={{
+						backfaceVisibility: 'hidden',
+						transform: 'rotateY(180deg)',
+					}}
+				>
 					<FontAwesomeIcon
 						onClick={toggleIsClicked}
 						icon={faSync}
 						rotation={270}
-						className={styles.left}
+						className='text-[1.8rem] cursor-pointer transition-[color] duration-[0.3s] ease-linear hover:text-[gray]'
 					/>
-					<div className={styles.items}>
+					<div className='w-9/12 flex justify-center items-center gap-5'>
 						{items.slice(start, end).map((item) => (
 							<Item
 								key={item.productId}
@@ -103,14 +125,16 @@ const Cart = ({ id, navigate }: CartProps) => {
 							/>
 						))}
 					</div>
-					<div className={styles.arrows}>
+					<div className='flex flex-col gap-[15px] text-[1.8rem]'>
 						<FontAwesomeIcon
 							icon={faArrowLeft}
 							onClick={handlePrevious}
+							className='cursor-pointer transition-[color] duration-[0.3s] ease-linear hover:text-[gray]'
 						/>
 						<FontAwesomeIcon
 							icon={faArrowRight}
 							onClick={handleNext}
+							className='cursor-pointer transition-[color] duration-[0.3s] ease-linear hover:text-[gray]'
 						/>
 					</div>
 				</div>

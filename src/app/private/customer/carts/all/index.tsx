@@ -7,7 +7,6 @@ import Transition from '@/app/components/transition';
 import Pagination from '@/app/components/pagination';
 import Sortings from '@/app/components/search/sortings';
 import Cart from './cart';
-import styles from './styles.module.css';
 
 const GALLERY_ITEMS_PER_PAGE = 12;
 const PurchasedCarts = () => {
@@ -43,9 +42,11 @@ const PurchasedCarts = () => {
 
 	return (
 		<Transition>
-			<div className={styles.container}>
-				<h1>{tCarts('title')}</h1>
-				<div className={styles.sorting}>
+			<div className='relative h-screen flex flex-col justify-center items-center text-[white]'>
+				<h1 className='text-[2.2rem] title-text-shadow'>
+					{tCarts('title')}
+				</h1>
+				<div className='relative w-full h-[10%] flex justify-center gap-5'>
 					<Sortings
 						fetch={sortings}
 						getSorting={() => ({
@@ -67,7 +68,7 @@ const PurchasedCarts = () => {
 						}
 					/>
 				</div>
-				<div className={styles.content}>
+				<div className='w-full h-3/5 gap-5 flex flex-col items-center justify-start mb-5'>
 					{carts.items.map((cart) => (
 						<Cart key={cart.id} id={cart.id} navigate={navigate} />
 					))}
