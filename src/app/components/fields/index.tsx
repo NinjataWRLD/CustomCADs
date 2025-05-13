@@ -1,10 +1,17 @@
 import { HTMLInputTypeAttribute, ReactNode } from 'react';
 import type { AnyFieldApi } from '@tanstack/react-form';
+import StyledSelect from './select';
 
 export const getErrorClass = (hasError: boolean) =>
 	hasError
 		? 'border border-red-500 bg-red-100 text-black'
 		: 'border border-gray-300';
+
+interface Option {
+	id: string | number;
+	name: string;
+	value: string;
+}
 
 type Common = {
 	api: AnyFieldApi;
@@ -27,7 +34,7 @@ type TextArea = {
 
 type Select = {
 	tag: 'select';
-	options: ReactNode;
+	options: Option[] | ReactNode;
 };
 
 type Custom = {
@@ -93,16 +100,15 @@ const Field = (props: FieldProps) => {
 			break;
 		case 'select':
 			input = (
-				<select
+				<StyledSelect
 					id={name}
 					name={name}
-					value={value}
+					value={String(value)}
+					onChange={handleChange}
 					onBlur={handleBlur}
-					onChange={(e) => handleChange(e.target.value)}
-					className={`${baseInputClass} ${getErrorClass(showError && hasError)}`}
-				>
-					{props.options}
-				</select>
+					hasError={showError && hasError}
+					options={props.options}
+				/>
 			);
 			break;
 		case 'custom':

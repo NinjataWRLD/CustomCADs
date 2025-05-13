@@ -2,8 +2,8 @@ import { objectToSearchParams } from '@/utils/api';
 import { PURCHASED_CART_BASE_PATH } from '../common';
 
 export interface Request {
-	sortingType: string;
-	sortingDirectoin: string;
+	sortingType?: string;
+	sortingDirection?: string;
 	page: number;
 	limit: number;
 }

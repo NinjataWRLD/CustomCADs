@@ -13,11 +13,15 @@ export const addItem = async (req: addItemResources.Request) =>
 	await axios.post<ActiveCartItem>(addItemResources.url(), req);
 
 export const purchase = async (req: purchaseResources.Request) =>
-	await axios.post(purchaseResources.url(), req);
+	await axios.post<purchaseResources.Response>(purchaseResources.url(), req);
 
 export const purchaseWithDelivery = async (
 	req: purchaseWithDeilveryResources.Request,
-) => await axios.post(purchaseWithDeilveryResources.url(), req);
+) =>
+	await axios.post<purchaseWithDeilveryResources.Response>(
+		purchaseWithDeilveryResources.url(),
+		req,
+	);
 
 export const all = async () =>
 	await axios.get<allResources.Response>(allResources.url());

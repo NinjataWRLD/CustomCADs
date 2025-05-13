@@ -15,4 +15,11 @@ export default {
 	price: 'Price',
 	image: 'Image',
 	cad: 'Cad',
+	country: 'Country',
+	city: 'City',
+	street: 'Street',
+	'shipment-service': 'Service',
+	phone: 'Phone',
+	count: 'Count',
+	'select-option': 'Choose an option',
 } satisfies ComponentsFormsLabels;

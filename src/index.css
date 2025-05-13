@@ -174,3 +174,7 @@ textarea.invalid {
 .box-animate-12 {
     animation: animate 13s linear infinite;
 }
+
+.inner.flipped {
+    transform: rotateY(180deg);
+}

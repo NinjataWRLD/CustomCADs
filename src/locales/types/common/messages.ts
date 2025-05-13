@@ -14,4 +14,8 @@ export type CommonMessagesPlaceholders = {
 	'confirm-password': string;
 	name: string;
 	description: string;
+	country: string;
+	city: string;
+	street: string;
+	phone: string;
 };

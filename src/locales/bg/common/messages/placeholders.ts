@@ -10,4 +10,8 @@ export default {
 	'confirm-password': 'вашата_тайна_парола_123',
 	name: 'Персонализиран Модел',
 	description: 'Най-персонализираният Модел',
+	country: 'Къстомландия',
+	city: 'Кадия',
+	street: 'ул. Сътрудническа',
+	phone: '0123 456 789',
 } satisfies CommonMessagesPlaceholders;

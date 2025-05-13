@@ -10,7 +10,7 @@ import { useMoneyManager } from '@/hooks/useMoneyManager';
 import { useCartTranslation } from '@/hooks/locales/pages/public';
 import { useCartContext } from '@/hooks/contexts/useCartContext';
 import Transition from '@/app/components/transition';
-import Button from '@/app/components/button';
+import CustomLink from '@/app/components/link';
 import * as money from '@/utils/money';
 import CartItem from './item';
 
@@ -120,7 +120,7 @@ const Cart = () => {
 						})}
 					</p>
 				</h2>
-				<Button type='button' text={tCart('buy')} />
+				<CustomLink to='/carts/purchase' text={tCart('buy')} />
 				<hr />
 				<div className='flex gap-[30px] w-full justify-center items-center h-[10%] text-white text-[2rem]'>
 					<FontAwesomeIcon icon={faCcVisa} />

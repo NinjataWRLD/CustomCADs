@@ -1,5 +1,11 @@
 import { PagesCreatorUploadProduct } from './creator';
 import {
+	PagesCustomerShipmentForm,
+	PagesCustomerCheckoutForm,
+	PagesCustomerPurchasedCarts,
+	PagesCustomerCartItem,
+} from './customer';
+import {
 	PagesGuestForgotPassword,
 	PagesGuestLogin,
 	PagesGuestPickRole,
@@ -15,6 +21,10 @@ import {
 } from './public';
 
 export type PagesTranslations = {
+	'pages.customer.shipment-form': PagesCustomerShipmentForm;
+	'pages.customer.checkout-form': PagesCustomerCheckoutForm;
+	'pages.customer.purchased-carts': PagesCustomerPurchasedCarts;
+	'pages.customer.cart-item': PagesCustomerCartItem;
 	'pages.creator.upload-product': PagesCreatorUploadProduct;
 	'pages.guest.forgot-password': PagesGuestForgotPassword;
 	'pages.guest.login': PagesGuestLogin;
