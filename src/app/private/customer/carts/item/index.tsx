@@ -1,6 +1,6 @@
-/* eslint-disable i18next/no-literal-string */
 import { useRouter } from '@tanstack/react-router';
 import { Route } from '@/routes/(private)/_customer/carts/$id/$productId';
+import { useCartItemTranslation } from '@/hooks/locales/pages/customer';
 import Transition from '@/app/components/transition';
 import Button from '@/app/components/button';
 import CustomLink from '@/app/components/link';
@@ -11,6 +11,8 @@ import { Clock, Truck, DollarSign } from 'lucide-react';
 const PurchasedCartItem = () => {
 	const { history } = useRouter();
 	const { item, customization } = Route.useLoaderData();
+
+	const tCartItem = useCartItemTranslation();
 
 	const formatDate = (dateStr: string): string => {
 		const date = new Date(dateStr);
@@ -36,7 +38,7 @@ const PurchasedCartItem = () => {
 						<div>
 							<div className='bg-opacity-50 p-4 rounded-lg'>
 								<h2 className='text-lg text-center font-semibold text-purple-900'>
-									Item Details
+									{tCartItem('title-1')}
 								</h2>
 								<hr />
 								<div>
@@ -46,7 +48,7 @@ const PurchasedCartItem = () => {
 										</div>
 										<div>
 											<p className='text-sm text-purple-700'>
-												Added at
+												{tCartItem('added-at')}
 											</p>
 											<p className='font-medium text-purple-900'>
 												{formatDate(item.addedAt)}
@@ -60,12 +62,16 @@ const PurchasedCartItem = () => {
 										</div>
 										<div>
 											<p className='text-sm text-purple-700'>
-												Delivery Status
+												{tCartItem('delivery-status')}
 											</p>
 											<p className='font-medium text-purple-900'>
 												{item.forDelivery
-													? 'Ready for delivery'
-													: 'Digital download only'}
+													? tCartItem(
+															'delivery-option-1',
+														)
+													: tCartItem(
+															'delivery-option-2',
+														)}
 											</p>
 										</div>
 									</div>
@@ -76,13 +82,13 @@ const PurchasedCartItem = () => {
 										</div>
 										<div>
 											<p className='text-sm text-purple-700'>
-												Final Price
+												{tCartItem('final-price-1')}
 											</p>
 											<div className='w-full flex justify-center items-center'>
 												<div>
 													<p>
 														<strong className='mr-1.5'>
-															Price:
+															{tCartItem('price')}
 														</strong>
 														{money.format(
 															money.fromBase({
@@ -92,7 +98,9 @@ const PurchasedCartItem = () => {
 													</p>
 													<p>
 														<strong className='mr-1.5'>
-															Quantity:
+															{tCartItem(
+																'quantity',
+															)}
 														</strong>
 														{item.quantity}
 													</p>
@@ -104,7 +112,9 @@ const PurchasedCartItem = () => {
 												<div className="inline-block relative w-[30px] h-2.5 bg-purple-700 ml-2.5 rounded-tl-[5px] rounded-bl-[5px] after:content-[''] after:absolute after:-translate-y-2/4 after:rotate-45 after:w-2.5 after:h-2.5 after:border-[solid] after:border-[46,255)] after:border-[2px_2px_0_0] after:right-0 after:top-2/4 before:content-[''] before:absolute before:-translate-y-2/4 before:-rotate-45 before:w-2.5 before:h-2.5 before:border-[solid] before:border-[46,255)] before:border-[0_2px_2px_0] before:right-0 before:top-2/4"></div>
 												<p className='ml-[10px]'>
 													<strong className='mr-1.5'>
-														Final Price:
+														{tCartItem(
+															'final-price-2',
+														)}
 													</strong>
 													{money.format(
 														money.fromBase({
@@ -131,7 +141,7 @@ const PurchasedCartItem = () => {
 					<div className='w-full md:basis-[60%] bg-purple-200 rounded-lg shadow-md p-7'>
 						<div className='flex justify-center items-center mb-4'>
 							<h2 className='text-xl font-semibold text-purple-900'>
-								3D Visualizer
+								{tCartItem('title-2')}
 							</h2>
 						</div>
 

@@ -11,3 +11,6 @@ export const useCheckoutFormTranslation = () =>
 
 export const usePurchasedCartsTranslation = () =>
 	useTranslation(`${NAMESPACE}.${SUB_NAMESPACE}.purchased-carts`).t;
+
+export const useCartItemTranslation = () =>
+	useTranslation(`${NAMESPACE}.${SUB_NAMESPACE}.cart-item`).t;
