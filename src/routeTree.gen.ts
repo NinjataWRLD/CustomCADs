@@ -30,8 +30,9 @@ import { Route as PublicEditorIdImport } from './routes/_public/editor.$id'
 import { Route as GuestRegisterRoleImport } from './routes/_guest/register/$role'
 import { Route as privateCreatorUploadProductImport } from './routes/(private)/_creator/upload-product'
 import { Route as privateCustomerCartsIndexImport } from './routes/(private)/_customer/carts/index'
-import { Route as privateCustomerCartsPurchaseIndexImport } from './routes/(private)/_customer/carts/purchase/index'
+import { Route as privateCustomerCartsPurchaseImport } from './routes/(private)/_customer/carts/purchase'
 import { Route as privateCustomerCustomsPurchaseIdImport } from './routes/(private)/_customer/customs/purchase/$id'
+import { Route as privateCustomerCartsIdProductIdImport } from './routes/(private)/_customer/carts/$id/$productId'
 
 // Create Virtual Routes
 
@@ -144,10 +145,10 @@ const privateCustomerCartsIndexRoute = privateCustomerCartsIndexImport.update({
   getParentRoute: () => privateCustomerRoute,
 } as any)
 
-const privateCustomerCartsPurchaseIndexRoute =
-  privateCustomerCartsPurchaseIndexImport.update({
-    id: '/carts/purchase/',
-    path: '/carts/purchase/',
+const privateCustomerCartsPurchaseRoute =
+  privateCustomerCartsPurchaseImport.update({
+    id: '/carts/purchase',
+    path: '/carts/purchase',
     getParentRoute: () => privateCustomerRoute,
   } as any)
 
@@ -155,6 +156,13 @@ const privateCustomerCustomsPurchaseIdRoute =
   privateCustomerCustomsPurchaseIdImport.update({
     id: '/customs/purchase/$id',
     path: '/customs/purchase/$id',
+    getParentRoute: () => privateCustomerRoute,
+  } as any)
+
+const privateCustomerCartsIdProductIdRoute =
+  privateCustomerCartsIdProductIdImport.update({
+    id: '/carts/$id/$productId',
+    path: '/carts/$id/$productId',
     getParentRoute: () => privateCustomerRoute,
   } as any)
 
@@ -281,6 +289,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicGalleryIndexImport
       parentRoute: typeof rootRoute
     }
+    '/(private)/_customer/carts/purchase': {
+      id: '/(private)/_customer/carts/purchase'
+      path: '/carts/purchase'
+      fullPath: '/carts/purchase'
+      preLoaderRoute: typeof privateCustomerCartsPurchaseImport
+      parentRoute: typeof privateCustomerImport
+    }
     '/(private)/_customer/carts/': {
       id: '/(private)/_customer/carts/'
       path: '/carts'
@@ -288,18 +303,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof privateCustomerCartsIndexImport
       parentRoute: typeof privateCustomerImport
     }
+    '/(private)/_customer/carts/$id/$productId': {
+      id: '/(private)/_customer/carts/$id/$productId'
+      path: '/carts/$id/$productId'
+      fullPath: '/carts/$id/$productId'
+      preLoaderRoute: typeof privateCustomerCartsIdProductIdImport
+      parentRoute: typeof privateCustomerImport
+    }
     '/(private)/_customer/customs/purchase/$id': {
       id: '/(private)/_customer/customs/purchase/$id'
       path: '/customs/purchase/$id'
       fullPath: '/customs/purchase/$id'
       preLoaderRoute: typeof privateCustomerCustomsPurchaseIdImport
-      parentRoute: typeof privateCustomerImport
-    }
-    '/(private)/_customer/carts/purchase/': {
-      id: '/(private)/_customer/carts/purchase/'
-      path: '/carts/purchase'
-      fullPath: '/carts/purchase'
-      preLoaderRoute: typeof privateCustomerCartsPurchaseIndexImport
       parentRoute: typeof privateCustomerImport
     }
   }
@@ -338,16 +353,17 @@ const privateCreatorRouteWithChildren = privateCreatorRoute._addFileChildren(
 )
 
 interface privateCustomerRouteChildren {
+  privateCustomerCartsPurchaseRoute: typeof privateCustomerCartsPurchaseRoute
   privateCustomerCartsIndexRoute: typeof privateCustomerCartsIndexRoute
+  privateCustomerCartsIdProductIdRoute: typeof privateCustomerCartsIdProductIdRoute
   privateCustomerCustomsPurchaseIdRoute: typeof privateCustomerCustomsPurchaseIdRoute
-  privateCustomerCartsPurchaseIndexRoute: typeof privateCustomerCartsPurchaseIndexRoute
 }
 
 const privateCustomerRouteChildren: privateCustomerRouteChildren = {
+  privateCustomerCartsPurchaseRoute: privateCustomerCartsPurchaseRoute,
   privateCustomerCartsIndexRoute: privateCustomerCartsIndexRoute,
+  privateCustomerCartsIdProductIdRoute: privateCustomerCartsIdProductIdRoute,
   privateCustomerCustomsPurchaseIdRoute: privateCustomerCustomsPurchaseIdRoute,
-  privateCustomerCartsPurchaseIndexRoute:
-    privateCustomerCartsPurchaseIndexRoute,
 }
 
 const privateCustomerRouteWithChildren = privateCustomerRoute._addFileChildren(
@@ -382,9 +398,10 @@ export interface FileRoutesByFullPath {
   '/gallery/$id': typeof PublicGalleryIdRoute
   '/register': typeof GuestRegisterIndexRoute
   '/gallery': typeof PublicGalleryIndexRoute
+  '/carts/purchase': typeof privateCustomerCartsPurchaseRoute
   '/carts': typeof privateCustomerCartsIndexRoute
+  '/carts/$id/$productId': typeof privateCustomerCartsIdProductIdRoute
   '/customs/purchase/$id': typeof privateCustomerCustomsPurchaseIdRoute
-  '/carts/purchase': typeof privateCustomerCartsPurchaseIndexRoute
 }
 
 export interface FileRoutesByTo {
@@ -402,9 +419,10 @@ export interface FileRoutesByTo {
   '/gallery/$id': typeof PublicGalleryIdRoute
   '/register': typeof GuestRegisterIndexRoute
   '/gallery': typeof PublicGalleryIndexRoute
+  '/carts/purchase': typeof privateCustomerCartsPurchaseRoute
   '/carts': typeof privateCustomerCartsIndexRoute
+  '/carts/$id/$productId': typeof privateCustomerCartsIdProductIdRoute
   '/customs/purchase/$id': typeof privateCustomerCustomsPurchaseIdRoute
-  '/carts/purchase': typeof privateCustomerCartsPurchaseIndexRoute
 }
 
 export interface FileRoutesById {
@@ -426,9 +444,10 @@ export interface FileRoutesById {
   '/_public/gallery/$id': typeof PublicGalleryIdRoute
   '/_guest/register/': typeof GuestRegisterIndexRoute
   '/_public/gallery/': typeof PublicGalleryIndexRoute
+  '/(private)/_customer/carts/purchase': typeof privateCustomerCartsPurchaseRoute
   '/(private)/_customer/carts/': typeof privateCustomerCartsIndexRoute
+  '/(private)/_customer/carts/$id/$productId': typeof privateCustomerCartsIdProductIdRoute
   '/(private)/_customer/customs/purchase/$id': typeof privateCustomerCustomsPurchaseIdRoute
-  '/(private)/_customer/carts/purchase/': typeof privateCustomerCartsPurchaseIndexRoute
 }
 
 export interface FileRouteTypes {
@@ -448,9 +467,10 @@ export interface FileRouteTypes {
     | '/gallery/$id'
     | '/register'
     | '/gallery'
-    | '/carts'
-    | '/customs/purchase/$id'
     | '/carts/purchase'
+    | '/carts'
+    | '/carts/$id/$productId'
+    | '/customs/purchase/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | ''
@@ -467,9 +487,10 @@ export interface FileRouteTypes {
     | '/gallery/$id'
     | '/register'
     | '/gallery'
-    | '/carts'
-    | '/customs/purchase/$id'
     | '/carts/purchase'
+    | '/carts'
+    | '/carts/$id/$productId'
+    | '/customs/purchase/$id'
   id:
     | '__root__'
     | '/_guest'
@@ -489,9 +510,10 @@ export interface FileRouteTypes {
     | '/_public/gallery/$id'
     | '/_guest/register/'
     | '/_public/gallery/'
+    | '/(private)/_customer/carts/purchase'
     | '/(private)/_customer/carts/'
+    | '/(private)/_customer/carts/$id/$productId'
     | '/(private)/_customer/customs/purchase/$id'
-    | '/(private)/_customer/carts/purchase/'
   fileRoutesById: FileRoutesById
 }
 
@@ -568,9 +590,10 @@ export const routeTree = rootRoute
       "filePath": "(private)/_customer.tsx",
       "parent": "/(private)",
       "children": [
+        "/(private)/_customer/carts/purchase",
         "/(private)/_customer/carts/",
-        "/(private)/_customer/customs/purchase/$id",
-        "/(private)/_customer/carts/purchase/"
+        "/(private)/_customer/carts/$id/$productId",
+        "/(private)/_customer/customs/purchase/$id"
       ]
     },
     "/_guest/forgot-password": {
@@ -618,16 +641,20 @@ export const routeTree = rootRoute
     "/_public/gallery/": {
       "filePath": "_public/gallery/index.tsx"
     },
+    "/(private)/_customer/carts/purchase": {
+      "filePath": "(private)/_customer/carts/purchase.tsx",
+      "parent": "/(private)/_customer"
+    },
     "/(private)/_customer/carts/": {
       "filePath": "(private)/_customer/carts/index.tsx",
       "parent": "/(private)/_customer"
     },
-    "/(private)/_customer/customs/purchase/$id": {
-      "filePath": "(private)/_customer/customs/purchase/$id.tsx",
+    "/(private)/_customer/carts/$id/$productId": {
+      "filePath": "(private)/_customer/carts/$id/$productId.tsx",
       "parent": "/(private)/_customer"
     },
-    "/(private)/_customer/carts/purchase/": {
-      "filePath": "(private)/_customer/carts/purchase/index.tsx",
+    "/(private)/_customer/customs/purchase/$id": {
+      "filePath": "(private)/_customer/customs/purchase/$id.tsx",
       "parent": "/(private)/_customer"
     }
   }
