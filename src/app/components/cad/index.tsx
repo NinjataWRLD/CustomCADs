@@ -14,6 +14,7 @@ type CadProps =
 			cartId: string;
 			productId: string;
 			customization?: Customization;
+			forDelivery: boolean;
 	  };
 
 const Cad = (props: CadProps) => {
@@ -30,6 +31,7 @@ const Cad = (props: CadProps) => {
 					id={props.cartId}
 					productId={props.productId}
 					customization={props.customization}
+					forDelivery={props.forDelivery}
 				/>
 			);
 		default:

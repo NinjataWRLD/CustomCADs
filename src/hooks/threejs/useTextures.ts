@@ -8,9 +8,9 @@ interface Material {
 	density: number;
 }
 
-export const useTextures = () => {
+export const useTextures = (enabled?: boolean) => {
 	const [map, setMap] = useState<Record<string, Material>>({});
-	const { data } = useGetMaterials();
+	const { data } = useGetMaterials(!!enabled);
 
 	useEffect(() => {
 		if (data) {

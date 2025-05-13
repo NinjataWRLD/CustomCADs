@@ -1,3 +1,4 @@
+import { CreditCard, CheckCircle, AlertCircle, ArrowLeft } from 'lucide-react';
 import { Link } from '@tanstack/react-router';
 import { BillingDetails } from '@stripe/stripe-js';
 import { CardElement } from '@stripe/react-stripe-js';
@@ -5,7 +6,6 @@ import * as payment from '@/api/common/payment';
 import { useCheckoutFormTranslation } from '@/hooks/locales/pages/customer';
 import { useCheckout } from './hooks/useCheckout';
 import Transition from '@/app/components/transition';
-import { CreditCard, CheckCircle, AlertCircle, ArrowLeft } from 'lucide-react';
 
 interface CheckoutFormProps {
 	type: 'cart' | 'custom';

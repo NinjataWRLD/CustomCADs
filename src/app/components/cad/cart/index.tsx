@@ -11,21 +11,31 @@ interface CartCadProps {
 		materialId: number;
 		color?: string;
 	};
+	forDelivery: boolean;
 }
-const CartCad = ({ id, productId, customization }: CartCadProps) => {
+const CartCad = ({
+	id,
+	productId,
+	customization,
+	forDelivery,
+}: CartCadProps) => {
 	const { data: cad } = useDownloadPurchasedCartItemCad({ id, productId });
 	const cadBlobUrl = useGenerateBlobUrl(cad);
 
-	const textureBlobUrls = useTextures();
-	if (!cad || !cadBlobUrl || !customization) return;
+	const textureBlobUrls = useTextures(forDelivery);
+	if (!cad || !cadBlobUrl) return;
+
+	let threeJsCustomization;
+	if (customization)
+		threeJsCustomization = {
+			texture: textureBlobUrls[customization.materialId]?.blobUrl,
+			color: customization.color,
+		};
 
 	return (
 		<div className='h-full w-full'>
 			<CartThreeJS
-				customization={{
-					texture: textureBlobUrls[customization.materialId].blobUrl,
-					color: customization.color,
-				}}
+				customization={threeJsCustomization}
 				file={{ url: cadBlobUrl, type: getCadType(cad.contentType) }}
 				cam={cad.camCoordinates}
 				pan={cad.panCoordinates}

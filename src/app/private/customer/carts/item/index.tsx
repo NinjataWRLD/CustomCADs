@@ -1,3 +1,4 @@
+import { Clock, Truck, DollarSign } from 'lucide-react';
 import { useRouter } from '@tanstack/react-router';
 import { Route } from '@/routes/(private)/_customer/carts/$id/$productId';
 import { useCartItemTranslation } from '@/hooks/locales/pages/customer';
@@ -6,29 +7,13 @@ import Button from '@/app/components/button';
 import CustomLink from '@/app/components/link';
 import Cad from '@/app/components/cad';
 import * as money from '@/utils/money';
-import { Clock, Truck, DollarSign } from 'lucide-react';
+import * as dateTime from '@/utils/date-time';
 
 const PurchasedCartItem = () => {
 	const { history } = useRouter();
 	const { item, customization } = Route.useLoaderData();
 
 	const tCartItem = useCartItemTranslation();
-
-	const formatDate = (dateStr: string): string => {
-		const date = new Date(dateStr);
-
-		if (isNaN(date.getTime())) {
-			throw new Error('Invalid date string');
-		}
-
-		return new Intl.DateTimeFormat('en-US', {
-			month: 'short',
-			day: 'numeric',
-			year: 'numeric',
-			hour: '2-digit',
-			minute: '2-digit',
-		}).format(date);
-	};
 
 	return (
 		<Transition>
@@ -51,7 +36,9 @@ const PurchasedCartItem = () => {
 												{tCartItem('added-at')}
 											</p>
 											<p className='font-medium text-purple-900'>
-												{formatDate(item.addedAt)}
+												{dateTime.format({
+													date: item.addedAt,
+												})}
 											</p>
 										</div>
 									</div>
@@ -151,6 +138,7 @@ const PurchasedCartItem = () => {
 								cartId={item.cartId}
 								productId={item.productId}
 								customization={customization}
+								forDelivery={item.forDelivery}
 							/>
 						</div>
 
