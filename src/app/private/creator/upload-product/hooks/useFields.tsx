@@ -46,11 +46,11 @@ export const useFields = () => {
 					api={api}
 					label={tLabels('category')}
 					format={(value) => Number(value)}
-					options={categories?.map((c) => (
-						<option key={c.id} value={c.id}>
-							{c.name}
-						</option>
-					))}
+					options={categories?.map((c) => ({
+						id: c.id,
+						name: c.name,
+						value: String(c.id),
+					}))}
 				/>
 			)}
 		</form.Field>

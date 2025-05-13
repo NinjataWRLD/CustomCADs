@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useLabelsTranslation } from '@/hooks/locales/components/forms';
@@ -8,7 +8,6 @@ interface Option {
 	name: string;
 	value: string;
 }
-
 interface StyledSelectProps {
 	id?: string;
 	name?: string;
@@ -22,7 +21,7 @@ interface StyledSelectProps {
 	disabled?: boolean;
 }
 
-const StyledSelect = ({
+const StyledSelect: React.FC<StyledSelectProps> = ({
 	id,
 	name,
 	value,
@@ -33,65 +32,58 @@ const StyledSelect = ({
 	placeholder,
 	hasError = false,
 	disabled = false,
-}: StyledSelectProps) => {
+}) => {
 	const tSelect = useLabelsTranslation();
 	const defaultPlaceholder = tSelect('select-option');
-
 	const [isActive, setIsActive] = useState(false);
-	const [selectedOption, setSelectedOption] = useState<string | undefined>(
-		value,
-	);
-	const [parsedOptions, setParsedOptions] = useState<Option[]>([]);
 
-	placeholder = placeholder || defaultPlaceholder;
+	const parsedOptions: Option[] = useMemo(() => {
+		if (Array.isArray(options)) return options;
 
-	useEffect(() => {
-		if (!Array.isArray(options)) {
-			const optionsArray: Option[] = [];
-			if (options && typeof options === 'object') {
-				React.Children.forEach(options as React.ReactNode, (child) => {
-					if (React.isValidElement(child)) {
-						const props = child.props as any;
-						if (props) {
-							optionsArray.push({
-								id: props.value || props.children,
-								name: props.children,
-								value: props.value || props.children,
-							});
-						}
-					}
-				});
-			}
-			setParsedOptions(optionsArray);
-		} else {
-			setParsedOptions(options);
+		const childrenOptions: Option[] = [];
+		if (options && typeof options === 'object') {
+			React.Children.forEach(options, (child) => {
+				if (React.isValidElement(child)) {
+					const element = child as React.ReactElement<{
+						value?: string | number;
+						children: React.ReactNode;
+					}>;
+					const { value: val, children: label } = element.props;
+
+					const fallback =
+						typeof label === 'string' || typeof label === 'number'
+							? label.toString()
+							: 'unknown';
+
+					const id = (val ?? fallback).toString();
+					const value = (val ?? fallback).toString();
+					const name = typeof label === 'string' ? label : fallback;
+
+					childrenOptions.push({ id, value, name });
+				}
+			});
 		}
+		return childrenOptions;
 	}, [options]);
 
-	useEffect(() => {
-		setSelectedOption(value);
-	}, [value]);
+	const selectedDisplay = useMemo(() => {
+		const match = parsedOptions.find((opt) => opt.value === value);
+		return match?.name ?? placeholder ?? defaultPlaceholder;
+	}, [value, parsedOptions, placeholder, defaultPlaceholder]);
 
 	const toggleDropdown = () => {
-		if (!disabled) {
-			setIsActive(!isActive);
-		}
+		if (!disabled) setIsActive((prev) => !prev);
 	};
 
 	const handleSelect = (option: Option) => {
-		setSelectedOption(option.name);
 		onChange(option.value);
 		setIsActive(false);
 	};
 
 	const handleBlur = (e: React.FocusEvent<HTMLDivElement>) => {
 		setTimeout(() => setIsActive(false), 200);
-		if (onBlur) {
-			onBlur(e);
-		}
+		onBlur?.(e);
 	};
-
-	const displayValue = selectedOption || placeholder;
 
 	return (
 		<div
@@ -110,7 +102,7 @@ const StyledSelect = ({
 				onClick={toggleDropdown}
 			>
 				<span className='ml-[5%] text-base font-normal drop-shadow-[1px_1px_2px_white,_2px_2px_1px_rgb(128,0,128)]'>
-					{displayValue}
+					{selectedDisplay}
 				</span>
 				<FontAwesomeIcon
 					icon={faChevronDown}
@@ -124,14 +116,13 @@ const StyledSelect = ({
 				{parsedOptions.map((option, index) => (
 					<li
 						key={option.id}
-						value={option.value}
+						onClick={() => handleSelect(option)}
 						className={`flex items-center justify-center text-center w-full bg-black border-r-2 border-l-2 border-purple-900 border-b-2 border-b-dashed border-b-purple-400/40 py-2 px-1 cursor-pointer transition-all duration-500 hover:bg-purple-900/80 ${
 							isActive
 								? 'opacity-100 scale-100 translate-y-0 mb-0'
 								: 'opacity-0 scale-0 -translate-y-16 -mb-10'
 						}`}
 						style={{ transitionDelay: `${index * 0.1}s` }}
-						onClick={() => handleSelect(option)}
 					>
 						<span className='text-lg text-gray-400 hover:text-purple-300 transition-colors duration-300 font-medium w-full px-2'>
 							{option.name}

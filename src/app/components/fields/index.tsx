@@ -7,6 +7,12 @@ export const getErrorClass = (hasError: boolean) =>
 		? 'border border-red-500 bg-red-100 text-black'
 		: 'border border-gray-300';
 
+interface Option {
+	id: string | number;
+	name: string;
+	value: string;
+}
+
 type Common = {
 	api: AnyFieldApi;
 	label: string;
@@ -28,7 +34,7 @@ type TextArea = {
 
 type Select = {
 	tag: 'select';
-	options: ReactNode;
+	options: Option[] | ReactNode;
 };
 
 type Custom = {
@@ -95,9 +101,9 @@ const Field = (props: FieldProps) => {
 		case 'select':
 			input = (
 				<StyledSelect
-					id='categorySelect'
-					name='category'
-					value={value}
+					id={name}
+					name={name}
+					value={String(value)}
 					onChange={handleChange}
 					onBlur={handleBlur}
 					hasError={showError && hasError}

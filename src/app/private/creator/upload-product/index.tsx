@@ -30,10 +30,10 @@ const UploadProduct = () => {
 
 	return (
 		<Transition>
-			<div className='h-[100dvh] flex justify-center items-center text-white'>
+			<div className='h-[110dvh] flex justify-center items-center text-white'>
 				<form
 					onSubmit={handleSubmit}
-					className='relative upload-form w-1/2 flex flex-col justify-center items-center p-12 gap-4'
+					className='relative upload-form w-1/2 flex flex-col justify-center items-center p-12 gap-4 mb-3'
 				>
 					<Border />
 					<h1 className='title-text-shadow transition-all duration-300'>
@@ -44,15 +44,15 @@ const UploadProduct = () => {
 						{fields.NameField}
 					</div>
 
+					<div className='w-3/4 flex justify-between gap-[10px] mb-5'>
+						{fields.CategoryField}
+						{fields.PriceField}
+					</div>
+
 					<div className='w-3/4 flex flex-col gap-[10px] mb-5'>
 						<div className='description-field-wrapper w-full'>
 							{fields.DescriptionField}
 						</div>
-					</div>
-
-					<div className='w-3/4 flex justify-between gap-[10px] mb-5'>
-						{fields.CategoryField}
-						{fields.PriceField}
 					</div>
 
 					<div className='w-3/4 flex justify-between gap-[10px] mb-5'>
