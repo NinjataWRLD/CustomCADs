@@ -1,9 +1,13 @@
 import { axios } from '@/api/axios';
 import * as authnResources from './authn';
 import * as authzResources from './authz';
+import * as myAccountResources from './my-account';
+import * as downloadInfoResources from './download-info';
 import * as loginResources from './login';
 import * as refreshResources from './refresh';
 import * as logoutResources from './logout';
+import * as deleteResources from './delete';
+import * as changeUsernameResources from './change-username';
 import * as forgotPasswordResources from './forgot-password';
 import * as resetPasswordResources from './reset-password';
 import * as registerResources from './register';
@@ -15,12 +19,25 @@ export const authn = async () =>
 export const authz = async () =>
 	await axios.get<authzResources.Response>(authzResources.url());
 
+export const myAccount = async () =>
+	await axios.get<myAccountResources.Response>(myAccountResources.url());
+
+export const downloadInfo = async () =>
+	await axios.get<downloadInfoResources.Response>(
+		downloadInfoResources.url(),
+	);
+
 export const login = async (req: loginResources.Request) =>
 	await axios.post(loginResources.url(), req);
 
 export const refresh = async () => await axios.post(refreshResources.url());
 
 export const logout = async () => await axios.post(logoutResources.url());
+
+export const changeUsername = async (req: changeUsernameResources.Request) =>
+	await axios.put(changeUsernameResources.url(), req);
+
+export const delete_ = async () => await axios.delete(deleteResources.url());
 
 export const forgotPassword = async (req: forgotPasswordResources.Request) =>
 	await axios.get(forgotPasswordResources.url(req));

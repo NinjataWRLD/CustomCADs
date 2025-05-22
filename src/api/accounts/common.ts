@@ -7,6 +7,7 @@ export interface AccountResponse {
 	username: string;
 	email: string;
 	role: string;
+	createdAt: string;
 	firstName?: string;
 	lastName?: string;
 }
