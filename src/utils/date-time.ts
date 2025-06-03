@@ -1,4 +1,4 @@
-const getUserLanguage = () => (navigator.languages || [navigator.language])[0];
+import { getUserDefaultLanguage } from './default-language';
 
 interface FormatOptions {
 	date: string;
@@ -7,7 +7,7 @@ interface FormatOptions {
 }
 export const format = ({
 	date,
-	locale = getUserLanguage(),
+	locale = getUserDefaultLanguage(),
 	dateOnly = false,
 }: FormatOptions) =>
 	new Date(date).toLocaleString(locale, {
