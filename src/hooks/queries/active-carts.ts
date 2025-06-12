@@ -1,11 +1,18 @@
 import { useQuery } from '@tanstack/react-query';
-import { calculateShipment, all } from '@/api/carts/active';
+import { calculateShipment, all, count } from '@/api/carts/active';
 import { Request as Calculate } from '@/api/carts/active/calculate-shipment';
 
 export const useGetActiveCartItems = (enabled?: boolean) =>
 	useQuery({
 		queryKey: ['active-carts', 'all'],
 		queryFn: async () => (await all()).data,
+		enabled: enabled,
+	});
+
+export const useCountActiveCartItems = (enabled?: boolean) =>
+	useQuery({
+		queryKey: ['active-carts', 'count'],
+		queryFn: async () => (await count()).data,
 		enabled: enabled,
 	});
 

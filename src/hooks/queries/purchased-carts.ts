@@ -2,7 +2,14 @@ import { useQuery } from '@tanstack/react-query';
 import { Request as All } from '@/api/carts/purchased/all';
 import { Request as Single } from '@/api/carts/purchased/single';
 import { Request as Download } from '@/api/carts/purchased/download';
-import { all, download, single, sortings, stats } from '@/api/carts/purchased';
+import {
+	all,
+	download,
+	paymentStatuses,
+	single,
+	sortings,
+	stats,
+} from '@/api/carts/purchased';
 
 export const useGetPurchasedCarts = (params: All, enabled?: boolean) =>
 	useQuery({
@@ -22,6 +29,13 @@ export const useGetPurchasedCartsSortings = (enabled?: boolean) =>
 	useQuery({
 		queryKey: ['purchased-carts', 'sortings'],
 		queryFn: async () => (await sortings()).data,
+		enabled,
+	});
+
+export const useGetPurchasedCartsPaymentStatuses = (enabled?: boolean) =>
+	useQuery({
+		queryKey: ['purchased-carts', 'payment-statuses'],
+		queryFn: async () => (await paymentStatuses()).data,
 		enabled,
 	});
 

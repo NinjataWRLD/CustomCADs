@@ -1,11 +1,15 @@
 import { useEffect, useState } from 'react';
 import { Route } from '@/routes/(private)/_customer/carts';
 import { usePagination } from '@/hooks/usePagination';
-import { useGetPurchasedCartsSortings } from '@/hooks/queries/purchased-carts';
+import {
+	useGetPurchasedCartsPaymentStatuses,
+	useGetPurchasedCartsSortings,
+} from '@/hooks/queries/purchased-carts';
 import { usePurchasedCartsTranslation } from '@/hooks/locales/pages/customer';
 import Transition from '@/app/components/transition';
 import Pagination from '@/app/components/pagination';
 import Sortings from '@/app/components/search/sortings';
+import Statuses from '@/app/components/search/statuses';
 import Cart from './cart';
 
 const GALLERY_ITEMS_PER_PAGE = 12;
@@ -22,8 +26,9 @@ const PurchasedCarts = () => {
 
 	const tCarts = usePurchasedCartsTranslation();
 	const sortings = useGetPurchasedCartsSortings();
+	const statuses = useGetPurchasedCartsPaymentStatuses();
 
-	const [dropdown, setDropdown] = useState<'sorting'>();
+	const [dropdown, setDropdown] = useState<'sorting' | 'payment-statuses'>();
 	useEffect(() => {
 		navigate({
 			search: (prev) => ({
@@ -46,7 +51,23 @@ const PurchasedCarts = () => {
 				<h1 className='text-[2.2rem] title-text-shadow'>
 					{tCarts('title')}
 				</h1>
-				<div className='relative w-full h-[10%] flex justify-center gap-5'>
+				<div className='relative flex justify-center w-full max-w-[1200px] gap-[30px] p-5'>
+					<Statuses
+						fetch={statuses}
+						getStatus={() => search.paymentStatus}
+						updateStatus={(paymentStatus) => {
+							navigate({
+								search: (prev) => ({
+									...prev,
+									paymentStatus: paymentStatus,
+								}),
+							});
+						}}
+						isActive={dropdown === 'payment-statuses'}
+						setActive={(active) =>
+							setDropdown(active ? 'payment-statuses' : undefined)
+						}
+					/>
 					<Sortings
 						fetch={sortings}
 						getSorting={() => ({

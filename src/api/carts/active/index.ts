@@ -3,6 +3,7 @@ import { ActiveCartItem } from '@/api/carts/common';
 import * as addItemResources from './add-item';
 import * as removeItemResources from './remove-item';
 import * as allResources from './single';
+import * as countResources from './count';
 import * as quantityResources from './change-quantity';
 import * as deliveryResources from './toggle-for-delivery';
 import * as purchaseResources from './purchase';
@@ -25,6 +26,9 @@ export const purchaseWithDelivery = async (
 
 export const all = async () =>
 	await axios.get<allResources.Response>(allResources.url());
+
+export const count = async () =>
+	await axios.get<countResources.Response>(countResources.url());
 
 export const calculateShipment = async (req: calculateResources.Request) =>
 	await axios.get<calculateResources.Response>(calculateResources.url(req));

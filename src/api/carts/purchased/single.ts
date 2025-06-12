@@ -11,6 +11,7 @@ export interface Response {
 	id: string;
 	total: number;
 	purchasedAt: string;
+	paymentStatus: string;
 	buyerName: string;
 	shipmentId?: string;
 	items: PurchasedCartItem[];

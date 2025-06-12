@@ -61,11 +61,11 @@ const Field = (props: FieldProps) => {
 	const showError = meta.isBlurred && meta.isTouched && dirty;
 	const hasError = !!meta.errors.length;
 
-	const baseInputClass = `w-full p-2.5 
-						${showError && hasError ? 'text-black bg-red-100' : 'text-white bg-black'} 
-						border-2 rounded-[10px] outline-none 
-						transition-colors duration-300 
-						focus:border-purple-500 focus:shadow-white/60 
+	const baseInputClass = `w-full p-2.5
+						${showError && hasError ? 'text-black bg-red-100' : 'text-white bg-black'}
+						border-2 rounded-[10px] outline-none
+						transition-colors duration-300
+						focus:border-purple-500 focus:shadow-white/60
 						font-['Ubuntu'] text-base border-gray-500
 						focus:outline-none focus:ring focus:ring-purple-300`;
 

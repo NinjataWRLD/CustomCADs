@@ -10,6 +10,7 @@ export interface FinishedCustomDto {
 }
 
 export interface CompletedCustomDto {
+	paymentStatus: string;
 	customizationId?: string;
 	shipmentId?: string;
 }
