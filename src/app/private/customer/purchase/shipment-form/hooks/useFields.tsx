@@ -1,4 +1,5 @@
 import { useStore } from '@tanstack/react-store';
+import { useDebounce } from '@/hooks/useDebounce';
 import { useCalculateActiveCartShipment } from '@/hooks/queries/active-carts';
 import { usePlaceholdersTranslation } from '@/hooks/locales/common/messages';
 import { useLabelsTranslation } from '@/hooks/locales/components/forms';
@@ -13,13 +14,18 @@ export const useFields = (onSubmit: (values: Fields) => void) => {
 		city: values.city,
 		street: values.street,
 	}));
+
 	const reset = {
-		city: () => form.setFieldValue('city', ''),
+		city: () => {
+			form.setFieldValue('city', '');
+			form.setFieldValue('street', '');
+		},
 		street: () => form.setFieldValue('street', ''),
 	};
+	const debounced = useDebounce({ country, city, street }, 250);
 
 	const { data: calculations } = useCalculateActiveCartShipment(
-		{ country, city, street },
+		debounced,
 		!!city && !!country && !!street,
 	);
 

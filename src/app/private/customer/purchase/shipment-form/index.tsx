@@ -64,10 +64,6 @@ const ShipmentForm = ({ onSubmit, requireCount }: ShipmentFormProps) => {
 						</div>
 					</div>
 
-					<div className='w-[105%] flex flex-col items-center gap-[10px] mt-[10px] ml-[20px]'>
-						{fields.ServiceField}
-					</div>
-
 					<div className='w-full flex flex-row gap-10'>
 						<div className='flex grow flex-col items-center gap-[10px] mt-[10px]'>
 							{fields.EmailField}
@@ -77,6 +73,10 @@ const ShipmentForm = ({ onSubmit, requireCount }: ShipmentFormProps) => {
 								{fields.CountField}
 							</div>
 						)}
+					</div>
+
+					<div className='w-[105%] flex flex-col items-center gap-[10px] mt-[10px] ml-[20px]'>
+						{fields.ServiceField}
 					</div>
 
 					<div>
