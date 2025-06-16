@@ -1,40 +1,43 @@
 import { useMutation } from '@tanstack/react-query';
 import { Request as Status } from '@/api/customs/customs/designer/status';
 import { Request as Finish } from '@/api/customs/customs/designer/finish';
-import {
-	accept,
-	begin,
-	cancel,
-	finish,
-	report,
-} from '@/api/customs/customs/designer';
+import * as api from '@/api/customs/customs/designer';
+
+export const keys = {
+	base: ['customs', 'designer'] as const,
+	accept: () => [...keys.base, 'accept'] as const,
+	begin: () => [...keys.base, 'begin'] as const,
+	cancel: () => [...keys.base, 'cancel'] as const,
+	report: () => [...keys.base, 'report'] as const,
+	finish: () => [...keys.base, 'finish'] as const,
+};
 
 export const useAcceptCustom = () =>
 	useMutation({
-		mutationKey: ['customs', 'designer', 'accept'],
-		mutationFn: async (params: Status) => (await accept(params)).data,
+		mutationKey: keys.accept(),
+		mutationFn: async (params: Status) => (await api.accept(params)).data,
 	});
 
 export const useBeginCustom = () =>
 	useMutation({
-		mutationKey: ['customs', 'designer', 'begin'],
-		mutationFn: async (params: Status) => (await begin(params)).data,
+		mutationKey: keys.begin(),
+		mutationFn: async (params: Status) => (await api.begin(params)).data,
 	});
 
 export const useCancelCustom = () =>
 	useMutation({
-		mutationKey: ['customs', 'designer', 'cancel'],
-		mutationFn: async (params: Status) => (await cancel(params)).data,
+		mutationKey: keys.cancel(),
+		mutationFn: async (params: Status) => (await api.cancel(params)).data,
 	});
 
 export const useReportCustom = () =>
 	useMutation({
-		mutationKey: ['customs', 'designer', 'report'],
-		mutationFn: async (params: Status) => (await report(params)).data,
+		mutationKey: keys.report(),
+		mutationFn: async (params: Status) => (await api.report(params)).data,
 	});
 
 export const useFinishCustom = () =>
 	useMutation({
-		mutationKey: ['customs', 'designer', 'finish'],
-		mutationFn: async (params: Finish) => (await finish(params)).data,
+		mutationKey: keys.finish(),
+		mutationFn: async (params: Finish) => (await api.finish(params)).data,
 	});

@@ -1,18 +1,24 @@
 import { useQuery } from '@tanstack/react-query';
 import { Request as Single } from '@/api/accounts/roles/single';
-import { all, single } from '@/api/accounts/roles';
+import * as api from '@/api/accounts/roles';
+
+export const keys = {
+	base: ['roles'] as const,
+	all: () => [...keys.base, 'all'],
+	single: (params: Single) => [...keys.base, 'single', params],
+};
 
 export const useGetRoles = (enabled?: boolean) =>
 	useQuery({
-		queryKey: ['roles', 'all'],
-		queryFn: async () => (await all()).data,
+		queryKey: keys.all(),
+		queryFn: async () => (await api.all()).data,
 		enabled,
 	});
 
 const useGetRole = (params: Single, enabled?: boolean) =>
 	useQuery({
-		queryKey: ['roles', 'single', params],
-		queryFn: async () => (await single(params)).data,
+		queryKey: keys.single(params),
+		queryFn: async () => (await api.single(params)).data,
 		enabled,
 	});
 
