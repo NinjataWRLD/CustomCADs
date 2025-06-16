@@ -10,9 +10,11 @@ export default {
 	'created-at': 'Account Created At: ',
 	email: 'Email: ',
 	'forgot-password': 'Forgot Your Password?',
-	'security-warnring':
+	'security-warning':
 		"For your security, we highly recommend that you choose a unique password that you don't use for any other online account.",
 	'change-password': 'Change Password',
+	'change-password-text':
+		'We’ve sent you an email with instructions to reset your password.',
 	'download-data': 'Download your CustomCADs Data',
 	'download-data-btn': 'Download Data',
 	'delete-account': 'Delete Account Information',

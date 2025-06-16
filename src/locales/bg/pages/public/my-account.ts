@@ -10,9 +10,11 @@ export default {
 	'created-at': 'Акаунт създаден на: ',
 	email: 'Имейл: ',
 	'forgot-password': 'Забравихте Паролата Си?',
-	'security-warnring':
+	'security-warning':
 		'За ваша сигурност, силно препоръчваме да изберете уникална парола, която не използвате в други онлайн акаунти.',
 	'change-password': 'Промени Парола',
+	'change-password-text':
+		'Изпратихме ви имейл с инструкции за промяна на паролата.',
 	'download-data': 'Изтегли CustomCADs данните си',
 	'download-data-btn': 'Изтегли данни',
 	'delete-account': 'Изтрий информацията за Акаунта си',

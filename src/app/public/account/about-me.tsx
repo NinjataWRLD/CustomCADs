@@ -1,5 +1,4 @@
 import { useMyAccountTranslation } from '@/hooks/locales/pages/public';
-import styles from './styles.module.css';
 
 interface AboutMeProps {
 	username: string;
@@ -11,23 +10,26 @@ const AboutMe = ({ role, username, createdAt }: AboutMeProps) => {
 
 	return (
 		<>
-			<div className={styles.section}>
-				<div className={styles.username}>
+			<div className='relative flex flex-col gap-5 justify-center ml-5'>
+				<div className='flex gap-5'>
 					<h2>{tMyAccount('username')}</h2>
-					<p>{username}</p>
+					<p className='flex justify-center items-center font-bold text-[1.4rem] ml-5 title-text-shadow'>
+						{username}
+					</p>
 				</div>
-				<div className={styles.role}>
+				<div className='flex gap-5'>
 					<h2>{tMyAccount('user-role')}</h2>
-					<p>{role}</p>
+					<p className='flex justify-center items-center font-bold text-[1.4rem] ml-5 title-text-shadow'>
+						{role}
+					</p>
 				</div>
-				<div className={`${styles.member}`}>
+				<div className='flex gap-5'>
 					<h2>{tMyAccount('created-at')}</h2>
-					<p>{createdAt}</p>
+					<p className='flex justify-center items-center font-bold text-[1.4rem] ml-5 title-text-shadow'>
+						{createdAt}
+					</p>
 				</div>
 			</div>
-
-			{/* UI breaks when I remove this (╥﹏╥) */}
-			<div className={`${styles.buttons}`} />
 		</>
 	);
 };

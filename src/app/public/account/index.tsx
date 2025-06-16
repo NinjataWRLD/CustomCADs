@@ -6,7 +6,6 @@ import * as dateTime from '@/utils/date-time';
 import AboutMe from './about-me';
 import Security from './security';
 import MyData from './my-data';
-import styles from './styles.module.css';
 
 const Account = () => {
 	const { account } = Route.useLoaderData();
@@ -40,30 +39,56 @@ const Account = () => {
 
 	return (
 		<Transition>
-			<div className={`${styles.container}`}>
-				<h1>{tMyAccount('title')}</h1>
-				<div className={`${styles.box}`}>
-					<div className={`${styles.choices}`}>
+			<div className='relative h-screen flex justify-center items-center flex-col text-[white]'>
+				<h1 className='text-[2rem] title-text-shadow'>
+					{tMyAccount('title')}
+				</h1>
+				<div className='relative w-4/5 h-[70%] flex rounded-[20px]'>
+					<div className='w-[15%] h-full bg-transparent text-[1.3rem] flex flex-col gap-[30px] border-0 border-r-[3px] border-r-[#9000ff] border-solid'>
 						<div
-							className={`${styles.choice} ${tab === 'about-me' ? styles.active : ''}`}
+							className={`w-full h-[15%] cursor-pointer flex justify-center items-center transition-all duration-300 ease-linear bg-[rgba(142,110,205,0.31)] hover:bg-[rgba(98,42,161,0.522)] hover:w-[90%] hover:ml-[10%]`}
 							onClick={() => setTab('about-me')}
+							style={{
+								clipPath:
+									'polygon(0 0, 100% 0, 100% 50%, 100% 100%, 0 100%, 24% 54%)',
+							}}
 						>
-							<span>{tMyAccount('about-me')}</span>
+							<span
+								className={`transition-[font-weight] duration-[0.3s] ease-linear ml-[30px] ${tab === 'about-me' ? 'font-bold' : ''}`}
+							>
+								{tMyAccount('about-me')}
+							</span>
 						</div>
 						<div
-							className={`${styles.choice} ${tab === 'security' ? styles.active : ''}`}
+							className={`w-full h-[15%] cursor-pointer flex justify-center items-center transition-all duration-300 ease-linear bg-[rgba(142,110,205,0.31)] hover:bg-[rgba(98,42,161,0.522)] hover:w-[90%] hover:ml-[10%]`}
 							onClick={() => setTab('security')}
+							style={{
+								clipPath:
+									'polygon(0 0, 100% 0, 100% 50%, 100% 100%, 0 100%, 24% 54%)',
+							}}
 						>
-							<span>{tMyAccount('security')}</span>
+							<span
+								className={`transition-[font-weight] duration-[0.3s] ease-linear ml-[30px] ${tab === 'security' ? 'font-bold' : ''}`}
+							>
+								{tMyAccount('security')}
+							</span>
 						</div>
 						<div
-							className={`${styles.choice} ${tab === 'my-data' ? styles.active : ''}`}
+							className={`w-full h-[15%] cursor-pointer flex justify-center items-center transition-all duration-300 ease-linear bg-[rgba(142,110,205,0.31)] hover:bg-[rgba(98,42,161,0.522)] hover:w-[90%] hover:ml-[10%]`}
 							onClick={() => setTab('my-data')}
+							style={{
+								clipPath:
+									'polygon(0 0, 100% 0, 100% 50%, 100% 100%, 0 100%, 24% 54%)',
+							}}
 						>
-							<span>{tMyAccount('my-data')}</span>
+							<span
+								className={`transition-[font-weight] duration-[0.3s] ease-linear ml-[30px] ${tab === 'my-data' ? 'font-bold' : ''}`}
+							>
+								{tMyAccount('my-data')}
+							</span>
 						</div>
 					</div>
-					<div className={`${styles['box-container']}`}>
+					<div className='relative w-4/5 h-[90%] flex flex-col bg-[hsl(228,21%,14%)] p-[30px] rounded-[20px];'>
 						{renderSection()}
 					</div>
 				</div>

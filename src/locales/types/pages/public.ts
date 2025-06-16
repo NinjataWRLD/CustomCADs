@@ -121,8 +121,9 @@ export type PagesPublicMyAccount = {
 	'created-at': string;
 	email: string;
 	'forgot-password': string;
-	'security-warnring': string;
+	'security-warning': string;
 	'change-password': string;
+	'change-password-text': string;
 	'download-data': string;
 	'download-data-btn': string;
 	'delete-account': string;
