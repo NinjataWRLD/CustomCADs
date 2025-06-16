@@ -9,7 +9,6 @@ export type PagesCustomerCheckoutForm = {
 	processing: string;
 	purchase: string;
 	check_out: string;
-	here: string;
 };
 
 export type PagesCustomerPurchasedCarts = {

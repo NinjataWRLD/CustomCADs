@@ -8,6 +8,7 @@ import {
 	all,
 	calculateShipment,
 	download,
+	paymentStatuses,
 	recent,
 	single,
 	sortings,
@@ -46,6 +47,13 @@ export const useGetCustomSortings = (enabled?: boolean) =>
 	useQuery({
 		queryKey: ['customs', 'customer', 'sortings'],
 		queryFn: async () => (await sortings()).data,
+		enabled,
+	});
+
+export const useGetCustomPaymentStatuses = (enabled?: boolean) =>
+	useQuery({
+		queryKey: ['customs', 'customer', 'payment-statuses'],
+		queryFn: async () => (await paymentStatuses()).data,
 		enabled,
 	});
 

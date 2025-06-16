@@ -1,7 +1,6 @@
 import { ComponentsLayoutFooter } from '@/locales/types/components/layout';
 
 export default {
-	title: '\u00A9 2024 CustomCADs',
 	description:
 		'The best platform for custom 3D designs, pre-made models, and designer connections.',
 	'link-1': 'Privacy Policy',

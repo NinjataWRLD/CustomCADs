@@ -27,7 +27,9 @@ const Footer = () => {
 			<footer className='bg-black text-white py-8 px-4'>
 				<div className='flex flex-col md:flex-row items-center justify-around flex-shrink text-center md:text-left'>
 					<div className='text-[1.1rem] sm:text-base'>
-						<h1>{tFooter('title')}</h1>
+						<h1>
+							{`\u00A9 ${2024}-${new Date().getFullYear()} CustomCADs`}
+						</h1>
 						<p>{tFooter('description')}</p>
 						<p>
 							<Link

@@ -4,6 +4,7 @@ import * as downloadResources from './download';
 import * as allResources from './all';
 import * as singleResources from './single';
 import * as sortingsResources from './sortings';
+import * as paymentStatusesResources from './payment-statuses';
 import * as statsResources from './stats';
 
 export const all = async (req: allResources.Request) =>
@@ -14,6 +15,11 @@ export const single = async (req: singleResources.Request) =>
 
 export const sortings = async () =>
 	await axios.get<sortingsResources.Response>(sortingsResources.url());
+
+export const paymentStatuses = async () =>
+	await axios.get<paymentStatusesResources.Response>(
+		paymentStatusesResources.url(),
+	);
 
 export const stats = async () =>
 	await axios.get<statsResources.Response>(statsResources.url());

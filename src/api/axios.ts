@@ -22,11 +22,16 @@ instance.interceptors.request.use((cfg) => {
 instance.interceptors.response.use(
 	(response) => response,
 	async (error) => {
-		if (
-			!(isAxiosError(error) && error.response?.status === 401) ||
-			error.config?.url === '/identity/refresh'
-		)
+		if (error.config?.url === '/identity/refresh') {
 			return Promise.reject(error);
+		}
+
+		if (isAxiosError(error)) {
+			const { response } = error;
+			if (response?.status !== 401 && response?.status !== 403) {
+				return Promise.reject(error);
+			}
+		}
 
 		try {
 			await refresh();

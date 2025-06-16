@@ -1,9 +1,10 @@
 import { useStore } from '@tanstack/react-store';
+import { useDebounce } from '@/hooks/useDebounce';
 import { useCalculateActiveCartShipment } from '@/hooks/queries/active-carts';
 import { usePlaceholdersTranslation } from '@/hooks/locales/common/messages';
 import { useLabelsTranslation } from '@/hooks/locales/components/forms';
 import Field from '@/app/components/fields';
-import ShipmentService from '../service';
+import * as dateTime from '@/utils/date-time';
 import { Fields, useForm } from './useForm';
 
 export const useFields = (onSubmit: (values: Fields) => void) => {
@@ -13,13 +14,18 @@ export const useFields = (onSubmit: (values: Fields) => void) => {
 		city: values.city,
 		street: values.street,
 	}));
+
 	const reset = {
-		city: () => form.setFieldValue('city', ''),
+		city: () => {
+			form.setFieldValue('city', '');
+			form.setFieldValue('street', '');
+		},
 		street: () => form.setFieldValue('street', ''),
 	};
+	const debounced = useDebounce({ country, city, street }, 250);
 
 	const { data: calculations } = useCalculateActiveCartShipment(
-		{ country, city, street },
+		debounced,
 		!!city && !!country && !!street,
 	);
 
@@ -72,16 +78,18 @@ export const useFields = (onSubmit: (values: Fields) => void) => {
 					tag='select'
 					api={api}
 					label={tLabels('shipment-service')}
-					options={
-						<>
-							{calculations?.map((calculation) => (
-								<ShipmentService
-									key={calculation.service}
-									calculation={calculation}
-								/>
-							))}
-						</>
-					}
+					options={calculations?.map((calculation) => {
+						const { service, total, currency, pickupDate } =
+							calculation;
+						const serviceInfo = `${service} - ${total} ${currency}`;
+						const pickUpInfo = `Pick up - ${dateTime.format({ date: pickupDate, dateOnly: true })}`;
+
+						return {
+							id: service,
+							name: `${serviceInfo}; ${pickUpInfo}`,
+							value: service,
+						};
+					})}
 				/>
 			)}
 		</form.Field>

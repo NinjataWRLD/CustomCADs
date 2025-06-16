@@ -1,5 +1,4 @@
 import { CreditCard, CheckCircle, AlertCircle, ArrowLeft } from 'lucide-react';
-import { Link } from '@tanstack/react-router';
 import { BillingDetails } from '@stripe/stripe-js';
 import { CardElement } from '@stripe/react-stripe-js';
 import * as payment from '@/api/common/payment';
@@ -27,32 +26,6 @@ const CheckoutForm = ({ type, onSubmit, back, details }: CheckoutFormProps) => {
 		e.preventDefault();
 		await handleCheckoutSubmit(onSubmit);
 	};
-
-	let link;
-	switch (type) {
-		case 'cart':
-			link = (
-				<Link
-					to='/carts'
-					className='text-purple-700 font-medium hover:text-purple-900 underline'
-				>
-					{tCheckout('here')}!
-				</Link>
-			);
-			break;
-		case 'custom':
-			link = (
-				<Link
-					to='/'
-					className='text-purple-700 font-medium hover:text-purple-900 underline'
-				>
-					{tCheckout('here')}!
-				</Link>
-			);
-			break;
-		default:
-			throw new Error('Unsupported resource');
-	}
 
 	const cardElementOptions = {
 		style: {
@@ -118,9 +91,7 @@ const CheckoutForm = ({ type, onSubmit, back, details }: CheckoutFormProps) => {
 							{status === 'success' && (
 								<div className='flex items-center text-green-600 mb-4'>
 									<CheckCircle size={16} className='mr-2' />
-									<span>
-										{tCheckout('check_out')} {link}
-									</span>
+									<span>{tCheckout('check_out')}</span>
 								</div>
 							)}
 

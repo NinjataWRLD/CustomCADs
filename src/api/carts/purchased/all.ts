@@ -4,6 +4,7 @@ import { PURCHASED_CART_BASE_PATH } from '../common';
 export interface Request {
 	sortingType?: string;
 	sortingDirection?: string;
+	paymentStatus?: string;
 	page: number;
 	limit: number;
 }

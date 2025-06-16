@@ -4,6 +4,7 @@ import * as statsResources from './stats';
 import * as recentResources from './recent';
 import * as singleResources from './single';
 import * as sortingsResources from './sortings';
+import * as paymentStatusesResources from './payment-statuses';
 import * as editResources from './edit';
 import * as allResources from './all';
 import * as deleteResources from './delete';
@@ -43,6 +44,11 @@ export const single = async (req: singleResources.Request) =>
 
 export const sortings = async () =>
 	await axios.get<sortingsResources.Response>(sortingsResources.url());
+
+export const paymentStatuses = async () =>
+	await axios.get<paymentStatusesResources.Response>(
+		paymentStatusesResources.url(),
+	);
 
 export const calculateShipment = async (req: caluclateResources.Request) =>
 	await axios.get<caluclateResources.Response>(caluclateResources.url(req));
