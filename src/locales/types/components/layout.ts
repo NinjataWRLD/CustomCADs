@@ -1,5 +1,4 @@
 export type ComponentsLayoutFooter = {
-	title: string;
 	description: string;
 	'link-1': string;
 	'icon-1': string;
