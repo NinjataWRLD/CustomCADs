@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import {
 	faCog,
 	faPuzzlePiece,
@@ -15,11 +15,10 @@ import Setting from './setting';
 
 const SettingsButton = () => {
 	const { is } = useAuthStore();
-
 	const tHeader = useHeaderTranslation();
 	const { dispatch } = useCartContext();
-
 	const { mutateAsync: apiLogout } = useLogout();
+
 	const logout = async () => {
 		await apiLogout();
 		dispatch({ type: 'CLEAR_CART' });
@@ -29,6 +28,24 @@ const SettingsButton = () => {
 	const [show, setShow] = useState(false);
 	const toggle = () => setShow((prev) => !prev);
 	const hide = () => setShow(false);
+
+	const ref = useRef<HTMLDivElement | null>(null);
+
+	useEffect(() => {
+		const handleClickOutside = (event: MouseEvent) => {
+			if (ref.current && !ref.current.contains(event.target as Node)) {
+				hide();
+			}
+		};
+
+		if (show) {
+			document.addEventListener('click', handleClickOutside, true);
+		}
+
+		return () => {
+			document.removeEventListener('click', handleClickOutside, true);
+		};
+	}, [show]);
 
 	const settings = [
 		<Setting
@@ -47,7 +64,8 @@ const SettingsButton = () => {
 			onClick={logout}
 		/>,
 	];
-	if (is.customer)
+
+	if (is.customer) {
 		settings.unshift(
 			<Setting
 				key='carts'
@@ -64,14 +82,17 @@ const SettingsButton = () => {
 				hide={hide}
 			/>,
 		);
+	}
 
 	return (
-		<AccountButton
-			label={tHeader('settings')}
-			settings={settings}
-			show={show}
-			toggle={toggle}
-		/>
+		<div ref={ref}>
+			<AccountButton
+				label={tHeader('settings')}
+				settings={settings}
+				show={show}
+				toggle={toggle}
+			/>
+		</div>
 	);
 };
 

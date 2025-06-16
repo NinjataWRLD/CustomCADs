@@ -17,3 +17,6 @@ export const useServicesTranslation = () =>
 
 export const useEditorTranslation = () =>
 	useTranslation(`${NAMESPACE}.${SUB_NAMESPACE}.editor`).t;
+
+export const useMyAccountTranslation = () =>
+	useTranslation(`${NAMESPACE}.${SUB_NAMESPACE}.my-account`).t;

@@ -110,3 +110,22 @@ export type PagesPublicProduct = {
 	'add-details-no': string;
 	'added-message': string;
 };
+
+export type PagesPublicMyAccount = {
+	title: string;
+	'about-me': string;
+	security: string;
+	'my-data': string;
+	username: string;
+	'user-role': string;
+	'created-at': string;
+	email: string;
+	'forgot-password': string;
+	'security-warning': string;
+	'change-password': string;
+	'change-password-text': string;
+	'download-data': string;
+	'download-data-btn': string;
+	'delete-account': string;
+	'delete-account-btn': string;
+};

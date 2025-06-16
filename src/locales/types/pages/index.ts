@@ -13,6 +13,7 @@ import {
 	PagesGuestResetPassword,
 } from './guest';
 import {
+	PagesPublicMyAccount,
 	PagesPublicCart,
 	PagesPublicEditor,
 	PagesPublicHome,
@@ -35,5 +36,6 @@ export type PagesTranslations = {
 	'pages.public.editor': PagesPublicEditor;
 	'pages.public.home': PagesPublicHome;
 	'pages.public.product': PagesPublicProduct;
+	'pages.public.my-account': PagesPublicMyAccount;
 	'pages.public.services': PagesPublicServicesInfo;
 };

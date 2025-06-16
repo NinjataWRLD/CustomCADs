@@ -18,6 +18,7 @@ import { Route as PublicIndexImport } from './routes/_public/index'
 import { Route as PublicServicesInfoImport } from './routes/_public/services-info'
 import { Route as PublicPrivacyPolicyImport } from './routes/_public/privacy-policy'
 import { Route as PublicCartImport } from './routes/_public/cart'
+import { Route as PublicAccountImport } from './routes/_public/account'
 import { Route as GuestResetPasswordImport } from './routes/_guest/reset-password'
 import { Route as GuestLoginImport } from './routes/_guest/login'
 import { Route as GuestForgotPasswordImport } from './routes/_guest/forgot-password'
@@ -71,6 +72,12 @@ const PublicPrivacyPolicyRoute = PublicPrivacyPolicyImport.update({
 const PublicCartRoute = PublicCartImport.update({
   id: '/_public/cart',
   path: '/cart',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const PublicAccountRoute = PublicAccountImport.update({
+  id: '/_public/account',
+  path: '/account',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -218,6 +225,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/reset-password'
       preLoaderRoute: typeof GuestResetPasswordImport
       parentRoute: typeof GuestImport
+    }
+    '/_public/account': {
+      id: '/_public/account'
+      path: '/account'
+      fullPath: '/account'
+      preLoaderRoute: typeof PublicAccountImport
+      parentRoute: typeof rootRoute
     }
     '/_public/cart': {
       id: '/_public/cart'
@@ -389,6 +403,7 @@ export interface FileRoutesByFullPath {
   '/forgot-password': typeof GuestForgotPasswordRoute
   '/login': typeof GuestLoginRoute
   '/reset-password': typeof GuestResetPasswordRoute
+  '/account': typeof PublicAccountRoute
   '/cart': typeof PublicCartRoute
   '/privacy-policy': typeof PublicPrivacyPolicyRoute
   '/services-info': typeof PublicServicesInfoRoute
@@ -410,6 +425,7 @@ export interface FileRoutesByTo {
   '/forgot-password': typeof GuestForgotPasswordRoute
   '/login': typeof GuestLoginRoute
   '/reset-password': typeof GuestResetPasswordRoute
+  '/account': typeof PublicAccountRoute
   '/cart': typeof PublicCartRoute
   '/privacy-policy': typeof PublicPrivacyPolicyRoute
   '/services-info': typeof PublicServicesInfoRoute
@@ -434,6 +450,7 @@ export interface FileRoutesById {
   '/_guest/forgot-password': typeof GuestForgotPasswordRoute
   '/_guest/login': typeof GuestLoginRoute
   '/_guest/reset-password': typeof GuestResetPasswordRoute
+  '/_public/account': typeof PublicAccountRoute
   '/_public/cart': typeof PublicCartRoute
   '/_public/privacy-policy': typeof PublicPrivacyPolicyRoute
   '/_public/services-info': typeof PublicServicesInfoRoute
@@ -458,6 +475,7 @@ export interface FileRouteTypes {
     | '/forgot-password'
     | '/login'
     | '/reset-password'
+    | '/account'
     | '/cart'
     | '/privacy-policy'
     | '/services-info'
@@ -478,6 +496,7 @@ export interface FileRouteTypes {
     | '/forgot-password'
     | '/login'
     | '/reset-password'
+    | '/account'
     | '/cart'
     | '/privacy-policy'
     | '/services-info'
@@ -500,6 +519,7 @@ export interface FileRouteTypes {
     | '/_guest/forgot-password'
     | '/_guest/login'
     | '/_guest/reset-password'
+    | '/_public/account'
     | '/_public/cart'
     | '/_public/privacy-policy'
     | '/_public/services-info'
@@ -520,6 +540,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   GuestRoute: typeof GuestRouteWithChildren
   privateRoute: typeof privateRouteWithChildren
+  PublicAccountRoute: typeof PublicAccountRoute
   PublicCartRoute: typeof PublicCartRoute
   PublicPrivacyPolicyRoute: typeof PublicPrivacyPolicyRoute
   PublicServicesInfoRoute: typeof PublicServicesInfoRoute
@@ -532,6 +553,7 @@ export interface RootRouteChildren {
 const rootRouteChildren: RootRouteChildren = {
   GuestRoute: GuestRouteWithChildren,
   privateRoute: privateRouteWithChildren,
+  PublicAccountRoute: PublicAccountRoute,
   PublicCartRoute: PublicCartRoute,
   PublicPrivacyPolicyRoute: PublicPrivacyPolicyRoute,
   PublicServicesInfoRoute: PublicServicesInfoRoute,
@@ -553,6 +575,7 @@ export const routeTree = rootRoute
       "children": [
         "/_guest",
         "/(private)",
+        "/_public/account",
         "/_public/cart",
         "/_public/privacy-policy",
         "/_public/services-info",
@@ -607,6 +630,9 @@ export const routeTree = rootRoute
     "/_guest/reset-password": {
       "filePath": "_guest/reset-password.tsx",
       "parent": "/_guest"
+    },
+    "/_public/account": {
+      "filePath": "_public/account.tsx"
     },
     "/_public/cart": {
       "filePath": "_public/cart.tsx"

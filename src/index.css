@@ -178,3 +178,15 @@ textarea.invalid {
 .inner.flipped {
     transform: rotateY(180deg);
 }
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+.fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+}
