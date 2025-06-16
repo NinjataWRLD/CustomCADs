@@ -44,7 +44,7 @@ const Account = () => {
 					{tMyAccount('title')}
 				</h1>
 				<div className='relative w-4/5 h-[70%] flex rounded-[20px]'>
-					<div className='w-[15%] h-full bg-transparent text-[1.3rem] flex flex-col gap-[30px] border-0 border-r-[3px] border-r-[#9000ff] border-solid'>
+					<div className='w-[25%] h-full bg-transparent text-[1.3rem] flex flex-col gap-[30px] border-0 border-r-[3px] border-r-[#9000ff] border-solid'>
 						<div
 							className={`w-full h-[15%] cursor-pointer flex justify-center items-center transition-all duration-300 ease-linear bg-[rgba(142,110,205,0.31)] hover:bg-[rgba(98,42,161,0.522)] hover:w-[90%] hover:ml-[10%]`}
 							onClick={() => setTab('about-me')}
