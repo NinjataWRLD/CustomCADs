@@ -8,23 +8,20 @@ export const useFields = () => {
 	const tPlaceholders = usePlaceholdersTranslation();
 	const tLabels = useLabelsTranslation();
 
-	const EmailField = (
-		<form.Field name='email'>
-			{(api) => (
-				<Field
-					tag='input'
-					api={api}
-					label={tLabels('email')}
-					type='email'
-					placeholder={tPlaceholders('email')}
-				/>
-			)}
-		</form.Field>
-	);
-
-	return {
-		handleSubmit,
-		resendEmail: refetch,
-		EmailField,
+	const fields = {
+		Email: (
+			<form.Field name='email'>
+				{(api) => (
+					<Field
+						tag='input'
+						api={api}
+						label={tLabels('email')}
+						type='email'
+						placeholder={tPlaceholders('email')}
+					/>
+				)}
+			</form.Field>
+		),
 	};
+	return { handleSubmit, resendEmail: refetch, fields };
 };

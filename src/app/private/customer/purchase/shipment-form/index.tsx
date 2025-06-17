@@ -11,7 +11,7 @@ interface ShipmentFormProps {
 	requireCount?: boolean;
 }
 const ShipmentForm = ({ onSubmit, requireCount }: ShipmentFormProps) => {
-	const { handleSubmit, ...fields } = useFields(onSubmit);
+	const { handleSubmit, fields } = useFields(onSubmit);
 	const tShipmentForm = useShipmentFormTranslation();
 
 	useEffect(() => {
@@ -46,37 +46,37 @@ const ShipmentForm = ({ onSubmit, requireCount }: ShipmentFormProps) => {
 
 					<div className='w-full flex flex-row gap-10'>
 						<div className='w-full flex flex-col items-center gap-[10px] mt-[10px]'>
-							{fields.CountryField}
+							{fields.Country}
 						</div>
 
 						<div className='w-full flex flex-col items-center gap-[10px] mt-[10px]'>
-							{fields.CityField}
+							{fields.City}
 						</div>
 					</div>
 
 					<div className='w-full flex flex-row gap-10'>
 						<div className='w-full flex flex-col items-center gap-[10px] mt-[10px]'>
-							{fields.StreetField}
+							{fields.Street}
 						</div>
 
 						<div className='w-full flex flex-col items-center gap-[10px] mt-[10px]'>
-							{fields.PhoneField}
+							{fields.Phone}
 						</div>
 					</div>
 
 					<div className='w-full flex flex-row gap-10'>
 						<div className='flex grow flex-col items-center gap-[10px] mt-[10px]'>
-							{fields.EmailField}
+							{fields.Email}
 						</div>
 						{requireCount && (
 							<div className='w-[20%] flex flex-col items-center gap-[10px] mt-[10px]'>
-								{fields.CountField}
+								{fields.Count}
 							</div>
 						)}
 					</div>
 
 					<div className='w-[105%] flex flex-col items-center gap-[10px] mt-[10px] ml-[20px]'>
-						{fields.ServiceField}
+						{fields.Service}
 					</div>
 
 					<div>

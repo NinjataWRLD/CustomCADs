@@ -11,65 +11,62 @@ export const useFields = () => {
 	const tPlaceholders = usePlaceholdersTranslation();
 	const tLabels = useLabelsTranslation();
 
-	const UsernameField = (
-		<form.Field name='username'>
-			{(api) => (
-				<Field
-					tag='input'
-					api={api}
-					label={tLabels('username')}
-					placeholder={tPlaceholders('username')}
-					type='text'
-				/>
-			)}
-		</form.Field>
-	);
-	const PasswordField = (
-		<form.Field name='password'>
-			{(api) => (
-				<>
-					<Password
+	const fields = {
+		Username: (
+			<form.Field name='username'>
+				{(api) => (
+					<Field
+						tag='input'
 						api={api}
-						label={tLabels('password')}
-						placeholder={tPlaceholders('password')}
+						label={tLabels('username')}
+						placeholder={tPlaceholders('username')}
+						type='text'
 					/>
-					<Link
-						to='/forgot-password'
-						className='self-start ml-2 text-white text-sm transition-colors duration-300 hover:text-purple-300/60'
-					>
-						{tLabels('forgot-password')}
-					</Link>
-				</>
-			)}
-		</form.Field>
-	);
-	const RememberMeField = (
-		<form.Field name='rememberMe'>
-			{(field) => (
-				<Field
-					tag='custom'
-					api={field}
-					label=''
-					field={
-						<Checkbox
-							id={field.name}
-							label={tLabels('remember-me')}
-							checked={field.state.value}
-							onClick={(e) =>
-								field.handleChange(e.target.checked)
-							}
-							style={{ marginRight: 120 }}
+				)}
+			</form.Field>
+		),
+		Password: (
+			<form.Field name='password'>
+				{(api) => (
+					<>
+						<Password
+							api={api}
+							label={tLabels('password')}
+							placeholder={tPlaceholders('password')}
 						/>
-					}
-				/>
-			)}
-		</form.Field>
-	);
-
-	return {
-		handleSubmit,
-		UsernameField,
-		PasswordField,
-		RememberMeField,
+						<Link
+							to='/forgot-password'
+							className='self-start ml-2 text-white text-sm transition-colors duration-300 hover:text-purple-300/60'
+						>
+							{tLabels('forgot-password')}
+						</Link>
+					</>
+				)}
+			</form.Field>
+		),
+		RememberMe: (
+			<form.Field name='rememberMe'>
+				{(field) => (
+					<Field
+						tag='custom'
+						api={field}
+						label=''
+						field={
+							<Checkbox
+								id={field.name}
+								label={tLabels('remember-me')}
+								checked={field.state.value}
+								onClick={(e) =>
+									field.handleChange(e.target.checked)
+								}
+								style={{ marginRight: 120 }}
+							/>
+						}
+					/>
+				)}
+			</form.Field>
+		),
 	};
+
+	return { handleSubmit, fields };
 };

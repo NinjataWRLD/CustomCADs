@@ -13,32 +13,30 @@ export const useFields = ({ email, token }: Props) => {
 	const tPlaceholders = usePlaceholdersTranslation();
 	const tLabels = useLabelsTranslation();
 
-	const PasswordField = (
-		<form.Field name='password'>
-			{(field) => (
-				<Password
-					api={field}
-					label={tLabels('password')}
-					placeholder={tPlaceholders('password')}
-				/>
-			)}
-		</form.Field>
-	);
-	const ConfirmPasswordField = (
-		<form.Field name='confirmPassword'>
-			{(field) => (
-				<Password
-					api={field}
-					label={tLabels('confirm-password')}
-					placeholder={tPlaceholders('confirm-password')}
-				/>
-			)}
-		</form.Field>
-	);
-
-	return {
-		handleSubmit,
-		PasswordField,
-		ConfirmPasswordField,
+	const fields = {
+		Password: (
+			<form.Field name='password'>
+				{(field) => (
+					<Password
+						api={field}
+						label={tLabels('password')}
+						placeholder={tPlaceholders('password')}
+					/>
+				)}
+			</form.Field>
+		),
+		ConfirmPassword: (
+			<form.Field name='confirmPassword'>
+				{(field) => (
+					<Password
+						api={field}
+						label={tLabels('confirm-password')}
+						placeholder={tPlaceholders('confirm-password')}
+					/>
+				)}
+			</form.Field>
+		),
 	};
+
+	return { handleSubmit, fields };
 };

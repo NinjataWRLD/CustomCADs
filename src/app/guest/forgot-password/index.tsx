@@ -11,11 +11,7 @@ const ForgotPassword = () => {
 	const [showMessage, setShowMessage] = useState(false);
 	const tForgotPassword = useForgotPasswordTranslation();
 
-	const {
-		EmailField,
-		resendEmail,
-		handleSubmit: handleFormSubmit,
-	} = useFields();
+	const { resendEmail, handleSubmit: handleFormSubmit, fields } = useFields();
 
 	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		handleFormSubmit(e);
@@ -72,7 +68,7 @@ const ForgotPassword = () => {
 					</h3>
 
 					<div className='w-3/4 flex flex-col gap-[10px]'>
-						{EmailField}
+						{fields.Email}
 					</div>
 
 					<div className='flex flex-col justify-center items-center gap-[10px] mt-4'>

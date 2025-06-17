@@ -11,7 +11,7 @@ import faviconPic from '@/assets/favicons/favicon.svg';
 const ResetPassword = () => {
 	const tResetPassword = useResetPasswordTranslation();
 	const search = Route.useSearch();
-	const { handleSubmit, ...fields } = useFields(search);
+	const { handleSubmit, fields } = useFields(search);
 
 	useEffect(() => {
 		const styleEl = document.createElement('style');
@@ -22,7 +22,7 @@ const ResetPassword = () => {
           -2px -2px 5px rgba(160, 32, 240, 0.6),
           0px 0px 15px rgba(75, 0, 130, 0.5);
       }
-      
+
       .subtitle-text-shadow {
         text-shadow:
           3px 3px 0px black,
@@ -59,10 +59,10 @@ const ResetPassword = () => {
 					</h3>
 
 					<div className='w-3/4 flex flex-col gap-[10px] mb-5'>
-						{fields.PasswordField}
+						{fields.Password}
 					</div>
 					<div className='w-3/4 flex flex-col gap-[10px] mb-5'>
-						{fields.ConfirmPasswordField}
+						{fields.ConfirmPassword}
 					</div>
 
 					<div className='flex flex-col justify-center items-center gap-[10px] mt-[10px]'>

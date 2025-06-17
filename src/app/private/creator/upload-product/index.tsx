@@ -6,7 +6,7 @@ import Border from '@/app/components/border';
 import { useUploadProductTranslation } from '@/hooks/locales/pages/creator';
 
 const UploadProduct = () => {
-	const { ref, cadSet, handleSubmit, ...fields } = useFields();
+	const { ref, cadSet, handleSubmit, fields } = useFields();
 	const tUploadProduct = useUploadProductTranslation();
 
 	useEffect(() => {
@@ -41,23 +41,23 @@ const UploadProduct = () => {
 					</h1>
 
 					<div className='w-3/4 flex flex-col gap-[10px] mb-5'>
-						{fields.NameField}
+						{fields.Name}
 					</div>
 
 					<div className='w-3/4 flex justify-between gap-[10px] mb-5'>
-						{fields.CategoryField}
-						{fields.PriceField}
+						{fields.Category}
+						{fields.Price}
 					</div>
 
 					<div className='w-3/4 flex flex-col gap-[10px] mb-5'>
 						<div className='description-field-wrapper w-full'>
-							{fields.DescriptionField}
+							{fields.Description}
 						</div>
 					</div>
 
 					<div className='w-3/4 flex justify-between gap-[10px] mb-5'>
-						<div className='w-1/2 pr-1'>{fields.ImageField}</div>
-						<div className='w-1/2 pl-1'>{fields.CadField}</div>
+						<div className='w-1/2 pr-1'>{fields.Image}</div>
+						<div className='w-1/2 pl-1'>{fields.Cad}</div>
 					</div>
 
 					<div className='mt-6'>

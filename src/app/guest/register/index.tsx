@@ -9,7 +9,7 @@ import { useFields } from './hooks/useFields';
 
 const Register = () => {
 	const { role } = Route.useParams();
-	const { handleSubmit, ...fields } = useFields(
+	const { handleSubmit, fields } = useFields(
 		role === 'customer' ? 'Customer' : 'Contributor',
 	);
 
@@ -51,27 +51,27 @@ const Register = () => {
 
 					<div className='w-full flex justify-around'>
 						<div className='w-2/5 flex flex-col items-center gap-[10px] mt-5 relative'>
-							{fields.FirstNameField}
+							{fields.FirstName}
 						</div>
 						<div className='w-2/5 flex flex-col items-center gap-[10px] mt-5 relative'>
-							{fields.LastNameField}
+							{fields.LastName}
 						</div>
 					</div>
 
 					<div className='w-3/4 flex flex-col items-center gap-[10px] mt-5 relative'>
-						{fields.UsernameField}
+						{fields.Username}
 					</div>
 
 					<div className='w-3/4 flex flex-col items-center gap-[10px] mt-5 relative'>
-						{fields.EmailField}
+						{fields.Email}
 					</div>
 
 					<div className='w-3/4 flex flex-col items-center gap-[10px] mt-5 relative'>
-						{fields.PasswordField}
+						{fields.Password}
 					</div>
 
 					<div className='w-3/4 flex flex-col items-center gap-[10px] mt-5 relative'>
-						{fields.ConfirmPasswordField}
+						{fields.ConfirmPassword}
 					</div>
 
 					<div className='my-[30px] mx-5'>

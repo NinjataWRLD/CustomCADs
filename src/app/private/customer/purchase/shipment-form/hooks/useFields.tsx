@@ -32,116 +32,115 @@ export const useFields = (onSubmit: (values: Fields) => void) => {
 	const tPlaceholders = usePlaceholdersTranslation();
 	const tLabels = useLabelsTranslation();
 
-	const CountryField = (
-		<form.Field name='country' listeners={{ onChange: () => reset.city() }}>
-			{(api) => (
-				<Field
-					tag='input'
-					api={api}
-					label={tLabels('country')}
-					type='text'
-					placeholder={tPlaceholders('country')}
-				/>
-			)}
-		</form.Field>
-	);
-	const CityField = (
-		<form.Field name='city' listeners={{ onChange: () => reset.street() }}>
-			{(api) => (
-				<Field
-					tag='input'
-					api={api}
-					label={tLabels('city')}
-					type='text'
-					placeholder={tPlaceholders('city')}
-				/>
-			)}
-		</form.Field>
-	);
-	const StreetField = (
-		<form.Field name='street'>
-			{(api) => (
-				<Field
-					tag='input'
-					api={api}
-					label={tLabels('street')}
-					type='text'
-					placeholder={tPlaceholders('street')}
-				/>
-			)}
-		</form.Field>
-	);
-	const ServiceField = (
-		<form.Field name='service'>
-			{(api) => (
-				<Field
-					tag='select'
-					api={api}
-					label={tLabels('shipment-service')}
-					options={calculations?.map((calculation) => {
-						const { service, total, currency, pickupDate } =
-							calculation;
-						const serviceInfo = `${service} - ${total} ${currency}`;
-						const pickUpInfo = `Pick up - ${dateTime.format({ date: pickupDate, dateOnly: true })}`;
+	const fields = {
+		Country: (
+			<form.Field
+				name='country'
+				listeners={{ onChange: () => reset.city() }}
+			>
+				{(api) => (
+					<Field
+						tag='input'
+						api={api}
+						label={tLabels('country')}
+						type='text'
+						placeholder={tPlaceholders('country')}
+					/>
+				)}
+			</form.Field>
+		),
+		City: (
+			<form.Field
+				name='city'
+				listeners={{ onChange: () => reset.street() }}
+			>
+				{(api) => (
+					<Field
+						tag='input'
+						api={api}
+						label={tLabels('city')}
+						type='text'
+						placeholder={tPlaceholders('city')}
+					/>
+				)}
+			</form.Field>
+		),
+		Street: (
+			<form.Field name='street'>
+				{(api) => (
+					<Field
+						tag='input'
+						api={api}
+						label={tLabels('street')}
+						type='text'
+						placeholder={tPlaceholders('street')}
+					/>
+				)}
+			</form.Field>
+		),
+		Service: (
+			<form.Field name='service'>
+				{(api) => (
+					<Field
+						tag='select'
+						api={api}
+						label={tLabels('shipment-service')}
+						options={calculations?.map((calculation) => {
+							const { service, total, currency, pickupDate } =
+								calculation;
+							const serviceInfo = `${service} - ${total} ${currency}`;
+							const pickUpInfo = `Pick up - ${dateTime.format({ date: pickupDate, dateOnly: true })}`;
 
-						return {
-							id: service,
-							name: `${serviceInfo}; ${pickUpInfo}`,
-							value: service,
-						};
-					})}
-				/>
-			)}
-		</form.Field>
-	);
-	const EmailField = (
-		<form.Field name='email'>
-			{(api) => (
-				<Field
-					tag='input'
-					api={api}
-					label={tLabels('email')}
-					type='email'
-					placeholder={tPlaceholders('email')}
-				/>
-			)}
-		</form.Field>
-	);
-	const PhoneField = (
-		<form.Field name='phone'>
-			{(api) => (
-				<Field
-					tag='input'
-					api={api}
-					label={tLabels('phone')}
-					type='text'
-					placeholder={tPlaceholders('phone')}
-				/>
-			)}
-		</form.Field>
-	);
-	const CountField = (
-		<form.Field name='count'>
-			{(api) => (
-				<Field
-					tag='input'
-					api={api}
-					label={tLabels('count')}
-					type='number'
-					format={(value) => Number(value)}
-				/>
-			)}
-		</form.Field>
-	);
-
-	return {
-		handleSubmit,
-		CountryField,
-		CityField,
-		StreetField,
-		ServiceField,
-		EmailField,
-		PhoneField,
-		CountField,
+							return {
+								id: service,
+								name: `${serviceInfo}; ${pickUpInfo}`,
+								value: service,
+							};
+						})}
+					/>
+				)}
+			</form.Field>
+		),
+		Email: (
+			<form.Field name='email'>
+				{(api) => (
+					<Field
+						tag='input'
+						api={api}
+						label={tLabels('email')}
+						type='email'
+						placeholder={tPlaceholders('email')}
+					/>
+				)}
+			</form.Field>
+		),
+		Phone: (
+			<form.Field name='phone'>
+				{(api) => (
+					<Field
+						tag='input'
+						api={api}
+						label={tLabels('phone')}
+						type='text'
+						placeholder={tPlaceholders('phone')}
+					/>
+				)}
+			</form.Field>
+		),
+		Count: (
+			<form.Field name='count'>
+				{(api) => (
+					<Field
+						tag='input'
+						api={api}
+						label={tLabels('count')}
+						type='number'
+						format={(value) => Number(value)}
+					/>
+				)}
+			</form.Field>
+		),
 	};
+
+	return { handleSubmit, fields };
 };
