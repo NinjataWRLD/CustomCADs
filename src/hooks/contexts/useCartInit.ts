@@ -10,14 +10,17 @@ export const useCartInit = (): CartState => {
 	const { is } = useAuthStore();
 	const { refetch } = useGetActiveCartItems(false);
 
-	const loadFromLocalStorage = () => {
-		const items = localStorage.getItem('cart');
-		return items ? (JSON.parse(items) as CartItem[]) : [];
-	};
+	const init = () => {
+		const loadFromLocalStorage = () => {
+			const items = localStorage.getItem('cart');
+			if (!items) return null;
 
-	const [items, dispatch] = useReducer(cartReducer, [], () =>
-		typeof window === 'undefined' ? [] : loadFromLocalStorage(),
-	);
+			return JSON.parse(items);
+		};
+		if (typeof window === 'undefined') return;
+		return !is.guest ? null : loadFromLocalStorage();
+	};
+	const [items, dispatch] = useReducer(cartReducer, null, init);
 
 	useEffect(() => {
 		if (is.guest) {
@@ -34,7 +37,7 @@ export const useCartInit = (): CartState => {
 						quantity,
 						customizationId: customizationId!,
 					}
-				: { forDelivery, productId, quantity: 1 },
+				: { forDelivery, productId },
 		);
 
 	useEffect(() => {

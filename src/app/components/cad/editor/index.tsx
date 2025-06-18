@@ -20,7 +20,7 @@ const EditorCad = ({ id }: EditorCadProps) => {
 	const { data: product } = useGetProduct({ id: id });
 	const { materialId, color, scale, size, infill } = useEditorStore(id);
 
-	const textureBlobUrls = useTextures();
+	const textureBlobUrls = useTextures(true);
 	if (!product || !cad || !cadBlobUrl || !textureBlobUrls[materialId]) {
 		return <></>;
 	}

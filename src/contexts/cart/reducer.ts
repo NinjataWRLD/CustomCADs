@@ -2,9 +2,12 @@ import { CartItem } from '@/types/cart-item';
 import { CartAction } from './action';
 
 export const cartReducer = (
-	state: CartItem[],
+	state: CartItem[] | null,
 	action: CartAction,
-): CartItem[] => {
+): CartItem[] | null => {
+	if (action.type === 'FILL_CART') return action.items;
+	if (!state) return null;
+
 	switch (action.type) {
 		case 'ADD_ITEM':
 			return state.find(
@@ -53,8 +56,6 @@ export const cartReducer = (
 					? { ...item, weight: action.weight }
 					: item,
 			);
-		case 'FILL_CART':
-			return action.items;
 		case 'REMOVE_ITEM':
 			return state.filter((item) => item.productId !== action.id);
 		case 'CLEAR_CART':
