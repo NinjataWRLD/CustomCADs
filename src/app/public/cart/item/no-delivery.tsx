@@ -12,6 +12,7 @@ import { useCartUpdates } from '@/hooks/contexts/useCartUpdates';
 import { useCartTranslation } from '@/hooks/locales/pages/public';
 import { removeRecord } from '@/stores/editor-store';
 import Checkbox from '@/app/components/fields/checkbox';
+import Loader from '@/app/components/state/loading';
 import { CartItemWithoutDelivery as Item } from '@/types/cart-item';
 import * as money from '@/utils/money';
 
@@ -45,7 +46,7 @@ const CartItemWithoutDelivery = ({
 	}, [product]);
 
 	if (!product) {
-		return <></>;
+		return <Loader />;
 	}
 
 	const remove = () => {

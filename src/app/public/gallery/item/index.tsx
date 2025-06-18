@@ -4,31 +4,29 @@ import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { Response as Product } from '@/api/catalog/products/gallery/all';
 import { useDownloadProductImage } from '@/hooks/queries/products/gallery';
 import { useGenerateBlobUrl } from '@/hooks/useGenerateBlobUrl';
-import { useFetchTranslation } from '@/hooks/locales/common/messages';
+import Loader from '@/app/components/state/loading';
 
 interface ItemProps {
 	product: Product;
 }
 
 const Item = ({ product }: ItemProps) => {
-	const tFetch = useFetchTranslation();
-
 	const { data: image, isLoading } = useDownloadProductImage({
 		id: product.id,
 	});
 	const blobUrl = useGenerateBlobUrl(image);
 
 	if (isLoading) {
-		return <>{tFetch('loading')}</>;
+		return <Loader />;
 	}
 
 	return (
 		<Link
 			to='/gallery/$id'
 			params={{ id: product.id }}
-			className="relative w-[300px] h-[300px] flex justify-center items-center 
+			className="relative w-[300px] h-[300px] flex justify-center items-center
          bg-[rgba(89,0,255,0.482)]
-         before:content-[''] before:absolute before:w-full before:h-full before:left-0 before:top-0 
+         before:content-[''] before:absolute before:w-full before:h-full before:left-0 before:top-0
          before:bg-[linear-gradient(315deg,hsla(278,73%,71%,0.6),hsla(320,70%,22%,0.6))]
          after:content-[''] after:absolute after:w-full after:h-full after:left-0 after:top-0 after:blur-[30px]
          after:bg-[linear-gradient(315deg,hsla(278,73%,71%,0.6),hsla(320,70%,22%,0.6))] group"

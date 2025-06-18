@@ -13,6 +13,7 @@ import { useCartUpdates } from '@/hooks/contexts/useCartUpdates';
 import { useCartTranslation } from '@/hooks/locales/pages/public';
 import * as editorStore from '@/stores/editor-store';
 import Checkbox from '@/app/components/fields/checkbox';
+import Loader from '@/app/components/state/loading';
 import { CartItemForDelivery as Item } from '@/types/cart-item';
 import * as money from '@/utils/money';
 
@@ -52,7 +53,7 @@ const CartItemForDelivery = ({ item, addTo, reset }: CartItemProps) => {
 		if (customization) addTo.cost(customization.cost * item.quantity);
 	}, [customization]);
 
-	if (!product || !customization) return <></>;
+	if (!product || !customization) return <Loader />;
 
 	const remove = async () => {
 		addTo.price(-1 * product.price * item.quantity);

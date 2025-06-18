@@ -4,6 +4,7 @@ import { useEditorTranslation } from '@/hooks/locales/pages/public';
 import { useOthersTranslation } from '@/hooks/locales/common/others';
 import { useEditorStore } from '@/hooks/stores/useEditorStore';
 import { setColor, setMaterialId } from '@/stores/editor-store';
+import Loader from '@/app/components/state/loading';
 
 interface LooksProps {
 	id: string;
@@ -43,7 +44,7 @@ const Looks = ({ id }: LooksProps) => {
 		};
 	}, []);
 
-	if (!materials) return;
+	if (!materials) return <Loader />;
 	return (
 		<div
 			className={`py-2.5 px-4 bg-blue-200 rounded-b-lg border-2 border-t-0 border-purple-500 mb-2.5 opacity-0 ${fadeIn ? 'fade-in' : ''}`}

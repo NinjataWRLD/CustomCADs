@@ -3,7 +3,8 @@ import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { CategoryResponse } from '@/api/categories/common';
 import { useGetCategories } from '@/hooks/queries/categories';
-import { useFetchTranslation } from '@/hooks/locales/common/messages';
+import Loader from '@/app/components/state/loading';
+import ErrorPage from '@/app/components/state/error';
 
 interface CategoriesProps {
 	getCategory: () => string | undefined;
@@ -18,8 +19,6 @@ const Categories = ({
 	isActive,
 	setActive,
 }: CategoriesProps) => {
-	const tFetch = useFetchTranslation();
-
 	const { data: categories, isLoading, isError } = useGetCategories();
 
 	const categoryParam = getCategory();
@@ -44,11 +43,11 @@ const Categories = ({
 	}, [all, categoryParam]);
 
 	if (isLoading) {
-		return <>{tFetch('loading')}</>;
+		return <Loader />;
 	}
 
 	if (isError || !categories) {
-		return <>{tFetch('error')}</>;
+		return <ErrorPage status={400} />;
 	}
 
 	const toggleDropdown = () => {

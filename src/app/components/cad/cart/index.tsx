@@ -3,6 +3,7 @@ import { useGenerateBlobUrl } from '@/hooks/useGenerateBlobUrl';
 import { getCadType } from '@/utils/get-cad-type';
 import CartThreeJS from './threejs';
 import { useTextures } from '@/hooks/threejs/useTextures';
+import Loader from '@/app/components/state/loading';
 
 interface CartCadProps {
 	id: string;
@@ -23,7 +24,7 @@ const CartCad = ({
 	const cadBlobUrl = useGenerateBlobUrl(cad);
 
 	const textureBlobUrls = useTextures(forDelivery);
-	if (!cad || !cadBlobUrl) return;
+	if (!cad || !cadBlobUrl) return <Loader />;
 
 	let threeJsCustomization;
 	if (customization)

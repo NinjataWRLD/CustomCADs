@@ -6,8 +6,9 @@ import {
 	faChevronDown,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useFetchTranslation } from '@/hooks/locales/common/messages';
 import { SortingDirection } from '@/types/sorting';
+import Loader from '@/app/components/state/loading';
+import ErrorPage from '@/app/components/state/error';
 
 interface SortingsProps {
 	getSorting: () => { type?: string; direction?: string };
@@ -24,7 +25,6 @@ const Sortings = ({
 	setActive,
 	fetch,
 }: SortingsProps) => {
-	const tFetch = useFetchTranslation();
 	const { data: sortings, isLoading, isError } = fetch;
 
 	const { type: sortingParam, direction: directionParam } = getSorting();
@@ -75,15 +75,15 @@ const Sortings = ({
 	const handleInput = (name: string) => {
 		setSorting(() => name);
 		updateSorting({ type: name });
-		setActive(false); // Close dropdown when option is selected
+		setActive(false);
 	};
 
 	if (isLoading) {
-		return <>{tFetch('loading')}</>;
+		return <Loader />;
 	}
 
 	if (isError || !sortings) {
-		return <>{tFetch('error')}</>;
+		return <ErrorPage status={400} />;
 	}
 
 	return (

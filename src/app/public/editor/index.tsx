@@ -9,6 +9,7 @@ import { useEditCustomization } from '@/hooks/mutations/customizations';
 import Transition from '@/app/components/transition';
 import Button from '@/app/components/button';
 import Cad from '@/app/components/cad';
+import Loader from '@/app/components/state/loading';
 import * as calculate3D from '@/utils/calculate-3D';
 import Menu from './menu';
 import Looks from './menu/looks';
@@ -25,7 +26,7 @@ const Editor = () => {
 	const { addItem, toggleItemForDelivery } = useCartUpdates();
 	const { mutateAsync: editCustomization } = useEditCustomization();
 
-	if (!customization) return;
+	if (!customization) return <Loader />;
 
 	const volume = calculate3D.volumeMm3(
 		product.volume,
