@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useNavigate } from '@tanstack/react-router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMinus, faPlus, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { AppError } from '@/types/errors';
 import { useGetCustomization } from '@/hooks/queries/customizations';
 import {
 	useGetProduct,
@@ -9,7 +10,6 @@ import {
 } from '@/hooks/queries/products/gallery';
 import { useGenerateBlobUrl } from '@/hooks/useGenerateBlobUrl';
 import { useCartUpdates } from '@/hooks/contexts/useCartUpdates';
-import { useFetchTranslation } from '@/hooks/locales/common/messages';
 import { useCartTranslation } from '@/hooks/locales/pages/public';
 import * as editorStore from '@/stores/editor-store';
 import Checkbox from '@/app/components/fields/checkbox';
@@ -24,9 +24,7 @@ interface CartItemProps {
 
 const CartItemForDelivery = ({ item, addTo, reset }: CartItemProps) => {
 	const navigate = useNavigate();
-	const tFetch = useFetchTranslation();
 	const tCart = useCartTranslation();
-
 	const {
 		removeItem,
 		incrementItemQuantity,
@@ -37,20 +35,18 @@ const CartItemForDelivery = ({ item, addTo, reset }: CartItemProps) => {
 	const { data: image, isError: isFileError } = useDownloadProductImage({
 		id: item.productId,
 	});
-	const blobUrl = useGenerateBlobUrl(image);
-
 	const { data: product, isError } = useGetProduct({ id: item.productId });
-	const isPrintable = product?.tags.includes('Printable');
-
 	const { data: customization } = useGetCustomization({
 		id: item.customizationId,
 	});
+
+	const blobUrl = useGenerateBlobUrl(image);
+	const isPrintable = product?.tags.includes('Printable');
 
 	useEffect(() => {
 		reset.price();
 		if (product) addTo.price(product.price * item.quantity);
 	}, [product]);
-
 	useEffect(() => {
 		reset.cost();
 		if (customization) addTo.cost(customization.cost * item.quantity);
@@ -61,7 +57,6 @@ const CartItemForDelivery = ({ item, addTo, reset }: CartItemProps) => {
 	const remove = async () => {
 		addTo.price(-1 * product.price * item.quantity);
 		addTo.cost(-1 * customization.cost * item.quantity);
-
 		await removeItem(item.productId);
 		editorStore.removeRecord(item.productId);
 	};
@@ -83,8 +78,12 @@ const CartItemForDelivery = ({ item, addTo, reset }: CartItemProps) => {
 		await toggleItemNoDelivery(item.productId);
 	};
 
-	if (isError || !product || isFileError) {
-		return <>{tFetch('error')}</>;
+	if (isError || isFileError) {
+		throw new AppError({
+			title: 'Server fetching error',
+			message: 'There was an error while fetching data from the server.',
+			tip: 'Please wait a few seconds, then refresh.',
+		});
 	}
 
 	return (

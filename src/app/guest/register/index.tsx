@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Link } from '@tanstack/react-router';
+import { AppError } from '@/types/errors';
 import { Route } from '@/routes/_guest/register/$role';
 import { useRegisterTranslation } from '@/hooks/locales/pages/guest';
 import Button from '@/app/components/button';
@@ -15,7 +16,12 @@ const Register = () => {
 
 	const tRegister = useRegisterTranslation();
 	if (role !== 'customer' && role !== 'contributor')
-		throw new Error("You must register as a 'customer' or 'contributor'");
+		throw new AppError({
+			title: 'Invalid role',
+			message:
+				'You must register either as a "Customer" or a "Contributor".',
+			tip: 'Follow the proper links leading to the Register page.',
+		});
 
 	useEffect(() => {
 		const styleEl = document.createElement('style');

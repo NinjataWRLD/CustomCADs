@@ -3,8 +3,9 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { createRootRouteWithContext } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { AppError } from '@/types/errors';
 import Layout from '@/app/layout';
-import ErrorPage from '@/app/components/state/error/error';
+import ErrorPage from '@/app/components/state/error';
 
 const queryClient = new QueryClient({
 	defaultOptions: {
@@ -42,19 +43,23 @@ export const Route = createRootRouteWithContext<RouterContext>()({
 		if (isAxiosError(error)) {
 			switch (error.response?.status) {
 				case 400:
-					return <ErrorPage error={{ status: '400' }} />;
+					return <ErrorPage status={400} />;
 				case 401:
-					return <ErrorPage error={{ status: '401' }} />;
+					return <ErrorPage status={401} />;
 				case 403:
-					return <ErrorPage error={{ status: '403' }} />;
+					return <ErrorPage status={403} />;
 				case 404:
-					return <ErrorPage error={{ status: '404' }} />;
+					return <ErrorPage status={404} />;
 				case undefined:
 				default:
-					return <ErrorPage error={{ status: 'default' }} />;
+					return <ErrorPage status={null} />;
 			}
 		}
-		return <ErrorPage error={{ status: 'default' }} />;
+
+		if (error instanceof AppError) {
+			return <ErrorPage status={null} error={error} />;
+		}
+		return <ErrorPage status={null} />;
 	},
-	notFoundComponent: () => <ErrorPage error={{ status: '404' }} />,
+	notFoundComponent: () => <ErrorPage status={404} />,
 });

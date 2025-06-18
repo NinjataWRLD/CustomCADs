@@ -14,7 +14,7 @@ export const useCheckout = (details?: BillingDetails) => {
 	const [errorMessage, setErrorMessage] = useState<string>();
 
 	const handleError = async (error: AxiosError<{ clientSecret: string }>) => {
-		if (!stripe) throw new Error('Stripe not initialized');
+		if (!stripe) return;
 		setStatus('error');
 
 		const { response, message } = error;

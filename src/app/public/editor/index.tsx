@@ -16,9 +16,7 @@ import Calculations from './menu/calculations';
 
 const Editor = () => {
 	const navigate = useNavigate();
-
 	const { product } = Route.useLoaderData();
-	const isPrintable = product.tags.includes('Printable');
 
 	const tEditor = useEditorTranslation();
 	const store = useEditorStore(product.id);
@@ -28,7 +26,6 @@ const Editor = () => {
 	const { mutateAsync: editCustomization } = useEditCustomization();
 
 	if (!customization) return;
-	if (!isPrintable) throw new Error('Unprintable CAD!');
 
 	const volume = calculate3D.volumeMm3(
 		product.volume,

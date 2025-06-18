@@ -35,7 +35,6 @@ const Cad = (props: CadProps) => {
 				/>
 			);
 		default:
-			return <></>;
 	}
 };
 
