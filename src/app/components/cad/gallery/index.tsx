@@ -10,15 +10,21 @@ const GalleryCad = ({ product }: { product: Product }) => {
 	const { data: cad } = useDownloadProductCad({ id: product.id });
 
 	const cadBlobUrl = useGenerateBlobUrl(cad);
-	if (!cad || !cadBlobUrl) return <Loader />;
 
 	return (
-		<div className='h-full w-full'>
-			<GalleryThreeJS
-				file={{ url: cadBlobUrl, type: getCadType(cad.contentType) }}
-				cam={cam}
-				pan={pan}
-			/>
+		<div className='relative h-full w-full'>
+			{!cad || !cadBlobUrl ? (
+				<Loader />
+			) : (
+				<GalleryThreeJS
+					file={{
+						url: cadBlobUrl,
+						type: getCadType(cad.contentType),
+					}}
+					cam={cam}
+					pan={pan}
+				/>
+			)}
 		</div>
 	);
 };

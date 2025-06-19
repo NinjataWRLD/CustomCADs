@@ -24,7 +24,6 @@ const CartCad = ({
 	const cadBlobUrl = useGenerateBlobUrl(cad);
 
 	const textureBlobUrls = useTextures(forDelivery);
-	if (!cad || !cadBlobUrl) return <Loader />;
 
 	let threeJsCustomization;
 	if (customization)
@@ -34,13 +33,20 @@ const CartCad = ({
 		};
 
 	return (
-		<div className='h-full w-full'>
-			<CartThreeJS
-				customization={threeJsCustomization}
-				file={{ url: cadBlobUrl, type: getCadType(cad.contentType) }}
-				cam={cad.camCoordinates}
-				pan={cad.panCoordinates}
-			/>
+		<div className='relative h-full w-full'>
+			{!cad || !cadBlobUrl ? (
+				<Loader />
+			) : (
+				<CartThreeJS
+					customization={threeJsCustomization}
+					file={{
+						url: cadBlobUrl,
+						type: getCadType(cad.contentType),
+					}}
+					cam={cad.camCoordinates}
+					pan={cad.panCoordinates}
+				/>
+			)}
 		</div>
 	);
 };
