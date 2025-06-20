@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useFetchTranslation } from '@/hooks/locales/common/messages';
 import { UseQueryResult } from '@tanstack/react-query';
+import Loader from '@/app/components/state/loading';
+import ErrorPage from '@/app/components/state/error';
 
 interface StatusesProps {
 	fetch: UseQueryResult<string[], Error>;
@@ -19,8 +20,6 @@ const Statuses = ({
 	isActive,
 	setActive,
 }: StatusesProps) => {
-	const tFetch = useFetchTranslation();
-
 	const { data: statuses, isLoading, isError } = fetch;
 
 	const statusParam = getStatus();
@@ -39,11 +38,11 @@ const Statuses = ({
 	}, [all, statusParam]);
 
 	if (isLoading) {
-		return <>{tFetch('loading')}</>;
+		return <Loader />;
 	}
 
 	if (isError || !statuses) {
-		return <>{tFetch('error')}</>;
+		return <ErrorPage status={400} />;
 	}
 
 	const toggleDropdown = () => {

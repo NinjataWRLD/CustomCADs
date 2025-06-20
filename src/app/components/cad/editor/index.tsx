@@ -6,6 +6,7 @@ import {
 	useDownloadProductCad,
 } from '@/hooks/queries/products/gallery';
 import { useTextures } from '@/hooks/threejs/useTextures';
+import Loader from '@/app/components/state/loading';
 import { getCadType } from '@/utils/get-cad-type';
 import EditorThreeJS from './threejs';
 
@@ -20,9 +21,9 @@ const EditorCad = ({ id }: EditorCadProps) => {
 	const { data: product } = useGetProduct({ id: id });
 	const { materialId, color, scale, size, infill } = useEditorStore(id);
 
-	const textureBlobUrls = useTextures();
+	const textureBlobUrls = useTextures(true);
 	if (!product || !cad || !cadBlobUrl || !textureBlobUrls[materialId]) {
-		return <></>;
+		return <Loader />;
 	}
 	const { camCoordinates: cam, panCoordinates: pan } = product;
 

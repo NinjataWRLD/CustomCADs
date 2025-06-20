@@ -2,16 +2,20 @@ import React from 'react';
 import { Link } from '@tanstack/react-router';
 import Transition from '../../transition';
 import { useErrorTranslation } from '@/hooks/locales/common/state';
+import { AppErrorFields } from '@/types/errors';
 
 interface ErrorPageProps {
-	error: { status: '400' | '401' | '403' | '404' | 'default' };
+	status: 400 | 401 | 403 | 404 | null;
+	error?: AppErrorFields;
 }
 
-const ErrorPage = ({ error }: ErrorPageProps) => {
+const ErrorPage = ({ status, error }: ErrorPageProps) => {
 	const tError = useErrorTranslation();
-	const title = tError(`${error.status}_title`);
-	const message = tError(`${error.status}_message`);
-	const tip = tError(`${error.status}_tip`);
+	const { title, message, tip } = error ?? {
+		title: tError(`${status ?? 'default'}_title`),
+		message: tError(`${status ?? 'default'}_message`),
+		tip: tError(`${status ?? 'default'}_tip`),
+	};
 
 	return (
 		<Transition>
@@ -24,7 +28,7 @@ const ErrorPage = ({ error }: ErrorPageProps) => {
 				</h3>
 				<p className='text-[1rem] text-gray-500 mb-[1.5rem]'>{tip}</p>
 
-				{error.status === '401' && (
+				{status === 401 && (
 					<div className='text-lg'>
 						<Link
 							to='/login'

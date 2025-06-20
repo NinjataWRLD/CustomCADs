@@ -5,77 +5,84 @@ import { Request as Recent } from '@/api/catalog/products/creator/recent';
 import { Request as Download } from '@/api/catalog/products/creator/download';
 import { Request as Upload } from '@/api/catalog/products/creator/upload';
 import { Request as Replace } from '@/api/catalog/products/creator/replace';
-import {
-	all,
-	downloadCad,
-	downloadImage,
-	recent,
-	replaceCad,
-	replaceImage,
-	single,
-	stats,
-	upload,
-} from '@/api/catalog/products/creator';
+import * as api from '@/api/catalog/products/creator';
+
+export const keys = {
+	base: ['products', 'creator'] as const,
+	all: (params: All) => [...keys.base, 'all', params] as const,
+	single: (params: Single) => [...keys.base, 'single', params] as const,
+	recent: (params: Recent) => [...keys.base, 'recent', params] as const,
+	stats: () => [...keys.base, 'stats'] as const,
+	downloadCad: (params: Download) =>
+		[...keys.base, 'download-cad', params] as const,
+	downloadImage: (params: Download) =>
+		[...keys.base, 'download-image', params] as const,
+	upload: (params: Upload) => [...keys.base, 'upload', params] as const,
+	replaceCad: (params: Replace) =>
+		[...keys.base, 'replace-cad', params] as const,
+	replaceImage: (params: Replace) =>
+		[...keys.base, 'replace-image', params] as const,
+};
 
 export const useGetProducts = (params: All, enabled?: boolean) =>
 	useQuery({
-		queryKey: ['products', 'creator', 'all', params],
-		queryFn: async () => (await all(params)).data,
+		queryKey: keys.all(params),
+		queryFn: async () => (await api.all(params)).data,
 		enabled,
 	});
 
 export const useGetProduct = (params: Single, enabled?: boolean) =>
 	useQuery({
-		queryKey: ['products', 'creator', 'single', params],
-		queryFn: async () => (await single(params)).data,
+		queryKey: keys.single(params),
+		queryFn: async () => (await api.single(params)).data,
 		enabled,
 	});
 
 export const useGetRecentProducts = (params: Recent, enabled?: boolean) =>
 	useQuery({
-		queryKey: ['products', 'creator', 'recent', params],
-		queryFn: async () => (await recent(params)).data,
+		queryKey: keys.recent(params),
+		queryFn: async () => (await api.recent(params)).data,
 		enabled,
 	});
 
 export const useGetProductsStats = (enabled?: boolean) =>
 	useQuery({
-		queryKey: ['products', 'creator', 'stats'],
-		queryFn: async () => (await stats()).data,
+		queryKey: keys.stats(),
+		queryFn: async () => (await api.stats()).data,
 		enabled,
 	});
 
 export const useDownloadProductCad = (params: Download, enabled?: boolean) =>
 	useQuery({
-		queryKey: ['products', 'creator', 'download-cad', params],
-		queryFn: async () => (await downloadCad(params)).data,
+		queryKey: keys.downloadCad(params),
+		queryFn: async () => (await api.downloadCad(params)).data,
 		enabled,
 	});
 
 export const useDownloadProductImage = (params: Download, enabled?: boolean) =>
 	useQuery({
-		queryKey: ['products', 'creator', 'download-image', params],
-		queryFn: async () => (await downloadImage(params)).data,
+		queryKey: keys.downloadImage(params),
+		queryFn: async () => (await api.downloadImage(params)).data,
 		enabled,
 	});
 
 export const useUploadProductFiles = (params: Upload, enabled?: boolean) =>
 	useQuery({
-		queryKey: ['products', 'creator', 'upload-files', params],
-		queryFn: async () => (await upload(params)).data,
+		queryKey: keys.upload(params),
+		queryFn: async () => (await api.upload(params)).data,
 		enabled,
 	});
 
 export const useReplaceProductCad = (params: Replace, enabled?: boolean) =>
 	useQuery({
-		queryKey: ['products', 'creator', 'change-cad', params],
-		queryFn: async () => (await replaceCad(params)).data,
+		queryKey: keys.replaceCad(params),
+		queryFn: async () => (await api.replaceCad(params)).data,
 		enabled,
 	});
 
 export const useChangeProductImage = (params: Replace, enabled?: boolean) =>
 	useQuery({
-		queryKey: ['products', 'creator', 'change-image', params],
-		queryFn: async () => (await replaceImage(params)).data,
+		queryKey: keys.replaceImage(params),
+		queryFn: async () => (await api.replaceImage(params)).data,
 		enabled,
 	});

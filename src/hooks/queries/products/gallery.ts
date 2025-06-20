@@ -2,45 +2,50 @@ import { useQuery } from '@tanstack/react-query';
 import { Request as All } from '@/api/catalog/products/gallery/all';
 import { Request as Download } from '@/api/catalog/products/gallery/download';
 import { Request as Single } from '@/api/catalog/products/gallery/single';
-import {
-	all,
-	downloadCad,
-	downloadImage,
-	single,
-	sortings,
-} from '@/api/catalog/products/gallery';
+import * as api from '@/api/catalog/products/gallery';
+
+export const keys = {
+	base: ['products', 'gallery'] as const,
+	all: (params: All) => [...keys.base, 'all', params] as const,
+	single: (params: Single) => [...keys.base, 'single', params] as const,
+	sortings: () => [...keys.base, 'sortings'] as const,
+	downloadCad: (params: Download) =>
+		[...keys.base, 'download-cad', params] as const,
+	downloadImage: (params: Download) =>
+		[...keys.base, 'download-image', params] as const,
+};
 
 export const useGetProducts = (params: All, enabled?: boolean) =>
 	useQuery({
-		queryKey: ['products', 'gallery', 'all', params],
-		queryFn: async () => (await all(params)).data,
+		queryKey: keys.all(params),
+		queryFn: async () => (await api.all(params)).data,
 		enabled,
 	});
 
 export const useGetProduct = (params: Single, enabled?: boolean) =>
 	useQuery({
-		queryKey: ['products', 'gallery', 'single', params],
-		queryFn: async () => (await single(params)).data,
+		queryKey: keys.single(params),
+		queryFn: async () => (await api.single(params)).data,
 		enabled,
 	});
 
 export const useGetProductSortings = (enabled?: boolean) =>
 	useQuery({
-		queryKey: ['products', 'gallery', 'sortings'],
-		queryFn: async () => (await sortings()).data,
+		queryKey: keys.sortings(),
+		queryFn: async () => (await api.sortings()).data,
 		enabled,
 	});
 
 export const useDownloadProductCad = (params: Download, enabled?: boolean) =>
 	useQuery({
-		queryKey: ['products', 'gallery', 'download-cad', params],
-		queryFn: async () => (await downloadCad(params)).data,
+		queryKey: keys.downloadCad(params),
+		queryFn: async () => (await api.downloadCad(params)).data,
 		enabled,
 	});
 
 export const useDownloadProductImage = (params: Download, enabled?: boolean) =>
 	useQuery({
-		queryKey: ['products', 'gallery', 'download-image', params],
-		queryFn: async () => (await downloadImage(params)).data,
+		queryKey: keys.downloadImage(params),
+		queryFn: async () => (await api.downloadImage(params)).data,
 		enabled,
 	});

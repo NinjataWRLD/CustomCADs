@@ -3,6 +3,7 @@ import { useGenerateBlobUrl } from '@/hooks/useGenerateBlobUrl';
 import { getCadType } from '@/utils/get-cad-type';
 import CartThreeJS from './threejs';
 import { useTextures } from '@/hooks/threejs/useTextures';
+import Loader from '@/app/components/state/loading';
 
 interface CartCadProps {
 	id: string;
@@ -23,7 +24,6 @@ const CartCad = ({
 	const cadBlobUrl = useGenerateBlobUrl(cad);
 
 	const textureBlobUrls = useTextures(forDelivery);
-	if (!cad || !cadBlobUrl) return;
 
 	let threeJsCustomization;
 	if (customization)
@@ -33,13 +33,20 @@ const CartCad = ({
 		};
 
 	return (
-		<div className='h-full w-full'>
-			<CartThreeJS
-				customization={threeJsCustomization}
-				file={{ url: cadBlobUrl, type: getCadType(cad.contentType) }}
-				cam={cad.camCoordinates}
-				pan={cad.panCoordinates}
-			/>
+		<div className='relative h-full w-full'>
+			{!cad || !cadBlobUrl ? (
+				<Loader />
+			) : (
+				<CartThreeJS
+					customization={threeJsCustomization}
+					file={{
+						url: cadBlobUrl,
+						type: getCadType(cad.contentType),
+					}}
+					cam={cad.camCoordinates}
+					pan={cad.panCoordinates}
+				/>
+			)}
 		</div>
 	);
 };

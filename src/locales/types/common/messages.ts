@@ -1,9 +1,3 @@
-export type CommonMessagesFetch = {
-	loading: string;
-	error: string;
-	'no-products': string;
-};
-
 export type CommonMessagesPlaceholders = {
 	'search-products': string;
 	'first-name': string;
@@ -18,4 +12,8 @@ export type CommonMessagesPlaceholders = {
 	city: string;
 	street: string;
 	phone: string;
+};
+
+export type CommonMessagesNotFound = {
+	'no-products': string;
 };

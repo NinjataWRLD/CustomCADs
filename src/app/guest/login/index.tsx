@@ -7,7 +7,7 @@ import Transition from '@/app/components/transition';
 import { useFields } from './hooks/useFields';
 
 const Login = () => {
-	const { handleSubmit, ...fields } = useFields();
+	const { handleSubmit, fields } = useFields();
 	const tLogin = useLoginTranslation();
 
 	useEffect(() => {
@@ -43,14 +43,14 @@ const Login = () => {
 					</h1>
 
 					<div className='w-full flex flex-col items-center gap-[10px] mt-[10px]'>
-						{fields.UsernameField}
+						{fields.Username}
 					</div>
 
 					<div className='w-full flex flex-col items-center gap-[10px] mt-[10px]'>
-						{fields.PasswordField}
+						{fields.Password}
 					</div>
 
-					{fields.RememberMeField}
+					{fields.RememberMe}
 
 					<div>
 						<Button type='submit' text={tLogin('btn')} />

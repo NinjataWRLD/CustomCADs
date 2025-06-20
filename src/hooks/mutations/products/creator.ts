@@ -3,34 +3,37 @@ import { Request as Create } from '@/api/catalog/products/creator/create';
 import { Request as SetCoords } from '@/api/catalog/products/creator/set-coords';
 import { Request as Edit } from '@/api/catalog/products/creator/edit';
 import { Request as Delete } from '@/api/catalog/products/creator/delete';
-import {
-	create,
-	edit,
-	delete_,
-	setCadCoords,
-} from '@/api/catalog/products/creator';
+import * as api from '@/api/catalog/products/creator';
+
+export const keys = {
+	base: ['products', 'creator'] as const,
+	create: () => [...keys.base, 'create'] as const,
+	setCoords: () => [...keys.base, 'set-coords'] as const,
+	edit: () => [...keys.base, 'edit'] as const,
+	delete: () => [...keys.base, 'delete'] as const,
+};
 
 export const useCreateProduct = () =>
 	useMutation({
-		mutationKey: ['products', 'creator', 'create'],
-		mutationFn: async (params: Create) => (await create(params)).data,
+		mutationKey: keys.create(),
+		mutationFn: async (params: Create) => (await api.create(params)).data,
 	});
 
 export const useSetProductCadCoords = () =>
 	useMutation({
-		mutationKey: ['products', 'creator', 'set-coords'],
+		mutationKey: keys.setCoords(),
 		mutationFn: async (params: SetCoords) =>
-			(await setCadCoords(params)).data,
+			(await api.setCadCoords(params)).data,
 	});
 
 export const useEditProduct = () =>
 	useMutation({
-		mutationKey: ['products', 'creator', 'edit'],
-		mutationFn: async (params: Edit) => (await edit(params)).data,
+		mutationKey: keys.edit(),
+		mutationFn: async (params: Edit) => (await api.edit(params)).data,
 	});
 
 export const useDeleteProduct = () =>
 	useMutation({
-		mutationKey: ['products', 'creator', 'delete'],
-		mutationFn: async (params: Delete) => (await delete_(params)).data,
+		mutationKey: keys.delete(),
+		mutationFn: async (params: Delete) => (await api.delete_(params)).data,
 	});

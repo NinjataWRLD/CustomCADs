@@ -4,41 +4,46 @@ import { Request as Edit } from '@/api/customs/customs/customer/edit';
 import { Request as Purchase } from '@/api/customs/customs/customer/purchase';
 import { Request as PurchaseWithDelivery } from '@/api/customs/customs/customer/purchase-delivery';
 import { Request as Delete } from '@/api/customs/customs/customer/delete';
-import {
-	edit,
-	create,
-	delete_,
-	purchase,
-	purchaseWithDelivery,
-} from '@/api/customs/customs/customer';
+import * as api from '@/api/customs/customs/customer';
+
+export const keys = {
+	base: ['customs', 'customer'] as const,
+	create: () => [...keys.base, 'create'] as const,
+	edit: () => [...keys.base, 'edit'] as const,
+	purchase: () => [...keys.base, 'purchase'] as const,
+	purchaseWithDelivery: () =>
+		[...keys.base, 'purchase-with-delivery'] as const,
+	delete: () => [...keys.base, 'delete'] as const,
+};
 
 export const useCreateCustom = () =>
 	useMutation({
-		mutationKey: ['customs', 'customer', 'create'],
-		mutationFn: async (params: Create) => (await create(params)).data,
+		mutationKey: keys.create(),
+		mutationFn: async (params: Create) => (await api.create(params)).data,
 	});
 
 export const useEditCustom = () =>
 	useMutation({
-		mutationKey: ['customs', 'customer', 'edit'],
-		mutationFn: async (params: Edit) => (await edit(params)).data,
+		mutationKey: keys.edit(),
+		mutationFn: async (params: Edit) => (await api.edit(params)).data,
 	});
 
 export const usePurchaseCustom = () =>
 	useMutation({
-		mutationKey: ['customs', 'customer', 'purchase'],
-		mutationFn: async (params: Purchase) => (await purchase(params)).data,
+		mutationKey: keys.purchase(),
+		mutationFn: async (params: Purchase) =>
+			(await api.purchase(params)).data,
 	});
 
 export const usePurchaseCustomWithDelivery = () =>
 	useMutation({
-		mutationKey: ['customs', 'customer', 'purchase-with-delivery'],
+		mutationKey: keys.purchaseWithDelivery(),
 		mutationFn: async (params: PurchaseWithDelivery) =>
-			(await purchaseWithDelivery(params)).data,
+			(await api.purchaseWithDelivery(params)).data,
 	});
 
 export const useDeleteCustom = () =>
 	useMutation({
-		mutationKey: ['customs', 'customer', 'delete'],
-		mutationFn: async (params: Delete) => (await delete_(params)).data,
+		mutationKey: keys.delete(),
+		mutationFn: async (params: Delete) => (await api.delete_(params)).data,
 	});

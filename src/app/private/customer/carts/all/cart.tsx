@@ -10,6 +10,7 @@ import { usePagination } from '@/hooks/usePagination';
 import { useGetPurchasedCart } from '@/hooks/queries/purchased-carts';
 import { usePurchasedCartsTranslation } from '@/hooks/locales/pages/customer';
 import CustomLink from '@/app/components/link';
+import Loader from '@/app/components/state/loading';
 import * as dateTime from '@/utils/date-time';
 import Item from './item';
 
@@ -39,7 +40,7 @@ const Cart = ({ id, navigate }: CartProps) => {
 	const [isClicked, setIsClicked] = useState(false);
 	const toggleIsClicked = () => setIsClicked((prev) => !prev);
 
-	if (!cart) return;
+	if (!cart) return <Loader />;
 	const { items, purchasedAt, total } = cart;
 
 	const handlePrevious = () => {

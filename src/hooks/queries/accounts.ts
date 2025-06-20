@@ -1,25 +1,32 @@
 import { useQuery } from '@tanstack/react-query';
 import { Request as Single } from '@/api/accounts/accounts/single';
 import { Request as All } from '@/api/accounts/accounts/all';
-import { all, single, sortings } from '@/api/accounts/accounts';
+import * as api from '@/api/accounts/accounts';
+
+export const keys = {
+	base: ['accounts'] as const,
+	all: (params: All) => [...keys.base, 'all', params] as const,
+	single: (params: Single) => [...keys.base, 'single', params] as const,
+	sortings: () => [...keys.base, 'sortings'] as const,
+};
 
 export const useGetAccount = (params: Single, enabled?: boolean) =>
 	useQuery({
-		queryKey: ['accounts', 'single', params],
-		queryFn: async () => (await single(params)).data,
+		queryKey: keys.single(params),
+		queryFn: async () => (await api.single(params)).data,
 		enabled,
 	});
 
 export const useGetAccounts = (params: All, enabled?: boolean) =>
 	useQuery({
-		queryKey: ['accounts', 'all', params],
-		queryFn: async () => (await all(params)).data,
+		queryKey: keys.all(params),
+		queryFn: async () => (await api.all(params)).data,
 		enabled,
 	});
 
 export const useGetAccountSortings = (enabled?: boolean) =>
 	useQuery({
-		queryKey: ['accounts', 'sortings'],
-		queryFn: async () => (await sortings()).data,
+		queryKey: keys.sortings(),
+		queryFn: async () => (await api.sortings()).data,
 		enabled,
 	});

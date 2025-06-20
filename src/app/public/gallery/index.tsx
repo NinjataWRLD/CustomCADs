@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import { Route } from '@/routes/_public/gallery';
 import { usePagination } from '@/hooks/usePagination';
 import {
-	useFetchTranslation,
 	usePlaceholdersTranslation,
+	useNotFoundTranslation,
 } from '@/hooks/locales/common/messages';
 import { useGetProductSortings } from '@/hooks/queries/products/gallery';
 import Transition from '@/app/components/transition';
@@ -15,8 +15,8 @@ import Item from './item';
 
 const GALLERY_ITEMS_PER_PAGE = 12;
 const Gallery = () => {
-	const tFetch = useFetchTranslation();
 	const tPlaceholders = usePlaceholdersTranslation();
+	const tNotFound = useNotFoundTranslation();
 
 	const { gallery: products } = Route.useLoaderData();
 	const navigate = Route.useNavigate();
@@ -117,7 +117,7 @@ const Gallery = () => {
 					</div>
 				) : (
 					<div className='min-h-[60dvh] flex items-center text-white text-2xl text-shadow-custom'>
-						{tFetch('no-products')}
+						{tNotFound('no-products')}
 					</div>
 				)}
 				<div className='flex items-center justify-center'>

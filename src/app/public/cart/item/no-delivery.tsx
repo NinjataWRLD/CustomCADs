@@ -2,16 +2,17 @@ import { useEffect } from 'react';
 import { useNavigate } from '@tanstack/react-router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { AppError } from '@/types/errors';
 import {
 	useGetProduct,
 	useDownloadProductImage,
 } from '@/hooks/queries/products/gallery';
 import { useGenerateBlobUrl } from '@/hooks/useGenerateBlobUrl';
 import { useCartUpdates } from '@/hooks/contexts/useCartUpdates';
-import { useFetchTranslation } from '@/hooks/locales/common/messages';
 import { useCartTranslation } from '@/hooks/locales/pages/public';
 import { removeRecord } from '@/stores/editor-store';
 import Checkbox from '@/app/components/fields/checkbox';
+import Loader from '@/app/components/state/loading';
 import { CartItemWithoutDelivery as Item } from '@/types/cart-item';
 import * as money from '@/utils/money';
 
@@ -27,8 +28,6 @@ const CartItemWithoutDelivery = ({
 	resetPrice,
 }: CartItemProps) => {
 	const navigate = useNavigate();
-
-	const tFetch = useFetchTranslation();
 	const tCart = useCartTranslation();
 
 	const { removeItem } = useCartUpdates();
@@ -47,7 +46,7 @@ const CartItemWithoutDelivery = ({
 	}, [product]);
 
 	if (!product) {
-		return <></>;
+		return <Loader />;
 	}
 
 	const remove = () => {
@@ -61,12 +60,12 @@ const CartItemWithoutDelivery = ({
 			params: { id: item.productId },
 		});
 
-	if (isError || !product || isFileError) {
-		return (
-			<p className='text-xl text-shadow-2xs text-shadow-purple-500'>
-				{tFetch('error')}
-			</p>
-		);
+	if (isError || isFileError) {
+		throw new AppError({
+			title: 'Server fetching error',
+			message: 'There was an error while fetching data from the server.',
+			tip: 'Please wait a few seconds, then refresh.',
+		});
 	}
 
 	return (

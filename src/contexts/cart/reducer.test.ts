@@ -28,7 +28,7 @@ describe('Cart Reducer tests', () => {
 		const initialState: CartItem[] = [item1];
 		const action: CartAction = { type: 'INCREMENT_QUANTITY', id: '123' };
 
-		const [item] = cartReducer(initialState, action);
+		const [item] = cartReducer(initialState, action)!;
 
 		if (item.forDelivery) expect(item.quantity).toBe(2);
 	});
@@ -37,7 +37,7 @@ describe('Cart Reducer tests', () => {
 		const initialState: CartItem[] = [{ ...item1, quantity: 2 }];
 		const action: CartAction = { type: 'DECREMENT_QUANTITY', id: '123' };
 
-		const [item] = cartReducer(initialState, action);
+		const [item] = cartReducer(initialState, action)!;
 
 		if (item.forDelivery) expect(item.quantity).toBe(1);
 	});
@@ -49,7 +49,7 @@ describe('Cart Reducer tests', () => {
 			id: item1.productId,
 		};
 
-		const [item] = cartReducer(initialState, action);
+		const [item] = cartReducer(initialState, action)!;
 
 		if (item.forDelivery) expect(item.quantity).toBe(1);
 	});
@@ -61,7 +61,7 @@ describe('Cart Reducer tests', () => {
 			id: item1.productId,
 		};
 
-		const newState = cartReducer(initialState, action);
+		const newState = cartReducer(initialState, action)!;
 
 		expect(newState[0].forDelivery).toBe(false);
 	});
@@ -74,7 +74,7 @@ describe('Cart Reducer tests', () => {
 			customizationId: item1.customizationId,
 		};
 
-		const newState = cartReducer(initialState, action);
+		const newState = cartReducer(initialState, action)!;
 
 		expect(newState[0].forDelivery).toBe(true);
 	});

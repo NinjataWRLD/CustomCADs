@@ -4,64 +4,68 @@ import { Request as ResetPassword } from '@/api/identity/identity/reset-password
 import { Request as ChangeUsername } from '@/api/identity/identity/change-username';
 import { Request as Register } from '@/api/identity/identity/register';
 import { Request as RetryConfirmEmail } from '@/api/identity/identity/retry-confirm-email';
-import {
-	login,
-	logout,
-	refresh,
-	changeUsername,
-	delete_,
-	resetPassword,
-	register,
-	retryConfirmEmail,
-} from '@/api/identity/identity';
+import * as api from '@/api/identity/identity';
+
+export const keys = {
+	base: ['identity'] as const,
+	login: () => [...keys.base, 'login'] as const,
+	logout: () => [...keys.base, 'logout'] as const,
+	refresh: () => [...keys.base, 'refresh'] as const,
+	changeUsername: () => [...keys.base, 'change-username'] as const,
+	deleteMyAccount: () => [...keys.base, 'delete-my-account'] as const,
+	resetPassword: () => [...keys.base, 'reset-password'] as const,
+	register: () => [...keys.base, 'register'] as const,
+	retryConfirmEmail: () => [...keys.base, 'retry-confirm-email'] as const,
+};
 
 export const useLogin = () =>
 	useMutation({
-		mutationKey: ['sign-in', 'login'],
-		mutationFn: async (params: Login) => (await login(params)).data,
+		mutationKey: keys.login(),
+		mutationFn: async (params: Login) => (await api.login(params)).data,
 	});
 
 export const useLogout = () =>
 	useMutation({
-		mutationKey: ['sign-in', 'logout'],
-		mutationFn: async () => (await logout()).data,
+		mutationKey: keys.logout(),
+		mutationFn: async () => (await api.logout()).data,
 	});
 
 export const useRefresh = () =>
 	useMutation({
-		mutationKey: ['identity', 'refresh'],
-		mutationFn: async () => (await refresh()).data,
+		mutationKey: keys.refresh(),
+		mutationFn: async () => (await api.refresh()).data,
 	});
 
 export const useChangeUsername = () =>
 	useMutation({
-		mutationKey: ['identity', 'change-username'],
+		mutationKey: keys.changeUsername(),
 		mutationFn: async (req: ChangeUsername) =>
-			(await changeUsername(req)).data,
+			(await api.changeUsername(req)).data,
 	});
 
 export const useDeleteMyAccount = () =>
 	useMutation({
-		mutationKey: ['identity', 'delete'],
-		mutationFn: async () => (await delete_()).data,
+		mutationKey: keys.deleteMyAccount(),
+		mutationFn: async () => (await api.delete_()).data,
 	});
 
 export const useResetPassword = () =>
 	useMutation({
-		mutationKey: ['identity', 'reset-password'],
+		mutationKey: keys.resetPassword(),
 		mutationFn: async (params: ResetPassword) =>
-			(await resetPassword(params)).data,
+			(await api.resetPassword(params)).data,
 	});
 
 export const useRegister = () =>
 	useMutation({
-		mutationKey: ['identity', 'register'],
-		mutationFn: async (params: Register) => (await register(params)).data,
+		mutationKey: keys.register(),
+		mutationFn: async (params: Register) =>
+			(await api.register(params)).data,
 	});
 
 export const useRetryConfirmEmail = () =>
 	useMutation({
-		mutationKey: ['identity', 'retry-confirm-email'],
+		mutationKey: keys.retryConfirmEmail(),
 		mutationFn: async (params: RetryConfirmEmail) =>
-			(await retryConfirmEmail(params)).data,
+			(await api.retryConfirmEmail(params)).data,
 	});

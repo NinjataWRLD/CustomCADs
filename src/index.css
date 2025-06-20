@@ -190,3 +190,9 @@ textarea.invalid {
 .fade-in {
     animation: fadeIn 0.5s ease-out forwards;
 }
+
+@keyframes spinning {
+    to {
+        transform: rotate(360deg);
+    }
+}

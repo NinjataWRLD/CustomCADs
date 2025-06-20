@@ -5,59 +5,66 @@ import { Request as ToggleItemDelivery } from '@/api/carts/active/toggle-for-del
 import { Request as RemoveItem } from '@/api/carts/active/remove-item';
 import { Request as Purchase } from '@/api/carts/active/purchase';
 import { Request as PurchaseWithDelivery } from '@/api/carts/active/purchase-delivery';
-import {
-	addItem,
-	decreaseItemQuantity,
-	increaseItemQuantity,
-	purchase,
-	purchaseWithDelivery,
-	removeItem,
-	toggleItemForDelivery,
-} from '@/api/carts/active';
+import * as api from '@/api/carts/active';
+
+export const keys = {
+	base: ['active-carts'] as const,
+	addItem: () => [...keys.base, 'add-item'] as const,
+	toggleItemForDelivery: () =>
+		[...keys.base, 'toggle-item-for-delivery'] as const,
+	increaseItemQuantity: () =>
+		[...keys.base, 'increase-item-quantity'] as const,
+	decreaseItemQuantity: () =>
+		[...keys.base, 'decrease-item-quantity'] as const,
+	removeItem: () => [...keys.base, 'remove-item'] as const,
+	purchase: () => [...keys.base, 'purchase'] as const,
+	purchaseWithDelivery: () =>
+		[...keys.base, 'purchase-with-delivery'] as const,
+};
 
 export const useAddActiveCartItem = () =>
 	useMutation({
-		mutationKey: ['active-carts', 'add-item'],
-		mutationFn: async (params: AddItem) => (await addItem(params)).data,
+		mutationKey: keys.addItem(),
+		mutationFn: async (params: AddItem) => (await api.addItem(params)).data,
 	});
 
 export const useToggleActiveCartItemForDelivery = () =>
 	useMutation({
-		mutationKey: ['active-carts', 'toggle-item-for-delivery'],
+		mutationKey: keys.toggleItemForDelivery(),
 		mutationFn: async (req: ToggleItemDelivery) =>
-			(await toggleItemForDelivery(req)).data,
+			(await api.toggleItemForDelivery(req)).data,
 	});
 
 export const useIncreaseActiveCartItemQuantity = () =>
 	useMutation({
-		mutationKey: ['active-carts', 'increase-item-quantity'],
+		mutationKey: keys.increaseItemQuantity(),
 		mutationFn: async (params: ChangeItemQuantity) =>
-			(await increaseItemQuantity(params)).data,
+			(await api.increaseItemQuantity(params)).data,
 	});
 
 export const useDecreaseActiveCartItemQuantity = () =>
 	useMutation({
-		mutationKey: ['active-carts', 'decrease-item-quantity'],
+		mutationKey: keys.decreaseItemQuantity(),
 		mutationFn: async (params: ChangeItemQuantity) =>
-			(await decreaseItemQuantity(params)).data,
+			(await api.decreaseItemQuantity(params)).data,
 	});
 
 export const useRemoveActiveCartItem = () =>
 	useMutation({
-		mutationKey: ['active-carts', 'remove-item'],
+		mutationKey: keys.removeItem(),
 		mutationFn: async (params: RemoveItem) =>
-			(await removeItem(params)).data,
+			(await api.removeItem(params)).data,
 	});
 
 export const usePurchaseActiveCart = () =>
 	useMutation({
-		mutationKey: ['active-carts', 'purchase'],
-		mutationFn: async (req: Purchase) => (await purchase(req)).data,
+		mutationKey: keys.purchase(),
+		mutationFn: async (req: Purchase) => (await api.purchase(req)).data,
 	});
 
 export const usePurchaseActiveCartWithDelivery = () =>
 	useMutation({
-		mutationKey: ['active-carts', 'purchase-with-delivery'],
+		mutationKey: keys.purchaseWithDelivery(),
 		mutationFn: async (req: PurchaseWithDelivery) =>
-			(await purchaseWithDelivery(req)).data,
+			(await api.purchaseWithDelivery(req)).data,
 	});

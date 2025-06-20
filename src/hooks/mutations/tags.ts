@@ -2,22 +2,29 @@ import { useMutation } from '@tanstack/react-query';
 import { Request as Create } from '@/api/catalog/tags/create';
 import { Request as Edit } from '@/api/catalog/tags/edit';
 import { Request as Delete } from '@/api/catalog/tags/delete';
-import { create, edit, delete_ } from '@/api/catalog/tags';
+import * as api from '@/api/catalog/tags';
+
+export const keys = {
+	base: ['tags'] as const,
+	create: () => [...keys.base, 'create'] as const,
+	edit: () => [...keys.base, 'edit'] as const,
+	delete: () => [...keys.base, 'delete'] as const,
+};
 
 export const useCreateTag = () =>
 	useMutation({
-		mutationKey: ['tags', 'create'],
-		mutationFn: async (params: Create) => (await create(params)).data,
+		mutationKey: keys.create(),
+		mutationFn: async (params: Create) => (await api.create(params)).data,
 	});
 
 export const useEditTag = () =>
 	useMutation({
-		mutationKey: ['tags', 'edit'],
-		mutationFn: async (params: Edit) => (await edit(params)).data,
+		mutationKey: keys.edit(),
+		mutationFn: async (params: Edit) => (await api.edit(params)).data,
 	});
 
 export const useDeleteTag = () =>
 	useMutation({
-		mutationKey: ['tags', 'delete'],
-		mutationFn: async (params: Delete) => (await delete_(params)).data,
+		mutationKey: keys.delete(),
+		mutationFn: async (params: Delete) => (await api.delete_(params)).data,
 	});
