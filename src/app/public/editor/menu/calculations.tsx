@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Metric } from '@/types/threejs';
+import { Mass, Distance } from '@/types/threejs';
 import { useOthersTranslation } from '@/hooks/locales/common/others';
 import RangeField from '@/app/components/fields/range';
 import RadioField from '@/app/components/fields/radio';
@@ -8,7 +8,7 @@ import { useEditorStore } from '@/hooks/stores/useEditorStore';
 import { setInfill, setScale } from '@/stores/editor-store';
 import * as calculate3D from '@/utils/calculate-3D';
 import * as money from '@/utils/money';
-import * as formatter from '../formatter';
+import * as formatter from '@/utils/formatters';
 
 interface CalculationsProps {
 	id: string;
@@ -16,7 +16,9 @@ interface CalculationsProps {
 }
 
 const Calculations = ({ id, volume }: CalculationsProps) => {
-	const [metric, setMetric] = useState<Metric>('cm');
+	const [distance, setDistance] = useState<Distance>('cm');
+	const [mass, setMass] = useState<Mass>('kg');
+
 	const { infill, scale, size, weight, cost } = useEditorStore(id);
 	const ratio = calculate3D.baseRatio(size);
 
@@ -37,7 +39,7 @@ const Calculations = ({ id, volume }: CalculationsProps) => {
 					transform: translateY(100px);
 					animation: fadeIn 0.5s ease-in-out forwards;
 				}
-	
+
 				@keyframes fadeIn {
 					to {
 						opacity: 1;
@@ -81,30 +83,57 @@ const Calculations = ({ id, volume }: CalculationsProps) => {
 			<br />
 			<div>
 				<RadioField
-					value={'mm'}
-					checked={metric === 'mm'}
-					onChange={() => setMetric('mm')}
-					label={'mm'}
+					name='distance'
+					value='mm'
+					checked={distance === 'mm'}
+					onChange={() => setDistance('mm')}
+					label='mm'
 				/>
 				<RadioField
-					value={'cm'}
-					checked={metric === 'cm'}
-					onChange={() => setMetric('cm')}
-					label={'cm'}
+					name='distance'
+					value='cm'
+					checked={distance === 'cm'}
+					onChange={() => setDistance('cm')}
+					label='cm'
 				/>
 				<RadioField
-					value={'inch'}
-					checked={metric === 'inch'}
-					onChange={() => setMetric('inch')}
-					label={'inch'}
+					name='distance'
+					value='inch'
+					checked={distance === 'inch'}
+					onChange={() => setDistance('inch')}
+					label='inch'
+				/>
+			</div>
+			<br />
+			<div>
+				<RadioField
+					name='mass'
+					value='g'
+					checked={mass === 'g'}
+					onChange={() => setMass('g')}
+					label='g'
+				/>
+				<RadioField
+					name='mass'
+					value='kg'
+					checked={mass === 'kg'}
+					onChange={() => setMass('kg')}
+					label='kg'
+				/>
+				<RadioField
+					name='mass'
+					value='lbs'
+					checked={mass === 'lbs'}
+					onChange={() => setMass('lbs')}
+					label='lbs'
 				/>
 			</div>
 			<div>
-				<p>{`${tOthers('width')}: ${formatter.size(ratio.x * scale, metric)}`}</p>
-				<p>{`${tOthers('height')}: ${formatter.size(ratio.y * scale, metric)}`}</p>
-				<p>{`${tOthers('length')}: ${formatter.size(ratio.z * scale, metric)}`}</p>
-				<p>{`${tOthers('volume')}: ${formatter.volume(volume, metric)}`}</p>
-				<p>{`${tOthers('weight')}: ${formatter.weight(weight)}`}</p>
+				<p>{`${tOthers('width')}: ${formatter.size(ratio.x * scale, distance)}`}</p>
+				<p>{`${tOthers('height')}: ${formatter.size(ratio.y * scale, distance)}`}</p>
+				<p>{`${tOthers('length')}: ${formatter.size(ratio.z * scale, distance)}`}</p>
+				<p>{`${tOthers('volume')}: ${formatter.volume(volume, distance)}`}</p>
+				<p>{`${tOthers('weight')}: ${formatter.weight(weight, mass)}`}</p>
 				<p>{`${tOthers('cost')}: ${money.format(money.fromBase({ money: cost }))}`}</p>
 			</div>
 		</div>

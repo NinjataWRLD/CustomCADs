@@ -1,19 +1,26 @@
 import { ChangeEvent } from 'react';
 
 interface RadioFieldProps {
+	name?: string;
 	value: string;
 	checked: boolean;
 	onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 	label: string;
 }
 
-const RadioField = ({ value, checked, onChange, label }: RadioFieldProps) => {
+const RadioField = ({
+	name,
+	value,
+	checked,
+	onChange,
+	label,
+}: RadioFieldProps) => {
 	return (
 		<>
 			<input
 				id={value}
 				type='radio'
-				name='radio'
+				name={name ?? 'radio'}
 				value={value}
 				checked={checked}
 				onChange={onChange}

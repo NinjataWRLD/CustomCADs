@@ -37,6 +37,7 @@ const EditorCad = ({ id }: EditorCadProps) => {
 					texture: textureBlobUrls[materialId].blobUrl,
 					volume: product.volume,
 					density: textureBlobUrls[materialId].density,
+					euroPerKg: textureBlobUrls[materialId].euroPerKg,
 					infill: infill,
 					scale: scale,
 					size: size,
