@@ -47,5 +47,8 @@ export const weightGrams = (
 	return effectiveVolumeCm3 * density;
 };
 
-export const costUSD = (weightInG: number) =>
-	(weightInG / 1000) * COST.dollarPerKg * COST.profitMargin;
+export const costEUR = (weightInG: number, euroPerKg: number) => {
+	const printCost = (weightInG / 1000) * euroPerKg;
+	const finalCost = printCost * COST.profitMultiplier + COST.profitBase;
+	return finalCost;
+};

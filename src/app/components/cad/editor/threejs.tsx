@@ -14,6 +14,7 @@ interface ThreeJSProps {
 		texture: string;
 		volume: number;
 		density: number;
+		euroPerKg: number;
 		scale: number;
 		size: Ratio;
 		infill: number;
@@ -26,7 +27,8 @@ interface ThreeJSProps {
 }
 
 const EditorThreeJS = ({ file, coords, state, setState }: ThreeJSProps) => {
-	const { color, texture, volume, density, scale, infill, size } = state;
+	const { color, texture, volume, density, euroPerKg, scale, infill, size } =
+		state;
 	const { setSize, setWeight, setCost } = setState;
 
 	const originalScaleRef = useRef<THREE.Vector3>(new THREE.Vector3(0, 0, 0));
@@ -38,13 +40,13 @@ const EditorThreeJS = ({ file, coords, state, setState }: ThreeJSProps) => {
 	};
 
 	const updateMetrics = (data: CalculateCad) => {
-		const { volume, density, scale, size, infill } = data;
+		const { volume, density, euroPerKg, scale, size, infill } = data;
 		const volumeMm3 = calculate3D.volumeMm3(volume, scale, size);
 
 		const weight = calculate3D.weightGrams(volumeMm3, infill, density);
 		setWeight(weight);
 
-		const cost = calculate3D.costUSD(weight);
+		const cost = calculate3D.costEUR(weight, euroPerKg);
 		setCost(cost);
 
 		if (cadRef.current) {
@@ -67,7 +69,7 @@ const EditorThreeJS = ({ file, coords, state, setState }: ThreeJSProps) => {
 		const size = calculate3D.boxSize(cadRef.current);
 		setSize(size);
 
-		updateMetrics({ volume, density, size, scale, infill });
+		updateMetrics({ volume, density, euroPerKg, size, scale, infill });
 	});
 
 	useEffect(() => {
@@ -75,7 +77,7 @@ const EditorThreeJS = ({ file, coords, state, setState }: ThreeJSProps) => {
 	}, [texture, color]);
 
 	useEffect(() => {
-		updateMetrics({ volume, density, size, scale, infill });
+		updateMetrics({ volume, density, euroPerKg, size, scale, infill });
 	}, [volume, density, size, scale, infill]);
 
 	return <div ref={ref} className='h-full w-full' />;

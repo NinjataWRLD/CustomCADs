@@ -1,37 +1,48 @@
-import { Metric } from '@/types/threejs';
+import { Mass, Distance } from '@/types/threejs';
 
-const MM_PER_UNIT: Record<Metric, number> = {
+const MM_PER_UNIT: Record<Distance, number> = {
 	mm: 1,
 	cm: 10,
 	inch: 25.4,
 };
 
-const POINT_PER_UNIT: Record<Metric, number> = {
+const G_PER_UNIT: Record<Mass, number> = {
+	g: 1,
+	kg: 1000,
+	lbs: 453.59237,
+};
+
+const POINT_PER_UNIT: Record<Distance | Mass, number> = {
 	mm: 1,
-	cm: 4,
-	inch: 4,
+	cm: 3,
+	inch: 3,
+	g: 1,
+	kg: 3,
+	lbs: 3,
 };
 
-export const size = (size: number, metric: Metric) => {
+export const percentage = (scale: number) => {
+	const value = parseFloat(scale.toFixed(2));
+	return `${value}%`;
+};
+
+export const size = (size: number, unit: Distance) => {
 	const value = parseFloat(
-		(size / MM_PER_UNIT[metric]).toFixed(POINT_PER_UNIT[metric]),
+		(size / MM_PER_UNIT[unit]).toFixed(POINT_PER_UNIT[unit]),
 	);
-	return `${value} ${metric}`;
+	return `${value} ${unit}`;
 };
 
-export const volume = (volume: number, metric: Metric) => {
+export const volume = (volume: number, unit: Distance) => {
 	const value = parseFloat(
-		(volume / MM_PER_UNIT[metric] ** 3).toFixed(POINT_PER_UNIT[metric]),
+		(volume / MM_PER_UNIT[unit] ** 3).toFixed(POINT_PER_UNIT[unit]),
 	);
-	return `${value} ${metric}³`;
+	return `${value} ${unit}³`;
 };
 
-export const weight = (weight: number) => {
-	const value = parseFloat((weight / 1000).toFixed(3));
-	return `${value} kg`;
-};
-
-export const cost = (cost: number) => {
-	const value = parseFloat(cost.toFixed(2));
-	return `${value}$`;
+export const weight = (weight: number, unit: Mass) => {
+	const value = parseFloat(
+		(weight / G_PER_UNIT[unit]).toFixed(POINT_PER_UNIT[unit]),
+	);
+	return `${value} ${unit}`;
 };

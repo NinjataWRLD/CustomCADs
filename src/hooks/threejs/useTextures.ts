@@ -5,6 +5,7 @@ import { fetchFile } from '@/utils/file';
 
 interface Material {
 	blobUrl: string;
+	euroPerKg: number;
 	density: number;
 }
 
@@ -27,6 +28,7 @@ export const useTextures = (enabled?: boolean) => {
 					return {
 						id: x.id,
 						density: x.density,
+						euroPerKg: x.cost,
 						blobUrl: URL.createObjectURL(blob),
 					};
 				});
@@ -34,8 +36,8 @@ export const useTextures = (enabled?: boolean) => {
 				const newMap = await Promise.all(materials);
 				setMap((prevMap) => {
 					const updatedMap = { ...prevMap };
-					newMap.forEach(({ id, density, blobUrl }) => {
-						updatedMap[id] = { density, blobUrl };
+					newMap.forEach(({ id, density, euroPerKg, blobUrl }) => {
+						updatedMap[id] = { density, euroPerKg, blobUrl };
 					});
 					return updatedMap;
 				});
