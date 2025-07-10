@@ -6,6 +6,8 @@ export default {
 	security: 'Security',
 	'my-data': 'My Data',
 	username: 'Username: ',
+	'first-name': 'First Name: ',
+	'last-name': 'Last Name: ',
 	'user-role': "User's Role: ",
 	'created-at': 'Account Created At: ',
 	email: 'Email: ',

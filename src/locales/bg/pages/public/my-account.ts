@@ -6,6 +6,8 @@ export default {
 	security: 'Сигурност',
 	'my-data': 'Моите Данни',
 	username: 'Потребителско име: ',
+	'first-name': 'Име: ',
+	'last-name': 'Фамилия: ',
 	'user-role': 'Потребителска роля: ',
 	'created-at': 'Акаунт създаден на: ',
 	email: 'Имейл: ',
