@@ -2,10 +2,18 @@ import { useMyAccountTranslation } from '@/hooks/locales/pages/public';
 
 interface AboutMeProps {
 	username: string;
+	firstName?: string;
+	lastName?: string;
 	role: string;
 	createdAt: string;
 }
-const AboutMe = ({ role, username, createdAt }: AboutMeProps) => {
+const AboutMe = ({
+	role,
+	username,
+	firstName,
+	lastName,
+	createdAt,
+}: AboutMeProps) => {
 	const tMyAccount = useMyAccountTranslation();
 
 	return (
@@ -15,6 +23,18 @@ const AboutMe = ({ role, username, createdAt }: AboutMeProps) => {
 					<h2>{tMyAccount('username')}</h2>
 					<p className='flex justify-center items-center font-bold text-[1.4rem] ml-5 title-text-shadow'>
 						{username}
+					</p>
+				</div>
+				<div className='flex gap-5'>
+					<h2>{tMyAccount('first-name')}</h2>
+					<p className='flex justify-center items-center font-bold text-[1.4rem] ml-5 title-text-shadow'>
+						{firstName}
+					</p>
+				</div>
+				<div className='flex gap-5'>
+					<h2>{tMyAccount('last-name')}</h2>
+					<p className='flex justify-center items-center font-bold text-[1.4rem] ml-5 title-text-shadow'>
+						{lastName}
 					</p>
 				</div>
 				<div className='flex gap-5'>

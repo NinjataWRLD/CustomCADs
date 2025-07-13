@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import { useNavigate } from '@tanstack/react-router';
+import { AppError } from '@/types/errors';
 import { Route } from '@/routes/_public/editor.$id';
 import { resetStore } from '@/stores/editor-store';
 import { useEditorTranslation } from '@/hooks/locales/pages/public';
@@ -26,6 +28,8 @@ const Editor = () => {
 	const { addItem, toggleItemForDelivery } = useCartUpdates();
 	const { mutateAsync: editCustomization } = useEditCustomization();
 
+	const [error, setError] = useState<AppError>();
+	if (error) throw error;
 	if (!customization) return <Loader />;
 
 	const volume = calculate3D.volumeMm3(
@@ -36,6 +40,17 @@ const Editor = () => {
 
 	const reset = () => resetStore(product.id);
 	const save = () => {
+		if (!volume) {
+			const error = new AppError({
+				title: 'Volume not calculated!',
+				message:
+					'The CAD Volume is required for a Customization to be saved',
+				tip: 'Wait until the CAD finishes loading',
+			});
+			setError(error);
+			return;
+		}
+
 		if (!item)
 			addItem({
 				productId: product.id,

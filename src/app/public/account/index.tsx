@@ -21,6 +21,8 @@ const Account = () => {
 				return (
 					<AboutMe
 						username={account.username}
+						firstName={account.firstName}
+						lastName={account.lastName}
 						role={account.role}
 						createdAt={dateTime.format({
 							date: account.createdAt,

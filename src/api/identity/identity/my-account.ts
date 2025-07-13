@@ -4,6 +4,8 @@ export interface Response {
 	id: string;
 	role: string;
 	username: string;
+	firstName?: string;
+	lastName?: string;
 	email: string;
 	createdAt: string;
 }

@@ -117,6 +117,8 @@ export type PagesPublicMyAccount = {
 	security: string;
 	'my-data': string;
 	username: string;
+	'first-name': string;
+	'last-name': string;
 	'user-role': string;
 	'created-at': string;
 	email: string;

@@ -105,7 +105,7 @@ const Cart = () => {
 				<h2>
 					<p>
 						{tCart('total', {
-							count: items?.length,
+							count: items?.length ?? 0,
 							cost: money.format(
 								money.fromBase({ money: total }),
 							),
@@ -113,7 +113,8 @@ const Cart = () => {
 					</p>
 					<p>
 						{tCart('total-delivery', {
-							count: items?.filter((i) => i.forDelivery).length,
+							count:
+								items?.filter((i) => i.forDelivery).length ?? 0,
 							cost: money.format(
 								money.fromBase({ money: delivery }),
 							),

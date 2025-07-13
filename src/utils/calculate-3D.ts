@@ -3,6 +3,8 @@ import { COST, RATIO, WEIGHT } from '@/constants/threejs';
 import { Cad, Ratio } from '@/types/threejs';
 
 const getMinSize = (size: Ratio) => {
+	if (!size.x || !size.y || !size.z) return 0;
+
 	const { x, y, z } = {
 		x: RATIO.min.x / size.x,
 		y: RATIO.min.y / size.y,

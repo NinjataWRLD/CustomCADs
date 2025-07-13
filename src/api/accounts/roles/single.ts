@@ -1,7 +1,7 @@
 import { ROLES_BASE_PATH } from '../common';
 
 export interface Request {
-	name: string;
+	id: number;
 }
 
-export const url = (req: Request) => `${ROLES_BASE_PATH}/${req.name}`;
+export const url = (req: Request) => `${ROLES_BASE_PATH}/${req.id}`;
