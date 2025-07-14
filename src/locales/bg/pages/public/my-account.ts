@@ -19,6 +19,9 @@ export default {
 		'Изпратихме ви имейл с инструкции за промяна на паролата.',
 	'download-data': 'Изтегли CustomCADs данните си',
 	'download-data-btn': 'Изтегли данни',
+	'track-viewed-products': 'Да се записват ли Продуктите, които разглеждаш?',
+	'track-viewed-products-btn': 'Започни да записваш',
+	'untrack-viewed-products-btn': 'Спри да записваш',
 	'delete-account': 'Изтрий информацията за Акаунта си',
 	'delete-account-btn': 'Изтрий Акаунт',
 } satisfies PagesPublicMyAccount;

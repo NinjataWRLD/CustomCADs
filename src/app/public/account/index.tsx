@@ -33,7 +33,9 @@ const Account = () => {
 			case 'security':
 				return <Security email={account.email} />;
 			case 'my-data':
-				return <MyData />;
+				return (
+					<MyData trackViewedProducts={account.trackViewedProducts} />
+				);
 			default:
 				return null;
 		}

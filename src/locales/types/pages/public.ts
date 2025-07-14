@@ -128,6 +128,9 @@ export type PagesPublicMyAccount = {
 	'change-password-text': string;
 	'download-data': string;
 	'download-data-btn': string;
+	'track-viewed-products': string;
+	'track-viewed-products-btn': string;
+	'untrack-viewed-products-btn': string;
 	'delete-account': string;
 	'delete-account-btn': string;
 };
