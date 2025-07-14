@@ -12,6 +12,8 @@ export const keys = {
 	logout: () => [...keys.base, 'logout'] as const,
 	refresh: () => [...keys.base, 'refresh'] as const,
 	changeUsername: () => [...keys.base, 'change-username'] as const,
+	toggleTrackViewedProducts: () =>
+		[...keys.base, 'toggle-track-viewed-products'] as const,
 	deleteMyAccount: () => [...keys.base, 'delete-my-account'] as const,
 	resetPassword: () => [...keys.base, 'reset-password'] as const,
 	register: () => [...keys.base, 'register'] as const,
@@ -41,6 +43,12 @@ export const useChangeUsername = () =>
 		mutationKey: keys.changeUsername(),
 		mutationFn: async (req: ChangeUsername) =>
 			(await api.changeUsername(req)).data,
+	});
+
+export const useToggleTrackViewedProducts = () =>
+	useMutation({
+		mutationKey: keys.toggleTrackViewedProducts(),
+		mutationFn: async () => (await api.toggleTrackViewedProducts()).data,
 	});
 
 export const useDeleteMyAccount = () =>

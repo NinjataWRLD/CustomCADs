@@ -8,6 +8,7 @@ import * as refreshResources from './refresh';
 import * as logoutResources from './logout';
 import * as deleteResources from './delete';
 import * as changeUsernameResources from './change-username';
+import * as toggleTrackViewedProductsResources from './toggle-track-viewed-products';
 import * as forgotPasswordResources from './forgot-password';
 import * as resetPasswordResources from './reset-password';
 import * as registerResources from './register';
@@ -35,7 +36,10 @@ export const refresh = async () => await axios.post(refreshResources.url());
 export const logout = async () => await axios.post(logoutResources.url());
 
 export const changeUsername = async (req: changeUsernameResources.Request) =>
-	await axios.put(changeUsernameResources.url(), req);
+	await axios.patch(changeUsernameResources.url(), req);
+
+export const toggleTrackViewedProducts = async () =>
+	await axios.patch(toggleTrackViewedProductsResources.url());
 
 export const delete_ = async () => await axios.delete(deleteResources.url());
 

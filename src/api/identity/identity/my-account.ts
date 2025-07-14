@@ -7,6 +7,7 @@ export interface Response {
 	firstName?: string;
 	lastName?: string;
 	email: string;
+	trackViewedProducts: boolean;
 	createdAt: string;
 }
 
