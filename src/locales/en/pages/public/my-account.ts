@@ -19,6 +19,9 @@ export default {
 		'We’ve sent you an email with instructions to reset your password.',
 	'download-data': 'Download your CustomCADs Data',
 	'download-data-btn': 'Download Data',
+	'track-viewed-products': 'Track the Products you view?',
+	'track-viewed-products-btn': 'Start tracking',
+	'untrack-viewed-products-btn': 'Stop tracking',
 	'delete-account': 'Delete Account Information',
 	'delete-account-btn': 'Delete Account',
 } satisfies PagesPublicMyAccount;
