@@ -1,6 +1,7 @@
+import * as headers from '@/types/headers';
 import { Category, CREATOR_BASE_PATH } from '@/api/catalog/common';
 
-export interface Request {
+export type Request = {
 	name: string;
 	description: string;
 	categoryId: number;
@@ -10,7 +11,7 @@ export interface Request {
 	cadKey: string;
 	cadContentType: string;
 	cadVolume: number;
-}
+} & headers.IdempotencyKey;
 
 export interface Response {
 	id: string;

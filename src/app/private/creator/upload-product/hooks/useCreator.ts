@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useIdempotencyKeys } from '@/hooks/useIdempotencyKeys';
 import {
 	useCreateProduct,
 	useSetProductCadCoords,
@@ -25,6 +26,7 @@ export const useCreator = (
 	const [id, setId] = useState<string>();
 	const { volume: cadVolume, ref, getCoords } = useCalculateVolume(cad);
 
+	const { idempotencyKeys } = useIdempotencyKeys(['create'] as const);
 	const { mutateAsync: create } = useCreateProduct();
 	const { mutateAsync: setCadCoords } = useSetProductCadCoords();
 
@@ -32,6 +34,7 @@ export const useCreator = (
 		if (files && data && cadVolume) {
 			const handleCreate = async () => {
 				const { id } = await create({
+					idempotencyKey: idempotencyKeys.create,
 					name: data.name,
 					description: data.description,
 					categoryId: data.categoryId,

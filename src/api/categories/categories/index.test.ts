@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, Mock, vi } from 'vitest';
-import { axios } from '@/api/axios';
+import { axios, config } from '@/api/axios';
 import * as categories from './index';
 import * as allResources from './all';
 import * as singleResources from './single';
@@ -60,6 +60,7 @@ describe('Categories API tests', () => {
 	it('should create a new category', async () => {
 		// Arrange
 		const request: createResources.Request = {
+			idempotencyKey: 'mock-idempotency-key',
 			name: category.name,
 			description: category.description,
 		};
@@ -69,7 +70,11 @@ describe('Categories API tests', () => {
 		const result = await categories.create(request);
 
 		// Assert
-		expect(axios.post).toHaveBeenCalledWith(createResources.url(), request);
+		expect(axios.post).toHaveBeenCalledWith(
+			createResources.url(),
+			request,
+			config({ idempotencyKey: request.idempotencyKey }),
+		);
 		expect(result.data).toEqual(category);
 	});
 
@@ -98,8 +103,11 @@ describe('Categories API tests', () => {
 		await categories.delete_(request);
 
 		// Assert
-		expect(axios.delete).toHaveBeenCalledWith(deleteResources.url(), {
-			data: request,
-		});
+		expect(axios.delete).toHaveBeenCalledWith(
+			deleteResources.url(),
+			config({
+				data: request,
+			}),
+		);
 	});
 });

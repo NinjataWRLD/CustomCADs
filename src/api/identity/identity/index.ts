@@ -1,4 +1,4 @@
-import { axios } from '@/api/axios';
+import { axios, config } from '@/api/axios';
 import * as authnResources from './authn';
 import * as authzResources from './authz';
 import * as myAccountResources from './my-account';
@@ -29,9 +29,18 @@ export const downloadInfo = async () =>
 	);
 
 export const login = async (req: loginResources.Request) =>
-	await axios.post(loginResources.url(), req);
+	await axios.post(
+		loginResources.url(),
+		req,
+		config({ idempotencyKey: req.idempotencyKey }),
+	);
 
-export const refresh = async () => await axios.post(refreshResources.url());
+export const refresh = async (req: refreshResources.Request) =>
+	await axios.post(
+		refreshResources.url(),
+		undefined,
+		config({ idempotencyKey: req.idempotencyKey }),
+	);
 
 export const logout = async () => await axios.post(logoutResources.url());
 

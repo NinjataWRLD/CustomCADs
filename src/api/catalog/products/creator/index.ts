@@ -1,4 +1,4 @@
-import { axios } from '@/api/axios';
+import { axios, config } from '@/api/axios';
 import { Result } from '@/api/common/result';
 import * as uploadResources from './upload';
 import * as createResources from './create';
@@ -13,7 +13,11 @@ import * as deleteResources from './delete';
 import * as allResources from './all';
 
 export const create = async (req: createResources.Request) =>
-	await axios.post<createResources.Response>(createResources.url(), req);
+	await axios.post<createResources.Response>(
+		createResources.url(),
+		req,
+		config({ idempotencyKey: req.idempotencyKey }),
+	);
 
 export const upload = async (req: uploadResources.Request) =>
 	await axios.post<uploadResources.Response>(uploadResources.url(), req);
@@ -61,4 +65,4 @@ export const replaceCad = async (req: replaceResources.Request) =>
 	);
 
 export const delete_ = async (req: deleteResources.Request) =>
-	await axios.delete(deleteResources.url(), { data: req });
+	await axios.delete(deleteResources.url(), config({ data: req }));

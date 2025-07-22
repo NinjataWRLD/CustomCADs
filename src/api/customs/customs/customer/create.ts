@@ -1,10 +1,11 @@
+import * as headers from '@/types/headers';
 import { CUSTOMS_CUSTOMER_BASE_PATH } from '@/api/customs/common';
 
-export interface Request {
+export type Request = {
 	name: string;
 	description: string;
 	forDelivery: boolean;
-}
+} & headers.IdempotencyKey;
 
 export interface Response {
 	id: string;

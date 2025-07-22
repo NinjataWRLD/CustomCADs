@@ -1,4 +1,4 @@
-import { axios } from '@/api/axios';
+import { axios, config } from '@/api/axios';
 import { ActiveCartItem } from '@/api/carts/common';
 import * as addItemResources from './add-item';
 import * as removeItemResources from './remove-item';
@@ -11,10 +11,18 @@ import * as calculateResources from './calculate-shipment';
 import * as purchaseWithDeilveryResources from './purchase-delivery';
 
 export const addItem = async (req: addItemResources.Request) =>
-	await axios.post<ActiveCartItem>(addItemResources.url(), req);
+	await axios.post<ActiveCartItem>(
+		addItemResources.url(),
+		req,
+		config({ idempotencyKey: req.idempotencyKey }),
+	);
 
 export const purchase = async (req: purchaseResources.Request) =>
-	await axios.post<purchaseResources.Response>(purchaseResources.url(), req);
+	await axios.post<purchaseResources.Response>(
+		purchaseResources.url(),
+		req,
+		config({ idempotencyKey: req.idempotencyKey }),
+	);
 
 export const purchaseWithDelivery = async (
 	req: purchaseWithDeilveryResources.Request,
@@ -22,6 +30,7 @@ export const purchaseWithDelivery = async (
 	await axios.post<purchaseWithDeilveryResources.Response>(
 		purchaseWithDeilveryResources.url(),
 		req,
+		config({ idempotencyKey: req.idempotencyKey }),
 	);
 
 export const all = async () =>

@@ -1,4 +1,4 @@
-import { axios } from '@/api/axios';
+import { axios, config } from '@/api/axios';
 import { Result } from '@/api/common/result';
 import { AccountResponse } from '../common';
 import * as allResources from './all';
@@ -17,7 +17,11 @@ export const sortings = async () =>
 	await axios.get<sortingResources.Response>(sortingResources.url());
 
 export const create = async (req: createResources.Request) =>
-	await axios.post<AccountResponse>(createResources.url(), req);
+	await axios.post<AccountResponse>(
+		createResources.url(),
+		req,
+		config({ idempotencyKey: req.idempotencyKey }),
+	);
 
 export const delete_ = async (req: deleteResources.Request) =>
-	await axios.delete(deleteResources.url(), { data: req });
+	await axios.delete(deleteResources.url(), config({ data: req }));

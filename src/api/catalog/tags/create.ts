@@ -1,8 +1,9 @@
+import * as headers from '@/types/headers';
 import { TAG_BASE_PATH } from '../common';
 
-export interface Request {
+export type Request = {
 	name: string;
-}
+} & headers.IdempotencyKey;
 
 export interface Response {
 	id: string;

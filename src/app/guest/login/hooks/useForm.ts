@@ -1,6 +1,7 @@
 import { FormEvent } from 'react';
 import { useNavigate } from '@tanstack/react-router';
 import { useForm as useTanStackForm } from '@tanstack/react-form';
+import { useIdempotencyKeys } from '@/hooks/useIdempotencyKeys';
 import { useLogin } from '@/hooks/mutations/identity';
 import { useForceLocaleRefresh } from '@/hooks/locales/useForceLocaleRefresh';
 import { useSyncCarts } from '@/hooks/contexts/useSyncCarts';
@@ -22,6 +23,7 @@ export const useForm = () => {
 	const schema = useValidation();
 	const navigate = useNavigate();
 
+	const { idempotencyKeys } = useIdempotencyKeys(['login'] as const);
 	const { mutateAsync: login } = useLogin();
 	const updateAuthz = useUpdateAuthz();
 
@@ -30,7 +32,7 @@ export const useForm = () => {
 	const form = useTanStackForm({
 		defaultValues: defaultValues,
 		onSubmit: async ({ value }) => {
-			await login(value);
+			await login({ idempotencyKey: idempotencyKeys.login, ...value });
 			await updateAuthz();
 
 			navigate({ to: '/' });
