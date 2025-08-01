@@ -1,6 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { Request as Login } from '@/api/identity/identity/login';
 import { Request as Refresh } from '@/api/identity/identity/refresh';
+import { Request as ForgotPassword } from '@/api/identity/identity/forgot-password';
 import { Request as ResetPassword } from '@/api/identity/identity/reset-password';
 import { Request as ChangeUsername } from '@/api/identity/identity/change-username';
 import { Request as Register } from '@/api/identity/identity/register';
@@ -16,6 +17,7 @@ export const keys = {
 	toggleTrackViewedProducts: () =>
 		[...keys.base, 'toggle-track-viewed-products'] as const,
 	deleteMyAccount: () => [...keys.base, 'delete-my-account'] as const,
+	forgotPassword: () => [...keys.base, 'forgot-password'] as const,
 	resetPassword: () => [...keys.base, 'reset-password'] as const,
 	register: () => [...keys.base, 'register'] as const,
 	retryConfirmEmail: () => [...keys.base, 'retry-confirm-email'] as const,
@@ -56,6 +58,13 @@ export const useDeleteMyAccount = () =>
 	useMutation({
 		mutationKey: keys.deleteMyAccount(),
 		mutationFn: async () => (await api.delete_()).data,
+	});
+
+export const useForgotPassword = () =>
+	useMutation({
+		mutationKey: keys.forgotPassword(),
+		mutationFn: async (params: ForgotPassword) =>
+			(await api.forgotPassword(params)).data,
 	});
 
 export const useResetPassword = () =>

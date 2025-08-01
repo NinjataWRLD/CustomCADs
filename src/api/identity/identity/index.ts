@@ -53,7 +53,11 @@ export const toggleTrackViewedProducts = async () =>
 export const delete_ = async () => await axios.delete(deleteResources.url());
 
 export const forgotPassword = async (req: forgotPasswordResources.Request) =>
-	await axios.get(forgotPasswordResources.url(req));
+	await axios.post(
+		forgotPasswordResources.url(),
+		req,
+		config({ idempotencyKey: req.idempotencyKey }),
+	);
 
 export const resetPassword = async (req: resetPasswordResources.Request) =>
 	await axios.post(resetPasswordResources.url(), req);
@@ -63,4 +67,9 @@ export const register = async (req: registerResources.Request) =>
 
 export const retryConfirmEmail = async (
 	req: retryConfirmEmailResources.Request,
-) => await axios.get(retryConfirmEmailResources.url(req));
+) =>
+	await axios.post(
+		retryConfirmEmailResources.url(),
+		req,
+		config({ idempotencyKey: req.idempotencyKey }),
+	);

@@ -11,7 +11,7 @@ const ForgotPassword = () => {
 	const [showMessage, setShowMessage] = useState(false);
 	const tForgotPassword = useForgotPasswordTranslation();
 
-	const { resendEmail, handleSubmit: handleFormSubmit, fields } = useFields();
+	const { sendEmail, handleSubmit: handleFormSubmit, fields } = useFields();
 
 	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		handleFormSubmit(e);
@@ -83,7 +83,7 @@ const ForgotPassword = () => {
 								{tForgotPassword('message')}
 							</p>
 							<a
-								onClick={() => resendEmail()}
+								onClick={sendEmail}
 								className='cursor-pointer text-green-300 hover:text-white transition-colors duration-200 underline underline-offset-2'
 							>
 								{tForgotPassword('resend')}
