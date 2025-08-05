@@ -1,4 +1,4 @@
-import { axios } from '@/api/axios';
+import { axios, config } from '@/api/axios';
 import * as createResources from './create';
 import * as statsResources from './stats';
 import * as recentResources from './recent';
@@ -14,10 +14,18 @@ import * as purchaseWithDeliveryResources from './purchase-delivery';
 import * as downloadResources from './download';
 
 export const create = async (req: createResources.Request) =>
-	await axios.post<createResources.Response>(createResources.url(), req);
+	await axios.post<createResources.Response>(
+		createResources.url(),
+		req,
+		config({ idempotencyKey: req.idempotencyKey }),
+	);
 
 export const purchase = async (req: purchaseResources.Request) =>
-	await axios.post<purchaseResources.Response>(purchaseResources.url(), req);
+	await axios.post<purchaseResources.Response>(
+		purchaseResources.url(),
+		req,
+		config({ idempotencyKey: req.idempotencyKey }),
+	);
 
 export const purchaseWithDelivery = async (
 	req: purchaseWithDeliveryResources.Request,
@@ -25,6 +33,7 @@ export const purchaseWithDelivery = async (
 	await axios.post<purchaseWithDeliveryResources.Response>(
 		purchaseWithDeliveryResources.url(),
 		req,
+		config({ idempotencyKey: req.idempotencyKey }),
 	);
 
 export const download = async (req: downloadResources.Request) =>
@@ -57,4 +66,4 @@ export const edit = async (req: editResources.Request) =>
 	await axios.put(editResources.url(), req);
 
 export const delete_ = async (req: deleteResources.Request) =>
-	await axios.delete(deleteResources.url(), { data: req });
+	await axios.delete(deleteResources.url(), config({ data: req }));

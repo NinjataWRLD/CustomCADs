@@ -1,5 +1,6 @@
 import { CartItem } from '@/types/cart-item';
 import { useAuthStore } from '@/hooks/stores/useAuthStore';
+import { useIdempotencyKeys } from '@/hooks/useIdempotencyKeys';
 import {
 	useAddActiveCartItem,
 	useToggleActiveCartItemForDelivery,
@@ -11,6 +12,7 @@ import { useCartContext } from './useCartContext';
 
 export const useCartUpdates = () => {
 	const { is } = useAuthStore();
+	const { idempotencyKeys } = useIdempotencyKeys(['add']);
 
 	const { dispatch } = useCartContext();
 	const { mutateAsync: addCartItem } = useAddActiveCartItem();
@@ -26,7 +28,7 @@ export const useCartUpdates = () => {
 		dispatch({ type: 'ADD_ITEM', item: item });
 
 		if (is.customer) {
-			await addCartItem(item);
+			await addCartItem({ idempotencyKey: idempotencyKeys.add, ...item });
 		}
 	};
 

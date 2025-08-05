@@ -1,4 +1,4 @@
-import { axios } from '@/api/axios';
+import { axios, config } from '@/api/axios';
 import * as authnResources from './authn';
 import * as authzResources from './authz';
 import * as myAccountResources from './my-account';
@@ -29,9 +29,18 @@ export const downloadInfo = async () =>
 	);
 
 export const login = async (req: loginResources.Request) =>
-	await axios.post(loginResources.url(), req);
+	await axios.post(
+		loginResources.url(),
+		req,
+		config({ idempotencyKey: req.idempotencyKey }),
+	);
 
-export const refresh = async () => await axios.post(refreshResources.url());
+export const refresh = async (req: refreshResources.Request) =>
+	await axios.post(
+		refreshResources.url(),
+		undefined,
+		config({ idempotencyKey: req.idempotencyKey }),
+	);
 
 export const logout = async () => await axios.post(logoutResources.url());
 
@@ -44,7 +53,11 @@ export const toggleTrackViewedProducts = async () =>
 export const delete_ = async () => await axios.delete(deleteResources.url());
 
 export const forgotPassword = async (req: forgotPasswordResources.Request) =>
-	await axios.get(forgotPasswordResources.url(req));
+	await axios.post(
+		forgotPasswordResources.url(),
+		req,
+		config({ idempotencyKey: req.idempotencyKey }),
+	);
 
 export const resetPassword = async (req: resetPasswordResources.Request) =>
 	await axios.post(resetPasswordResources.url(), req);
@@ -54,4 +67,9 @@ export const register = async (req: registerResources.Request) =>
 
 export const retryConfirmEmail = async (
 	req: retryConfirmEmailResources.Request,
-) => await axios.get(retryConfirmEmailResources.url(req));
+) =>
+	await axios.post(
+		retryConfirmEmailResources.url(),
+		req,
+		config({ idempotencyKey: req.idempotencyKey }),
+	);

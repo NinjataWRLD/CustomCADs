@@ -1,9 +1,11 @@
 import { useState } from 'react';
+import { useIdempotencyKeys } from '@/hooks/useIdempotencyKeys';
 import { usePurchaseActiveCartWithDelivery } from '@/hooks/mutations/active-carts';
 import ShipmentForm from '@/app/private/customer/purchase/shipment-form';
 import CheckoutForm from '@/app/private/customer/purchase/checkout-form';
 
 const PurchaseCartForDelivery = () => {
+	const { idempotencyKeys } = useIdempotencyKeys(['purchase'] as const);
 	const { mutateAsync } = usePurchaseActiveCartWithDelivery();
 
 	type Step = 'shipment' | 'checkout';
@@ -33,6 +35,7 @@ const PurchaseCartForDelivery = () => {
 			type='cart'
 			onSubmit={(req) =>
 				mutateAsync({
+					idempotencyKey: idempotencyKeys.purchase,
 					...req,
 					address: details,
 					contact: details,

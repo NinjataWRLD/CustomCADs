@@ -1,8 +1,8 @@
+import * as headers from '@/types/headers';
 import { IDENTITY_BASE_PATH } from '../common';
 
-export interface Request {
+export type Request = {
 	username: string;
-}
+} & headers.IdempotencyKey;
 
-export const url = (req: Request) =>
-	`${IDENTITY_BASE_PATH}/email/confirm/${req.username}/retry`;
+export const url = () => `${IDENTITY_BASE_PATH}/email/confirm/retry`;

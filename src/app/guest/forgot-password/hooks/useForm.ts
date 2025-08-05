@@ -1,8 +1,9 @@
 import { FormEvent, useState } from 'react';
 import { useForm as useTanStackForm } from '@tanstack/react-form';
-import { useForgotPassword } from '@/hooks/queries/identity';
+import { useForgotPassword } from '@/hooks/mutations/identity';
 import { useForceLocaleRefresh } from '@/hooks/locales/useForceLocaleRefresh';
 import { useValidation } from './useValidation';
+import { useIdempotencyKeys } from '@/hooks/useIdempotencyKeys';
 
 interface Fields {
 	email: string;
@@ -13,8 +14,10 @@ const defaultValues: Fields = {
 
 export const useForm = () => {
 	const [email, setEmail] = useState('');
-	const { refetch } = useForgotPassword({ email: email }, !!email);
 	const schema = useValidation();
+
+	const { idempotencyKeys } = useIdempotencyKeys(['email'] as const);
+	const { mutateAsync } = useForgotPassword();
 
 	const form = useTanStackForm({
 		defaultValues: defaultValues,
@@ -35,7 +38,11 @@ export const useForm = () => {
 
 	return {
 		form,
-		refetch,
+		sendEmail: async () =>
+			await mutateAsync({
+				email: email,
+				idempotencyKey: idempotencyKeys.email,
+			}),
 		handleSubmit,
 	};
 };
