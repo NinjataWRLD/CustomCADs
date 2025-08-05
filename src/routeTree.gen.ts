@@ -10,331 +10,446 @@
 
 import { createFileRoute } from '@tanstack/react-router'
 
-// Import Routes
+import { Route as rootRouteImport } from './routes/__root'
+import { Route as GuestRouteImport } from './routes/_guest'
+import { Route as PublicIndexRouteImport } from './routes/_public/index'
+import { Route as PublicServicesInfoRouteImport } from './routes/_public/services-info'
+import { Route as PublicPrivacyPolicyRouteImport } from './routes/_public/privacy-policy'
+import { Route as PublicCartRouteImport } from './routes/_public/cart'
+import { Route as PublicAccountRouteImport } from './routes/_public/account'
+import { Route as GuestResetPasswordRouteImport } from './routes/_guest/reset-password'
+import { Route as GuestLoginRouteImport } from './routes/_guest/login'
+import { Route as GuestForgotPasswordRouteImport } from './routes/_guest/forgot-password'
+import { Route as privateCustomerRouteImport } from './routes/(private)/_customer'
+import { Route as privateCreatorRouteImport } from './routes/(private)/_creator'
+import { Route as PublicGalleryIndexRouteImport } from './routes/_public/gallery/index'
+import { Route as GuestRegisterIndexRouteImport } from './routes/_guest/register/index'
+import { Route as PublicGalleryIdRouteImport } from './routes/_public/gallery/$id'
+import { Route as PublicEditorIdRouteImport } from './routes/_public/editor.$id'
+import { Route as GuestRegisterRoleRouteImport } from './routes/_guest/register/$role'
+import { Route as privateCreatorUploadProductRouteImport } from './routes/(private)/_creator/upload-product'
+import { Route as privateCustomerCartsIndexRouteImport } from './routes/(private)/_customer/carts/index'
+import { Route as privateCustomerCartsPurchaseRouteImport } from './routes/(private)/_customer/carts/purchase'
+import { Route as privateCustomerCustomsPurchaseIdRouteImport } from './routes/(private)/_customer/customs/purchase/$id'
+import { Route as privateCustomerCartsIdProductIdRouteImport } from './routes/(private)/_customer/carts/$id/$productId'
 
-import { Route as rootRoute } from './routes/__root'
-import { Route as GuestImport } from './routes/_guest'
-import { Route as PublicIndexImport } from './routes/_public/index'
-import { Route as PublicServicesInfoImport } from './routes/_public/services-info'
-import { Route as PublicPrivacyPolicyImport } from './routes/_public/privacy-policy'
-import { Route as PublicCartImport } from './routes/_public/cart'
-import { Route as PublicAccountImport } from './routes/_public/account'
-import { Route as GuestResetPasswordImport } from './routes/_guest/reset-password'
-import { Route as GuestLoginImport } from './routes/_guest/login'
-import { Route as GuestForgotPasswordImport } from './routes/_guest/forgot-password'
-import { Route as privateCustomerImport } from './routes/(private)/_customer'
-import { Route as privateCreatorImport } from './routes/(private)/_creator'
-import { Route as PublicGalleryIndexImport } from './routes/_public/gallery/index'
-import { Route as GuestRegisterIndexImport } from './routes/_guest/register/index'
-import { Route as PublicGalleryIdImport } from './routes/_public/gallery/$id'
-import { Route as PublicEditorIdImport } from './routes/_public/editor.$id'
-import { Route as GuestRegisterRoleImport } from './routes/_guest/register/$role'
-import { Route as privateCreatorUploadProductImport } from './routes/(private)/_creator/upload-product'
-import { Route as privateCustomerCartsIndexImport } from './routes/(private)/_customer/carts/index'
-import { Route as privateCustomerCartsPurchaseImport } from './routes/(private)/_customer/carts/purchase'
-import { Route as privateCustomerCustomsPurchaseIdImport } from './routes/(private)/_customer/customs/purchase/$id'
-import { Route as privateCustomerCartsIdProductIdImport } from './routes/(private)/_customer/carts/$id/$productId'
+const privateRouteImport = createFileRoute('/(private)')()
 
-// Create Virtual Routes
-
-const privateImport = createFileRoute('/(private)')()
-
-// Create/Update Routes
-
-const privateRoute = privateImport.update({
+const privateRoute = privateRouteImport.update({
   id: '/(private)',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const GuestRoute = GuestImport.update({
+const GuestRoute = GuestRouteImport.update({
   id: '/_guest',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const PublicIndexRoute = PublicIndexImport.update({
+const PublicIndexRoute = PublicIndexRouteImport.update({
   id: '/_public/',
   path: '/',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const PublicServicesInfoRoute = PublicServicesInfoImport.update({
+const PublicServicesInfoRoute = PublicServicesInfoRouteImport.update({
   id: '/_public/services-info',
   path: '/services-info',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const PublicPrivacyPolicyRoute = PublicPrivacyPolicyImport.update({
+const PublicPrivacyPolicyRoute = PublicPrivacyPolicyRouteImport.update({
   id: '/_public/privacy-policy',
   path: '/privacy-policy',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const PublicCartRoute = PublicCartImport.update({
+const PublicCartRoute = PublicCartRouteImport.update({
   id: '/_public/cart',
   path: '/cart',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const PublicAccountRoute = PublicAccountImport.update({
+const PublicAccountRoute = PublicAccountRouteImport.update({
   id: '/_public/account',
   path: '/account',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const GuestResetPasswordRoute = GuestResetPasswordImport.update({
+const GuestResetPasswordRoute = GuestResetPasswordRouteImport.update({
   id: '/reset-password',
   path: '/reset-password',
   getParentRoute: () => GuestRoute,
 } as any)
-
-const GuestLoginRoute = GuestLoginImport.update({
+const GuestLoginRoute = GuestLoginRouteImport.update({
   id: '/login',
   path: '/login',
   getParentRoute: () => GuestRoute,
 } as any)
-
-const GuestForgotPasswordRoute = GuestForgotPasswordImport.update({
+const GuestForgotPasswordRoute = GuestForgotPasswordRouteImport.update({
   id: '/forgot-password',
   path: '/forgot-password',
   getParentRoute: () => GuestRoute,
 } as any)
-
-const privateCustomerRoute = privateCustomerImport.update({
+const privateCustomerRoute = privateCustomerRouteImport.update({
   id: '/_customer',
   getParentRoute: () => privateRoute,
 } as any)
-
-const privateCreatorRoute = privateCreatorImport.update({
+const privateCreatorRoute = privateCreatorRouteImport.update({
   id: '/_creator',
   getParentRoute: () => privateRoute,
 } as any)
-
-const PublicGalleryIndexRoute = PublicGalleryIndexImport.update({
+const PublicGalleryIndexRoute = PublicGalleryIndexRouteImport.update({
   id: '/_public/gallery/',
   path: '/gallery/',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const GuestRegisterIndexRoute = GuestRegisterIndexImport.update({
+const GuestRegisterIndexRoute = GuestRegisterIndexRouteImport.update({
   id: '/register/',
   path: '/register/',
   getParentRoute: () => GuestRoute,
 } as any)
-
-const PublicGalleryIdRoute = PublicGalleryIdImport.update({
+const PublicGalleryIdRoute = PublicGalleryIdRouteImport.update({
   id: '/_public/gallery/$id',
   path: '/gallery/$id',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const PublicEditorIdRoute = PublicEditorIdImport.update({
+const PublicEditorIdRoute = PublicEditorIdRouteImport.update({
   id: '/_public/editor/$id',
   path: '/editor/$id',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const GuestRegisterRoleRoute = GuestRegisterRoleImport.update({
+const GuestRegisterRoleRoute = GuestRegisterRoleRouteImport.update({
   id: '/register/$role',
   path: '/register/$role',
   getParentRoute: () => GuestRoute,
 } as any)
-
 const privateCreatorUploadProductRoute =
-  privateCreatorUploadProductImport.update({
+  privateCreatorUploadProductRouteImport.update({
     id: '/upload-product',
     path: '/upload-product',
     getParentRoute: () => privateCreatorRoute,
   } as any)
-
-const privateCustomerCartsIndexRoute = privateCustomerCartsIndexImport.update({
-  id: '/carts/',
-  path: '/carts/',
-  getParentRoute: () => privateCustomerRoute,
-} as any)
-
+const privateCustomerCartsIndexRoute =
+  privateCustomerCartsIndexRouteImport.update({
+    id: '/carts/',
+    path: '/carts/',
+    getParentRoute: () => privateCustomerRoute,
+  } as any)
 const privateCustomerCartsPurchaseRoute =
-  privateCustomerCartsPurchaseImport.update({
+  privateCustomerCartsPurchaseRouteImport.update({
     id: '/carts/purchase',
     path: '/carts/purchase',
     getParentRoute: () => privateCustomerRoute,
   } as any)
-
 const privateCustomerCustomsPurchaseIdRoute =
-  privateCustomerCustomsPurchaseIdImport.update({
+  privateCustomerCustomsPurchaseIdRouteImport.update({
     id: '/customs/purchase/$id',
     path: '/customs/purchase/$id',
     getParentRoute: () => privateCustomerRoute,
   } as any)
-
 const privateCustomerCartsIdProductIdRoute =
-  privateCustomerCartsIdProductIdImport.update({
+  privateCustomerCartsIdProductIdRouteImport.update({
     id: '/carts/$id/$productId',
     path: '/carts/$id/$productId',
     getParentRoute: () => privateCustomerRoute,
   } as any)
 
-// Populate the FileRoutesByPath interface
+export interface FileRoutesByFullPath {
+  '/': typeof PublicIndexRoute
+  '/forgot-password': typeof GuestForgotPasswordRoute
+  '/login': typeof GuestLoginRoute
+  '/reset-password': typeof GuestResetPasswordRoute
+  '/account': typeof PublicAccountRoute
+  '/cart': typeof PublicCartRoute
+  '/privacy-policy': typeof PublicPrivacyPolicyRoute
+  '/services-info': typeof PublicServicesInfoRoute
+  '/upload-product': typeof privateCreatorUploadProductRoute
+  '/register/$role': typeof GuestRegisterRoleRoute
+  '/editor/$id': typeof PublicEditorIdRoute
+  '/gallery/$id': typeof PublicGalleryIdRoute
+  '/register': typeof GuestRegisterIndexRoute
+  '/gallery': typeof PublicGalleryIndexRoute
+  '/carts/purchase': typeof privateCustomerCartsPurchaseRoute
+  '/carts': typeof privateCustomerCartsIndexRoute
+  '/carts/$id/$productId': typeof privateCustomerCartsIdProductIdRoute
+  '/customs/purchase/$id': typeof privateCustomerCustomsPurchaseIdRoute
+}
+export interface FileRoutesByTo {
+  '/': typeof PublicIndexRoute
+  '/forgot-password': typeof GuestForgotPasswordRoute
+  '/login': typeof GuestLoginRoute
+  '/reset-password': typeof GuestResetPasswordRoute
+  '/account': typeof PublicAccountRoute
+  '/cart': typeof PublicCartRoute
+  '/privacy-policy': typeof PublicPrivacyPolicyRoute
+  '/services-info': typeof PublicServicesInfoRoute
+  '/upload-product': typeof privateCreatorUploadProductRoute
+  '/register/$role': typeof GuestRegisterRoleRoute
+  '/editor/$id': typeof PublicEditorIdRoute
+  '/gallery/$id': typeof PublicGalleryIdRoute
+  '/register': typeof GuestRegisterIndexRoute
+  '/gallery': typeof PublicGalleryIndexRoute
+  '/carts/purchase': typeof privateCustomerCartsPurchaseRoute
+  '/carts': typeof privateCustomerCartsIndexRoute
+  '/carts/$id/$productId': typeof privateCustomerCartsIdProductIdRoute
+  '/customs/purchase/$id': typeof privateCustomerCustomsPurchaseIdRoute
+}
+export interface FileRoutesById {
+  __root__: typeof rootRouteImport
+  '/_guest': typeof GuestRouteWithChildren
+  '/(private)': typeof privateRouteWithChildren
+  '/(private)/_creator': typeof privateCreatorRouteWithChildren
+  '/(private)/_customer': typeof privateCustomerRouteWithChildren
+  '/_guest/forgot-password': typeof GuestForgotPasswordRoute
+  '/_guest/login': typeof GuestLoginRoute
+  '/_guest/reset-password': typeof GuestResetPasswordRoute
+  '/_public/account': typeof PublicAccountRoute
+  '/_public/cart': typeof PublicCartRoute
+  '/_public/privacy-policy': typeof PublicPrivacyPolicyRoute
+  '/_public/services-info': typeof PublicServicesInfoRoute
+  '/_public/': typeof PublicIndexRoute
+  '/(private)/_creator/upload-product': typeof privateCreatorUploadProductRoute
+  '/_guest/register/$role': typeof GuestRegisterRoleRoute
+  '/_public/editor/$id': typeof PublicEditorIdRoute
+  '/_public/gallery/$id': typeof PublicGalleryIdRoute
+  '/_guest/register/': typeof GuestRegisterIndexRoute
+  '/_public/gallery/': typeof PublicGalleryIndexRoute
+  '/(private)/_customer/carts/purchase': typeof privateCustomerCartsPurchaseRoute
+  '/(private)/_customer/carts/': typeof privateCustomerCartsIndexRoute
+  '/(private)/_customer/carts/$id/$productId': typeof privateCustomerCartsIdProductIdRoute
+  '/(private)/_customer/customs/purchase/$id': typeof privateCustomerCustomsPurchaseIdRoute
+}
+export interface FileRouteTypes {
+  fileRoutesByFullPath: FileRoutesByFullPath
+  fullPaths:
+    | '/'
+    | '/forgot-password'
+    | '/login'
+    | '/reset-password'
+    | '/account'
+    | '/cart'
+    | '/privacy-policy'
+    | '/services-info'
+    | '/upload-product'
+    | '/register/$role'
+    | '/editor/$id'
+    | '/gallery/$id'
+    | '/register'
+    | '/gallery'
+    | '/carts/purchase'
+    | '/carts'
+    | '/carts/$id/$productId'
+    | '/customs/purchase/$id'
+  fileRoutesByTo: FileRoutesByTo
+  to:
+    | '/'
+    | '/forgot-password'
+    | '/login'
+    | '/reset-password'
+    | '/account'
+    | '/cart'
+    | '/privacy-policy'
+    | '/services-info'
+    | '/upload-product'
+    | '/register/$role'
+    | '/editor/$id'
+    | '/gallery/$id'
+    | '/register'
+    | '/gallery'
+    | '/carts/purchase'
+    | '/carts'
+    | '/carts/$id/$productId'
+    | '/customs/purchase/$id'
+  id:
+    | '__root__'
+    | '/_guest'
+    | '/(private)'
+    | '/(private)/_creator'
+    | '/(private)/_customer'
+    | '/_guest/forgot-password'
+    | '/_guest/login'
+    | '/_guest/reset-password'
+    | '/_public/account'
+    | '/_public/cart'
+    | '/_public/privacy-policy'
+    | '/_public/services-info'
+    | '/_public/'
+    | '/(private)/_creator/upload-product'
+    | '/_guest/register/$role'
+    | '/_public/editor/$id'
+    | '/_public/gallery/$id'
+    | '/_guest/register/'
+    | '/_public/gallery/'
+    | '/(private)/_customer/carts/purchase'
+    | '/(private)/_customer/carts/'
+    | '/(private)/_customer/carts/$id/$productId'
+    | '/(private)/_customer/customs/purchase/$id'
+  fileRoutesById: FileRoutesById
+}
+export interface RootRouteChildren {
+  GuestRoute: typeof GuestRouteWithChildren
+  privateRoute: typeof privateRouteWithChildren
+  PublicAccountRoute: typeof PublicAccountRoute
+  PublicCartRoute: typeof PublicCartRoute
+  PublicPrivacyPolicyRoute: typeof PublicPrivacyPolicyRoute
+  PublicServicesInfoRoute: typeof PublicServicesInfoRoute
+  PublicIndexRoute: typeof PublicIndexRoute
+  PublicEditorIdRoute: typeof PublicEditorIdRoute
+  PublicGalleryIdRoute: typeof PublicGalleryIdRoute
+  PublicGalleryIndexRoute: typeof PublicGalleryIndexRoute
+}
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/_guest': {
-      id: '/_guest'
-      path: ''
-      fullPath: ''
-      preLoaderRoute: typeof GuestImport
-      parentRoute: typeof rootRoute
-    }
     '/(private)': {
       id: '/(private)'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof privateImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof privateRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/(private)/_creator': {
-      id: '/(private)/_creator'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof privateCreatorImport
-      parentRoute: typeof privateRoute
-    }
-    '/(private)/_customer': {
-      id: '/(private)/_customer'
+    '/_guest': {
+      id: '/_guest'
       path: ''
       fullPath: ''
-      preLoaderRoute: typeof privateCustomerImport
-      parentRoute: typeof privateImport
-    }
-    '/_guest/forgot-password': {
-      id: '/_guest/forgot-password'
-      path: '/forgot-password'
-      fullPath: '/forgot-password'
-      preLoaderRoute: typeof GuestForgotPasswordImport
-      parentRoute: typeof GuestImport
-    }
-    '/_guest/login': {
-      id: '/_guest/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof GuestLoginImport
-      parentRoute: typeof GuestImport
-    }
-    '/_guest/reset-password': {
-      id: '/_guest/reset-password'
-      path: '/reset-password'
-      fullPath: '/reset-password'
-      preLoaderRoute: typeof GuestResetPasswordImport
-      parentRoute: typeof GuestImport
-    }
-    '/_public/account': {
-      id: '/_public/account'
-      path: '/account'
-      fullPath: '/account'
-      preLoaderRoute: typeof PublicAccountImport
-      parentRoute: typeof rootRoute
-    }
-    '/_public/cart': {
-      id: '/_public/cart'
-      path: '/cart'
-      fullPath: '/cart'
-      preLoaderRoute: typeof PublicCartImport
-      parentRoute: typeof rootRoute
-    }
-    '/_public/privacy-policy': {
-      id: '/_public/privacy-policy'
-      path: '/privacy-policy'
-      fullPath: '/privacy-policy'
-      preLoaderRoute: typeof PublicPrivacyPolicyImport
-      parentRoute: typeof rootRoute
-    }
-    '/_public/services-info': {
-      id: '/_public/services-info'
-      path: '/services-info'
-      fullPath: '/services-info'
-      preLoaderRoute: typeof PublicServicesInfoImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof GuestRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/_public/': {
       id: '/_public/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof PublicIndexImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof PublicIndexRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/(private)/_creator/upload-product': {
-      id: '/(private)/_creator/upload-product'
-      path: '/upload-product'
-      fullPath: '/upload-product'
-      preLoaderRoute: typeof privateCreatorUploadProductImport
-      parentRoute: typeof privateCreatorImport
+    '/_public/services-info': {
+      id: '/_public/services-info'
+      path: '/services-info'
+      fullPath: '/services-info'
+      preLoaderRoute: typeof PublicServicesInfoRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/_guest/register/$role': {
-      id: '/_guest/register/$role'
-      path: '/register/$role'
-      fullPath: '/register/$role'
-      preLoaderRoute: typeof GuestRegisterRoleImport
-      parentRoute: typeof GuestImport
+    '/_public/privacy-policy': {
+      id: '/_public/privacy-policy'
+      path: '/privacy-policy'
+      fullPath: '/privacy-policy'
+      preLoaderRoute: typeof PublicPrivacyPolicyRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/_public/editor/$id': {
-      id: '/_public/editor/$id'
-      path: '/editor/$id'
-      fullPath: '/editor/$id'
-      preLoaderRoute: typeof PublicEditorIdImport
-      parentRoute: typeof rootRoute
+    '/_public/cart': {
+      id: '/_public/cart'
+      path: '/cart'
+      fullPath: '/cart'
+      preLoaderRoute: typeof PublicCartRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/_public/gallery/$id': {
-      id: '/_public/gallery/$id'
-      path: '/gallery/$id'
-      fullPath: '/gallery/$id'
-      preLoaderRoute: typeof PublicGalleryIdImport
-      parentRoute: typeof rootRoute
+    '/_public/account': {
+      id: '/_public/account'
+      path: '/account'
+      fullPath: '/account'
+      preLoaderRoute: typeof PublicAccountRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/_guest/register/': {
-      id: '/_guest/register/'
-      path: '/register'
-      fullPath: '/register'
-      preLoaderRoute: typeof GuestRegisterIndexImport
-      parentRoute: typeof GuestImport
+    '/_guest/reset-password': {
+      id: '/_guest/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof GuestResetPasswordRouteImport
+      parentRoute: typeof GuestRoute
+    }
+    '/_guest/login': {
+      id: '/_guest/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof GuestLoginRouteImport
+      parentRoute: typeof GuestRoute
+    }
+    '/_guest/forgot-password': {
+      id: '/_guest/forgot-password'
+      path: '/forgot-password'
+      fullPath: '/forgot-password'
+      preLoaderRoute: typeof GuestForgotPasswordRouteImport
+      parentRoute: typeof GuestRoute
+    }
+    '/(private)/_customer': {
+      id: '/(private)/_customer'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof privateCustomerRouteImport
+      parentRoute: typeof privateRoute
+    }
+    '/(private)/_creator': {
+      id: '/(private)/_creator'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof privateCreatorRouteImport
+      parentRoute: typeof privateRoute
     }
     '/_public/gallery/': {
       id: '/_public/gallery/'
       path: '/gallery'
       fullPath: '/gallery'
-      preLoaderRoute: typeof PublicGalleryIndexImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof PublicGalleryIndexRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/(private)/_customer/carts/purchase': {
-      id: '/(private)/_customer/carts/purchase'
-      path: '/carts/purchase'
-      fullPath: '/carts/purchase'
-      preLoaderRoute: typeof privateCustomerCartsPurchaseImport
-      parentRoute: typeof privateCustomerImport
+    '/_guest/register/': {
+      id: '/_guest/register/'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof GuestRegisterIndexRouteImport
+      parentRoute: typeof GuestRoute
+    }
+    '/_public/gallery/$id': {
+      id: '/_public/gallery/$id'
+      path: '/gallery/$id'
+      fullPath: '/gallery/$id'
+      preLoaderRoute: typeof PublicGalleryIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_public/editor/$id': {
+      id: '/_public/editor/$id'
+      path: '/editor/$id'
+      fullPath: '/editor/$id'
+      preLoaderRoute: typeof PublicEditorIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_guest/register/$role': {
+      id: '/_guest/register/$role'
+      path: '/register/$role'
+      fullPath: '/register/$role'
+      preLoaderRoute: typeof GuestRegisterRoleRouteImport
+      parentRoute: typeof GuestRoute
+    }
+    '/(private)/_creator/upload-product': {
+      id: '/(private)/_creator/upload-product'
+      path: '/upload-product'
+      fullPath: '/upload-product'
+      preLoaderRoute: typeof privateCreatorUploadProductRouteImport
+      parentRoute: typeof privateCreatorRoute
     }
     '/(private)/_customer/carts/': {
       id: '/(private)/_customer/carts/'
       path: '/carts'
       fullPath: '/carts'
-      preLoaderRoute: typeof privateCustomerCartsIndexImport
-      parentRoute: typeof privateCustomerImport
+      preLoaderRoute: typeof privateCustomerCartsIndexRouteImport
+      parentRoute: typeof privateCustomerRoute
     }
-    '/(private)/_customer/carts/$id/$productId': {
-      id: '/(private)/_customer/carts/$id/$productId'
-      path: '/carts/$id/$productId'
-      fullPath: '/carts/$id/$productId'
-      preLoaderRoute: typeof privateCustomerCartsIdProductIdImport
-      parentRoute: typeof privateCustomerImport
+    '/(private)/_customer/carts/purchase': {
+      id: '/(private)/_customer/carts/purchase'
+      path: '/carts/purchase'
+      fullPath: '/carts/purchase'
+      preLoaderRoute: typeof privateCustomerCartsPurchaseRouteImport
+      parentRoute: typeof privateCustomerRoute
     }
     '/(private)/_customer/customs/purchase/$id': {
       id: '/(private)/_customer/customs/purchase/$id'
       path: '/customs/purchase/$id'
       fullPath: '/customs/purchase/$id'
-      preLoaderRoute: typeof privateCustomerCustomsPurchaseIdImport
-      parentRoute: typeof privateCustomerImport
+      preLoaderRoute: typeof privateCustomerCustomsPurchaseIdRouteImport
+      parentRoute: typeof privateCustomerRoute
+    }
+    '/(private)/_customer/carts/$id/$productId': {
+      id: '/(private)/_customer/carts/$id/$productId'
+      path: '/carts/$id/$productId'
+      fullPath: '/carts/$id/$productId'
+      preLoaderRoute: typeof privateCustomerCartsIdProductIdRouteImport
+      parentRoute: typeof privateCustomerRoute
     }
   }
 }
-
-// Create and export the route tree
 
 interface GuestRouteChildren {
   GuestForgotPasswordRoute: typeof GuestForgotPasswordRoute
@@ -397,159 +512,6 @@ const privateRouteChildren: privateRouteChildren = {
 const privateRouteWithChildren =
   privateRoute._addFileChildren(privateRouteChildren)
 
-export interface FileRoutesByFullPath {
-  '': typeof privateCustomerRouteWithChildren
-  '/': typeof PublicIndexRoute
-  '/forgot-password': typeof GuestForgotPasswordRoute
-  '/login': typeof GuestLoginRoute
-  '/reset-password': typeof GuestResetPasswordRoute
-  '/account': typeof PublicAccountRoute
-  '/cart': typeof PublicCartRoute
-  '/privacy-policy': typeof PublicPrivacyPolicyRoute
-  '/services-info': typeof PublicServicesInfoRoute
-  '/upload-product': typeof privateCreatorUploadProductRoute
-  '/register/$role': typeof GuestRegisterRoleRoute
-  '/editor/$id': typeof PublicEditorIdRoute
-  '/gallery/$id': typeof PublicGalleryIdRoute
-  '/register': typeof GuestRegisterIndexRoute
-  '/gallery': typeof PublicGalleryIndexRoute
-  '/carts/purchase': typeof privateCustomerCartsPurchaseRoute
-  '/carts': typeof privateCustomerCartsIndexRoute
-  '/carts/$id/$productId': typeof privateCustomerCartsIdProductIdRoute
-  '/customs/purchase/$id': typeof privateCustomerCustomsPurchaseIdRoute
-}
-
-export interface FileRoutesByTo {
-  '': typeof privateCustomerRouteWithChildren
-  '/': typeof PublicIndexRoute
-  '/forgot-password': typeof GuestForgotPasswordRoute
-  '/login': typeof GuestLoginRoute
-  '/reset-password': typeof GuestResetPasswordRoute
-  '/account': typeof PublicAccountRoute
-  '/cart': typeof PublicCartRoute
-  '/privacy-policy': typeof PublicPrivacyPolicyRoute
-  '/services-info': typeof PublicServicesInfoRoute
-  '/upload-product': typeof privateCreatorUploadProductRoute
-  '/register/$role': typeof GuestRegisterRoleRoute
-  '/editor/$id': typeof PublicEditorIdRoute
-  '/gallery/$id': typeof PublicGalleryIdRoute
-  '/register': typeof GuestRegisterIndexRoute
-  '/gallery': typeof PublicGalleryIndexRoute
-  '/carts/purchase': typeof privateCustomerCartsPurchaseRoute
-  '/carts': typeof privateCustomerCartsIndexRoute
-  '/carts/$id/$productId': typeof privateCustomerCartsIdProductIdRoute
-  '/customs/purchase/$id': typeof privateCustomerCustomsPurchaseIdRoute
-}
-
-export interface FileRoutesById {
-  __root__: typeof rootRoute
-  '/_guest': typeof GuestRouteWithChildren
-  '/(private)': typeof privateRouteWithChildren
-  '/(private)/_creator': typeof privateCreatorRouteWithChildren
-  '/(private)/_customer': typeof privateCustomerRouteWithChildren
-  '/_guest/forgot-password': typeof GuestForgotPasswordRoute
-  '/_guest/login': typeof GuestLoginRoute
-  '/_guest/reset-password': typeof GuestResetPasswordRoute
-  '/_public/account': typeof PublicAccountRoute
-  '/_public/cart': typeof PublicCartRoute
-  '/_public/privacy-policy': typeof PublicPrivacyPolicyRoute
-  '/_public/services-info': typeof PublicServicesInfoRoute
-  '/_public/': typeof PublicIndexRoute
-  '/(private)/_creator/upload-product': typeof privateCreatorUploadProductRoute
-  '/_guest/register/$role': typeof GuestRegisterRoleRoute
-  '/_public/editor/$id': typeof PublicEditorIdRoute
-  '/_public/gallery/$id': typeof PublicGalleryIdRoute
-  '/_guest/register/': typeof GuestRegisterIndexRoute
-  '/_public/gallery/': typeof PublicGalleryIndexRoute
-  '/(private)/_customer/carts/purchase': typeof privateCustomerCartsPurchaseRoute
-  '/(private)/_customer/carts/': typeof privateCustomerCartsIndexRoute
-  '/(private)/_customer/carts/$id/$productId': typeof privateCustomerCartsIdProductIdRoute
-  '/(private)/_customer/customs/purchase/$id': typeof privateCustomerCustomsPurchaseIdRoute
-}
-
-export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | ''
-    | '/'
-    | '/forgot-password'
-    | '/login'
-    | '/reset-password'
-    | '/account'
-    | '/cart'
-    | '/privacy-policy'
-    | '/services-info'
-    | '/upload-product'
-    | '/register/$role'
-    | '/editor/$id'
-    | '/gallery/$id'
-    | '/register'
-    | '/gallery'
-    | '/carts/purchase'
-    | '/carts'
-    | '/carts/$id/$productId'
-    | '/customs/purchase/$id'
-  fileRoutesByTo: FileRoutesByTo
-  to:
-    | ''
-    | '/'
-    | '/forgot-password'
-    | '/login'
-    | '/reset-password'
-    | '/account'
-    | '/cart'
-    | '/privacy-policy'
-    | '/services-info'
-    | '/upload-product'
-    | '/register/$role'
-    | '/editor/$id'
-    | '/gallery/$id'
-    | '/register'
-    | '/gallery'
-    | '/carts/purchase'
-    | '/carts'
-    | '/carts/$id/$productId'
-    | '/customs/purchase/$id'
-  id:
-    | '__root__'
-    | '/_guest'
-    | '/(private)'
-    | '/(private)/_creator'
-    | '/(private)/_customer'
-    | '/_guest/forgot-password'
-    | '/_guest/login'
-    | '/_guest/reset-password'
-    | '/_public/account'
-    | '/_public/cart'
-    | '/_public/privacy-policy'
-    | '/_public/services-info'
-    | '/_public/'
-    | '/(private)/_creator/upload-product'
-    | '/_guest/register/$role'
-    | '/_public/editor/$id'
-    | '/_public/gallery/$id'
-    | '/_guest/register/'
-    | '/_public/gallery/'
-    | '/(private)/_customer/carts/purchase'
-    | '/(private)/_customer/carts/'
-    | '/(private)/_customer/carts/$id/$productId'
-    | '/(private)/_customer/customs/purchase/$id'
-  fileRoutesById: FileRoutesById
-}
-
-export interface RootRouteChildren {
-  GuestRoute: typeof GuestRouteWithChildren
-  privateRoute: typeof privateRouteWithChildren
-  PublicAccountRoute: typeof PublicAccountRoute
-  PublicCartRoute: typeof PublicCartRoute
-  PublicPrivacyPolicyRoute: typeof PublicPrivacyPolicyRoute
-  PublicServicesInfoRoute: typeof PublicServicesInfoRoute
-  PublicIndexRoute: typeof PublicIndexRoute
-  PublicEditorIdRoute: typeof PublicEditorIdRoute
-  PublicGalleryIdRoute: typeof PublicGalleryIdRoute
-  PublicGalleryIndexRoute: typeof PublicGalleryIndexRoute
-}
-
 const rootRouteChildren: RootRouteChildren = {
   GuestRoute: GuestRouteWithChildren,
   privateRoute: privateRouteWithChildren,
@@ -562,127 +524,6 @@ const rootRouteChildren: RootRouteChildren = {
   PublicGalleryIdRoute: PublicGalleryIdRoute,
   PublicGalleryIndexRoute: PublicGalleryIndexRoute,
 }
-
-export const routeTree = rootRoute
+export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-/* ROUTE_MANIFEST_START
-{
-  "routes": {
-    "__root__": {
-      "filePath": "__root.tsx",
-      "children": [
-        "/_guest",
-        "/(private)",
-        "/_public/account",
-        "/_public/cart",
-        "/_public/privacy-policy",
-        "/_public/services-info",
-        "/_public/",
-        "/_public/editor/$id",
-        "/_public/gallery/$id",
-        "/_public/gallery/"
-      ]
-    },
-    "/_guest": {
-      "filePath": "_guest.tsx",
-      "children": [
-        "/_guest/forgot-password",
-        "/_guest/login",
-        "/_guest/reset-password",
-        "/_guest/register/$role",
-        "/_guest/register/"
-      ]
-    },
-    "/(private)": {
-      "filePath": "(private)",
-      "children": [
-        "/(private)/_creator",
-        "/(private)/_customer"
-      ]
-    },
-    "/(private)/_creator": {
-      "filePath": "(private)/_creator.tsx",
-      "parent": "/(private)",
-      "children": [
-        "/(private)/_creator/upload-product"
-      ]
-    },
-    "/(private)/_customer": {
-      "filePath": "(private)/_customer.tsx",
-      "parent": "/(private)",
-      "children": [
-        "/(private)/_customer/carts/purchase",
-        "/(private)/_customer/carts/",
-        "/(private)/_customer/carts/$id/$productId",
-        "/(private)/_customer/customs/purchase/$id"
-      ]
-    },
-    "/_guest/forgot-password": {
-      "filePath": "_guest/forgot-password.tsx",
-      "parent": "/_guest"
-    },
-    "/_guest/login": {
-      "filePath": "_guest/login.tsx",
-      "parent": "/_guest"
-    },
-    "/_guest/reset-password": {
-      "filePath": "_guest/reset-password.tsx",
-      "parent": "/_guest"
-    },
-    "/_public/account": {
-      "filePath": "_public/account.tsx"
-    },
-    "/_public/cart": {
-      "filePath": "_public/cart.tsx"
-    },
-    "/_public/privacy-policy": {
-      "filePath": "_public/privacy-policy.tsx"
-    },
-    "/_public/services-info": {
-      "filePath": "_public/services-info.tsx"
-    },
-    "/_public/": {
-      "filePath": "_public/index.tsx"
-    },
-    "/(private)/_creator/upload-product": {
-      "filePath": "(private)/_creator/upload-product.tsx",
-      "parent": "/(private)/_creator"
-    },
-    "/_guest/register/$role": {
-      "filePath": "_guest/register/$role.tsx",
-      "parent": "/_guest"
-    },
-    "/_public/editor/$id": {
-      "filePath": "_public/editor.$id.tsx"
-    },
-    "/_public/gallery/$id": {
-      "filePath": "_public/gallery/$id.tsx"
-    },
-    "/_guest/register/": {
-      "filePath": "_guest/register/index.tsx",
-      "parent": "/_guest"
-    },
-    "/_public/gallery/": {
-      "filePath": "_public/gallery/index.tsx"
-    },
-    "/(private)/_customer/carts/purchase": {
-      "filePath": "(private)/_customer/carts/purchase.tsx",
-      "parent": "/(private)/_customer"
-    },
-    "/(private)/_customer/carts/": {
-      "filePath": "(private)/_customer/carts/index.tsx",
-      "parent": "/(private)/_customer"
-    },
-    "/(private)/_customer/carts/$id/$productId": {
-      "filePath": "(private)/_customer/carts/$id/$productId.tsx",
-      "parent": "/(private)/_customer"
-    },
-    "/(private)/_customer/customs/purchase/$id": {
-      "filePath": "(private)/_customer/customs/purchase/$id.tsx",
-      "parent": "/(private)/_customer"
-    }
-  }
-}
-ROUTE_MANIFEST_END */
