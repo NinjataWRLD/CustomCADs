@@ -7,7 +7,6 @@ import {
 	useGetProduct,
 	useDownloadProductImage,
 } from '@/hooks/queries/products/gallery';
-import { useGenerateBlobUrl } from '@/hooks/useGenerateBlobUrl';
 import { useCartUpdates } from '@/hooks/contexts/useCartUpdates';
 import { useCartTranslation } from '@/hooks/locales/pages/public';
 import { removeRecord } from '@/stores/editor-store';
@@ -35,7 +34,6 @@ const CartItemWithoutDelivery = ({
 	const { data: image, isError: isFileError } = useDownloadProductImage({
 		id: item.productId,
 	});
-	const blobUrl = useGenerateBlobUrl(image);
 
 	const { data: product, isError } = useGetProduct({ id: item.productId });
 	const isPrintable = product?.tags.includes('Printable');
@@ -72,13 +70,11 @@ const CartItemWithoutDelivery = ({
 		<div className='flex flex-col w-[90%] bg-[hsla(267,42%,10%,0.79)] overflow-hidden shadow-[0_4px_6px_rgba(0,0,0,0.1)] gap-4 relative p-[0.3rem] rounded-[1rem]'>
 			<div className='flex items-center gap-8 bg-[hsla(300,14%,15%,0.445)] text-[white] relative z-[1] p-4 rounded-2xl'>
 				<div className='flex flex-col items-center gap-2 w-[30%]'>
-					{blobUrl && (
-						<img
-							className='w-full aspect-[1/1] object-cover object-center rounded-[20%] border-[5px] border-solid border-[hsla(259,59%,70%,0.371)]'
-							src={blobUrl}
-							alt='Item Image'
-						/>
-					)}
+					<img
+						className='w-full aspect-[1/1] object-cover object-center rounded-[20%] border-[5px] border-solid border-[hsla(259,59%,70%,0.371)]'
+						src={image?.presignedUrl}
+						alt='Item Image'
+					/>
 				</div>
 				<div className='relative flex flex-col grow'>
 					<div className='w-full flex items-center justify-between'>
