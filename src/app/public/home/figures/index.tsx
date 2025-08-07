@@ -36,12 +36,7 @@ const Figures = () => {
 				<div
 					className={`${styles['hero-figure-box']} ${styles['hero-figure-box-05']}`}
 				>
-					<img
-						src={faviconPic}
-						alt='CustomCADs'
-						width={0}
-						height={0}
-					/>
+					<img src={faviconPic} alt='CustomCADs' loading='lazy' />
 				</div>
 				<div
 					className={`${styles['hero-figure-box']} ${styles['hero-figure-box-06']}`}

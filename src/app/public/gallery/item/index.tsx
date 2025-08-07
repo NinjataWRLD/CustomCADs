@@ -34,6 +34,7 @@ const Item = ({ product }: ItemProps) => {
 				className='w-full h-full object-cover scale-[0.8] absolute origin-[center_center] opacity-[0.45] blur-[1px] contrast-100 z-[3] cursor-pointer transition-all duration-[0.5s] ease-[ease] rounded-[5px] group-hover:translate-y-[-15%] group-hover:opacity-90 group-hover:shadow-[0_15px_30px_rgba(0,0,0,0.5),0_0_10px_rgba(255,255,255,0.3)] group-hover:blur-none group-hover:contrast-[1.2] group-hover:rounded-[50%] group-hover:border-[3px] group-hover:border-solid group-hover:border-[rgba(255,255,255,0.7)] group-hover:scale-[0.55]'
 				src={image?.presignedUrl}
 				alt='Product Image'
+				loading='lazy'
 			/>
 			<div className='absolute flex flex-col items-center z-[3] transition-[0.5s] scale-0 bottom-0 group-hover:scale-100 group-hover:bottom-2.5'>
 				<p className='relative text-white font-medium leading-[1em] text-[1.05em] tracking-widest uppercase text-center cursor-pointer'>

@@ -74,6 +74,7 @@ const CartItemWithoutDelivery = ({
 						className='w-full aspect-[1/1] object-cover object-center rounded-[20%] border-[5px] border-solid border-[hsla(259,59%,70%,0.371)]'
 						src={image?.presignedUrl}
 						alt='Item Image'
+						loading='lazy'
 					/>
 				</div>
 				<div className='relative flex flex-col grow'>

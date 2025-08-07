@@ -89,9 +89,8 @@ const Card = forwardRef<HTMLDivElement, CardProps>(({ id }, ref) => {
 				<img
 					src={image}
 					alt='image'
+					loading='lazy'
 					className='absolute w-full h-full object-cover object-center z-[-1] transition-all duration-700 ease-in-out bg-cover scale-[1.3] left-0 top-0 group-hover/article:scale-100 opacity-90 group-hover/article:opacity-100'
-					width={0}
-					height={0}
 				/>
 
 				<Link

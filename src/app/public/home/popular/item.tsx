@@ -27,6 +27,7 @@ const Item = ({ product }: ItemProps) => {
 				onClick={handleDetailsClick}
 				src={image?.presignedUrl}
 				alt='Product Image'
+				loading='lazy'
 				className='absolute w-4/5 h-4/5 origin-[center_center] opacity-[0.45] z-[3] transition-all duration-[0.5s] ease-[ease] blur-[1px] contrast-100 cursor-pointer rounded-[20px] object-cover scale-100 group-hover/model:opacity-90 group-hover/model:scale-[0.7] group-hover/model:-translate-y-15 group-hover/model:shadow-[0_15px_30px_rgba(0,0,0,0.5),0_0_10px_rgba(255,255,255,0.3)] group-hover/model:blur-none group-hover/model:contrast-[1.2] group-hover/model:rounded-[50%] group-hover/model:border-[3px] group-hover/model:border-solid group-hover/model:border-[rgba(255,255,255,0.7)]'
 			/>
 			<div className='absolute z-[3] flex flex-col items-center transition-transform duration-600 ease-in-out scale-0 bottom-[10%] group-hover/model:scale-100'>

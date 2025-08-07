@@ -5,7 +5,6 @@ import { useFields } from './hooks/useFields';
 import Transition from '@/app/components/transition';
 import Button from '@/app/components/button';
 import Border from '@/app/components/border';
-import faviconImg from '@/assets/favicons/favicon.svg';
 
 const ForgotPassword = () => {
 	const [showMessage, setShowMessage] = useState(false);
@@ -55,11 +54,6 @@ const ForgotPassword = () => {
 					className='relative text-white flex flex-col justify-center items-center p-20 gap-4'
 				>
 					<Border />
-					<img
-						src={faviconImg}
-						alt='CustomCADs'
-						className='w-[50px] aspect-square'
-					/>
 					<h1 className='text-white h1-text-shadow'>
 						{tForgotPassword('title')}
 					</h1>
