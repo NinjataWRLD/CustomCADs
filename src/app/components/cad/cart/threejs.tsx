@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { Coordinates } from '@/api/catalog/common';
 import { useThreeJS } from '@/hooks/threejs/useThreeJS';
 import Loader from '@/app/components/state/loading';
+import Model from '../model';
 
 interface ThreeJSProps {
 	customization?: { texture: string; color?: string };
@@ -11,7 +12,7 @@ interface ThreeJSProps {
 }
 
 const CartThreeJS = ({ customization, file, cam, pan }: ThreeJSProps) => {
-	const { ref } = useThreeJS(file.url, file.type, { cam, pan }, (cad) => {
+	const threejs = useThreeJS(file.url, file.type, { cam, pan }, (cad) => {
 		if (!customization) return <Loader />;
 
 		cad.traverse((child) => {
@@ -23,7 +24,7 @@ const CartThreeJS = ({ customization, file, cam, pan }: ThreeJSProps) => {
 			}
 		});
 	});
-	return <div ref={ref} className='h-full w-full' />;
+	return <Model threejs={threejs} />;
 };
 
 export default CartThreeJS;

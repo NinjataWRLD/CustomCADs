@@ -5,12 +5,14 @@ export const fetchFile = async (url: string, contentType: string) => {
 		},
 	});
 
-	if (!response.ok) {
+	const length = response.headers.get('Content-Length');
+	if (!response.ok || !length) {
 		throw new Error(
 			`Network response was not ok: ${response.status} ${response.statusText}`,
 		);
 	}
-	return await response.blob();
+
+	return { response, length: parseInt(length) };
 };
 
 export const uploadFile = async (url: string, file: File) => {
