@@ -1,4 +1,5 @@
 import { Ref } from 'react';
+import ProgressBar from '../progress-bar';
 
 interface ModelProps {
 	threejs: {
@@ -10,7 +11,7 @@ interface ModelProps {
 const Model = ({ threejs: { ref, progress } }: ModelProps) => {
 	return (
 		<>
-			{progress < 100 && `${progress}%`}
+			{progress < 100 && <ProgressBar progress={progress} />}
 			<div ref={ref} className='h-full w-full' />
 		</>
 	);

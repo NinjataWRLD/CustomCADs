@@ -20,10 +20,13 @@ export const useTextures = (enabled?: boolean) => {
 					const { data: texture } = await downloadTexture({
 						id: x.id,
 					});
-					const blob = await fetchFile(
+
+					const fileData = await fetchFile(
 						texture.presignedUrl,
 						texture.contentType,
 					);
+
+					const blob = await fileData.response.blob();
 
 					return {
 						id: x.id,
