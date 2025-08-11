@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Cad } from '@/types/threejs';
 import { Coordinates } from '@/api/catalog/common';
 import { initThreeJS } from '@/utils/init-three-js';
@@ -11,6 +11,9 @@ export const useThreeJS = (
 	coords: { cam: Coordinates; pan: Coordinates },
 	loadCallback?: (cad: Cad) => void,
 ) => {
+	const [progress, setProgress] = useState(0);
+	const progressCallback = (percentage: number) => setProgress(percentage);
+
 	const mountRef = useRef<HTMLDivElement>(null);
 	const instanceRef = useRef<ReturnType<typeof initThreeJS> | null>(null);
 
@@ -30,12 +33,12 @@ export const useThreeJS = (
 			clearScene(scene);
 
 			if (type === 'glb' || type === 'gltf') {
-				loader.gltf(scene, url, loadCallback);
+				loader.gltf(scene, url, loadCallback, progressCallback);
 			} else if (type === 'stl') {
-				loader.stl(scene, url, loadCallback);
+				loader.stl(scene, url, loadCallback, progressCallback);
 			}
 		}
 	}, [url]);
 
-	return { ref: mountRef, instance: instanceRef.current };
+	return { ref: mountRef, instance: instanceRef.current, progress };
 };

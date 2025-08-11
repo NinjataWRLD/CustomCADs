@@ -15,14 +15,14 @@ interface EditorCadProps {
 }
 
 const EditorCad = ({ id }: EditorCadProps) => {
-	const { data: cad } = useDownloadProductCad({ id: id });
-	const cadBlobUrl = useGenerateBlobUrl(cad);
+	const { data: cadInfo } = useDownloadProductCad({ id: id });
+	const cad = useGenerateBlobUrl(cadInfo);
 
 	const { data: product } = useGetProduct({ id: id });
 	const { materialId, color, scale, size, infill } = useEditorStore(id);
 
 	const textureBlobUrls = useTextures(true);
-	if (!product || !cad || !cadBlobUrl || !textureBlobUrls[materialId]) {
+	if (!product || !cadInfo || !cad.blobUrl || !textureBlobUrls[materialId]) {
 		return <Loader />;
 	}
 	const { camCoordinates: cam, panCoordinates: pan } = product;
@@ -30,7 +30,10 @@ const EditorCad = ({ id }: EditorCadProps) => {
 	return (
 		<div className='h-full w-full'>
 			<EditorThreeJS
-				file={{ url: cadBlobUrl, type: getCadType(cad.contentType) }}
+				file={{
+					url: cad.blobUrl,
+					type: getCadType(cadInfo.contentType),
+				}}
 				coords={{ cam, pan }}
 				state={{
 					color: color ?? undefined,

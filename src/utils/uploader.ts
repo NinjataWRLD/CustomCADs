@@ -23,8 +23,7 @@ export const uploadFiles = async (
 		cad: { contentType: cad.type, fileName: cad.name },
 	});
 
-	await uploadFile(imageUrl, image);
-	await uploadFile(cadUrl, cad);
+	await Promise.all([uploadFile(imageUrl, image), uploadFile(cadUrl, cad)]);
 
 	setFiles({
 		image: { key: imageKey, type: image.type },

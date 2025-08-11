@@ -5,6 +5,7 @@ import { useThreeJS } from '@/hooks/threejs/useThreeJS';
 import { useUpdateThreeJS } from '@/hooks/threejs/useUpdateThreeJS';
 import * as calculate3D from '@/utils/calculate-3D';
 import { Ratio, CustomizeCad, CalculateCad, Cad } from '@/types/threejs';
+import Model from '../model';
 
 interface ThreeJSProps {
 	file: { url: string; type: string };
@@ -55,7 +56,7 @@ const EditorThreeJS = ({ file, coords, state, setState }: ThreeJSProps) => {
 		}
 	};
 
-	const { ref } = useThreeJS(file.url, file.type, coords, (cad) => {
+	const threejs = useThreeJS(file.url, file.type, coords, (cad) => {
 		originalScaleRef.current = cad.scale.clone();
 		cadRef.current = cad;
 
@@ -80,7 +81,7 @@ const EditorThreeJS = ({ file, coords, state, setState }: ThreeJSProps) => {
 		updateMetrics({ volume, density, euroPerKg, size, scale, infill });
 	}, [volume, density, size, scale, infill]);
 
-	return <div ref={ref} className='h-full w-full' />;
+	return <Model threejs={threejs} />;
 };
 
 export default EditorThreeJS;

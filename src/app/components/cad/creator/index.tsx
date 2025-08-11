@@ -7,15 +7,18 @@ import Loader from '@/app/components/state/loading';
 
 const CreatorCad = ({ product }: { product: Product }) => {
 	const { camCoordinates: cam, panCoordinates: pan } = product;
-	const { data: cad } = useDownloadProductCad({ id: product.id });
+	const { data: cadInfo } = useDownloadProductCad({ id: product.id });
 
-	const cadBlobUrl = useGenerateBlobUrl(cad);
-	if (!cad || !cadBlobUrl) return <Loader />;
+	const cad = useGenerateBlobUrl(cadInfo);
+	if (!cadInfo || !cad.blobUrl) return <Loader progress={cad.progress} />;
 
 	return (
 		<div className='h-full w-full'>
 			<CreatorThreeJS
-				file={{ url: cadBlobUrl, type: getCadType(cad.contentType) }}
+				file={{
+					url: cad.blobUrl,
+					type: getCadType(cadInfo.contentType),
+				}}
 				cam={cam}
 				pan={pan}
 			/>

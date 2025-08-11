@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { Response as Product } from '@/api/catalog/products/gallery/all';
 import { useDownloadProductImage } from '@/hooks/queries/products/gallery';
-import { useGenerateBlobUrl } from '@/hooks/useGenerateBlobUrl';
 import Loader from '@/app/components/state/loading';
 
 interface ItemProps {
@@ -14,7 +13,6 @@ const Item = ({ product }: ItemProps) => {
 	const { data: image, isLoading } = useDownloadProductImage({
 		id: product.id,
 	});
-	const blobUrl = useGenerateBlobUrl(image);
 
 	if (isLoading) {
 		return <Loader />;
@@ -32,13 +30,12 @@ const Item = ({ product }: ItemProps) => {
          after:bg-[linear-gradient(315deg,hsla(278,73%,71%,0.6),hsla(320,70%,22%,0.6))] group"
 		>
 			<b className='absolute z-[2] inset-[5px] bg-[rgba(0,0,0,0.6)]'></b>
-			{blobUrl && (
-				<img
-					className='w-full h-full object-cover scale-[0.8] absolute origin-[center_center] opacity-[0.45] blur-[1px] contrast-100 z-[3] cursor-pointer transition-all duration-[0.5s] ease-[ease] rounded-[5px] group-hover:translate-y-[-15%] group-hover:opacity-90 group-hover:shadow-[0_15px_30px_rgba(0,0,0,0.5),0_0_10px_rgba(255,255,255,0.3)] group-hover:blur-none group-hover:contrast-[1.2] group-hover:rounded-[50%] group-hover:border-[3px] group-hover:border-solid group-hover:border-[rgba(255,255,255,0.7)] group-hover:scale-[0.55]'
-					src={blobUrl}
-					alt='Product Image'
-				/>
-			)}
+			<img
+				className='w-full h-full object-cover scale-[0.8] absolute origin-[center_center] opacity-[0.45] blur-[1px] contrast-100 z-[3] cursor-pointer transition-all duration-[0.5s] ease-[ease] rounded-[5px] group-hover:translate-y-[-15%] group-hover:opacity-90 group-hover:shadow-[0_15px_30px_rgba(0,0,0,0.5),0_0_10px_rgba(255,255,255,0.3)] group-hover:blur-none group-hover:contrast-[1.2] group-hover:rounded-[50%] group-hover:border-[3px] group-hover:border-solid group-hover:border-[rgba(255,255,255,0.7)] group-hover:scale-[0.55]'
+				src={image?.presignedUrl}
+				alt='Product Image'
+				loading='lazy'
+			/>
 			<div className='absolute flex flex-col items-center z-[3] transition-[0.5s] scale-0 bottom-0 group-hover:scale-100 group-hover:bottom-2.5'>
 				<p className='relative text-white font-medium leading-[1em] text-[1.05em] tracking-widest uppercase text-center cursor-pointer'>
 					{product.name}

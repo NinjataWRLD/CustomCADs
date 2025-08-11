@@ -3,82 +3,53 @@ import { fetchFile } from '../file';
 
 interface Case {
 	url: string;
-	contentType: string;
 }
 
+const CONTENT_TYPE = 'file/content-type';
 const base_url = 'https://customcads-bucket.s3.amazonaws.com';
 const cadCase = {
 	url: `${base_url}/cads/cad.glb`,
-	contentType: 'model/gltf-binary',
 };
 const imageCase = {
 	url: `${base_url}/images/image.png`,
-	contentType: 'image/png',
 };
 const cases: Case[][] = [[cadCase], [imageCase]];
 
 describe('Fetch File utility tests', () => {
-	let mockBlob: Blob;
-	const mockFetch = (
-		contentType: string,
-		responseData: unknown,
-		throwError = false,
-	) => {
-		global.fetch = vi.fn().mockResolvedValueOnce({
-			ok: true,
-			status: throwError ? 500 : 200,
-			headers: { get: () => contentType },
-			blob: () =>
-				throwError
-					? Promise.reject(new Error(responseData as string))
-					: Promise.resolve(responseData),
-		});
+	const response = {
+		ok: true,
+		headers: {
+			get: (key: string) => (key === 'Content-Type' ? CONTENT_TYPE : 256),
+		},
 	};
+	const mockResult = { response, length: 256 };
 
 	beforeEach(() => {
-		mockBlob = new Blob([new ArrayBuffer(8)]);
+		global.fetch = vi.fn().mockResolvedValueOnce(response);
 	});
 
 	it.each(cases)('makes proper call to fetch', async (file) => {
 		// Arrange
-		mockFetch(file.contentType, mockBlob);
-
 		// Act
-		await fetchFile(file.url, file.contentType);
+		await fetchFile(file.url, CONTENT_TYPE);
 
 		// Assert
 		expect(global.fetch).toHaveBeenCalledWith(file.url, {
 			headers: {
-				'Content-Type': file.contentType,
+				'Content-Type': CONTENT_TYPE,
 			},
 		});
 	});
 
-	it.each(cases)('returns Blob when fetch is successful', async (file) => {
+	it.each(cases)('returns result when fetch is successful', async (file) => {
 		// Arrange
-		mockFetch(file.contentType, mockBlob);
-
 		// Act
-		const result = await fetchFile(file.url, file.contentType);
+		const result = await fetchFile(file.url, CONTENT_TYPE);
 
 		// Assert
-		expect(result).toEqual(mockBlob);
+		expect(result.length).toEqual(mockResult.length);
+		expect(result.response).toEqual(mockResult.response);
 	});
-
-	it.each(cases)(
-		'returns non-Blob when fetch is successful',
-		async (file) => {
-			// Arrange
-			const message = 'Not a Blob';
-			mockFetch(file.contentType, message);
-
-			// Act
-			const result = await fetchFile(file.url, file.contentType);
-
-			// Assert
-			expect(result).toEqual(message);
-		},
-	);
 
 	it.each(cases)(
 		'propagates error properly when fetch rejects',
@@ -88,7 +59,7 @@ describe('Fetch File utility tests', () => {
 			global.fetch = vi.fn().mockRejectedValueOnce(error);
 
 			// Act + Assert
-			await expect(fetchFile(file.url, file.contentType)).rejects.toThrow(
+			await expect(fetchFile(file.url, CONTENT_TYPE)).rejects.toThrow(
 				error.message,
 			);
 		},
@@ -99,26 +70,16 @@ describe('Fetch File utility tests', () => {
 		async (file) => {
 			// Arrange
 			global.fetch = vi.fn().mockResolvedValueOnce({
+				...response,
 				ok: false,
 				status: 404,
 				statusText: 'Not Found',
 			});
 
 			// Act + Arrange
-			await expect(fetchFile(file.url, file.contentType)).rejects.toThrow(
+			await expect(fetchFile(file.url, CONTENT_TYPE)).rejects.toThrow(
 				'Network response was not ok: 404 Not Found',
 			);
 		},
 	);
-
-	it.each(cases)('throws proper errors when blob() fails', async (file) => {
-		// Arrange
-		const message = 'RangeError: Invalid typed array length: 4';
-		mockFetch(file.contentType, message, true);
-
-		// Act + Arrange
-		await expect(fetchFile(file.url, file.contentType)).rejects.toThrow(
-			message,
-		);
-	});
 });

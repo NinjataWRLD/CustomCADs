@@ -132,6 +132,7 @@ const LanguageMenu = ({
 						width={50}
 						height={50}
 						alt='English flag'
+						loading='lazy'
 						className='rounded-full object-cover shadow'
 					/>
 					<span className='ml-4 text-[1.1rem] text-gray-700 font-medium flex-grow'>
@@ -159,6 +160,7 @@ const LanguageMenu = ({
 						width={50}
 						height={50}
 						alt='Bulgarian flag'
+						loading='lazy'
 						className='rounded-full object-cover shadow'
 					/>
 					<span className='ml-4 text-[1.1rem] text-gray-700 font-medium flex-grow'>

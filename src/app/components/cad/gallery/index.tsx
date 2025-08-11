@@ -7,19 +7,19 @@ import Loader from '@/app/components/state/loading';
 
 const GalleryCad = ({ product }: { product: Product }) => {
 	const { camCoordinates: cam, panCoordinates: pan } = product;
-	const { data: cad } = useDownloadProductCad({ id: product.id });
+	const { data: cadInfo } = useDownloadProductCad({ id: product.id });
 
-	const cadBlobUrl = useGenerateBlobUrl(cad);
+	const cad = useGenerateBlobUrl(cadInfo);
 
 	return (
 		<div className='relative h-full w-full'>
-			{!cad || !cadBlobUrl ? (
-				<Loader />
+			{!cadInfo || !cad.blobUrl ? (
+				<Loader progress={cad.progress} />
 			) : (
 				<GalleryThreeJS
 					file={{
-						url: cadBlobUrl,
-						type: getCadType(cad.contentType),
+						url: cad.blobUrl,
+						type: getCadType(cadInfo.contentType),
 					}}
 					cam={cam}
 					pan={pan}

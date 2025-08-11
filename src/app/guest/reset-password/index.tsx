@@ -6,7 +6,6 @@ import Transition from '@/app/components/transition';
 import Button from '@/app/components/button';
 import Border from '@/app/components/border';
 import { useFields } from './hooks/useFields';
-import faviconPic from '@/assets/favicons/favicon.svg';
 
 const ResetPassword = () => {
 	const tResetPassword = useResetPasswordTranslation();
@@ -45,12 +44,6 @@ const ResetPassword = () => {
 					className='relative w-2/5 h-4/5 text-white flex flex-col gap-4 justify-center items-center'
 				>
 					<Border />
-
-					<img
-						src={faviconPic}
-						alt='CustomCADs'
-						className='w-[50px]'
-					/>
 					<h1 className='text-white title-text-shadow'>
 						{tResetPassword('title')}
 					</h1>

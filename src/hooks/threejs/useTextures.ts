@@ -20,7 +20,8 @@ export const useTextures = (enabled?: boolean) => {
 					const { data: texture } = await downloadTexture({
 						id: x.id,
 					});
-					const blob = await fetchFile(
+
+					const { response } = await fetchFile(
 						texture.presignedUrl,
 						texture.contentType,
 					);
@@ -29,7 +30,7 @@ export const useTextures = (enabled?: boolean) => {
 						id: x.id,
 						density: x.density,
 						euroPerKg: x.cost,
-						blobUrl: URL.createObjectURL(blob),
+						blobUrl: URL.createObjectURL(await response.blob()),
 					};
 				});
 
