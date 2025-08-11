@@ -16,8 +16,8 @@ interface CalculationsProps {
 }
 
 const Calculations = ({ id, volume }: CalculationsProps) => {
-	const [distance, setDistance] = useState<Distance>('cm');
-	const [mass, setMass] = useState<Mass>('kg');
+	const [distance, setDistance] = useState<Distance>('mm');
+	const [mass, setMass] = useState<Mass>('g');
 
 	const { infill, scale, size, weight, cost } = useEditorStore(id);
 	const ratio = calculate3D.baseRatio(size);
