@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { downloadTexture } from '@/api/customizations/materials';
+import { downloadTexture } from '@/api/printing/materials';
 import { useGetMaterials } from '@/hooks/queries/materials';
 import { fetchFile } from '@/utils/file';
 

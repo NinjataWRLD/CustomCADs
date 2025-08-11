@@ -1,4 +1,4 @@
-import { CUSTOMIZATIONS_BASE_PATH } from '@/api/customizations/common';
+import { CUSTOMIZATIONS_BASE_PATH } from '@/api/printing/common';
 
 export interface Request {
 	id: string;

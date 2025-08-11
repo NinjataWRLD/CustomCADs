@@ -1,8 +1,8 @@
 import { useMutation } from '@tanstack/react-query';
-import { Request as Create } from '@/api/customizations/materials/create';
-import { Request as Edit } from '@/api/customizations/materials/edit';
-import { Request as Delete } from '@/api/customizations/materials/delete';
-import * as api from '@/api/customizations/materials';
+import { Request as Create } from '@/api/printing/materials/create';
+import { Request as Edit } from '@/api/printing/materials/edit';
+import { Request as Delete } from '@/api/printing/materials/delete';
+import * as api from '@/api/printing/materials';
 
 export const keys = {
 	base: ['materials'] as const,

@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { z } from 'zod';
 import * as galleryApi from '@/api/catalog/products/gallery';
-import * as categoriesApi from '@/api/categories/categories';
+import * as categoriesApi from '@/api/catalog/categories';
 import Gallery from '@/app/public/gallery';
 
 export const Route = createFileRoute('/_public/gallery/')({

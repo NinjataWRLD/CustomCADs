@@ -1,5 +1,5 @@
 import { axios, config } from '@/api/axios';
-import { MaterialResponse } from '@/api/customizations/common';
+import { MaterialResponse } from '@/api/printing/common';
 import * as allResources from './all';
 import * as singleResources from './single';
 import * as downloadResources from './download';

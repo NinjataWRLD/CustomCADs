@@ -1,5 +1,5 @@
 import * as headers from '@/types/headers';
-import { MATERIALS_BASE_PATH } from '@/api/customizations/common';
+import { MATERIALS_BASE_PATH } from '@/api/printing/common';
 
 export type Request = {
 	name: string;

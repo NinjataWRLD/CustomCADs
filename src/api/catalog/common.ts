@@ -14,10 +14,20 @@ export interface Category {
 	name: string;
 }
 
+export interface CategoryResponse {
+	id: number;
+	name: string;
+	description: string;
+}
+
+export const CATEGORY_BASE_PATH = '/categories';
+
 export const TAG_BASE_PATH = '/tags';
 
-export const GALLERY_BASE_PATH = '/products/gallery';
+const PRODUCT_BASE_PATH = '/products';
 
-export const CREATOR_BASE_PATH = '/products/creator';
+export const GALLERY_BASE_PATH = `${PRODUCT_BASE_PATH}/gallery`;
 
-export const DESIGNER_BASE_PATH = '/products/designer';
+export const CREATOR_BASE_PATH = `${PRODUCT_BASE_PATH}/creator`;
+
+export const DESIGNER_BASE_PATH = `${PRODUCT_BASE_PATH}/designer`;

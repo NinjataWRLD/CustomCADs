@@ -1,5 +1,5 @@
 import { Response as Product } from '@/api/catalog/products/gallery/single';
-import { CustomizationResponse as Customization } from '@/api/customizations/common';
+import { CustomizationResponse as Customization } from '@/api/printing/common';
 import GalleryCad from './gallery';
 import CreatorCad from './creator';
 import EditorCad from './editor';
