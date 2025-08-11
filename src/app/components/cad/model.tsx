@@ -11,7 +11,7 @@ interface ModelProps {
 const Model = ({ threejs: { ref, progress } }: ModelProps) => {
 	return (
 		<>
-			{progress < 100 && <ProgressBar progress={progress} />}
+			{progress < 1 && <ProgressBar progress={progress} />}
 			<div ref={ref} className='h-full w-full' />
 		</>
 	);

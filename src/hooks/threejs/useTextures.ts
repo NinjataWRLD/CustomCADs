@@ -21,18 +21,16 @@ export const useTextures = (enabled?: boolean) => {
 						id: x.id,
 					});
 
-					const fileData = await fetchFile(
+					const { response } = await fetchFile(
 						texture.presignedUrl,
 						texture.contentType,
 					);
-
-					const blob = await fileData.response.blob();
 
 					return {
 						id: x.id,
 						density: x.density,
 						euroPerKg: x.cost,
-						blobUrl: URL.createObjectURL(blob),
+						blobUrl: URL.createObjectURL(await response.blob()),
 					};
 				});
 

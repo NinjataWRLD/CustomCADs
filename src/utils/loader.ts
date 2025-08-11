@@ -19,7 +19,7 @@ export const gltf = (
 		},
 		(e) => {
 			const percentage = e.loaded / e.total;
-			if (progress) progress(percentage * 100);
+			if (progress) progress(percentage);
 		},
 	);
 };
@@ -45,7 +45,7 @@ export const stl = (
 		},
 		(e) => {
 			const percentage = e.loaded / e.total;
-			if (progress) progress(percentage * 100);
+			if (progress) progress(percentage);
 		},
 	);
 };
