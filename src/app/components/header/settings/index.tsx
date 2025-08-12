@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { useNavigate } from '@tanstack/react-router';
 import {
 	faCog,
 	faPuzzlePiece,
@@ -14,10 +15,12 @@ import AccountButton from './account-button';
 import Setting from './setting';
 
 const SettingsButton = () => {
-	const { is } = useAuthStore();
-	const tHeader = useHeaderTranslation();
 	const { dispatch } = useCartContext();
 	const { mutateAsync: apiLogout } = useLogout();
+
+	const navigate = useNavigate();
+	const { is } = useAuthStore();
+	const tHeader = useHeaderTranslation();
 
 	const logout = async () => {
 		await apiLogout();
@@ -51,14 +54,16 @@ const SettingsButton = () => {
 		<Setting
 			key='account'
 			label={tHeader('account')}
-			link='/account'
+			redirect={() =>
+				navigate({ to: '/account', search: { tab: 'about-me' } })
+			}
 			icon={faCog}
 			hide={hide}
 		/>,
 		<Setting
 			key='logout'
 			label={tHeader('logout')}
-			link='/'
+			redirect={() => navigate({ to: '/' })}
 			icon={faSignOutAlt}
 			hide={hide}
 			onClick={logout}
@@ -70,14 +75,14 @@ const SettingsButton = () => {
 			<Setting
 				key='carts'
 				label={tHeader('carts')}
-				link='/carts'
+				redirect={() => navigate({ to: '/carts' })}
 				icon={faShoppingBag}
 				hide={hide}
 			/>,
 			<Setting
 				key='orders'
 				label={tHeader('orders')}
-				link='/orders'
+				redirect={() => navigate({ to: '/services-info' })}
 				icon={faPuzzlePiece}
 				hide={hide}
 			/>,

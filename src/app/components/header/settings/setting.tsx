@@ -1,21 +1,18 @@
-import { useNavigate } from '@tanstack/react-router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 interface SettingProps {
 	icon: IconDefinition;
 	label: string;
-	link: string;
+	redirect: VoidFunction;
 	hide: VoidFunction;
 	onClick?: VoidFunction;
 }
 
-const Setting = ({ label, link, icon, hide, onClick }: SettingProps) => {
-	const navigate = useNavigate();
-
+const Setting = ({ label, redirect, icon, hide, onClick }: SettingProps) => {
 	const handleClick = () => {
 		hide();
-		navigate({ to: link });
+		redirect();
 		if (onClick) onClick();
 	};
 
@@ -23,7 +20,7 @@ const Setting = ({ label, link, icon, hide, onClick }: SettingProps) => {
 		<div className='relative w-full group'>
 			<li
 				onClick={handleClick}
-				className='flex items-center gap-3 w-[30%] px-4 py-3 cursor-pointer border-b border-purple-500 last:border-none 
+				className='flex items-center gap-3 w-[30%] px-4 py-3 cursor-pointer border-b border-purple-500 last:border-none
 								text-white hover:bg-purple-700/20 rounded transition-all duration-200'
 			>
 				<FontAwesomeIcon
