@@ -1,6 +1,6 @@
-interface RowProps {
+type RowProps = {
 	fields: { label: string; value?: string }[];
-}
+};
 const Row = ({ fields }: RowProps) => (
 	<div className='flex justify-around'>
 		{fields.map((f) => (

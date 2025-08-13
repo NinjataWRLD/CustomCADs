@@ -5,14 +5,14 @@ import { useForceLocaleRefresh } from '@/hooks/locales/useForceLocaleRefresh';
 import { useSyncCarts } from '@/hooks/contexts/useSyncCarts';
 import { useValidation } from './useValidation';
 
-interface Fields {
+type Fields = {
 	username: string;
 	email: string;
 	password: string;
 	confirmPassword: string;
 	firstName?: string;
 	lastName?: string;
-}
+};
 const defaultValues: Fields = {
 	username: '',
 	email: '',

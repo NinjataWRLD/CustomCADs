@@ -2,7 +2,8 @@ import { Store } from '@tanstack/store';
 import { Ratio } from '@/types/threejs';
 
 const LOCAL_STORAGE_KEY = 'editor-store';
-interface EditorState {
+
+type EditorState = {
 	materialId: number;
 	color: string;
 	infill: number;
@@ -10,8 +11,7 @@ interface EditorState {
 	scale: number;
 	weight: number;
 	cost: number;
-}
-
+};
 export const defaultEditorState: EditorState = {
 	materialId: 1,
 	color: '#ffffff',

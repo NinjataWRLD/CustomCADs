@@ -1,7 +1,7 @@
 import { objectToSearchParams } from '@/utils/api';
 import { CUSTOMS_CUSTOMER_BASE_PATH } from '@/api/customs/common';
 
-export interface Request {
+export type Request = {
 	delivery?: boolean;
 	status?: string;
 	name?: string;
@@ -9,15 +9,15 @@ export interface Request {
 	sortingDirection?: string;
 	page: number;
 	limit: number;
-}
+};
 
-export interface Response {
+export type Response = {
 	id: string;
 	name: string;
 	orderedAt: string;
 	status: string;
 	forDelivery: boolean;
-}
+};
 
 export const url = (req: Request) =>
 	`${CUSTOMS_CUSTOMER_BASE_PATH}?${objectToSearchParams(req)}`;

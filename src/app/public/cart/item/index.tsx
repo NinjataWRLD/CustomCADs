@@ -2,13 +2,13 @@ import { CartItem as Item } from '@/types/cart-item';
 import CartItemWithoutDelivery from './no-delivery';
 import CartItemForDelivery from './for-delivery';
 
-interface CartItemProps {
+type CartItemProps = {
 	item: Item;
 	set: {
 		price: (val: number, accumulate?: boolean) => void;
 		cost: (val: number, accumulate?: boolean) => void;
 	};
-}
+};
 
 const CartItem = ({ item, set }: CartItemProps) => {
 	const price = {

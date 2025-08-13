@@ -3,12 +3,12 @@ import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useLabelsTranslation } from '@/hooks/locales/components/forms';
 
-interface Option {
+type Option = {
 	id: string | number;
 	name: string;
 	value: string;
-}
-interface StyledSelectProps {
+};
+type StyledSelectProps = {
 	id?: string;
 	name?: string;
 	value?: string;
@@ -19,7 +19,7 @@ interface StyledSelectProps {
 	placeholder?: string;
 	hasError?: boolean;
 	disabled?: boolean;
-}
+};
 
 const StyledSelect: React.FC<StyledSelectProps> = ({
 	id,

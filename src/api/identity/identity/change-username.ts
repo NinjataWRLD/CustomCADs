@@ -1,7 +1,7 @@
 import { IDENTITY_BASE_PATH } from '../common';
 
-export interface Request {
+export type Request = {
 	username: string;
-}
+};
 
 export const url = () => `${IDENTITY_BASE_PATH}/username`;

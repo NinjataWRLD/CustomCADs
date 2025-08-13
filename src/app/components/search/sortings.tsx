@@ -10,13 +10,13 @@ import { SortingDirection } from '@/types/sorting';
 import Loader from '@/app/components/state/loading';
 import ErrorPage from '@/app/components/state/error';
 
-interface SortingsProps {
+type SortingsProps = {
 	getSorting: () => { type?: string; direction?: string };
 	updateSorting: (sorting: { type?: string; direction?: string }) => void;
 	fetch: UseQueryResult<string[], Error>;
 	isActive: boolean;
 	setActive: (active: boolean) => void;
-}
+};
 
 const Sortings = ({
 	getSorting,

@@ -2,11 +2,11 @@ import { objectToSearchParams } from '@/utils/api';
 import { Calculation } from '@/api/common/calculation';
 import { ACTIVE_CART_BASE_PATH } from '../common';
 
-export interface Request {
+export type Request = {
 	country: string;
 	city: string;
 	street: string;
-}
+};
 
 export type Response = Calculation[];
 

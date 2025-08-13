@@ -1,12 +1,12 @@
 import { Ref } from 'react';
 import ProgressBar from '../progress-bar';
 
-interface ModelProps {
+type ModelProps = {
 	threejs: {
 		ref: Ref<HTMLDivElement>;
 		progress: number;
 	};
-}
+};
 
 const Model = ({ threejs: { ref, progress } }: ModelProps) => {
 	return (

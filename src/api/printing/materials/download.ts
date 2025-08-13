@@ -1,9 +1,9 @@
 import { MATERIALS_BASE_PATH } from '@/api/printing/common';
 import { DownloadResponse } from '@/api/common/files';
 
-export interface Request {
+export type Request = {
 	id: number;
-}
+};
 
 export type Response = DownloadResponse;
 

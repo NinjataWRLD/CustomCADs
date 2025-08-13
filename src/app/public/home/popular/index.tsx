@@ -6,10 +6,10 @@ import { useHomeTranslation } from '@/hooks/locales/pages/public';
 import CustomLink from '@/app/components/link';
 import Item from './item';
 
-interface PopularProductsProps {
+type PopularProductsProps = {
 	total: number;
 	products: Product[];
-}
+};
 
 const PopularProducts = ({ total, products }: PopularProductsProps) => {
 	const tHome = useHomeTranslation();

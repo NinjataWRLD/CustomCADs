@@ -10,9 +10,9 @@ import Loader from '@/app/components/state/loading';
 import { getCadType } from '@/utils/get-cad-type';
 import EditorThreeJS from './threejs';
 
-interface EditorCadProps {
+type EditorCadProps = {
 	id: string;
-}
+};
 
 const EditorCad = ({ id }: EditorCadProps) => {
 	const { data: cadInfo } = useDownloadProductCad({ id: id });

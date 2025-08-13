@@ -1,15 +1,15 @@
 import {
-	Category,
+	CategoryDto,
 	Coordinates,
 	Counts,
 	GALLERY_BASE_PATH,
 } from '@/api/catalog/common';
 
-export interface Request {
+export type Request = {
 	id: string;
-}
+};
 
-export interface Response {
+export type Response = {
 	id: string;
 	name: string;
 	description: string;
@@ -19,9 +19,9 @@ export interface Response {
 	uploadedAt: string;
 	creatorName: string;
 	counts: Counts;
-	category: Category;
+	category: CategoryDto;
 	camCoordinates: Coordinates;
 	panCoordinates: Coordinates;
-}
+};
 
 export const url = (req: Request) => `${GALLERY_BASE_PATH}/${req.id}`;

@@ -3,13 +3,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useServicesTranslation } from '@/hooks/locales/pages/public';
 import Button from '@/app/components/button';
 
-interface ServiceProps {
+type ServiceProps = {
 	title: string;
 	details: string;
 	role: string;
 	icon: IconDefinition;
 	button: string;
-}
+};
 
 const Service = ({ title, details, role, icon, button }: ServiceProps) => {
 	const tServices = useServicesTranslation();

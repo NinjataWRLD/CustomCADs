@@ -1,4 +1,4 @@
-export interface Result<T> {
+export type Result<T> = {
 	count: number;
 	items: T[];
-}
+};

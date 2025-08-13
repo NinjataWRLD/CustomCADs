@@ -1,12 +1,12 @@
-export interface ActiveCartItem {
+export type ActiveCartItem = {
 	quantity: number;
 	forDelivery: boolean;
 	addedAt: string;
 	customizationId?: string;
 	productId: string;
-}
+};
 
-export interface PurchasedCartItem {
+export type PurchasedCartItem = {
 	quantity: number;
 	forDelivery: boolean;
 	addedAt: string;
@@ -15,7 +15,7 @@ export interface PurchasedCartItem {
 	customizationId?: string;
 	productId: string;
 	cartId: string;
-}
+};
 
 export const ACTIVE_CART_BASE_PATH = '/carts/active';
 

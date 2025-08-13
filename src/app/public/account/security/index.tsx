@@ -2,9 +2,9 @@ import { useMyAccountTranslation } from '@/hooks/locales/pages/public';
 import { useForgotPassword } from '@/hooks/mutations/identity';
 import { useIdempotencyKeys } from '@/hooks/useIdempotencyKeys';
 
-interface SecurityProps {
+type SecurityProps = {
 	email: string;
-}
+};
 const Security = ({ email }: SecurityProps) => {
 	const tMyAccount = useMyAccountTranslation();
 

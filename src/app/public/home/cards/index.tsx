@@ -14,9 +14,9 @@ import customPic from '@/assets/cards/custom.png';
 import printerPic from '@/assets/cards/printer.png';
 import Check from './check';
 
-interface CardProps {
+type CardProps = {
 	id: string;
-}
+};
 
 const Card = forwardRef<HTMLDivElement, CardProps>(({ id }, ref) => {
 	const tHome = useHomeTranslation();

@@ -1,12 +1,12 @@
 import { ChangeEventHandler, CSSProperties } from 'react';
 
-interface CheckboxProps {
+type CheckboxProps = {
 	id: string;
 	label: string;
 	checked: boolean;
 	onClick: ChangeEventHandler<HTMLInputElement>;
 	style?: CSSProperties;
-}
+};
 
 const Checkbox = ({ id, label, checked, onClick, style }: CheckboxProps) => {
 	return (

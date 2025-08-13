@@ -10,10 +10,10 @@ import * as calculate3D from '@/utils/calculate-3D';
 import * as money from '@/utils/money';
 import * as formatter from '@/utils/formatters';
 
-interface CalculationsProps {
+type CalculationsProps = {
 	id: string;
 	volume: number;
-}
+};
 
 const Calculations = ({ id, volume }: CalculationsProps) => {
 	const [distance, setDistance] = useState<Distance>('mm');

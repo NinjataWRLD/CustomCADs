@@ -3,13 +3,13 @@ import { Link } from '@tanstack/react-router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
-interface BaseButtonProps {
+type BaseButtonProps = {
 	children?: ReactNode;
 	label: string;
 	link: string;
 	icon: IconDefinition;
 	replace?: boolean;
-}
+};
 
 const BaseButton = ({
 	children,

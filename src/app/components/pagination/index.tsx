@@ -1,12 +1,12 @@
 import Button from './button';
 import Num from './num';
 
-interface PaginationProps {
+type PaginationProps = {
 	total: number;
 	limit: number;
 	page: number;
 	onPageChange: (newPage: number) => void;
-}
+};
 
 const Pagination = ({ total, limit, page, onPageChange }: PaginationProps) => {
 	if (!total) return;

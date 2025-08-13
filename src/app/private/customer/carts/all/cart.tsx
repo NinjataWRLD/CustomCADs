@@ -14,10 +14,10 @@ import Loader from '@/app/components/state/loading';
 import * as dateTime from '@/utils/date-time';
 import Item from './item';
 
-interface CartProps {
+type CartProps = {
 	id: string;
 	navigate: UseNavigateResult<'/carts'>;
-}
+};
 
 const CART_ITEMS_PER_PAGE = 3;
 const Cart = ({ id, navigate }: CartProps) => {

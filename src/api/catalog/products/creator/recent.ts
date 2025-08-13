@@ -1,17 +1,17 @@
 import { objectToSearchParams } from '@/utils/api';
-import { Category, CREATOR_BASE_PATH } from '@/api/catalog/common';
+import { CategoryDto, CREATOR_BASE_PATH } from '@/api/catalog/common';
 
-export interface Request {
+export type Request = {
 	limit: number;
-}
+};
 
-export interface Response {
+export type Response = {
 	id: string;
 	name: string;
 	uploadedAt: string;
 	status: string;
-	category: Category;
-}
+	category: CategoryDto;
+};
 
 export const url = (req: Request) =>
 	`${CREATOR_BASE_PATH}?${objectToSearchParams(req)}`;

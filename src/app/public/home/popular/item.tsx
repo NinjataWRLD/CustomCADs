@@ -3,14 +3,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { useDownloadProductImage } from '@/hooks/queries/products/gallery';
 
-interface ItemProps {
+type ItemProps = {
 	product: {
 		id: string;
 		name: string;
 		views: number;
 		category: string;
 	};
-}
+};
 
 const Item = ({ product }: ItemProps) => {
 	const navigate = useNavigate();

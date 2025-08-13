@@ -2,11 +2,11 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-interface SearchbarProps {
+type SearchbarProps = {
 	placeholder: string;
 	getName: () => string | undefined;
 	updateName: (searchTerm: string | undefined) => void;
-}
+};
 
 const Searchbar = ({ placeholder, getName, updateName }: SearchbarProps) => {
 	const [isHovered, setIsHovered] = useState(false);

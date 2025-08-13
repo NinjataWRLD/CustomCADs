@@ -5,13 +5,13 @@ import { UseQueryResult } from '@tanstack/react-query';
 import Loader from '@/app/components/state/loading';
 import ErrorPage from '@/app/components/state/error';
 
-interface StatusesProps {
+type StatusesProps = {
 	fetch: UseQueryResult<string[], Error>;
 	getStatus: () => string | undefined;
 	updateStatus: (status?: string) => void;
 	isActive: boolean;
 	setActive: (active: boolean) => void;
-}
+};
 
 const Statuses = ({
 	fetch,

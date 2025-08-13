@@ -8,11 +8,11 @@ import { useSyncCarts } from '@/hooks/contexts/useSyncCarts';
 import { useUpdateAuthz } from '@/hooks/stores/useUpdateAuthz';
 import { useValidation } from './useValidation';
 
-interface Fields {
+type Fields = {
 	username: string;
 	password: string;
 	rememberMe: boolean;
-}
+};
 const defaultValues: Fields = {
 	username: '',
 	password: '',

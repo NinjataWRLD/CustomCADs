@@ -1,8 +1,8 @@
 import { SHIPMENTS_BASE_PATH } from '../common';
 
-export interface Request {
+export type Request = {
 	id: string;
-}
+};
 
 export type Response = Record<string, { message: string; place: string }>;
 

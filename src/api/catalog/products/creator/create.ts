@@ -1,5 +1,5 @@
 import * as headers from '@/types/headers';
-import { Category, CREATOR_BASE_PATH } from '@/api/catalog/common';
+import { CategoryDto, CREATOR_BASE_PATH } from '@/api/catalog/common';
 
 export type Request = {
 	name: string;
@@ -13,7 +13,7 @@ export type Request = {
 	cadVolume: number;
 } & headers.IdempotencyKey;
 
-export interface Response {
+export type Response = {
 	id: string;
 	name: string;
 	description: string;
@@ -21,7 +21,7 @@ export interface Response {
 	uploadedAt: string;
 	price: number;
 	status: string;
-	category: Category;
-}
+	category: CategoryDto;
+};
 
 export const url = () => `${CREATOR_BASE_PATH}`;

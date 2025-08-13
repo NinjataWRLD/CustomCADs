@@ -1,14 +1,14 @@
-export interface DownloadResponse {
+export type DownloadResponse = {
 	presignedUrl: string;
 	contentType: string;
-}
+};
 
-export interface UploadRequest {
+export type UploadRequest = {
 	fileName: string;
 	contentType: string;
-}
+};
 
-export interface UploadResponse {
+export type UploadResponse = {
 	presignedUrl: string;
 	generatedKey: string;
-}
+};

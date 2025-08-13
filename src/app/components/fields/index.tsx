@@ -7,11 +7,11 @@ export const getErrorClass = (hasError: boolean) =>
 		? 'border border-red-500 bg-red-100 text-black'
 		: 'border border-gray-300';
 
-interface Option {
+type Option = {
 	id: string | number;
 	name: string;
 	value: string;
-}
+};
 
 type Common = {
 	api: AnyFieldApi;

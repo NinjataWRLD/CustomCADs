@@ -6,12 +6,12 @@ import { useCheckoutFormTranslation } from '@/hooks/locales/pages/customer';
 import { useCheckout } from './hooks/useCheckout';
 import Transition from '@/app/components/transition';
 
-interface CheckoutFormProps {
+type CheckoutFormProps = {
 	type: 'cart' | 'custom';
 	onSubmit: (req: payment.Request) => Promise<payment.Response>;
 	back?: VoidFunction;
 	details?: BillingDetails;
-}
+};
 
 const CheckoutForm = ({ type, onSubmit, back, details }: CheckoutFormProps) => {
 	const tCheckout = useCheckoutFormTranslation();

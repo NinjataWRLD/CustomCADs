@@ -6,9 +6,9 @@ import { useEditorStore } from '@/hooks/stores/useEditorStore';
 import { setColor, setMaterialId } from '@/stores/editor-store';
 import Loader from '@/app/components/state/loading';
 
-interface LooksProps {
+type LooksProps = {
 	id: string;
-}
+};
 
 const Looks = ({ id }: LooksProps) => {
 	const { data: materials } = useGetMaterials();

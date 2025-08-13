@@ -7,7 +7,7 @@ import * as calculate3D from '@/utils/calculate-3D';
 import { Ratio, CustomizeCad, CalculateCad, Cad } from '@/types/threejs';
 import Model from '../model';
 
-interface ThreeJSProps {
+type ThreeJSProps = {
 	file: { url: string; type: string };
 	coords: { cam: Coordinates; pan: Coordinates };
 	state: {
@@ -25,7 +25,7 @@ interface ThreeJSProps {
 		setWeight: (weight: number) => void;
 		setCost: (cost: number) => void;
 	};
-}
+};
 
 const EditorThreeJS = ({ file, coords, state, setState }: ThreeJSProps) => {
 	const { color, texture, volume, density, euroPerKg, scale, infill, size } =

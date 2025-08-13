@@ -41,8 +41,8 @@ const Cart = () => {
 		};
 	}, []);
 
-	const { money: prices, setMoney: setPrice } = useMoneyManager();
-	const { money: costs, setMoney: setCost } = useMoneyManager();
+	const [prices, setPrice] = useMoneyManager();
+	const [costs, setCost] = useMoneyManager();
 
 	const calculate = (money: Record<string, number>) => {
 		let total = 0;

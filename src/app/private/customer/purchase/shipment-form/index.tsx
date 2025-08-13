@@ -6,10 +6,10 @@ import Button from '@/app/components/button';
 import { useFields } from './hooks/useFields';
 import { Fields } from './hooks/useForm';
 
-interface ShipmentFormProps {
+type ShipmentFormProps = {
 	onSubmit: (values: Fields) => void;
 	requireCount?: boolean;
-}
+};
 const ShipmentForm = ({ onSubmit, requireCount }: ShipmentFormProps) => {
 	const { handleSubmit, fields } = useFields(onSubmit);
 	const tShipmentForm = useShipmentFormTranslation();

@@ -2,7 +2,7 @@ import { useForm as useTanstackForm } from '@tanstack/react-form';
 import { useValidation } from './useValidation';
 import { FormEvent } from 'react';
 
-export interface Fields {
+export type Fields = {
 	country: string;
 	city: string;
 	street: string;
@@ -10,7 +10,7 @@ export interface Fields {
 	email: string;
 	phone: string;
 	count: number;
-}
+};
 const defaultValues: Fields = {
 	country: '',
 	city: '',

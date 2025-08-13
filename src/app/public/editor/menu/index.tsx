@@ -1,10 +1,10 @@
 import { ReactNode, useState } from 'react';
 
-interface MenuProps {
+type MenuProps = {
 	title: string;
 	description: string;
 	children: ReactNode;
-}
+};
 
 const Menu = ({ title, description, children }: MenuProps) => {
 	const [open, setOpen] = useState(false);

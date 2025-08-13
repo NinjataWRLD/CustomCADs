@@ -4,10 +4,10 @@ import { useForceLocaleRefresh } from '@/hooks/locales/useForceLocaleRefresh';
 import { useResetPassword } from '@/hooks/mutations/identity';
 import { useValidation } from './useValidation';
 
-interface Fields {
+type Fields = {
 	password: string;
 	confirmPassword: string;
-}
+};
 const defaultValues: Fields = {
 	password: '',
 	confirmPassword: '',

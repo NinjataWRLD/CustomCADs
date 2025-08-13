@@ -1,12 +1,12 @@
 import { TAG_BASE_PATH } from '../common';
 
-export interface Request {
+export type Request = {
 	id: string;
-}
+};
 
-export interface Response {
+export type Response = {
 	id: string;
 	name: string;
-}
+};
 
 export const url = (req: Request) => `${TAG_BASE_PATH}/${req.id}`;

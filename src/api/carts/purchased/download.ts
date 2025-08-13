@@ -2,10 +2,10 @@ import { Coordinates } from '@/api/catalog/common';
 import { PURCHASED_CART_BASE_PATH } from '../common';
 import { DownloadResponse } from '@/api/common/files';
 
-export interface Request {
+export type Request = {
 	id: string;
 	productId: string;
-}
+};
 
 export type Response = {
 	camCoordinates: Coordinates;

@@ -1,6 +1,6 @@
-interface ProgressBarProps {
+type ProgressBarProps = {
 	progress: number;
-}
+};
 
 const ProgressBar = ({ progress }: ProgressBarProps) => {
 	return (

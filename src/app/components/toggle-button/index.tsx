@@ -1,9 +1,9 @@
 import { useState } from 'react';
 
-interface ToggleButtonProps {
+type ToggleButtonProps = {
 	initial: boolean;
 	onClick: VoidFunction;
-}
+};
 const ToggleButton = ({ initial, onClick }: ToggleButtonProps) => {
 	const [checked, setChecked] = useState(initial);
 

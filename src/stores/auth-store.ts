@@ -1,12 +1,12 @@
 import { Store } from '@tanstack/store';
 import Cookies from 'js-cookie';
 
-interface AuthState {
+const role = Cookies.get('role');
+
+type AuthState = {
 	authn: boolean;
 	authz: string | null;
-}
-
-const role = Cookies.get('role');
+};
 const defaultState: AuthState = {
 	authn: Boolean(role),
 	authz: role ?? null,

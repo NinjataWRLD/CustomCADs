@@ -2,12 +2,12 @@ import { ReactNode } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCog } from '@fortawesome/free-solid-svg-icons';
 
-interface BaseButtonProps {
+type BaseButtonProps = {
 	label: string;
 	settings: ReactNode;
 	show: boolean;
 	toggle: VoidFunction;
-}
+};
 
 const AccountButton = ({ label, settings, show, toggle }: BaseButtonProps) => {
 	return (

@@ -4,9 +4,9 @@ import { usePurchaseCustomWithDelivery } from '@/hooks/mutations/customs/custome
 import ShipmentForm from '@/app/private/customer/purchase/shipment-form';
 import CheckoutForm from '@/app/private/customer/purchase/checkout-form';
 
-interface PurchaseCustomForDeliveryProps {
+type PurchaseCustomForDeliveryProps = {
 	id: string;
-}
+};
 const PurchaseCustomForDelivery = ({ id }: PurchaseCustomForDeliveryProps) => {
 	const { idempotencyKeys } = useIdempotencyKeys(['purchase'] as const);
 	const { mutateAsync } = usePurchaseCustomWithDelivery();

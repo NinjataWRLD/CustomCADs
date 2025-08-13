@@ -1,8 +1,4 @@
-interface IsProps {
-	authn: boolean;
-	authz: string | null;
-}
-
+type IsProps = { authn: boolean; authz: string | null };
 export const is = ({ authn, authz }: IsProps) => {
 	const roles = {
 		guest: !authn,

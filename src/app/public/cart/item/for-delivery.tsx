@@ -16,11 +16,11 @@ import Loader from '@/app/components/state/loading';
 import { CartItemForDelivery as Item } from '@/types/cart-item';
 import * as money from '@/utils/money';
 
-interface CartItemProps {
+type CartItemProps = {
 	item: Item;
 	reset: { price: VoidFunction; cost: VoidFunction };
 	addTo: { price: (price: number) => void; cost: (cost: number) => void };
-}
+};
 
 const CartItemForDelivery = ({ item, addTo, reset }: CartItemProps) => {
 	const navigate = useNavigate();

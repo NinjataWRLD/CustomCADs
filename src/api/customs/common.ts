@@ -1,19 +1,19 @@
-export interface AcceptedCustomDto {
+export type AcceptedCustomDto = {
 	designerName: string;
 	acceptedAt: string;
-}
+};
 
-export interface FinishedCustomDto {
+export type FinishedCustomDto = {
 	price: number;
 	finishedAt: string;
 	cadId: string;
-}
+};
 
-export interface CompletedCustomDto {
+export type CompletedCustomDto = {
 	paymentStatus: string;
 	customizationId?: string;
 	shipmentId?: string;
-}
+};
 
 export const CUSTOMS_CUSTOMER_BASE_PATH = 'customs/customer';
 
