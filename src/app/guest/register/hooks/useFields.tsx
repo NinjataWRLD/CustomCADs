@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { usePlaceholdersTranslation } from '@/hooks/locales/common/messages';
 import { useLabelsTranslation } from '@/hooks/locales/components/forms';
 import Field from '@/app/components/fields';
@@ -5,7 +6,9 @@ import Password from '@/app/components/fields/password';
 import { useForm } from './useForm';
 
 export const useFields = (role: 'Customer' | 'Contributor') => {
-	const { form, handleSubmit } = useForm(role);
+	const { form, handleSubmit, isSuccess } = useForm(role);
+	const [username, setUsername] = useState<string | null>(null);
+
 	const tPlaceholders = usePlaceholdersTranslation();
 	const tLabels = useLabelsTranslation();
 
@@ -37,7 +40,10 @@ export const useFields = (role: 'Customer' | 'Contributor') => {
 			</form.Field>
 		),
 		Username: (
-			<form.Field name='username'>
+			<form.Field
+				name='username'
+				listeners={{ onChange: ({ value }) => setUsername(value) }}
+			>
 				{(api) => (
 					<Field
 						tag='input'
@@ -86,5 +92,5 @@ export const useFields = (role: 'Customer' | 'Contributor') => {
 		),
 	};
 
-	return { handleSubmit, fields };
+	return { handleSubmit, fields, username, isSuccess };
 };

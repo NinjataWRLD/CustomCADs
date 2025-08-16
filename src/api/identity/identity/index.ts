@@ -12,6 +12,7 @@ import * as toggleTrackViewedProductsResources from './toggle-track-viewed-produ
 import * as forgotPasswordResources from './forgot-password';
 import * as resetPasswordResources from './reset-password';
 import * as registerResources from './register';
+import * as confirmEmailResources from './confirm-email';
 import * as retryConfirmEmailResources from './retry-confirm-email';
 
 export const authn = async () =>
@@ -64,6 +65,13 @@ export const resetPassword = async (req: resetPasswordResources.Request) =>
 
 export const register = async (req: registerResources.Request) =>
 	await axios.post(registerResources.url(), req);
+
+export const confirmEmail = async (req: confirmEmailResources.Request) =>
+	await axios.post(
+		confirmEmailResources.url(),
+		req,
+		config({ idempotencyKey: req.idempotencyKey }),
+	);
 
 export const retryConfirmEmail = async (
 	req: retryConfirmEmailResources.Request,

@@ -20,12 +20,14 @@ import { Route as PublicAccountRouteImport } from './routes/_public/account'
 import { Route as GuestResetPasswordRouteImport } from './routes/_guest/reset-password'
 import { Route as GuestLoginRouteImport } from './routes/_guest/login'
 import { Route as GuestForgotPasswordRouteImport } from './routes/_guest/forgot-password'
+import { Route as GuestConfirmEmailRouteImport } from './routes/_guest/confirm-email'
 import { Route as privateCustomerRouteImport } from './routes/(private)/_customer'
 import { Route as privateCreatorRouteImport } from './routes/(private)/_creator'
 import { Route as PublicGalleryIndexRouteImport } from './routes/_public/gallery/index'
 import { Route as GuestRegisterIndexRouteImport } from './routes/_guest/register/index'
 import { Route as PublicGalleryIdRouteImport } from './routes/_public/gallery/$id'
 import { Route as PublicEditorIdRouteImport } from './routes/_public/editor.$id'
+import { Route as GuestRetryConfirmEmailUsernameRouteImport } from './routes/_guest/retry-confirm-email.$username'
 import { Route as GuestRegisterRoleRouteImport } from './routes/_guest/register/$role'
 import { Route as privateCreatorUploadProductRouteImport } from './routes/(private)/_creator/upload-product'
 import { Route as privateCustomerCartsIndexRouteImport } from './routes/(private)/_customer/carts/index'
@@ -83,6 +85,11 @@ const GuestForgotPasswordRoute = GuestForgotPasswordRouteImport.update({
   path: '/forgot-password',
   getParentRoute: () => GuestRoute,
 } as any)
+const GuestConfirmEmailRoute = GuestConfirmEmailRouteImport.update({
+  id: '/confirm-email',
+  path: '/confirm-email',
+  getParentRoute: () => GuestRoute,
+} as any)
 const privateCustomerRoute = privateCustomerRouteImport.update({
   id: '/_customer',
   getParentRoute: () => privateRoute,
@@ -111,6 +118,12 @@ const PublicEditorIdRoute = PublicEditorIdRouteImport.update({
   path: '/editor/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GuestRetryConfirmEmailUsernameRoute =
+  GuestRetryConfirmEmailUsernameRouteImport.update({
+    id: '/retry-confirm-email/$username',
+    path: '/retry-confirm-email/$username',
+    getParentRoute: () => GuestRoute,
+  } as any)
 const GuestRegisterRoleRoute = GuestRegisterRoleRouteImport.update({
   id: '/register/$role',
   path: '/register/$role',
@@ -149,6 +162,7 @@ const privateCustomerCartsIdProductIdRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof PublicIndexRoute
+  '/confirm-email': typeof GuestConfirmEmailRoute
   '/forgot-password': typeof GuestForgotPasswordRoute
   '/login': typeof GuestLoginRoute
   '/reset-password': typeof GuestResetPasswordRoute
@@ -158,6 +172,7 @@ export interface FileRoutesByFullPath {
   '/services-info': typeof PublicServicesInfoRoute
   '/upload-product': typeof privateCreatorUploadProductRoute
   '/register/$role': typeof GuestRegisterRoleRoute
+  '/retry-confirm-email/$username': typeof GuestRetryConfirmEmailUsernameRoute
   '/editor/$id': typeof PublicEditorIdRoute
   '/gallery/$id': typeof PublicGalleryIdRoute
   '/register': typeof GuestRegisterIndexRoute
@@ -169,6 +184,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof PublicIndexRoute
+  '/confirm-email': typeof GuestConfirmEmailRoute
   '/forgot-password': typeof GuestForgotPasswordRoute
   '/login': typeof GuestLoginRoute
   '/reset-password': typeof GuestResetPasswordRoute
@@ -178,6 +194,7 @@ export interface FileRoutesByTo {
   '/services-info': typeof PublicServicesInfoRoute
   '/upload-product': typeof privateCreatorUploadProductRoute
   '/register/$role': typeof GuestRegisterRoleRoute
+  '/retry-confirm-email/$username': typeof GuestRetryConfirmEmailUsernameRoute
   '/editor/$id': typeof PublicEditorIdRoute
   '/gallery/$id': typeof PublicGalleryIdRoute
   '/register': typeof GuestRegisterIndexRoute
@@ -193,6 +210,7 @@ export interface FileRoutesById {
   '/(private)': typeof privateRouteWithChildren
   '/(private)/_creator': typeof privateCreatorRouteWithChildren
   '/(private)/_customer': typeof privateCustomerRouteWithChildren
+  '/_guest/confirm-email': typeof GuestConfirmEmailRoute
   '/_guest/forgot-password': typeof GuestForgotPasswordRoute
   '/_guest/login': typeof GuestLoginRoute
   '/_guest/reset-password': typeof GuestResetPasswordRoute
@@ -203,6 +221,7 @@ export interface FileRoutesById {
   '/_public/': typeof PublicIndexRoute
   '/(private)/_creator/upload-product': typeof privateCreatorUploadProductRoute
   '/_guest/register/$role': typeof GuestRegisterRoleRoute
+  '/_guest/retry-confirm-email/$username': typeof GuestRetryConfirmEmailUsernameRoute
   '/_public/editor/$id': typeof PublicEditorIdRoute
   '/_public/gallery/$id': typeof PublicGalleryIdRoute
   '/_guest/register/': typeof GuestRegisterIndexRoute
@@ -216,6 +235,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/confirm-email'
     | '/forgot-password'
     | '/login'
     | '/reset-password'
@@ -225,6 +245,7 @@ export interface FileRouteTypes {
     | '/services-info'
     | '/upload-product'
     | '/register/$role'
+    | '/retry-confirm-email/$username'
     | '/editor/$id'
     | '/gallery/$id'
     | '/register'
@@ -236,6 +257,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/confirm-email'
     | '/forgot-password'
     | '/login'
     | '/reset-password'
@@ -245,6 +267,7 @@ export interface FileRouteTypes {
     | '/services-info'
     | '/upload-product'
     | '/register/$role'
+    | '/retry-confirm-email/$username'
     | '/editor/$id'
     | '/gallery/$id'
     | '/register'
@@ -259,6 +282,7 @@ export interface FileRouteTypes {
     | '/(private)'
     | '/(private)/_creator'
     | '/(private)/_customer'
+    | '/_guest/confirm-email'
     | '/_guest/forgot-password'
     | '/_guest/login'
     | '/_guest/reset-password'
@@ -269,6 +293,7 @@ export interface FileRouteTypes {
     | '/_public/'
     | '/(private)/_creator/upload-product'
     | '/_guest/register/$role'
+    | '/_guest/retry-confirm-email/$username'
     | '/_public/editor/$id'
     | '/_public/gallery/$id'
     | '/_guest/register/'
@@ -364,6 +389,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GuestForgotPasswordRouteImport
       parentRoute: typeof GuestRoute
     }
+    '/_guest/confirm-email': {
+      id: '/_guest/confirm-email'
+      path: '/confirm-email'
+      fullPath: '/confirm-email'
+      preLoaderRoute: typeof GuestConfirmEmailRouteImport
+      parentRoute: typeof GuestRoute
+    }
     '/(private)/_customer': {
       id: '/(private)/_customer'
       path: ''
@@ -405,6 +437,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/editor/$id'
       preLoaderRoute: typeof PublicEditorIdRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_guest/retry-confirm-email/$username': {
+      id: '/_guest/retry-confirm-email/$username'
+      path: '/retry-confirm-email/$username'
+      fullPath: '/retry-confirm-email/$username'
+      preLoaderRoute: typeof GuestRetryConfirmEmailUsernameRouteImport
+      parentRoute: typeof GuestRoute
     }
     '/_guest/register/$role': {
       id: '/_guest/register/$role'
@@ -452,18 +491,22 @@ declare module '@tanstack/react-router' {
 }
 
 interface GuestRouteChildren {
+  GuestConfirmEmailRoute: typeof GuestConfirmEmailRoute
   GuestForgotPasswordRoute: typeof GuestForgotPasswordRoute
   GuestLoginRoute: typeof GuestLoginRoute
   GuestResetPasswordRoute: typeof GuestResetPasswordRoute
   GuestRegisterRoleRoute: typeof GuestRegisterRoleRoute
+  GuestRetryConfirmEmailUsernameRoute: typeof GuestRetryConfirmEmailUsernameRoute
   GuestRegisterIndexRoute: typeof GuestRegisterIndexRoute
 }
 
 const GuestRouteChildren: GuestRouteChildren = {
+  GuestConfirmEmailRoute: GuestConfirmEmailRoute,
   GuestForgotPasswordRoute: GuestForgotPasswordRoute,
   GuestLoginRoute: GuestLoginRoute,
   GuestResetPasswordRoute: GuestResetPasswordRoute,
   GuestRegisterRoleRoute: GuestRegisterRoleRoute,
+  GuestRetryConfirmEmailUsernameRoute: GuestRetryConfirmEmailUsernameRoute,
   GuestRegisterIndexRoute: GuestRegisterIndexRoute,
 }
 

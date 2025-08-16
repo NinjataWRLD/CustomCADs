@@ -26,7 +26,7 @@ export const useForm = (role: 'Customer' | 'Contributor') => {
 	const schema = useValidation();
 	useSyncCarts();
 
-	const { mutateAsync: register } = useRegister();
+	const { isSuccess, mutateAsync: register } = useRegister();
 	const form = useTanStackForm({
 		defaultValues: defaultValues,
 		onSubmit: async ({ value }) => {
@@ -47,5 +47,6 @@ export const useForm = (role: 'Customer' | 'Contributor') => {
 	return {
 		form,
 		handleSubmit,
+		isSuccess,
 	};
 };

@@ -9,6 +9,12 @@ export const usePickRoleTranslation = () =>
 export const useRegisterTranslation = () =>
 	useTranslation(`${NAMESPACE}.${SUB_NAMESPACE}.register`).t;
 
+export const useConfirmEmailTranslation = () =>
+	useTranslation(`${NAMESPACE}.${SUB_NAMESPACE}.confirm-email`).t;
+
+export const useRetryConfirmEmailTranslation = () =>
+	useTranslation(`${NAMESPACE}.${SUB_NAMESPACE}.retry-confirm-email`).t;
+
 export const useLoginTranslation = () =>
 	useTranslation(`${NAMESPACE}.${SUB_NAMESPACE}.login`).t;
 

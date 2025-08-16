@@ -10,7 +10,7 @@ import { useFields } from './hooks/useFields';
 
 const Register = () => {
 	const { role } = Route.useParams();
-	const { handleSubmit, fields } = useFields(
+	const { handleSubmit, fields, username, isSuccess } = useFields(
 		role === 'customer' ? 'Customer' : 'Contributor',
 	);
 
@@ -84,6 +84,20 @@ const Register = () => {
 						<Button type='submit' text={tRegister('btn')} />
 					</div>
 
+					{isSuccess && tRegister('email-sent')}
+					{username && (
+						<p>
+							{tRegister('resend-message')}
+							<Link
+								to='/retry-confirm-email/$username'
+								params={{ username: username }}
+								className='text-purple-300/80 relative hover:text-purple-300 transition-colors duration-200'
+							>
+								{' '}
+								{tRegister('resend')}{' '}
+							</Link>
+						</p>
+					)}
 					<p>
 						{tRegister('login-message')}
 						<Link

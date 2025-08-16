@@ -5,6 +5,7 @@ import { Request as ForgotPassword } from '@/api/identity/identity/forgot-passwo
 import { Request as ResetPassword } from '@/api/identity/identity/reset-password';
 import { Request as ChangeUsername } from '@/api/identity/identity/change-username';
 import { Request as Register } from '@/api/identity/identity/register';
+import { Request as ConfirmEmail } from '@/api/identity/identity/confirm-email';
 import { Request as RetryConfirmEmail } from '@/api/identity/identity/retry-confirm-email';
 import * as api from '@/api/identity/identity';
 
@@ -20,6 +21,7 @@ export const keys = {
 	forgotPassword: () => [...keys.base, 'forgot-password'] as const,
 	resetPassword: () => [...keys.base, 'reset-password'] as const,
 	register: () => [...keys.base, 'register'] as const,
+	confirmEmail: () => [...keys.base, 'confirm-email'] as const,
 	retryConfirmEmail: () => [...keys.base, 'retry-confirm-email'] as const,
 };
 
@@ -79,6 +81,13 @@ export const useRegister = () =>
 		mutationKey: keys.register(),
 		mutationFn: async (params: Register) =>
 			(await api.register(params)).data,
+	});
+
+export const useConfirmEmail = () =>
+	useMutation({
+		mutationKey: keys.confirmEmail(),
+		mutationFn: async (params: ConfirmEmail) =>
+			(await api.confirmEmail(params)).data,
 	});
 
 export const useRetryConfirmEmail = () =>
