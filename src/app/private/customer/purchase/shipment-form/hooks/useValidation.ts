@@ -9,7 +9,7 @@ export const useValidation = () => {
 	const tErrors = useErrorsTranslation();
 	const tLabels = useLabelsTranslation();
 
-	const { email, phone } = validations;
+	const { email } = validations;
 	const countryArgs = {
 		field: tLabels('country'),
 	};
@@ -28,7 +28,6 @@ export const useValidation = () => {
 	};
 	const phoneArgs = {
 		field: tLabels('phone'),
-		regex: phone.regex,
 	};
 	const countArgs = {
 		field: tLabels('count'),
@@ -51,10 +50,7 @@ export const useValidation = () => {
 			.string()
 			.nonempty({ message: tErrors('required', emailArgs) })
 			.regex(email.regex, { message: tErrors('pattern', emailArgs) }),
-		phone: z
-			.string()
-			.nonempty({ message: tErrors('required', phoneArgs) })
-			.regex(phone.regex, { message: tErrors('pattern', phoneArgs) }),
+		phone: z.string().nonempty({ message: tErrors('required', phoneArgs) }),
 		count: z.number().min(1, { message: tErrors('range', countArgs) }),
 	});
 

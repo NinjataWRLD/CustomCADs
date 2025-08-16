@@ -2,12 +2,7 @@ import { useState } from 'react';
 import { AnyFieldApi } from '@tanstack/react-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import Field from '..';
-
-export const getErrorClass = (hasError: boolean) =>
-	hasError
-		? 'border border-red-500 bg-red-100 text-black'
-		: 'border border-gray-300';
+import Field, { getErrorClass } from '..';
 
 type PasswordFieldProps = {
 	api: AnyFieldApi;

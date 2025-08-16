@@ -33,6 +33,7 @@
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-i18next": "^15.6.1",
+    "react-phone-number-input": "^3.4.12",
     "three": "^0.179.1",
     "uuid": "^11.1.0",
     "zod": "^4.0.14"
