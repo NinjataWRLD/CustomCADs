@@ -5,53 +5,51 @@ import CartThreeJS from './threejs';
 import { useTextures } from '@/hooks/threejs/useTextures';
 import Loader from '@/app/components/state/loading';
 
-type CartCadProps = {
-	id: string;
-	productId: string;
-	customization?: {
-		materialId: number;
-		color?: string;
-	};
-	forDelivery: boolean;
-};
-const CartCad = ({
-	id,
-	productId,
-	customization,
-	forDelivery,
-}: CartCadProps) => {
-	const { data: cadInfo } = useDownloadPurchasedCartItemCad({
-		id,
-		productId,
-	});
+type Customization = { materialId: number; color?: string };
+type CartCadProps = { id: string; productId: string } & (
+	| { forDelivery: true; customization: Customization }
+	| { forDelivery: false }
+);
+
+const CartCad = (props: CartCadProps) => {
+	const { data: cadInfo } = useDownloadPurchasedCartItemCad(props);
 	const cad = useGenerateBlobUrl(cadInfo);
+	const textureBlobUrls = useTextures(props.forDelivery);
 
-	const textureBlobUrls = useTextures(forDelivery);
+	const determineThreeJS = () => {
+		if (!cadInfo || !cad.blobUrl) {
+			return <Loader progress={cad.progress} />;
+		}
 
-	let threeJsCustomization;
-	if (customization)
-		threeJsCustomization = {
-			texture: textureBlobUrls[customization.materialId]?.blobUrl,
-			color: customization.color,
+		const file = {
+			url: cad.blobUrl,
+			type: getCadType(cadInfo.contentType),
 		};
-
-	return (
-		<div className='relative h-full w-full'>
-			{!cadInfo || !cad.blobUrl ? (
-				<Loader progress={cad.progress} />
-			) : (
+		if (!props.forDelivery) {
+			return (
 				<CartThreeJS
-					customization={threeJsCustomization}
-					file={{
-						url: cad.blobUrl,
-						type: getCadType(cadInfo.contentType),
-					}}
+					file={file}
 					cam={cadInfo.camCoordinates}
 					pan={cadInfo.panCoordinates}
 				/>
-			)}
-		</div>
-	);
+			);
+		}
+
+		const customization = {
+			texture: textureBlobUrls[props.customization.materialId]?.blobUrl,
+			color: props.customization.color,
+		};
+		return (
+			<CartThreeJS
+				customization={customization}
+				file={file}
+				cam={cadInfo.camCoordinates}
+				pan={cadInfo.panCoordinates}
+			/>
+		);
+	};
+
+	return <div className='relative h-full w-full'>{determineThreeJS()}</div>;
 };
 
 export default CartCad;

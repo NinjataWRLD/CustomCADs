@@ -133,13 +133,22 @@ const PurchasedCartItem = () => {
 						</div>
 
 						<div className='relative h-96 bg-slate-200 rounded-lg border-2 border-dashed border-purple-900 flex items-center justify-center cursor-pointer'>
-							<Cad
-								type='cart'
-								cartId={item.cartId}
-								productId={item.productId}
-								customization={customization}
-								forDelivery={item.forDelivery}
-							/>
+							{item.forDelivery ? (
+								<Cad
+									type='cart'
+									cartId={item.cartId}
+									productId={item.productId}
+									customization={customization!} // an exception is thrown if item is for delivery but customization is null
+									forDelivery={item.forDelivery}
+								/>
+							) : (
+								<Cad
+									type='cart'
+									cartId={item.cartId}
+									productId={item.productId}
+									forDelivery={item.forDelivery}
+								/>
+							)}
 						</div>
 
 						<div className='mt-4 flex justify-center'>
