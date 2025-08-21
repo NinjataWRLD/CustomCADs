@@ -25,21 +25,15 @@ instance.interceptors.request.use(refreshCsrf);
 instance.interceptors.response.use(
 	(response) => response,
 	async (error) => {
-		if (
-			!axios.isAxiosError(error) ||
-			!error.config ||
-			error.config.url === '/identity/refresh'
-		) {
-			return Promise.reject(error);
-		}
+		const isAuthError = () =>
+			axios.isAxiosError(error) && // must be an Axios error
+			error.config?.url !== '/identity/refresh' && // must not be due to lack of refresh token
+			[401, 403].includes(error.response?.status ?? -1); // must be 401 (unauthenticated) or 403 (unauthorized)
 
-		const { response } = error;
-		if (response?.status !== 401 && response?.status !== 403) {
-			return Promise.reject(error);
-		}
+		if (!isAuthError()) return Promise.reject(error);
 
 		try {
-			await refresh({ idempotencyKey: IDEMPOTENCY.NEW_KEY() });
+			await refresh();
 			const { data: role } = await authz();
 			authStore.login(role);
 

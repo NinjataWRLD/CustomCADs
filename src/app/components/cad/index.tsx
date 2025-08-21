@@ -5,17 +5,19 @@ import CreatorCad from './creator';
 import EditorCad from './editor';
 import CartCad from './cart';
 
+type GalleryCadProps = { type: 'gallery'; product: Product };
+type CreatorCadProps = { type: 'creator'; product: Product };
+type EditorCadProps = { type: 'editor'; id: string };
+type CartCadProps = { type: 'cart'; cartId: string; productId: string } & (
+	| { forDelivery: false }
+	| { forDelivery: true; customization: Customization }
+);
+
 type CadProps =
-	| { type: 'gallery'; product: Product }
-	| { type: 'creator'; product: Product }
-	| { type: 'editor'; id: string }
-	| {
-			type: 'cart';
-			cartId: string;
-			productId: string;
-			customization?: Customization;
-			forDelivery: boolean;
-	  };
+	| GalleryCadProps
+	| CreatorCadProps
+	| EditorCadProps
+	| CartCadProps;
 
 const Cad = (props: CadProps) => {
 	switch (props.type) {
@@ -26,11 +28,17 @@ const Cad = (props: CadProps) => {
 		case 'editor':
 			return <EditorCad id={props.id} />;
 		case 'cart':
-			return (
+			return props.forDelivery ? (
 				<CartCad
 					id={props.cartId}
 					productId={props.productId}
+					forDelivery={props.forDelivery}
 					customization={props.customization}
+				/>
+			) : (
+				<CartCad
+					id={props.cartId}
+					productId={props.productId}
 					forDelivery={props.forDelivery}
 				/>
 			);

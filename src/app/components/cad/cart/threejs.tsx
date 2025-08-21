@@ -1,7 +1,6 @@
 import * as THREE from 'three';
 import { Coordinates } from '@/api/catalog/common';
 import { useThreeJS } from '@/hooks/threejs/useThreeJS';
-import Loader from '@/app/components/state/loading';
 import Model from '../model';
 
 type ThreeJSProps = {
@@ -13,7 +12,7 @@ type ThreeJSProps = {
 
 const CartThreeJS = ({ customization, file, cam, pan }: ThreeJSProps) => {
 	const threejs = useThreeJS(file.url, file.type, { cam, pan }, (cad) => {
-		if (!customization) return <Loader />;
+		if (!customization) return;
 
 		cad.traverse((child) => {
 			if (child instanceof THREE.Mesh) {

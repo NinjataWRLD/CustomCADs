@@ -23,7 +23,7 @@ const EditorCad = ({ id }: EditorCadProps) => {
 
 	const textureBlobUrls = useTextures(true);
 	if (!product || !cadInfo || !cad.blobUrl || !textureBlobUrls[materialId]) {
-		return <Loader />;
+		return <Loader progress={cad.progress} />;
 	}
 	const { camCoordinates: cam, panCoordinates: pan } = product;
 

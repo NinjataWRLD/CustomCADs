@@ -24,7 +24,7 @@ export const useCartInit = (): CartState => {
 
 	useEffect(() => {
 		if (is.guest) {
-			localStorage.setItem('cart', JSON.stringify(items));
+			localStorage.setItem('cart', JSON.stringify(items ?? []));
 		}
 	}, [items]);
 

@@ -1,6 +1,5 @@
 import { useMyAccountTranslation } from '@/hooks/locales/pages/public';
 import { useForgotPassword } from '@/hooks/mutations/identity';
-import { useIdempotencyKeys } from '@/hooks/useIdempotencyKeys';
 
 type SecurityProps = {
 	email: string;
@@ -8,15 +7,8 @@ type SecurityProps = {
 const Security = ({ email }: SecurityProps) => {
 	const tMyAccount = useMyAccountTranslation();
 
-	const { idempotencyKeys } = useIdempotencyKeys(['email'] as const);
 	const { mutateAsync, isSuccess } = useForgotPassword();
-
-	const sendEmail = async () => {
-		await mutateAsync({
-			email: email,
-			idempotencyKey: idempotencyKeys.email,
-		});
-	};
+	const sendEmail = async () => await mutateAsync({ email });
 
 	return (
 		<div className='flex flex-col gap-[20px]'>

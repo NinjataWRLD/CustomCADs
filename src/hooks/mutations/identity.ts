@@ -1,6 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
 import { Request as Login } from '@/api/identity/identity/login';
-import { Request as Refresh } from '@/api/identity/identity/refresh';
 import { Request as ForgotPassword } from '@/api/identity/identity/forgot-password';
 import { Request as ResetPassword } from '@/api/identity/identity/reset-password';
 import { Request as ChangeUsername } from '@/api/identity/identity/change-username';
@@ -40,7 +39,7 @@ export const useLogout = () =>
 export const useRefresh = () =>
 	useMutation({
 		mutationKey: keys.refresh(),
-		mutationFn: async (params: Refresh) => (await api.refresh(params)).data,
+		mutationFn: async () => (await api.refresh()).data,
 	});
 
 export const useChangeUsername = () =>

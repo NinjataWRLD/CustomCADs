@@ -39,16 +39,16 @@ export const useValidation = () => {
 			.min(name.min, tErrors('length', usernameArgs)),
 		firstName: z
 			.string()
-			.nonempty({ message: tErrors('required', firstNameArgs) })
 			.max(name.max, tErrors('length', firstNameArgs))
 			.min(name.min, tErrors('length', firstNameArgs))
-			.optional(),
+			.optional()
+			.or(z.literal('')),
 		lastName: z
 			.string()
-			.nonempty({ message: tErrors('required', lastNameArgs) })
 			.max(name.max, tErrors('length', lastNameArgs))
 			.min(name.min, tErrors('length', lastNameArgs))
-			.optional(),
+			.optional()
+			.or(z.literal('')),
 		email: z
 			.string()
 			.nonempty({ message: tErrors('required', emailArgs) })

@@ -2,23 +2,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { Route } from '@/routes/_guest/retry-confirm-email.$username';
 import { useRetryConfirmEmail } from '@/hooks/mutations/identity';
-import { useIdempotencyKeys } from '@/hooks/useIdempotencyKeys';
 import { useRetryConfirmEmailTranslation } from '@/hooks/locales/pages/guest';
 import Transition from '@/app/components/transition';
 import StatusMessage from '@/app/components/state/status-message';
 
 const RetryConfirmEmail = () => {
-	const { idempotencyKeys } = useIdempotencyKeys(['retry'] as const);
-
 	const { username } = Route.useParams();
 	const { mutateAsync: retryConfirmEmail, ...req } = useRetryConfirmEmail();
 
 	const tRetryConfirmEmail = useRetryConfirmEmailTranslation();
 	const handleClick = async () => {
-		await retryConfirmEmail({
-			idempotencyKey: idempotencyKeys.retry,
-			username: username,
-		});
+		await retryConfirmEmail({ username });
 	};
 
 	return (
