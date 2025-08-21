@@ -4,16 +4,11 @@ import * as authStore from '@/stores/auth-store';
 import { Route } from '@/routes/_guest/confirm-email';
 import { authz } from '@/api/identity/identity';
 import { useConfirmEmail, useRefresh } from '@/hooks/mutations/identity';
-import { useIdempotencyKeys } from '@/hooks/useIdempotencyKeys';
 import { useConfirmEmailTranslation } from '@/hooks/locales/pages/guest';
 import Transition from '@/app/components/transition';
 import StatusMessage from '@/app/components/state/status-message';
 
 const ConfirmEmail = () => {
-	const { idempotencyKeys } = useIdempotencyKeys([
-		'confirm',
-		'refresh',
-	] as const);
 	const { username, token } = Route.useSearch();
 
 	const { mutateAsync: confirmEmail, ...req } = useConfirmEmail();
@@ -21,12 +16,8 @@ const ConfirmEmail = () => {
 
 	const tConfirmEmail = useConfirmEmailTranslation();
 	const handleClick = async () => {
-		await confirmEmail({
-			idempotencyKey: idempotencyKeys.confirm,
-			token,
-			username,
-		});
-		await refresh({ idempotencyKey: idempotencyKeys.refresh });
+		await confirmEmail({ token, username });
+		await refresh();
 
 		const { data: role } = await authz();
 		authStore.login(role);

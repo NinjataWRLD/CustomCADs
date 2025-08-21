@@ -3,7 +3,6 @@ import { useForm as useTanStackForm } from '@tanstack/react-form';
 import { useForgotPassword } from '@/hooks/mutations/identity';
 import { useForceLocaleRefresh } from '@/hooks/locales/useForceLocaleRefresh';
 import { useValidation } from './useValidation';
-import { useIdempotencyKeys } from '@/hooks/useIdempotencyKeys';
 
 type Fields = {
 	email: string;
@@ -16,7 +15,6 @@ export const useForm = () => {
 	const [email, setEmail] = useState('');
 	const schema = useValidation();
 
-	const { idempotencyKeys } = useIdempotencyKeys(['email'] as const);
 	const { mutateAsync } = useForgotPassword();
 
 	const form = useTanStackForm({
@@ -38,11 +36,7 @@ export const useForm = () => {
 
 	return {
 		form,
-		sendEmail: async () =>
-			await mutateAsync({
-				email: email,
-				idempotencyKey: idempotencyKeys.email,
-			}),
+		sendEmail: async () => await mutateAsync({ email }),
 		handleSubmit,
 	};
 };
