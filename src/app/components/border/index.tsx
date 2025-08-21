@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 
 type BorderProps = {
-	isAvailable: boolean;
+	isAvailable?: boolean;
 };
 
 const Border = ({ isAvailable = true }: BorderProps) => {
