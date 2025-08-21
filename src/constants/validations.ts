@@ -4,7 +4,7 @@ export const shipment = {
 	email: {
 		regex: EMAIL_REGEX,
 	},
-};
+} as const;
 
 export const product = {
 	name: {
@@ -19,7 +19,7 @@ export const product = {
 		max: 1_000_000,
 		min: 0.00_000_1,
 	},
-};
+} as const;
 
 export const user = {
 	name: {
@@ -33,4 +33,4 @@ export const user = {
 	email: {
 		regex: EMAIL_REGEX,
 	},
-};
+} as const;

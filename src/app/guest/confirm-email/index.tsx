@@ -1,12 +1,13 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import * as authStore from '@/stores/auth-store';
 import { Route } from '@/routes/_guest/confirm-email';
 import { authz } from '@/api/identity/identity';
 import { useConfirmEmail, useRefresh } from '@/hooks/mutations/identity';
 import { useIdempotencyKeys } from '@/hooks/useIdempotencyKeys';
 import { useConfirmEmailTranslation } from '@/hooks/locales/pages/guest';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import Transition from '@/app/components/transition';
+import StatusMessage from '@/app/components/state/status-message';
 
 const ConfirmEmail = () => {
 	const { idempotencyKeys } = useIdempotencyKeys([
@@ -56,19 +57,16 @@ const ConfirmEmail = () => {
 							{tConfirmEmail('btn')}
 						</button>
 
-						<div className='min-h-[3rem] flex items-center justify-center'>
-							{req.error !== undefined ? (
-								<div className='flex items-center space-x-2 text-red-400 bg-red-500/10 px-4 py-2 rounded-lg border border-red-500/20'>
-									<i className='fas fa-exclamation-triangle text-sm'></i>
-									<span>{tConfirmEmail('error')}</span>
-								</div>
-							) : (
-								<div className='flex items-center space-x-2 text-green-400 bg-green-500/10 px-4 py-2 rounded-lg border border-green-500/20'>
-									<i className='fas fa-check-circle text-sm'></i>
-									<span>{tConfirmEmail('success')}</span>
-								</div>
-							)}
-						</div>
+						<StatusMessage
+							success={{
+								show: req.data !== undefined,
+								message: tConfirmEmail('success'),
+							}}
+							failure={{
+								show: req.error !== null,
+								message: tConfirmEmail('error'),
+							}}
+						/>
 					</div>
 				</div>
 			</div>
