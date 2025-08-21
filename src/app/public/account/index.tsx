@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Route } from '@/routes/_public/account';
 import { useMyAccountTranslation } from '@/hooks/locales/pages/public';
 import Transition from '@/app/components/transition';
@@ -7,13 +7,20 @@ import AboutMe from './about-me';
 import Security from './security';
 import MyData from './my-data';
 
+export const tabs = ['about-me', 'security', 'my-data'] as const;
+type Tab = (typeof tabs)[number];
+
 const Account = () => {
+	const { tab: tabParam } = Route.useSearch();
+	const navigate = Route.useNavigate();
+
 	const { account } = Route.useLoaderData();
 	const tMyAccount = useMyAccountTranslation();
 
-	const [tab, setTab] = useState<'about-me' | 'security' | 'my-data'>(
-		'about-me',
-	);
+	const [tab, setTab] = useState<Tab>(tabParam ?? 'about-me');
+	useEffect(() => {
+		navigate({ to: '.', search: { tab: tab } });
+	}, [tab]);
 
 	const renderSection = () => {
 		switch (tab) {

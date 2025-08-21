@@ -5,12 +5,12 @@ import {
 	IconDefinition,
 } from '@fortawesome/free-solid-svg-icons';
 
-interface ButtonProps {
+type ButtonProps = {
 	direction: 'prev' | 'next';
 	duplicate?: boolean;
 	disabled?: boolean;
 	handleClick: VoidFunction;
-}
+};
 
 const Button = ({
 	direction,

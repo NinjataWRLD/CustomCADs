@@ -1,13 +1,13 @@
 import { useMyAccountTranslation } from '@/hooks/locales/pages/public';
 import Row from './row';
 
-interface AboutMeProps {
+type AboutMeProps = {
 	username: string;
 	firstName?: string;
 	lastName?: string;
 	role: string;
 	createdAt: string;
-}
+};
 const AboutMe = ({
 	role,
 	username,

@@ -1,13 +1,13 @@
-import { MATERIALS_BASE_PATH } from '@/api/customizations/common';
+import { MATERIALS_BASE_PATH } from '@/api/printing/common';
 import { UploadRequest } from '@/api/common/files';
 
-export interface Request {
+export type Request = {
 	id: number;
 	file: UploadRequest;
-}
+};
 
-export interface Response {
+export type Response = {
 	presignedUrl: string;
-}
+};
 
 export const url = () => `${MATERIALS_BASE_PATH}/presignedUrls/replace`;

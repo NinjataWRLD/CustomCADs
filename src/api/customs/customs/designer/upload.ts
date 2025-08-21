@@ -1,10 +1,10 @@
 import { CUSTOMS_DESIGNER_BASE_PATH } from '@/api/customs/common';
 import { UploadRequest, UploadResponse } from '@/api/common/files';
 
-export interface Request {
+export type Request = {
 	id: string;
 	cad: UploadRequest;
-}
+};
 
 export type Response = UploadResponse;
 

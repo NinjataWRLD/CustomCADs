@@ -1,9 +1,9 @@
 import { ReactNode } from 'react';
 import { motion } from 'framer-motion';
 
-interface AnimatedProps {
+type AnimatedProps = {
 	children: ReactNode;
-}
+};
 
 const animations = {
 	initial: { opacity: 0, clipPath: 'inset(50% 0 50% 0)' },

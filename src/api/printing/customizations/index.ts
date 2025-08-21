@@ -1,9 +1,8 @@
 import { axios, config } from '@/api/axios';
-import { CustomizationResponse } from '@/api/customizations/common';
+import { CustomizationResponse } from '@/api/printing/common';
 import * as singleResources from './single';
 import * as createResources from './create';
 import * as editResources from './edit';
-import * as deleteResources from './delete';
 
 export const create = (req: createResources.Request) =>
 	axios.post<CustomizationResponse>(
@@ -17,6 +16,3 @@ export const single = (req: singleResources.Request) =>
 
 export const edit = (req: editResources.Request) =>
 	axios.put(editResources.url(), req);
-
-export const delete_ = (req: deleteResources.Request) =>
-	axios.delete(deleteResources.url(), config({ data: req }));

@@ -1,9 +1,9 @@
-interface ButtonProps {
+type ButtonProps = {
 	type: 'button' | 'submit';
 	text: string;
 	disabled?: boolean;
 	onClick?: (event: React.MouseEvent<HTMLElement>) => void;
-}
+};
 
 const Button = ({ text, type, disabled, onClick }: ButtonProps) => {
 	switch (type) {

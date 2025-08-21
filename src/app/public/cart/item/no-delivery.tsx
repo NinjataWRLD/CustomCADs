@@ -15,11 +15,11 @@ import Loader from '@/app/components/state/loading';
 import { CartItemWithoutDelivery as Item } from '@/types/cart-item';
 import * as money from '@/utils/money';
 
-interface CartItemProps {
+type CartItemProps = {
 	item: Item;
 	resetPrice: VoidFunction;
 	addToPrice: (price: number) => void;
-}
+};
 
 const CartItemWithoutDelivery = ({
 	item,

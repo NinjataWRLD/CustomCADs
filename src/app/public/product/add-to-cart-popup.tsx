@@ -5,12 +5,12 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { useProductTranslation } from '@/hooks/locales/pages/public';
 import { useCartUpdates } from '@/hooks/contexts/useCartUpdates';
 
-interface AddDetailsProps {
+type AddDetailsProps = {
 	id: string;
 	show: boolean;
 	setShow: Dispatch<SetStateAction<boolean>>;
 	flashMessage: VoidFunction;
-}
+};
 
 const AddToCartPopup = ({
 	id,

@@ -7,14 +7,14 @@ import { useValidation } from './useValidation';
 import { uploadFiles } from '@/utils/uploader';
 import { useCreator } from './useCreator';
 
-interface Fields {
+type Fields = {
 	name: string;
 	description: string;
 	categoryId: number;
 	price: number;
 	image: File | null;
 	cad: File | null;
-}
+};
 const defaultValues: Fields = {
 	name: '',
 	description: '',

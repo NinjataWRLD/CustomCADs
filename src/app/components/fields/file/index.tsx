@@ -2,12 +2,12 @@ import { ChangeEvent } from 'react';
 import { AnyFieldApi } from '@tanstack/react-form';
 import Field, { getErrorClass } from '..';
 
-interface FileFieldProps {
+type FileFieldProps = {
 	api: AnyFieldApi;
 	label: string;
 	accept: string;
 	onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
-}
+};
 
 const FileField = ({ api, label, accept, onChange }: FileFieldProps) => {
 	const { isBlurred, isTouched, errors } = api.state.meta;

@@ -1,10 +1,10 @@
 import { useEffect, useRef } from 'react';
 
-interface SheetProps {
+type SheetProps = {
 	title: string;
 	icon: string;
 	details: string;
-}
+};
 
 const Sheet = ({ title, icon, details }: SheetProps) => {
 	const borderRef = useRef<HTMLDivElement>(null);

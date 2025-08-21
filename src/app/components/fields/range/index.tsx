@@ -1,6 +1,6 @@
 import { ChangeEvent } from 'react';
 
-interface RangeFieldProps {
+type RangeFieldProps = {
 	id: string;
 	label: string;
 	min: number;
@@ -10,7 +10,7 @@ interface RangeFieldProps {
 	text?: string;
 	onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 	style?: string;
-}
+};
 
 const RangeField = ({
 	id,

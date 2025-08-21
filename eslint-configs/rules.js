@@ -85,6 +85,7 @@ export const javascriptRules = {
 export const typescriptRules = {
 	'@typescript-eslint/default-param-last': 'warn',
 	'@typescript-eslint/consistent-indexed-object-style': 'warn',
+	'@typescript-eslint/consistent-type-definitions': ['warn', 'type'],
 	'@typescript-eslint/no-empty-object-type': 'warn',
 	'@typescript-eslint/no-explicit-any': 'warn',
 	'@typescript-eslint/no-unused-vars': 'warn',

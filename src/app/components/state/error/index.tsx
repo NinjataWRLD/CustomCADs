@@ -4,10 +4,10 @@ import Transition from '../../transition';
 import { useErrorTranslation } from '@/hooks/locales/common/state';
 import { AppErrorFields } from '@/types/errors';
 
-interface ErrorPageProps {
+type ErrorPageProps = {
 	status: 400 | 401 | 403 | 404 | null;
 	error?: AppErrorFields;
-}
+};
 
 const ErrorPage = ({ status, error }: ErrorPageProps) => {
 	const tError = useErrorTranslation();

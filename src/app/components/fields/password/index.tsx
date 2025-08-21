@@ -2,18 +2,13 @@ import { useState } from 'react';
 import { AnyFieldApi } from '@tanstack/react-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import Field from '..';
+import Field, { getErrorClass } from '..';
 
-export const getErrorClass = (hasError: boolean) =>
-	hasError
-		? 'border border-red-500 bg-red-100 text-black'
-		: 'border border-gray-300';
-
-interface PasswordFieldProps {
+type PasswordFieldProps = {
 	api: AnyFieldApi;
 	label: string;
 	placeholder: string;
-}
+};
 
 const PasswordField = ({ api, label, placeholder }: PasswordFieldProps) => {
 	const [isVisible, setIsVisible] = useState(false);
@@ -23,11 +18,11 @@ const PasswordField = ({ api, label, placeholder }: PasswordFieldProps) => {
 	const showError = isBlurred && isTouched;
 	const hasError = !!errors.length;
 
-	const inputClass = `w-full p-2.5 
-						${showError && hasError ? 'text-black bg-red-100' : 'text-white bg-black'} 
-						border-2 rounded-[10px] outline-none 
-					    transition-colors duration-300 
-						focus:border-purple-500 focus:shadow-white/60 
+	const inputClass = `w-full p-2.5
+						${showError && hasError ? 'text-black bg-red-100' : 'text-white bg-black'}
+						border-2 rounded-[10px] outline-none
+					    transition-colors duration-300
+						focus:border-purple-500 focus:shadow-white/60
 						font-['Ubuntu'] text-base border-gray-500
 						focus:outline-none focus:ring focus:ring-purple-300`;
 

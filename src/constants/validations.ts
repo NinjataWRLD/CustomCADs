@@ -1,14 +1,10 @@
-const PHONE_REGEX = /^\+?[1-9]\d{1,14}$/;
 const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 export const shipment = {
-	phone: {
-		regex: PHONE_REGEX,
-	},
 	email: {
 		regex: EMAIL_REGEX,
 	},
-};
+} as const;
 
 export const product = {
 	name: {
@@ -23,7 +19,7 @@ export const product = {
 		max: 1_000_000,
 		min: 0.00_000_1,
 	},
-};
+} as const;
 
 export const user = {
 	name: {
@@ -37,4 +33,4 @@ export const user = {
 	email: {
 		regex: EMAIL_REGEX,
 	},
-};
+} as const;

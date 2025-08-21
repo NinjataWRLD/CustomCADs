@@ -1,9 +1,9 @@
 import { GALLERY_BASE_PATH } from '@/api/catalog/common';
 import { DownloadResponse } from '@/api/common/files';
 
-export interface Request {
+export type Request = {
 	id: string;
-}
+};
 
 export type Response = DownloadResponse;
 

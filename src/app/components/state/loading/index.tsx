@@ -1,13 +1,49 @@
-import ProgressBar from '../../progress-bar';
-
 const Loader = ({ progress }: { progress?: number }) => {
 	return (
-		<>
-			<div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[99] bg-[linear-gradient(rgb(186,66,255)_35%,rgb(0,225,255))] w-[100px] h-[100px] animate-[spinning_1.7s_linear_infinite] text-center blur-[1px] shadow-[0px_-5px_20px_0px_rgb(186,66,255),0px_5px_20px_0px_rgb(0,225,255)] rounded-[50px]'>
-				<div className='bg-[rgb(36,36,36)] w-[100px] h-[100px] blur-[10px] rounded-[50px]' />
+		<div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[99] flex flex-col items-center'>
+			<span className='mb-9 text-purple-500 text-lg font-semibold'>
+				{progress !== undefined && `${(progress * 100).toFixed(2)}%`}
+			</span>
+
+			<div
+				className='relative w-24 h-24 animate-[cube_2s_infinite_ease]'
+				style={{
+					transformStyle: 'preserve-3d',
+					perspective: '800px',
+					perspectiveOrigin: 'center center',
+				}}
+			>
+				<div
+					className='absolute w-full h-full border-2 border-purple-500 bg-[rgba(128,0,255,0.2)]'
+					style={{ transform: 'translateZ(48px)' }}
+				></div>
+
+				<div
+					className='absolute w-full h-full border-2 border-purple-500 bg-[rgba(128,0,255,0.2)]'
+					style={{ transform: 'rotateY(180deg) translateZ(48px)' }}
+				></div>
+
+				<div
+					className='absolute w-full h-full border-2 border-purple-500 bg-[rgba(128,0,255,0.2)]'
+					style={{ transform: 'rotateY(90deg) translateZ(48px)' }}
+				></div>
+
+				<div
+					className='absolute w-full h-full border-2 border-purple-500 bg-[rgba(128,0,255,0.2)]'
+					style={{ transform: 'rotateY(-90deg) translateZ(48px)' }}
+				></div>
+
+				<div
+					className='absolute w-full h-full border-2 border-purple-500 bg-[rgba(128,0,255,0.2)]'
+					style={{ transform: 'rotateX(90deg) translateZ(48px)' }}
+				></div>
+
+				<div
+					className='absolute w-full h-full border-2 border-purple-500 bg-[rgba(128,0,255,0.2)]'
+					style={{ transform: 'rotateX(-90deg) translateZ(48px)' }}
+				></div>
 			</div>
-			{progress !== undefined && <ProgressBar progress={progress} />}
-		</>
+		</div>
 	);
 };
 

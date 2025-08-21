@@ -1,17 +1,17 @@
-import { Category, Counts, CREATOR_BASE_PATH } from '@/api/catalog/common';
+import { CategoryDto, Counts, CREATOR_BASE_PATH } from '@/api/catalog/common';
 
-export interface Request {
+export type Request = {
 	id: string;
-}
+};
 
-export interface Response {
+export type Response = {
 	id: string;
 	name: string;
 	description: string;
 	price: number;
 	uploadedAt: string;
 	counts: Counts;
-	category: Category;
-}
+	category: CategoryDto;
+};
 
 export const url = (req: Request) => `${CREATOR_BASE_PATH}/${req.id}`;

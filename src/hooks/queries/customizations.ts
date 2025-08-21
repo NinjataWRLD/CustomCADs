@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { Request as Single } from '@/api/customizations/customizations/single';
-import * as api from '@/api/customizations/customizations';
+import { Request as Single } from '@/api/printing/customizations/single';
+import * as api from '@/api/printing/customizations';
 
 export const keys = {
 	base: ['customizations'] as const,

@@ -1,17 +1,17 @@
 import { Ref } from 'react';
-import ProgressBar from '../progress-bar';
+import Loader from '../state/loading';
 
-interface ModelProps {
+type ModelProps = {
 	threejs: {
 		ref: Ref<HTMLDivElement>;
 		progress: number;
 	};
-}
+};
 
 const Model = ({ threejs: { ref, progress } }: ModelProps) => {
 	return (
 		<>
-			{progress < 1 && <ProgressBar progress={progress} />}
+			{progress < 1 && <Loader progress={progress} />}
 			<div ref={ref} className='h-full w-full' />
 		</>
 	);

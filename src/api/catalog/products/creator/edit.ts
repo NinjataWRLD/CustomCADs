@@ -1,6 +1,6 @@
 import { CREATOR_BASE_PATH } from '@/api/catalog/common';
 
-export interface Request {
+export type Request = {
 	id: string;
 	name: string;
 	description: string;
@@ -10,6 +10,6 @@ export interface Request {
 	imageContentType: string;
 	cadKey: string;
 	cadContentType: string;
-}
+};
 
 export const url = () => `${CREATOR_BASE_PATH}`;

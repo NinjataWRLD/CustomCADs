@@ -34,7 +34,24 @@ export type PagesGuestRegister = {
 	'title-contributor': string;
 	btn: string;
 	'login-message': string;
+	'resend-message': string;
 	login: string;
+	resend: string;
+	'email-sent': string;
+};
+
+export type PagesGuestConfirmEmail = {
+	title: string;
+	btn: string;
+	success: string;
+	error: string;
+};
+
+export type PagesGuestRetryConfirmEmail = {
+	title: string;
+	btn: string;
+	success: string;
+	error: string;
 };
 
 export type PagesGuestResetPassword = {

@@ -5,7 +5,7 @@ import CartThreeJS from './threejs';
 import { useTextures } from '@/hooks/threejs/useTextures';
 import Loader from '@/app/components/state/loading';
 
-interface CartCadProps {
+type CartCadProps = {
 	id: string;
 	productId: string;
 	customization?: {
@@ -13,7 +13,7 @@ interface CartCadProps {
 		color?: string;
 	};
 	forDelivery: boolean;
-}
+};
 const CartCad = ({
 	id,
 	productId,

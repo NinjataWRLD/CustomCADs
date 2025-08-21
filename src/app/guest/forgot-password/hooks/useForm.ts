@@ -5,9 +5,9 @@ import { useForceLocaleRefresh } from '@/hooks/locales/useForceLocaleRefresh';
 import { useValidation } from './useValidation';
 import { useIdempotencyKeys } from '@/hooks/useIdempotencyKeys';
 
-interface Fields {
+type Fields = {
 	email: string;
-}
+};
 const defaultValues: Fields = {
 	email: '',
 };

@@ -6,11 +6,13 @@ import {
 	PagesCustomerCartItem,
 } from './customer';
 import {
+	PagesGuestConfirmEmail,
 	PagesGuestForgotPassword,
 	PagesGuestLogin,
 	PagesGuestPickRole,
 	PagesGuestRegister,
 	PagesGuestResetPassword,
+	PagesGuestRetryConfirmEmail,
 } from './guest';
 import {
 	PagesPublicMyAccount,
@@ -31,6 +33,8 @@ export type PagesTranslations = {
 	'pages.guest.login': PagesGuestLogin;
 	'pages.guest.pick-role': PagesGuestPickRole;
 	'pages.guest.register': PagesGuestRegister;
+	'pages.guest.confirm-email': PagesGuestConfirmEmail;
+	'pages.guest.retry-confirm-email': PagesGuestRetryConfirmEmail;
 	'pages.guest.reset-password': PagesGuestResetPassword;
 	'pages.public.cart': PagesPublicCart;
 	'pages.public.editor': PagesPublicEditor;

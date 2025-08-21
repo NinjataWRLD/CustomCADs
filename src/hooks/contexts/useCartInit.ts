@@ -18,7 +18,7 @@ export const useCartInit = (): CartState => {
 			return JSON.parse(items);
 		};
 		if (typeof window === 'undefined') return;
-		return !is.guest ? null : loadFromLocalStorage();
+		return is.guest ? loadFromLocalStorage() : null;
 	};
 	const [items, dispatch] = useReducer(cartReducer, null, init);
 
@@ -28,20 +28,21 @@ export const useCartInit = (): CartState => {
 		}
 	}, [items]);
 
-	const mapItems = (items: ActiveCartItem[]): CartItem[] =>
-		items.map(({ forDelivery, productId, quantity, customizationId }) =>
-			forDelivery
-				? {
-						forDelivery,
-						productId,
-						quantity,
-						customizationId: customizationId!,
-					}
-				: { forDelivery, productId },
-		);
-
 	useEffect(() => {
 		if (is.customer) {
+			const mapItems = (items: ActiveCartItem[]): CartItem[] =>
+				items.map(
+					({ forDelivery, productId, quantity, customizationId }) =>
+						forDelivery
+							? {
+									forDelivery,
+									productId,
+									quantity,
+									customizationId: customizationId!,
+								}
+							: { forDelivery, productId },
+				);
+
 			const initCart = async () => {
 				const { data: items } = await refetch();
 

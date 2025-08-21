@@ -1,10 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { fetchFile } from '../file';
 
-interface Case {
-	url: string;
-}
-
 const CONTENT_TYPE = 'file/content-type';
 const base_url = 'https://customcads-bucket.s3.amazonaws.com';
 const cadCase = {
@@ -13,7 +9,7 @@ const cadCase = {
 const imageCase = {
 	url: `${base_url}/images/image.png`,
 };
-const cases: Case[][] = [[cadCase], [imageCase]];
+const cases: { url: string }[][] = [[cadCase], [imageCase]];
 
 describe('Fetch File utility tests', () => {
 	const response = {

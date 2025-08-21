@@ -1,6 +1,6 @@
 import { IDENTITY_BASE_PATH } from '../common';
 
-export interface Request {
+export type Request = {
 	role: string;
 	username: string;
 	email: string;
@@ -8,6 +8,6 @@ export interface Request {
 	confirmPassword: string;
 	firstName?: string;
 	lastName?: string;
-}
+};
 
 export const url = () => `${IDENTITY_BASE_PATH}/register`;

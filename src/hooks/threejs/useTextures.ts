@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
-import { downloadTexture } from '@/api/customizations/materials';
+import { downloadTexture } from '@/api/printing/materials';
 import { useGetMaterials } from '@/hooks/queries/materials';
 import { fetchFile } from '@/utils/file';
 
-interface Material {
+type Material = {
 	blobUrl: string;
 	euroPerKg: number;
 	density: number;
-}
+};
 
 export const useTextures = (enabled?: boolean) => {
 	const [map, setMap] = useState<Record<string, Material>>({});

@@ -4,12 +4,12 @@ import { useThreeJS } from '@/hooks/threejs/useThreeJS';
 import Loader from '@/app/components/state/loading';
 import Model from '../model';
 
-interface ThreeJSProps {
+type ThreeJSProps = {
 	customization?: { texture: string; color?: string };
 	file: { url: string; type: string };
 	cam: Coordinates;
 	pan: Coordinates;
-}
+};
 
 const CartThreeJS = ({ customization, file, cam, pan }: ThreeJSProps) => {
 	const threejs = useThreeJS(file.url, file.type, { cam, pan }, (cad) => {

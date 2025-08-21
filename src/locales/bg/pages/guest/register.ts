@@ -6,5 +6,8 @@ export default {
 	'title-contributor': 'Станете Сътрудник',
 	btn: 'Регистрирайте се',
 	'login-message': 'Вече имате акаунт?',
+	'resend-message': 'Не получихте имейл?',
 	login: 'Влезте',
+	resend: 'Прати имейл отново',
+	'email-sent': 'Проверете имейла си.',
 } satisfies PagesGuestRegister;

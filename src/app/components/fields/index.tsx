@@ -5,13 +5,13 @@ import StyledSelect from './select';
 export const getErrorClass = (hasError: boolean) =>
 	hasError
 		? 'border border-red-500 bg-red-100 text-black'
-		: 'border border-gray-300';
+		: 'border border-gray-300 bg-black text-white';
 
-interface Option {
+type Option = {
 	id: string | number;
 	name: string;
 	value: string;
-}
+};
 
 type Common = {
 	api: AnyFieldApi;
@@ -43,7 +43,6 @@ type Custom = {
 };
 
 type FieldProps = Common & (Input | TextArea | Select | Custom);
-
 const Field = (props: FieldProps) => {
 	const { api, label, format } = props;
 	const {
@@ -62,7 +61,6 @@ const Field = (props: FieldProps) => {
 	const hasError = !!meta.errors.length;
 
 	const baseInputClass = `w-full p-2.5
-						${showError && hasError ? 'text-black bg-red-100' : 'text-white bg-black'}
 						border-2 rounded-[10px] outline-none
 						transition-colors duration-300
 						focus:border-purple-500 focus:shadow-white/60

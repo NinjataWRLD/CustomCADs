@@ -1,6 +1,6 @@
 import { IDENTITY_BASE_PATH } from '../common';
 
-export interface Response {
+export type Response = {
 	id: string;
 	role: string;
 	username: string;
@@ -9,6 +9,6 @@ export interface Response {
 	email: string;
 	trackViewedProducts: boolean;
 	createdAt: string;
-}
+};
 
 export const url = () => `${IDENTITY_BASE_PATH}/my-account`;

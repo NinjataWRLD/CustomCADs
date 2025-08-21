@@ -1,16 +1,16 @@
-import { Category, DESIGNER_BASE_PATH } from '@/api/catalog/common';
+import { CategoryDto, DESIGNER_BASE_PATH } from '@/api/catalog/common';
 
-export interface Request {
+export type Request = {
 	id: string;
-}
+};
 
-export interface Response {
+export type Response = {
 	id: string;
 	name: string;
 	description: string;
 	price: number;
 	creatorName: string;
-	category: Category;
-}
+	category: CategoryDto;
+};
 
 export const url = (req: Request) => `${DESIGNER_BASE_PATH}/${req.id}`;

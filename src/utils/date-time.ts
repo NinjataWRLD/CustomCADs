@@ -1,10 +1,10 @@
 import { getUserDefaultLanguage } from './default-language';
 
-interface FormatOptions {
+type FormatOptions = {
 	date: string;
 	locale?: string;
 	dateOnly?: boolean;
-}
+};
 export const format = ({
 	date,
 	locale = getUserDefaultLanguage(),

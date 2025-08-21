@@ -1,8 +1,8 @@
 import { useMutation } from '@tanstack/react-query';
-import { Request as Create } from '@/api/categories/categories/create';
-import { Request as Edit } from '@/api/categories/categories/edit';
-import { Request as Delete } from '@/api/categories/categories/delete';
-import * as api from '@/api/categories/categories';
+import { Request as Create } from '@/api/catalog/categories/create';
+import { Request as Edit } from '@/api/catalog/categories/edit';
+import { Request as Delete } from '@/api/catalog/categories/delete';
+import * as api from '@/api/catalog/categories';
 
 export const keys = {
 	base: ['categories'] as const,

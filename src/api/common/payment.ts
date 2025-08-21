@@ -1,8 +1,8 @@
-export interface Request {
+export type Request = {
 	paymentMethodId: string;
-}
+};
 
-export interface Response {
+export type Response = {
 	clientSecret: string;
 	message: string;
-}
+};

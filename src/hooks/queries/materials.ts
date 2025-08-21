@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
-import { Request as Single } from '@/api/customizations/materials/single';
-import { Request as Download } from '@/api/customizations/materials/download';
-import { Request as Upload } from '@/api/customizations/materials/upload';
-import { Request as Replace } from '@/api/customizations/materials/replace';
-import * as api from '@/api/customizations/materials';
+import { Request as Single } from '@/api/printing/materials/single';
+import { Request as Download } from '@/api/printing/materials/download';
+import { Request as Upload } from '@/api/printing/materials/upload';
+import { Request as Replace } from '@/api/printing/materials/replace';
+import * as api from '@/api/printing/materials';
 
 export const keys = {
 	base: ['materials'] as const,

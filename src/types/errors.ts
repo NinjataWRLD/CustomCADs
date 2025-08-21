@@ -1,9 +1,8 @@
-export interface AppErrorFields {
+export type AppErrorFields = {
 	title: string;
 	message: string;
 	tip: string;
-}
-
+};
 export class AppError extends Error {
 	title: string;
 	message: string;

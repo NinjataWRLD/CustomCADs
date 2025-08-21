@@ -4,6 +4,7 @@ import { useCalculateActiveCartShipment } from '@/hooks/queries/active-carts';
 import { usePlaceholdersTranslation } from '@/hooks/locales/common/messages';
 import { useLabelsTranslation } from '@/hooks/locales/components/forms';
 import Field from '@/app/components/fields';
+import PhoneNumberField from '@/app/components/fields/phone';
 import * as dateTime from '@/utils/date-time';
 import { Fields, useForm } from './useForm';
 
@@ -117,11 +118,9 @@ export const useFields = (onSubmit: (values: Fields) => void) => {
 		Phone: (
 			<form.Field name='phone'>
 				{(api) => (
-					<Field
-						tag='input'
+					<PhoneNumberField
 						api={api}
 						label={tLabels('phone')}
-						type='text'
 						placeholder={tPlaceholders('phone')}
 					/>
 				)}

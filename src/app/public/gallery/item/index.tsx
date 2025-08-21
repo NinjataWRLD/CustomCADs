@@ -5,9 +5,9 @@ import { Response as Product } from '@/api/catalog/products/gallery/all';
 import { useDownloadProductImage } from '@/hooks/queries/products/gallery';
 import Loader from '@/app/components/state/loading';
 
-interface ItemProps {
+type ItemProps = {
 	product: Product;
-}
+};
 
 const Item = ({ product }: ItemProps) => {
 	const { data: image, isLoading } = useDownloadProductImage({

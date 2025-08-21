@@ -1,22 +1,22 @@
 import { objectToSearchParams } from '@/utils/api';
-import { Category, DESIGNER_BASE_PATH } from '@/api/catalog/common';
+import { CategoryDto, DESIGNER_BASE_PATH } from '@/api/catalog/common';
 
-export interface Request {
+export type Request = {
 	categoryId?: number;
 	name?: string;
 	sortingType?: string;
 	sortingDirection?: string;
 	page: number;
 	limit: number;
-}
+};
 
-export interface Response {
+export type Response = {
 	id: string;
 	name: string;
 	uploadedAt: string;
 	creatorName: string;
-	category: Category;
-}
+	category: CategoryDto;
+};
 
 export const url = (
 	req: Request,

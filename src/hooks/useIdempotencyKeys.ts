@@ -11,7 +11,14 @@ export const useIdempotencyKeys = <T extends readonly string[]>(names: T) => {
 
 	keysRef.current ??= generate(names);
 
-	const refresh = useCallback((namesToRefresh: T) => {
+	const refresh = useCallback((namesToRefresh?: T) => {
+		if (!namesToRefresh) {
+			keysRef.current = {
+				...generate(names),
+			} as Record<T[number], string>;
+			return;
+		}
+
 		keysRef.current = {
 			...keysRef.current,
 			...generate(namesToRefresh),

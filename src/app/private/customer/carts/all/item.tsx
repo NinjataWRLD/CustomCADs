@@ -3,10 +3,10 @@ import { PurchasedCartItem } from '@/api/carts/common';
 import * as money from '@/utils/money';
 import * as dateTime from '@/utils/date-time';
 
-interface ItemProps {
+type ItemProps = {
 	item: PurchasedCartItem;
 	navigate: UseNavigateResult<'/carts'>;
-}
+};
 const Item = ({
 	item: { cartId, productId, addedAt, cost, quantity },
 	navigate,

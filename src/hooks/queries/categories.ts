@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { Request as Single } from '@/api/categories/categories/single';
-import * as api from '@/api/categories/categories';
+import { Request as Single } from '@/api/catalog/categories/single';
+import * as api from '@/api/catalog/categories';
 
 export const keys = {
 	base: ['categories'] as const,

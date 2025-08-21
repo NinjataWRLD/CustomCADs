@@ -1,13 +1,13 @@
-export interface CartItemForDelivery {
+export type CartItemForDelivery = {
 	forDelivery: true;
 	productId: string;
 	quantity: number;
 	customizationId: string;
-}
+};
 
-export interface CartItemWithoutDelivery {
+export type CartItemWithoutDelivery = {
 	forDelivery: false;
 	productId: string;
-}
+};
 
 export type CartItem = CartItemForDelivery | CartItemWithoutDelivery;

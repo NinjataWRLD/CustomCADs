@@ -5,9 +5,9 @@ export type Request = {
 	name: string;
 } & headers.IdempotencyKey;
 
-export interface Response {
+export type Response = {
 	id: string;
 	name: string;
-}
+};
 
 export const url = () => `${TAG_BASE_PATH}`;

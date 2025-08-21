@@ -7,13 +7,13 @@ export type Request = {
 	forDelivery: boolean;
 } & headers.IdempotencyKey;
 
-export interface Response {
+export type Response = {
 	id: string;
 	name: string;
 	description: string;
 	orderedAt: string;
 	status: string;
 	forDelivery: boolean;
-}
+};
 
 export const url = () => `${CUSTOMS_CUSTOMER_BASE_PATH}`;

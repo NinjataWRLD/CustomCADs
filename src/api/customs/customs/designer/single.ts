@@ -5,11 +5,11 @@ import {
 	CUSTOMS_DESIGNER_BASE_PATH,
 } from '@/api/customs/common';
 
-export interface Request {
+export type Request = {
 	id: string;
-}
+};
 
-export interface Response {
+export type Response = {
 	id: string;
 	name: string;
 	description: string;
@@ -20,6 +20,6 @@ export interface Response {
 	accepted?: AcceptedCustomDto;
 	finished?: FinishedCustomDto;
 	completed?: CompletedCustomDto;
-}
+};
 
 export const url = (req: Request) => `${CUSTOMS_DESIGNER_BASE_PATH}/${req.id}`;

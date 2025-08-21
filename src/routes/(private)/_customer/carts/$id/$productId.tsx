@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { AppError } from '@/types/errors';
 import * as purchasedCartsApi from '@/api/carts/purchased';
-import * as customizationsApi from '@/api/customizations/customizations';
+import * as customizationsApi from '@/api/printing/customizations';
 import PurchasedCartItem from '@/app/private/customer/carts/item';
 
 export const Route = createFileRoute(

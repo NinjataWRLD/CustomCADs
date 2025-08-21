@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { CategoryResponse } from '@/api/categories/common';
+import { CategoryResponse } from '@/api/catalog/common';
 import { useGetCategories } from '@/hooks/queries/categories';
 import Loader from '@/app/components/state/loading';
 import ErrorPage from '@/app/components/state/error';
 
-interface CategoriesProps {
+type CategoriesProps = {
 	getCategory: () => string | undefined;
 	updateCategory: (category?: CategoryResponse) => void;
 	isActive: boolean;
 	setActive: (active: boolean) => void;
-}
+};
 
 const Categories = ({
 	getCategory,

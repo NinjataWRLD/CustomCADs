@@ -1,6 +1,10 @@
 import { useEffect, useRef } from 'react';
 
-const Border = () => {
+type BorderProps = {
+	isAvailable?: boolean;
+};
+
+const Border = ({ isAvailable = true }: BorderProps) => {
 	const borderRefs = useRef<(HTMLElement | null)[]>([]);
 
 	useEffect(() => {
@@ -14,7 +18,7 @@ const Border = () => {
 					e.clientY >= rect.top &&
 					e.clientY <= rect.bottom;
 
-				if (isInside) {
+				if (isInside && isAvailable) {
 					el.style.borderColor = 'white';
 					el.style.filter = 'drop-shadow(0 0 20px white)';
 				} else {

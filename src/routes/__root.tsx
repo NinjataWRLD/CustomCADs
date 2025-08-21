@@ -36,7 +36,7 @@ const RootComponent = () => {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-interface RouterContext {}
+type RouterContext = {};
 export const Route = createRootRouteWithContext<RouterContext>()({
 	component: RootComponent,
 	errorComponent: ({ error }) => {
