@@ -123,6 +123,7 @@ export type PagesPublicMyAccount = {
 	'user-role': string;
 	'created-at': string;
 	email: string;
+	'choose-language': string;
 	'forgot-password': string;
 	'security-warning': string;
 	'change-password': string;

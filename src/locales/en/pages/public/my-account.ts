@@ -12,6 +12,7 @@ export default {
 	'user-role': "User's Role: ",
 	'created-at': 'Account Created At: ',
 	email: 'Email: ',
+	'choose-language': 'Choose Default Language',
 	'forgot-password': 'Forgot Your Password?',
 	'security-warning':
 		"For your security, we highly recommend that you choose a unique password that you don't use for any other online account.",
