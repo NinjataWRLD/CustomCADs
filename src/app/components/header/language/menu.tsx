@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
+import { Language } from '@/types/locale';
 import { useHeaderTranslation } from '@/hooks/locales/components/layout';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faCheck } from '@fortawesome/free-solid-svg-icons';
@@ -30,7 +31,7 @@ const LanguageMenu = ({
 		closeMenu();
 	};
 
-	const handleLanguageChange = (lang: string) => {
+	const handleLanguageChange = (lang: Language) => {
 		if (i18n.language !== lang) {
 			i18n.changeLanguage(lang);
 		}
@@ -119,7 +120,7 @@ const LanguageMenu = ({
 			</h3>
 			<section className='flex flex-col gap-4'>
 				<div
-					onClick={() => handleLanguageChange('en')}
+					onClick={() => handleLanguageChange('en-US')}
 					className={clsx(
 						'flex items-center px-4 py-3 rounded-lg cursor-pointer transition-colors relative',
 						i18n.language === 'en'
@@ -147,7 +148,7 @@ const LanguageMenu = ({
 				</div>
 				<hr className='border-none h-px bg-gray-200 my-2' />
 				<div
-					onClick={() => handleLanguageChange('bg')}
+					onClick={() => handleLanguageChange('bg-BG')}
 					className={clsx(
 						'flex items-center px-4 py-3 rounded-lg cursor-pointer transition-colors relative',
 						i18n.language === 'bg'

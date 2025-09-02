@@ -1,5 +1,6 @@
-import { useState } from 'react';
 import { Language, languages } from '@/types/locale';
+import * as languageStore from '@/stores/language-store';
+import { useLanguageStore } from '@/hooks/stores/useLanguageStore';
 import { useLocalesTranslation } from '@/hooks/locales/common/locales';
 import { useMyAccountTranslation } from '@/hooks/locales/pages/public';
 import StyledSelect from '@/app/components/fields/select';
@@ -11,7 +12,7 @@ const ChooseLanguage = () => {
 	const tMyAccount = useMyAccountTranslation();
 	const tLocales = useLocalesTranslation();
 
-	const [defaultLanguage, setDefaultLanguage] = useState<Language>();
+	const { default: defaultLanguage } = useLanguageStore();
 	const options: LanguageOption[] = languages.map((lang) => ({
 		id: lang,
 		name: tLocales(lang),
@@ -19,7 +20,8 @@ const ChooseLanguage = () => {
 	}));
 
 	const handleChange = (language: Language) => {
-		setDefaultLanguage(language);
+		languageStore.setDefault(language);
+		languageStore.setCurrent(language);
 	};
 
 	return (
