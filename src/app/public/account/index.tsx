@@ -3,11 +3,13 @@ import { Route } from '@/routes/_public/account';
 import { useMyAccountTranslation } from '@/hooks/locales/pages/public';
 import Transition from '@/app/components/transition';
 import * as dateTime from '@/utils/date-time';
+import Tab from './tab';
 import AboutMe from './about-me';
 import Security from './security';
 import MyData from './my-data';
+import Settings from './settings';
 
-export const tabs = ['about-me', 'security', 'my-data'] as const;
+export const tabs = ['about-me', 'settings', 'security', 'my-data'] as const;
 type Tab = (typeof tabs)[number];
 
 const Account = () => {
@@ -37,12 +39,16 @@ const Account = () => {
 						})}
 					/>
 				);
+			case 'settings':
+				return (
+					<Settings
+						trackViewedProducts={account.trackViewedProducts}
+					/>
+				);
 			case 'security':
 				return <Security email={account.email} />;
 			case 'my-data':
-				return (
-					<MyData trackViewedProducts={account.trackViewedProducts} />
-				);
+				return <MyData />;
 			default:
 				return null;
 		}
@@ -56,48 +62,26 @@ const Account = () => {
 				</h1>
 				<div className='relative w-4/5 h-[70%] flex rounded-[20px]'>
 					<div className='w-[25%] h-full bg-transparent text-[1.3rem] flex flex-col gap-[30px] border-0 border-r-[3px] border-r-[#9000ff] border-solid'>
-						<div
-							className={`w-full h-[15%] cursor-pointer flex justify-center items-center transition-all duration-300 ease-linear bg-[rgba(142,110,205,0.31)] hover:bg-[rgba(98,42,161,0.522)] hover:w-[90%] hover:ml-[10%]`}
+						<Tab
+							text={tMyAccount('about-me')}
+							isActive={tab === 'about-me'}
 							onClick={() => setTab('about-me')}
-							style={{
-								clipPath:
-									'polygon(0 0, 100% 0, 100% 50%, 100% 100%, 0 100%, 24% 54%)',
-							}}
-						>
-							<span
-								className={`transition-[font-weight] duration-[0.3s] ease-linear ml-[30px] ${tab === 'about-me' ? 'font-bold' : ''}`}
-							>
-								{tMyAccount('about-me')}
-							</span>
-						</div>
-						<div
-							className={`w-full h-[15%] cursor-pointer flex justify-center items-center transition-all duration-300 ease-linear bg-[rgba(142,110,205,0.31)] hover:bg-[rgba(98,42,161,0.522)] hover:w-[90%] hover:ml-[10%]`}
+						/>
+						<Tab
+							text={tMyAccount('settings')}
+							isActive={tab === 'settings'}
+							onClick={() => setTab('settings')}
+						/>
+						<Tab
+							text={tMyAccount('security')}
+							isActive={tab === 'security'}
 							onClick={() => setTab('security')}
-							style={{
-								clipPath:
-									'polygon(0 0, 100% 0, 100% 50%, 100% 100%, 0 100%, 24% 54%)',
-							}}
-						>
-							<span
-								className={`transition-[font-weight] duration-[0.3s] ease-linear ml-[30px] ${tab === 'security' ? 'font-bold' : ''}`}
-							>
-								{tMyAccount('security')}
-							</span>
-						</div>
-						<div
-							className={`w-full h-[15%] cursor-pointer flex justify-center items-center transition-all duration-300 ease-linear bg-[rgba(142,110,205,0.31)] hover:bg-[rgba(98,42,161,0.522)] hover:w-[90%] hover:ml-[10%]`}
+						/>
+						<Tab
+							text={tMyAccount('my-data')}
+							isActive={tab === 'my-data'}
 							onClick={() => setTab('my-data')}
-							style={{
-								clipPath:
-									'polygon(0 0, 100% 0, 100% 50%, 100% 100%, 0 100%, 24% 54%)',
-							}}
-						>
-							<span
-								className={`transition-[font-weight] duration-[0.3s] ease-linear ml-[30px] ${tab === 'my-data' ? 'font-bold' : ''}`}
-							>
-								{tMyAccount('my-data')}
-							</span>
-						</div>
+						/>
 					</div>
 					<div className='relative w-4/5 h-[90%] flex flex-col bg-[hsl(228,21%,14%)] p-[30px] rounded-[20px];'>
 						{renderSection()}

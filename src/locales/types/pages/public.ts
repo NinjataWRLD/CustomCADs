@@ -114,6 +114,7 @@ export type PagesPublicProduct = {
 export type PagesPublicMyAccount = {
 	title: string;
 	'about-me': string;
+	settings: string;
 	security: string;
 	'my-data': string;
 	username: string;

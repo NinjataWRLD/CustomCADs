@@ -3,6 +3,7 @@ import { PagesPublicMyAccount } from '@/locales/types/pages/public';
 export default {
 	title: 'Управление на Акаунта Ви',
 	'about-me': 'За Мен',
+	settings: 'Настройки',
 	security: 'Сигурност',
 	'my-data': 'Моите Данни',
 	username: 'Потребителско име: ',

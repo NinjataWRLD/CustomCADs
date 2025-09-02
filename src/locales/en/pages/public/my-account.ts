@@ -3,6 +3,7 @@ import { PagesPublicMyAccount } from '@/locales/types/pages/public';
 export default {
 	title: 'Manage Your Account',
 	'about-me': 'About Me',
+	settings: 'Settings',
 	security: 'Security',
 	'my-data': 'My Data',
 	username: 'Username: ',
