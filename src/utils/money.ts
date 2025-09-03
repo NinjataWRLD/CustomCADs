@@ -1,43 +1,47 @@
-type Locale = 'default' | 'bg-BG';
-type Currency = 'EUR' | 'BGN';
+import { Currency, EXCHANGE_RATES } from '@/types/locale';
+import { getUserDefaultLanguage } from './default-language';
+import { ExchangeRate } from '@/api/common/exchange-rates/common';
+import { invertBy } from './ts-utils';
 
-const currencies: Record<Locale, Currency> = {
-	default: 'EUR',
-	'bg-BG': 'BGN',
+const currencies = invertBy(EXCHANGE_RATES, 'language');
+const { EUR } = EXCHANGE_RATES;
+
+const currencyToRate = (rates: ExchangeRate[], currency: Currency) => {
+	const rate = rates.find((x) => x.currency === currency);
+	if (!rate) return rate;
+
+	return {
+		rate: rate.rate,
+		symbol: EXCHANGE_RATES[currency].symbol,
+	};
 };
-const isLocale = (l: string): l is Locale => l in currencies;
 
-const rates: Record<Currency, { conversion: number; symbol: string }> = {
-	EUR: { conversion: 1, symbol: '€' },
-	BGN: { conversion: 1.9558, symbol: 'лв' },
-};
+export const resolveCurrency = (currency?: Currency) =>
+	currency ?? currencies[getUserDefaultLanguage()] ?? 'EUR';
 
-const getLocale = (): Locale => {
-	const [preferredLng] = navigator.languages || [navigator.language];
-	if (isLocale(preferredLng)) return preferredLng;
+export const currencyToSymbol = (currency?: Currency) =>
+	EXCHANGE_RATES[resolveCurrency(currency)].symbol;
 
-	const [language] = preferredLng.split('-');
-	if (language === 'bg') {
-		return 'bg-BG';
+type FromBaseOptions = { money: number; to?: Currency; rates?: ExchangeRate[] };
+export const fromBase = ({ money, to, rates }: FromBaseOptions) => {
+	to = resolveCurrency(to);
+	if (rates) {
+		const { rate, symbol } = currencyToRate(rates, to) ?? EUR;
+		return { money: money * rate, symbol };
 	}
 
-	return 'default';
+	const { rate, symbol } = EXCHANGE_RATES[to];
+	return { money: money * rate, symbol };
 };
 
-type FromBaseOptions = { money?: number; to?: string };
-export const fromBase = ({ money = 0, to = getLocale() }: FromBaseOptions) => {
-	const currency = currencies[isLocale(to) ? to : 'default'];
-	const { conversion, symbol } = rates[currency];
-	return { money: money * conversion, symbol };
-};
+type ToBaseOptions = { money: number; from?: Currency; rates?: ExchangeRate[] };
+export const toBase = ({ money, from, rates }: ToBaseOptions) => {
+	from = resolveCurrency(from);
+	if (rates) {
+		const { rate } = currencyToRate(rates, from) ?? EUR;
+		return { money: money / rate, symbol: EUR.symbol };
+	}
 
-type ToBaseOptions = { money: number; from?: string };
-export const toBase = ({ money, from = getLocale() }: ToBaseOptions) => {
-	const currency = currencies[isLocale(from) ? from : 'default'];
-	const { conversion } = rates[currency];
-	return money / conversion;
+	const { rate } = EXCHANGE_RATES[from];
+	return { money: money / rate, symbol: EUR.symbol };
 };
-
-type FormatProps = { money: number; symbol: string };
-export const format = ({ money, symbol }: FormatProps) =>
-	`${money.toFixed(2)}${symbol}`;

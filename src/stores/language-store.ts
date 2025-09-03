@@ -9,7 +9,7 @@ type LanguageState = {
 	default: Language;
 	current: Language;
 };
-export const defaultEditorState: LanguageState = {
+export const defaultLanguageState: LanguageState = {
 	default: defaultBrowserLanguage,
 	current: defaultBrowserLanguage,
 };
@@ -20,7 +20,7 @@ const loadInitialState = (): LanguageState => {
 		return JSON.parse(persistedState);
 	}
 
-	const state = defaultEditorState;
+	const state = defaultLanguageState;
 	localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state));
 	return state;
 };
@@ -30,7 +30,7 @@ store.subscribe((state) => {
 	localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state.currentVal));
 });
 
-export const resetStore = () => store.setState(defaultEditorState);
+export const resetStore = () => store.setState(defaultLanguageState);
 
 export const setDefault = (defaultLang: Language) =>
 	store.setState((prev) => ({

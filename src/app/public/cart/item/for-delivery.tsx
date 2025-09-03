@@ -10,11 +10,11 @@ import {
 } from '@/hooks/queries/products/gallery';
 import { useCartUpdates } from '@/hooks/contexts/useCartUpdates';
 import { useCartTranslation } from '@/hooks/locales/pages/public';
+import { useMoney } from '@/hooks/money/useMoney';
 import * as editorStore from '@/stores/editor-store';
 import Checkbox from '@/app/components/fields/checkbox';
 import Loader from '@/app/components/state/loading';
 import { CartItemForDelivery as Item } from '@/types/cart-item';
-import * as money from '@/utils/money';
 
 type CartItemProps = {
 	item: Item;
@@ -25,6 +25,7 @@ type CartItemProps = {
 const CartItemForDelivery = ({ item, addTo, reset }: CartItemProps) => {
 	const navigate = useNavigate();
 	const tCart = useCartTranslation();
+
 	const {
 		removeItem,
 		incrementItemQuantity,
@@ -35,11 +36,14 @@ const CartItemForDelivery = ({ item, addTo, reset }: CartItemProps) => {
 	const { data: image, isError: isFileError } = useDownloadProductImage({
 		id: item.productId,
 	});
+
 	const { data: product, isError } = useGetProduct({ id: item.productId });
+	const price = useMoney(product?.price ?? 0);
 
 	const { data: customization } = useGetCustomization({
 		id: item.customizationId,
 	});
+	const cost = useMoney(customization?.cost ?? 0);
 	const isPrintable = product?.tags.includes('Printable');
 
 	useEffect(() => {
@@ -130,22 +134,10 @@ const CartItemForDelivery = ({ item, addTo, reset }: CartItemProps) => {
 					</div>
 					<div className='relative w-full flex flex-col gap-4'>
 						<p className='m-0'>
-							{tCart('product-price', {
-								price: money.format(
-									money.fromBase({
-										money: product.price,
-									}),
-								),
-							})}
+							{tCart('product-price', { price })}
 						</p>
 						<p className='m-0'>
-							{tCart('customization-cost', {
-								cost: money.format(
-									money.fromBase({
-										money: customization.cost,
-									}),
-								),
-							})}
+							{tCart('customization-cost', { cost })}
 						</p>
 					</div>
 					<div className='relative w-full flex flex-row items-center justify-start gap-2.5 mt-3'>

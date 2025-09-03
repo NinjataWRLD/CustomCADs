@@ -124,6 +124,7 @@ export type PagesPublicMyAccount = {
 	'created-at': string;
 	email: string;
 	'choose-language': string;
+	'choose-currency': string;
 	'forgot-password': string;
 	'security-warning': string;
 	'change-password': string;

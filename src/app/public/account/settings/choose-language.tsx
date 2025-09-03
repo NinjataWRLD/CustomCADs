@@ -1,4 +1,4 @@
-import { Language, languages } from '@/types/locale';
+import { ALLOWED_LANGUAGES, Language } from '@/types/locale';
 import * as languageStore from '@/stores/language-store';
 import { useLanguageStore } from '@/hooks/stores/useLanguageStore';
 import { useLocalesTranslation } from '@/hooks/locales/common/locales';
@@ -13,11 +13,13 @@ const ChooseLanguage = () => {
 	const tLocales = useLocalesTranslation();
 
 	const { default: defaultLanguage } = useLanguageStore();
-	const options: LanguageOption[] = languages.map((lang) => ({
-		id: lang,
-		name: tLocales(lang),
-		value: lang,
-	}));
+	const options: LanguageOption[] = Object.entries(ALLOWED_LANGUAGES).map(
+		([curr, lang]) => ({
+			id: curr,
+			name: tLocales(lang),
+			value: lang,
+		}),
+	);
 
 	const handleChange = (language: Language) => {
 		languageStore.setDefault(language);

@@ -8,8 +8,7 @@ export const useLanguages = () => {
 	const { i18n } = useTranslation();
 	const language = useLanguageStore();
 
-	const updateI18n = (lang?: Language) =>
-		i18n.changeLanguage(lang ?? language.current);
+	const updateI18n = () => i18n.changeLanguage(language.current);
 
 	const updateStore = () =>
 		languageStore.setCurrent(i18n.language as Language);

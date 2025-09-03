@@ -9,11 +9,11 @@ import {
 } from '@/hooks/queries/products/gallery';
 import { useCartUpdates } from '@/hooks/contexts/useCartUpdates';
 import { useCartTranslation } from '@/hooks/locales/pages/public';
+import { useMoney } from '@/hooks/money/useMoney';
 import { removeRecord } from '@/stores/editor-store';
 import Checkbox from '@/app/components/fields/checkbox';
 import Loader from '@/app/components/state/loading';
 import { CartItemWithoutDelivery as Item } from '@/types/cart-item';
-import * as money from '@/utils/money';
 
 type CartItemProps = {
 	item: Item;
@@ -30,7 +30,6 @@ const CartItemWithoutDelivery = ({
 	const tCart = useCartTranslation();
 
 	const { removeItem } = useCartUpdates();
-
 	const { data: image, isError: isFileError } = useDownloadProductImage({
 		id: item.productId,
 	});
@@ -43,6 +42,7 @@ const CartItemWithoutDelivery = ({
 		if (product) addToPrice(product.price);
 	}, [product]);
 
+	const price = useMoney(product?.price ?? 0);
 	if (!product) {
 		return <Loader />;
 	}
@@ -94,13 +94,7 @@ const CartItemWithoutDelivery = ({
 					<p className='m-0'>
 						{tCart('by', { by: product.creatorName })}
 					</p>
-					<p className='mt-4'>
-						{tCart('product-price', {
-							price: money.format(
-								money.fromBase({ money: product.price }),
-							),
-						})}
-					</p>
+					<p className='mt-4'>{tCart('product-price', { price })}</p>
 					<div className='relative w-full flex flex-row items-center justify-start gap-2.5'>
 						<div
 							className='relative overflow-hidden bg-purple-700 text-indigo-50 py-3.5 px-8 text-base font-bold tracking-wider rounded-full cursor-pointer w-fit transition-colors duration-400 group'
