@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
+import * as exchangeRates from '@/api/common/exchange-rates';
 import { useIdempotencyKeys } from '@/hooks/useIdempotencyKeys';
 import {
 	useCreateProduct,
 	useSetProductCadCoords,
 } from '@/hooks/mutations/products/creator';
 import { useCalculateVolume } from '@/hooks/threejs/useCalculateVolume';
+import { useCurrencyStore } from '@/hooks/stores/useCurrencyStore';
 import { FileData } from '@/types/files';
 import * as money from '@/utils/money';
 
@@ -27,18 +29,27 @@ export const useCreator = (
 	const { volume: cadVolume, ref, getCoords } = useCalculateVolume(cad);
 
 	const { idempotencyKeys } = useIdempotencyKeys(['create'] as const);
+	const { current: currency } = useCurrencyStore();
+
 	const { mutateAsync: create } = useCreateProduct();
 	const { mutateAsync: setCadCoords } = useSetProductCadCoords();
 
 	useEffect(() => {
 		if (files && data && cadVolume) {
 			const handleCreate = async () => {
+				const { data: rates } = await exchangeRates.all();
+				const { money: price } = money.toBase({
+					money: data.price,
+					from: currency,
+					rates,
+				});
+
 				const { id } = await create({
 					idempotencyKey: idempotencyKeys.create,
 					name: data.name,
 					description: data.description,
 					categoryId: data.categoryId,
-					price: money.toBase({ money: data.price }),
+					price: price,
 					imageKey: files.image.key,
 					imageContentType: files.image.type,
 					cadKey: files.cad.key,

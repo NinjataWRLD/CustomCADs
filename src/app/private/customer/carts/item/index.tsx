@@ -2,18 +2,20 @@ import { Clock, Truck, DollarSign } from 'lucide-react';
 import { useRouter } from '@tanstack/react-router';
 import { Route } from '@/routes/(private)/_customer/carts/$id/$productId';
 import { useCartItemTranslation } from '@/hooks/locales/pages/customer';
+import { useMoney } from '@/hooks/money/useMoney';
 import Transition from '@/app/components/transition';
 import Button from '@/app/components/button';
 import CustomLink from '@/app/components/link';
 import Cad from '@/app/components/cad';
-import * as money from '@/utils/money';
 import * as dateTime from '@/utils/date-time';
 
 const PurchasedCartItem = () => {
 	const { history } = useRouter();
-	const { item, customization } = Route.useLoaderData();
-
 	const tCartItem = useCartItemTranslation();
+
+	const { item, customization } = Route.useLoaderData();
+	const price = useMoney(item.price);
+	const cost = useMoney(item.cost);
 
 	return (
 		<Transition>
@@ -77,11 +79,7 @@ const PurchasedCartItem = () => {
 														<strong className='mr-1.5'>
 															{tCartItem('price')}
 														</strong>
-														{money.format(
-															money.fromBase({
-																money: item.price,
-															}),
-														)}
+														{price}
 													</p>
 													<p>
 														<strong className='mr-1.5'>
@@ -103,11 +101,7 @@ const PurchasedCartItem = () => {
 															'final-price-2',
 														)}
 													</strong>
-													{money.format(
-														money.fromBase({
-															money: item.cost,
-														}),
-													)}
+													{cost}
 												</p>
 											</div>
 										</div>

@@ -5,13 +5,13 @@ import { useAuthStore } from '@/hooks/stores/useAuthStore';
 import { useCartUpdates } from '@/hooks/contexts/useCartUpdates';
 import { useProductTranslation } from '@/hooks/locales/pages/public';
 import { useCartContext } from '@/hooks/contexts/useCartContext';
+import { useMoney } from '@/hooks/money/useMoney';
 import Transition from '@/app/components/transition';
 import Button from '@/app/components/button';
 import CustomLink from '@/app/components/link';
 import BackButton from '@/app/components/link/back-button';
 import Cad from '@/app/components/cad';
 import * as dateTime from '@/utils/date-time';
-import * as money from '@/utils/money';
 import AddToCartPopup from './add-to-cart-popup';
 
 const Product = () => {
@@ -27,6 +27,7 @@ const Product = () => {
 	const alreadyInCart = items?.some((i) => i.productId === product.id);
 	const { addItem } = useCartUpdates();
 
+	const price = useMoney(product.price);
 	const [showPopupMessage, setShowPopupMessage] = useState(false);
 
 	useEffect(() => {
@@ -116,11 +117,7 @@ const Product = () => {
 									<strong className='font-semibold mr-2.5 text-white/55 uppercase product-text-shadow'>
 										{tProduct('price')}
 									</strong>
-									{money.format(
-										money.fromBase({
-											money: product.price,
-										}),
-									)}
+									{price}
 								</p>
 								<p className='text-base leading-normal text-white/70 mb-3 transition-colors duration-400 hover:text-white'>
 									<strong className='font-semibold mr-2.5 text-white/55 uppercase product-text-shadow'>

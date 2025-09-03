@@ -6,12 +6,12 @@ import {
 	faCcVisa,
 	faGooglePay,
 } from '@fortawesome/free-brands-svg-icons';
-import { useMoneyManager } from '@/hooks/useMoneyManager';
+import { useMoneyManager } from '@/hooks/money/useMoneyManager';
 import { useCartTranslation } from '@/hooks/locales/pages/public';
 import { useCartContext } from '@/hooks/contexts/useCartContext';
+import { useMoney } from '@/hooks/money/useMoney';
 import Transition from '@/app/components/transition';
 import CustomLink from '@/app/components/link';
-import * as money from '@/utils/money';
 import CartItem from './item';
 
 const Cart = () => {
@@ -46,24 +46,24 @@ const Cart = () => {
 
 	const calculate = (money: Record<string, number>) => {
 		let total = 0;
-		let delivery = 0;
+		let print = 0;
 
 		Object.entries(money).forEach(([id, price]) => {
 			total += price;
 			if (items?.find((i) => i.productId === id)?.forDelivery) {
-				delivery += price;
+				print += price;
 			}
 		});
 
-		return { total, delivery };
+		return { total, print };
 	};
 
 	const sum = {
 		product: calculate(prices),
 		customization: calculate(costs),
 	};
-	const total = sum.product.total + sum.customization.total;
-	const delivery = sum.product.delivery + sum.customization.delivery;
+	const total = useMoney(sum.product.total + sum.customization.total);
+	const print = useMoney(sum.product.print + sum.customization.print);
 
 	return (
 		<Transition>
@@ -106,18 +106,14 @@ const Cart = () => {
 					<p>
 						{tCart('total', {
 							count: items?.length ?? 0,
-							cost: money.format(
-								money.fromBase({ money: total }),
-							),
+							cost: total,
 						})}
 					</p>
 					<p>
 						{tCart('total-delivery', {
 							count:
 								items?.filter((i) => i.forDelivery).length ?? 0,
-							cost: money.format(
-								money.fromBase({ money: delivery }),
-							),
+							cost: print,
 						})}
 					</p>
 				</h2>

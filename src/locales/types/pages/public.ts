@@ -114,6 +114,7 @@ export type PagesPublicProduct = {
 export type PagesPublicMyAccount = {
 	title: string;
 	'about-me': string;
+	settings: string;
 	security: string;
 	'my-data': string;
 	username: string;
@@ -122,6 +123,8 @@ export type PagesPublicMyAccount = {
 	'user-role': string;
 	'created-at': string;
 	email: string;
+	'choose-language': string;
+	'choose-currency': string;
 	'forgot-password': string;
 	'security-warning': string;
 	'change-password': string;

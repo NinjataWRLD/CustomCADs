@@ -5,9 +5,9 @@ import RangeField from '@/app/components/fields/range';
 import RadioField from '@/app/components/fields/radio';
 import { INFILL } from '@/constants/threejs';
 import { useEditorStore } from '@/hooks/stores/useEditorStore';
+import { useMoney } from '@/hooks/money/useMoney';
 import { setInfill, setScale } from '@/stores/editor-store';
 import * as calculate3D from '@/utils/calculate-3D';
-import * as money from '@/utils/money';
 import * as formatter from '@/utils/formatters';
 
 type CalculationsProps = {
@@ -19,8 +19,9 @@ const Calculations = ({ id, volume }: CalculationsProps) => {
 	const [distance, setDistance] = useState<Distance>('mm');
 	const [mass, setMass] = useState<Mass>('g');
 
-	const { infill, scale, size, weight, cost } = useEditorStore(id);
-	const ratio = calculate3D.baseRatio(size);
+	const editor = useEditorStore(id);
+	const ratio = calculate3D.baseRatio(editor.size);
+	const cost = useMoney(editor.cost);
 
 	const tOthers = useOthersTranslation();
 	const unrecommended = (
@@ -65,19 +66,19 @@ const Calculations = ({ id, volume }: CalculationsProps) => {
 				label={tOthers('infill')}
 				min={INFILL.min}
 				max={INFILL.max}
-				value={infill}
-				text={formatter.percentage(infill * 100)}
+				value={editor.infill}
+				text={formatter.percentage(editor.infill * 100)}
 				onChange={(e) => setInfill(id, e.target.valueAsNumber)}
 			/>
-			{infill > 0.3 && unrecommended}
+			{editor.infill > 0.3 && unrecommended}
 			<br />
 			<RangeField
 				id='scale'
 				label={tOthers('scale')}
 				min={1}
 				max={calculate3D.getMaxRatio(ratio)}
-				value={scale}
-				text={formatter.percentage(scale * 100)}
+				value={editor.scale}
+				text={formatter.percentage(editor.scale * 100)}
 				onChange={(e) => setScale(id, e.target.valueAsNumber)}
 			/>
 			<br />
@@ -129,12 +130,12 @@ const Calculations = ({ id, volume }: CalculationsProps) => {
 				/>
 			</div>
 			<div>
-				<p>{`${tOthers('width')}: ${formatter.size(ratio.x * scale, distance)}`}</p>
-				<p>{`${tOthers('height')}: ${formatter.size(ratio.y * scale, distance)}`}</p>
-				<p>{`${tOthers('length')}: ${formatter.size(ratio.z * scale, distance)}`}</p>
+				<p>{`${tOthers('width')}: ${formatter.size(ratio.x * editor.scale, distance)}`}</p>
+				<p>{`${tOthers('height')}: ${formatter.size(ratio.y * editor.scale, distance)}`}</p>
+				<p>{`${tOthers('length')}: ${formatter.size(ratio.z * editor.scale, distance)}`}</p>
 				<p>{`${tOthers('volume')}: ${formatter.volume(volume, distance)}`}</p>
-				<p>{`${tOthers('weight')}: ${formatter.weight(weight, mass)}`}</p>
-				<p>{`${tOthers('cost')}: ${money.format(money.fromBase({ money: cost }))}`}</p>
+				<p>{`${tOthers('weight')}: ${formatter.weight(editor.weight, mass)}`}</p>
+				<p>{`${tOthers('cost')}: ${cost}`}</p>
 			</div>
 		</div>
 	);

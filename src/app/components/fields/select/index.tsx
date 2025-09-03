@@ -3,25 +3,25 @@ import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useLabelsTranslation } from '@/hooks/locales/components/forms';
 
-type Option = {
+type Option<TValue> = {
 	id: string | number;
 	name: string;
-	value: string;
+	value: TValue;
 };
-type StyledSelectProps = {
+type StyledSelectProps<TValue> = {
 	id?: string;
 	name?: string;
-	value?: string;
-	onChange: (value: string) => void;
+	value?: TValue;
+	onChange: (value: TValue) => void;
 	onBlur?: (e: React.FocusEvent<HTMLDivElement>) => void;
 	className?: string;
-	options: Option[] | React.ReactNode;
+	options: Option<TValue>[] | React.ReactNode;
 	placeholder?: string;
 	hasError?: boolean;
 	disabled?: boolean;
 };
 
-const StyledSelect: React.FC<StyledSelectProps> = ({
+const StyledSelect = <TValue,>({
 	id,
 	name,
 	value,
@@ -32,15 +32,15 @@ const StyledSelect: React.FC<StyledSelectProps> = ({
 	placeholder,
 	hasError = false,
 	disabled = false,
-}) => {
+}: StyledSelectProps<TValue>) => {
 	const tSelect = useLabelsTranslation();
 	const defaultPlaceholder = tSelect('select-option');
 	const [isActive, setIsActive] = useState(false);
 
-	const parsedOptions: Option[] = useMemo(() => {
+	const parsedOptions: Option<TValue>[] = useMemo(() => {
 		if (Array.isArray(options)) return options;
 
-		const childrenOptions: Option[] = [];
+		const childrenOptions: Option<TValue>[] = [];
 		if (options && typeof options === 'object') {
 			React.Children.forEach(options, (child) => {
 				if (React.isValidElement(child)) {
@@ -51,15 +51,16 @@ const StyledSelect: React.FC<StyledSelectProps> = ({
 					const { value: val, children: label } = element.props;
 
 					const fallback =
-						typeof label === 'string' || typeof label === 'number'
+						label &&
+						(typeof value === 'string' || typeof value === 'number')
 							? label.toString()
 							: 'unknown';
 
-					const id = (val ?? fallback).toString();
-					const value = (val ?? fallback).toString();
-					const name = typeof label === 'string' ? label : fallback;
-
-					childrenOptions.push({ id, value, name });
+					childrenOptions.push({
+						id: (val ?? fallback).toString(),
+						value: (val ?? fallback) as unknown as TValue,
+						name: typeof label === 'string' ? label : fallback,
+					});
 				}
 			});
 		}
@@ -75,7 +76,7 @@ const StyledSelect: React.FC<StyledSelectProps> = ({
 		if (!disabled) setIsActive((prev) => !prev);
 	};
 
-	const handleSelect = (option: Option) => {
+	const handleSelect = (option: Option<TValue>) => {
 		onChange(option.value);
 		setIsActive(false);
 	};

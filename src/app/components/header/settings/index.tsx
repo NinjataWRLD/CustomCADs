@@ -6,6 +6,9 @@ import {
 	faShoppingBag,
 	faSignOutAlt,
 } from '@fortawesome/free-solid-svg-icons';
+import * as editorStore from '@/stores/editor-store';
+import * as languageStore from '@/stores/language-store';
+import * as currencyStore from '@/stores/currency-store';
 import { useHeaderTranslation } from '@/hooks/locales/components/layout';
 import { useAuthStore } from '@/hooks/stores/useAuthStore';
 import { useCartContext } from '@/hooks/contexts/useCartContext';
@@ -26,6 +29,9 @@ const SettingsButton = () => {
 		await apiLogout();
 		dispatch({ type: 'CLEAR_CART' });
 		authStore.logout();
+		editorStore.resetStore(null);
+		languageStore.resetStore();
+		currencyStore.resetStore();
 	};
 
 	const [show, setShow] = useState(false);

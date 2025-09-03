@@ -36,11 +36,15 @@ store.subscribe((state) => {
 	localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state.currentVal));
 });
 
-export const resetStore = (id: string) =>
-	store.setState((prev) => ({
-		...prev,
-		[id]: defaultEditorState,
-	}));
+export const resetStore = (id: string | null) =>
+	store.setState((prev) =>
+		id
+			? {
+					...prev,
+					[id]: defaultEditorState,
+				}
+			: {},
+	);
 
 export const addRecord = (id: string) =>
 	store.setState((prev) => ({

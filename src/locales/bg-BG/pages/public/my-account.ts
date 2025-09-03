@@ -3,6 +3,7 @@ import { PagesPublicMyAccount } from '@/locales/types/pages/public';
 export default {
 	title: 'Управление на Акаунта Ви',
 	'about-me': 'За Мен',
+	settings: 'Настройки',
 	security: 'Сигурност',
 	'my-data': 'Моите Данни',
 	username: 'Потребителско име: ',
@@ -11,6 +12,8 @@ export default {
 	'user-role': 'Потребителска роля: ',
 	'created-at': 'Акаунт създаден на: ',
 	email: 'Имейл: ',
+	'choose-language': 'Изберете Език по под разбиране',
+	'choose-currency': 'Изберете Валута',
 	'forgot-password': 'Забравихте Паролата Си?',
 	'security-warning':
 		'За ваша сигурност, силно препоръчваме да изберете уникална парола, която не използвате в други онлайн акаунти.',

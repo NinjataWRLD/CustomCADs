@@ -1,27 +1,30 @@
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { getUserDefaultLanguage } from '@/utils/default-language';
+import { Language } from '@/types/locale';
+import * as languageStore from '@/stores/language-store';
+import { useLanguageStore } from '@/hooks/stores/useLanguageStore';
 
 export const useLanguages = () => {
 	const { i18n } = useTranslation();
+	const language = useLanguageStore();
+
+	const updateI18n = () => i18n.changeLanguage(language.current);
+
+	const updateStore = () =>
+		languageStore.setCurrent(i18n.language as Language);
 
 	useEffect(() => {
-		const language = localStorage.getItem('language');
-		if (!language) {
-			const defaultLanguage = getUserDefaultLanguage();
-			if (i18n.language !== defaultLanguage)
-				i18n.changeLanguage(defaultLanguage);
-
-			localStorage.setItem('language', i18n.language);
-		} else if (i18n.language !== language) {
-			i18n.changeLanguage(language);
+		if (i18n.language !== language.current) {
+			updateI18n();
 		}
 	}, []);
 
 	useEffect(() => {
-		if (localStorage.getItem('language') !== i18n.language) {
-			localStorage.setItem('language', i18n.language);
-		}
+		if (i18n.language !== language.current) updateI18n();
+	}, [language.current]);
+
+	useEffect(() => {
+		if (i18n.language !== language.current) updateStore();
 	}, [i18n.language]);
 
 	return i18n.language;

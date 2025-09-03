@@ -1,6 +1,7 @@
 import { usePlaceholdersTranslation } from '@/hooks/locales/common/messages';
 import { useLabelsTranslation } from '@/hooks/locales/components/forms';
 import { useGetCategories } from '@/hooks/queries/categories';
+import { useCurrencyStore } from '@/hooks/stores/useCurrencyStore';
 import Field from '@/app/components/fields';
 import FileField from '@/app/components/fields/file';
 import * as money from '@/utils/money';
@@ -10,6 +11,7 @@ export const useFields = () => {
 	const { form, handleSubmit, setCad, cadSet, ref } = useForm();
 	const { data: categories } = useGetCategories();
 
+	const { current: currency } = useCurrencyStore();
 	const tPlaceholders = usePlaceholdersTranslation();
 	const tLabels = useLabelsTranslation();
 
@@ -62,7 +64,7 @@ export const useFields = () => {
 					<Field
 						tag='input'
 						api={api}
-						label={`${tLabels('price')} (${money.fromBase({}).symbol})`}
+						label={`${tLabels('price')} (${money.currencyToSymbol(currency)})`}
 						type='number'
 						format={(value) => Number(value)}
 					/>
