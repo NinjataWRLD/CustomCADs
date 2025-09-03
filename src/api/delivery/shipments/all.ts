@@ -11,6 +11,7 @@ export type Request = {
 export type Response = {
 	id: string;
 	buyerName: string;
+	requestedAt: string;
 	address: Address;
 };
 

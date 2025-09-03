@@ -4,6 +4,7 @@ import {
 	PagesCustomerCheckoutForm,
 	PagesCustomerPurchasedCarts,
 	PagesCustomerCartItem,
+	PagesCustomerShipments,
 } from './customer';
 import {
 	PagesGuestConfirmEmail,
@@ -28,6 +29,7 @@ export type PagesTranslations = {
 	'pages.customer.checkout-form': PagesCustomerCheckoutForm;
 	'pages.customer.purchased-carts': PagesCustomerPurchasedCarts;
 	'pages.customer.cart-item': PagesCustomerCartItem;
+	'pages.customer.shipments': PagesCustomerShipments;
 	'pages.creator.upload-product': PagesCreatorUploadProduct;
 	'pages.guest.forgot-password': PagesGuestForgotPassword;
 	'pages.guest.login': PagesGuestLogin;
