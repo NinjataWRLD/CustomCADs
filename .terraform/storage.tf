@@ -3,6 +3,30 @@ resource "aws_s3_bucket" "customcads_frontend_bucket" {
   force_destroy = true
 }
 
+resource "aws_s3_bucket_policy" "customcads_frontend_policy" {
+  bucket = aws_s3_bucket.customcads_frontend_bucket.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid    = "AllowCloudFrontOACRead"
+        Effect = "Allow"
+        Principal = {
+          Service = "cloudfront.amazonaws.com"
+        }
+        Action   = "s3:GetObject"
+        Resource = "${aws_s3_bucket.customcads_frontend_bucket.arn}/*"
+        Condition = {
+          StringEquals = {
+            "AWS:SourceArn" = aws_cloudfront_distribution.customcads_frontend.arn
+          }
+        }
+      }
+    ]
+  })
+}
+
 resource "aws_s3_bucket_ownership_controls" "customcads_frontend_ownership" {
   bucket = aws_s3_bucket.customcads_frontend_bucket.id
 
