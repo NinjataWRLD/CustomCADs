@@ -17,6 +17,11 @@ jobs:
       - name: Build Vite
         run: npm run build
 
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.13.1
+
       - name: Configure AWS creds
         uses: aws-actions/configure-aws-credentials@v4
         with:
