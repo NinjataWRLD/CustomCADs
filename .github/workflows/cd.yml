@@ -31,10 +31,8 @@ jobs:
 
       - name: Sync to S3
         run: |
-          aws s3 sync ./dist s3://$(terraform -chdir=.terraform output -raw bucket_name) --delete
+          aws s3 sync ./dist s3://${{ secrets.AWS_BUCKET_NAME }} --delete
 
       - name: Invalidate CloudFront
         run: |
-          aws cloudfront create-invalidation \
-            --distribution-id $(terraform -chdir=.terraform output -raw cloudfront_distribution_id) \
-            --paths "/index.html" "/"
+          aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_DISTRIBUTION_ID }} --paths "/index.html" "/"
