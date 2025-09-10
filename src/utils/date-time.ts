@@ -1,4 +1,4 @@
-import { getUserDefaultLanguage } from './default-language';
+import { store } from '@/stores/language-store';
 
 type FormatOptions = {
 	date: string;
@@ -7,7 +7,7 @@ type FormatOptions = {
 };
 export const format = ({
 	date,
-	locale = getUserDefaultLanguage(),
+	locale = store.state.current,
 	dateOnly = false,
 }: FormatOptions) =>
 	new Date(date).toLocaleString(locale, {

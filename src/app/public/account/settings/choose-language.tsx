@@ -25,6 +25,17 @@ const ChooseLanguage = () => {
 		languageStore.setDefault(language);
 		languageStore.setCurrent(language);
 	};
+	const computeInitialValue = (): Language => {
+		if (ALLOWED_LANGUAGES.includes(defaultLanguage)) {
+			return defaultLanguage;
+		}
+
+		const getPrefix = (l: Language) => l.split('-')[0];
+		const prefix = getPrefix(defaultLanguage);
+
+		const closest = ALLOWED_LANGUAGES.find((l) => getPrefix(l) === prefix);
+		return closest ?? ALLOWED_LANGUAGES[0];
+	};
 
 	return (
 		<div className='relative flex items-center gap-8'>
@@ -32,7 +43,7 @@ const ChooseLanguage = () => {
 			<StyledSelect
 				id='language'
 				name='language'
-				value={defaultLanguage}
+				value={computeInitialValue()}
 				options={options}
 				onChange={handleChange}
 				className='max-w-[40%]'
