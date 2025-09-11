@@ -6,6 +6,7 @@ export default {
 	carts: 'Carts',
 	orders: 'Orders',
 	account: 'Account',
+	notifications: 'Notifications',
 	logout: 'Log Out',
 	'choose-language': 'Choose a language:',
 	english: 'English',

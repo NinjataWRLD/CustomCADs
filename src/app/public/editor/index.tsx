@@ -4,7 +4,7 @@ import { AppError } from '@/types/errors';
 import { Route } from '@/routes/_public/editor.$id';
 import { resetStore } from '@/stores/editor-store';
 import { useEditorTranslation } from '@/hooks/locales/pages/public';
-import { useCartItemManager } from '@/hooks/useCartItemManager';
+import { useCartItemManager } from '@/hooks/cart-items/useCartItemManager';
 import { useEditorStore } from '@/hooks/stores/useEditorStore';
 import { useCartUpdates } from '@/hooks/contexts/useCartUpdates';
 import { useEditCustomization } from '@/hooks/mutations/customizations';

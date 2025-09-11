@@ -6,6 +6,7 @@ export default {
 	carts: 'Колички',
 	orders: 'Поръчки',
 	account: 'Акаунт',
+	notifications: 'Известия',
 	logout: 'Излез',
 	'choose-language': 'Избери език:',
 	english: 'Английски',

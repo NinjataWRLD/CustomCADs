@@ -13,6 +13,7 @@ export type ComponentsLayoutHeader = {
 	carts: string;
 	orders: string;
 	account: string;
+	notifications: string;
 	logout: string;
 	'choose-language': string;
 	english: string;

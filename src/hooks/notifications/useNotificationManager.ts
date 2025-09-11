@@ -5,20 +5,26 @@ import {
 } from '@/hooks/mutations/notifications';
 
 type Props = { id: string; status: string };
-export const useNotificationManager = (notification: Props) => {
+export const useNotificationManager = (
+	notification: Props,
+	callback?: () => Promise<void>,
+) => {
 	const [isRead, setIsRead] = useState(notification.status === 'Read');
 	const { mutateAsync: read } = useReadNotification();
 	useEffect(() => {
 		if (notification.status === 'Unread' && isRead) {
 			(async () => await read({ id: notification.id }))();
 		}
-	}, []);
+	}, [isRead]);
 
 	const [isOpened, setIsOpened] = useState(notification.status === 'Opened');
 	const { mutateAsync: open } = useOpenNotification();
 	useEffect(() => {
 		if (notification.status === 'Read' && isOpened) {
-			(async () => await open({ id: notification.id }))();
+			(async () => {
+				await open({ id: notification.id });
+				if (callback) await callback();
+			})();
 		}
 	}, [isOpened]);
 

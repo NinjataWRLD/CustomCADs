@@ -1,4 +1,3 @@
-import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from '@tanstack/react-router';
 import {
 	faCog,
@@ -13,6 +12,7 @@ import { useHeaderTranslation } from '@/hooks/locales/components/layout';
 import { useAuthStore } from '@/hooks/stores/useAuthStore';
 import { useCartContext } from '@/hooks/contexts/useCartContext';
 import { useLogout } from '@/hooks/mutations/identity';
+import { usePopup } from '@/hooks/usePopup';
 import * as authStore from '@/stores/auth-store';
 import AccountButton from './account-button';
 import Setting from './setting';
@@ -21,7 +21,9 @@ const SettingsButton = () => {
 	const { dispatch } = useCartContext();
 	const { mutateAsync: apiLogout } = useLogout();
 
+	const popup = usePopup();
 	const navigate = useNavigate();
+
 	const { is } = useAuthStore();
 	const tHeader = useHeaderTranslation();
 
@@ -34,28 +36,6 @@ const SettingsButton = () => {
 		currencyStore.resetStore();
 	};
 
-	const [show, setShow] = useState(false);
-	const toggle = () => setShow((prev) => !prev);
-	const hide = () => setShow(false);
-
-	const ref = useRef<HTMLDivElement | null>(null);
-
-	useEffect(() => {
-		const handleClickOutside = (event: MouseEvent) => {
-			if (ref.current && !ref.current.contains(event.target as Node)) {
-				hide();
-			}
-		};
-
-		if (show) {
-			document.addEventListener('click', handleClickOutside, true);
-		}
-
-		return () => {
-			document.removeEventListener('click', handleClickOutside, true);
-		};
-	}, [show]);
-
 	const settings = [
 		<Setting
 			key='account'
@@ -64,14 +44,14 @@ const SettingsButton = () => {
 				navigate({ to: '/account', search: { tab: 'about-me' } })
 			}
 			icon={faCog}
-			hide={hide}
+			hide={popup.close}
 		/>,
 		<Setting
 			key='logout'
 			label={tHeader('logout')}
 			redirect={() => navigate({ to: '/' })}
 			icon={faSignOutAlt}
-			hide={hide}
+			hide={popup.close}
 			onClick={logout}
 		/>,
 	];
@@ -83,25 +63,25 @@ const SettingsButton = () => {
 				label={tHeader('carts')}
 				redirect={() => navigate({ to: '/carts' })}
 				icon={faShoppingBag}
-				hide={hide}
+				hide={popup.close}
 			/>,
 			<Setting
 				key='orders'
 				label={tHeader('orders')}
 				redirect={() => navigate({ to: '/services-info' })}
 				icon={faPuzzlePiece}
-				hide={hide}
+				hide={popup.close}
 			/>,
 		);
 	}
 
 	return (
-		<div ref={ref}>
+		<div ref={popup.ref}>
 			<AccountButton
 				label={tHeader('settings')}
 				settings={settings}
-				show={show}
-				toggle={toggle}
+				show={popup.isOpen}
+				toggle={popup.toggle}
 			/>
 		</div>
 	);
