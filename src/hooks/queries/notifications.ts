@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { Request as All } from '@/api/notifications/notifications/all';
 import * as api from '@/api/notifications/notifications';
 
@@ -11,9 +11,15 @@ export const keys = {
 };
 
 export const useGetNotifications = (params: All, enabled?: boolean) =>
-	useQuery({
+	useInfiniteQuery({
 		queryKey: keys.all(params),
 		queryFn: async () => (await api.all(params)).data,
+		getNextPageParam: (last, all) => {
+			const loaded = all.flatMap((p) => p.items).length;
+			return loaded < last.count ? all.length + 1 : undefined;
+		},
+		initialData: { pages: [], pageParams: [0] },
+		initialPageParam: 1,
 		enabled,
 	});
 

@@ -34,7 +34,7 @@ const NotificationItem = ({ notification }: NotificationProps) => {
 					{content}
 				</Link>
 			) : (
-				<li className={className}>{content}</li>
+				<div className={className}>{content}</div>
 			)}
 			<Tooltip text={dateTime.format({ date: notification.createdAt })} />
 		</div>

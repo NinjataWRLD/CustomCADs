@@ -7,8 +7,10 @@ import NotificationItem from './item';
 
 const PARAMS = { page: 1, limit: 50 };
 const NotificationsButton = () => {
-	const { data: notifications } = useGetNotifications(PARAMS);
+	const query = useGetNotifications(PARAMS);
 	const tHeader = useHeaderTranslation();
+
+	const notifications = query.data?.pages.flatMap((page) => page.items) ?? [];
 
 	const popup = usePopup();
 	useNotificationUpdater({
@@ -24,11 +26,16 @@ const NotificationsButton = () => {
 		<div ref={popup.ref}>
 			<NotificationBell
 				label={tHeader('notifications')}
-				empty={!notifications?.count}
+				empty={!notifications.length}
 				show={popup.isOpen}
 				toggle={popup.toggle}
+				onEndReached={() => {
+					if (query.hasNextPage && !query.isFetchingNextPage) {
+						query.fetchNextPage();
+					}
+				}}
 			>
-				{notifications?.items.map((n) => (
+				{notifications.map((n) => (
 					<NotificationItem key={n.id} notification={n} />
 				))}
 			</NotificationBell>
