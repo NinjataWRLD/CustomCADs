@@ -4,7 +4,7 @@ import { faBell } from '@fortawesome/free-solid-svg-icons';
 import { useGetNotificationStats } from '@/hooks/queries/notifications';
 import { useNotificationVirtualization } from '@/hooks/notifications/useNotificationVirtualization';
 
-type BaseButtonProps = {
+type NotificationBellProps = {
 	children: ReactNode;
 	label: string;
 	empty?: boolean;
@@ -20,7 +20,7 @@ const NotificationBell = ({
 	empty,
 	toggle,
 	onEndReached,
-}: BaseButtonProps) => {
+}: NotificationBellProps) => {
 	const { data: stats } = useGetNotificationStats();
 
 	const notifications = Children.toArray(children);
@@ -46,6 +46,7 @@ const NotificationBell = ({
 						left: 0,
 						width: '100%',
 						transform: `translateY(${virtualRow.start}px)`,
+						cursor: 'default',
 					}}
 				>
 					{notifications?.[virtualRow.index]}

@@ -5,7 +5,7 @@ import { useNotificationManager } from '@/hooks/notifications/useNotificationMan
 import * as dateTime from '@/utils/date-time';
 
 const Tooltip = ({ text }: { text: string }) => (
-	<span className='absolute top-1/2 -translate-y-1/2 right-full mr-2 px-2 py-1 text-sm text-white whitespace-nowrap bg-gradient-to-r from-transparent via-purple-900 to-purple-800 rounded opacity-0 group-hover/bell:opacity-100 transition-opacity duration-300 pointer-events-none'>
+	<span className='relative bottom-5.75 left-54 px-2 py-1 text-sm bg-gradient-to-l from-transparent via-purple-900 to-purple-900 rounded opacity-0 group-hover/bell:opacity-100 transition-opacity duration-300 pointer-events-none'>
 		{text}
 	</span>
 );
@@ -29,14 +29,16 @@ const NotificationItem = ({ notification }: NotificationProps) => {
 
 	return (
 		<div className='relative w-full group/bell' onClick={manager.open}>
-			{notification.link ? (
+			{!!notification.link ? (
 				<Link to={notification.link} className={className}>
 					{content}
 				</Link>
 			) : (
 				<div className={className}>{content}</div>
 			)}
-			<Tooltip text={dateTime.format({ date: notification.createdAt })} />
+			<Tooltip
+				text={dateTime.formatRelative({ date: notification.createdAt })}
+			/>
 		</div>
 	);
 };
