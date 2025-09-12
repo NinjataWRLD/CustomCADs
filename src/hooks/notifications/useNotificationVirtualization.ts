@@ -9,7 +9,7 @@ export const useNotificationVirtualization = (
 	const virtualizer = useVirtualizer({
 		count: length,
 		getScrollElement: () => parentRef.current,
-		estimateSize: () => 72,
+		estimateSize: () => 80,
 		overscan: 5,
 	});
 

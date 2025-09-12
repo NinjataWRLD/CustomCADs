@@ -18,7 +18,7 @@ export const useGetNotifications = (params: All, enabled?: boolean) =>
 			const loaded = all.flatMap((p) => p.items).length;
 			return loaded < last.count ? all.length + 1 : undefined;
 		},
-		initialData: { pages: [], pageParams: [0] },
+		initialData: { pages: [], pageParams: [] },
 		initialPageParam: 1,
 		enabled,
 	});

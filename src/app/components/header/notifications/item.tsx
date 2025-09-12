@@ -5,7 +5,7 @@ import { useNotificationManager } from '@/hooks/notifications/useNotificationMan
 import * as dateTime from '@/utils/date-time';
 
 const Tooltip = ({ text }: { text: string }) => (
-	<span className='relative bottom-5.75 left-54 px-2 py-1 text-sm bg-gradient-to-l from-transparent via-purple-900 to-purple-900 rounded opacity-0 group-hover/bell:opacity-100 transition-opacity duration-300 pointer-events-none'>
+	<span className='relative bottom-5.75 left-48 px-2 py-1 text-sm bg-gradient-to-l from-transparent via-purple-900 to-purple-900 rounded-md opacity-0 group-hover/bell:opacity-100 transition-opacity duration-300 pointer-events-none'>
 		{text}
 	</span>
 );
@@ -17,7 +17,7 @@ const NotificationItem = ({ notification }: NotificationProps) => {
 		manager.read();
 	}, []);
 
-	const className = `flex items-center gap-3 w-[85%] px-4 py-4 border-b border-purple-500 last:border-none text-white hover:bg-purple-700/20 rounded transition-all duration-200`;
+	const className = `flex items-center gap-3 w-[85%] px-4 py-4 border-y border-purple-500 text-white hover:bg-purple-700/20 rounded-lg transition-all duration-200`;
 	const content = (
 		<>
 			{notification.status === 'Unread' && (

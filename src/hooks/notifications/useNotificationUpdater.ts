@@ -1,25 +1,32 @@
 import { useEffect } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
+import * as all from '@/api/notifications/notifications/all';
+import { keys } from '@/hooks/queries/notifications';
 
-type Props = {
+type UseNotificationUpdaterProps = {
 	isBellOpen: boolean;
 	wasBellOpened: boolean;
-	queryKeysToInvalidate: unknown[][];
+	params: all.Request;
 };
-export const useNotificationUpdater = (props: Props) => {
+export const useNotificationUpdater = ({
+	params,
+	isBellOpen,
+	wasBellOpened,
+}: UseNotificationUpdaterProps) => {
 	const queryClient = useQueryClient();
 
-	useEffect(() => {
-		if (props.wasBellOpened && !props.isBellOpen) {
-			const updateNotifications = async () => {
-				for (const key of props.queryKeysToInvalidate) {
-					await queryClient.invalidateQueries({
-						queryKey: key,
-						exact: true,
-					});
-				}
-			};
-			updateNotifications();
+	const updateNotificationsQueries = async () => {
+		for (const key of [keys.all(params), keys.stats()]) {
+			await queryClient.invalidateQueries({
+				queryKey: key,
+				exact: true,
+			});
 		}
-	}, [props.wasBellOpened, props.isBellOpen]);
+	};
+
+	useEffect(() => {
+		if (wasBellOpened && !isBellOpen) {
+			updateNotificationsQueries();
+		}
+	}, [wasBellOpened, isBellOpen, queryClient.setQueryData]);
 };

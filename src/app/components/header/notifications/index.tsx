@@ -1,5 +1,5 @@
 import { useHeaderTranslation } from '@/hooks/locales/components/layout';
-import { keys, useGetNotifications } from '@/hooks/queries/notifications';
+import { useGetNotifications } from '@/hooks/queries/notifications';
 import { useNotificationUpdater } from '@/hooks/notifications/useNotificationUpdater';
 import { usePopup } from '@/hooks/usePopup';
 import NotificationBell from './bell';
@@ -16,10 +16,7 @@ const NotificationsButton = () => {
 	useNotificationUpdater({
 		isBellOpen: popup.isOpen,
 		wasBellOpened: popup.wasOpened,
-		queryKeysToInvalidate: [
-			keys.all(PARAMS) as unknown as unknown[],
-			keys.stats() as unknown as unknown[],
-		],
+		params: PARAMS,
 	});
 
 	return (
