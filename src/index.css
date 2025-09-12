@@ -3,6 +3,17 @@
 @import 'tailwindcss/theme.css' layer(theme);
 @import 'tailwindcss/utilities.css' layer(utilities);
 
+@layer utilities {
+    .scrollbar-hide {
+        -ms-overflow-style: none; /* IE/Edge */
+        scrollbar-width: none; /* Firefox */
+    }
+    .scrollbar-hide::-webkit-scrollbar {
+        width: 0; /* Chrome, Safari, Opera */
+        height: 0;
+    }
+}
+
 body {
     font-family: 'Rubik', sans-serif;
     font-weight: 400;

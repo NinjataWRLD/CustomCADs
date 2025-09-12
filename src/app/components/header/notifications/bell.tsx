@@ -1,7 +1,8 @@
-import { ReactNode } from 'react';
+import { Children, ReactNode } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell } from '@fortawesome/free-solid-svg-icons';
 import { useGetNotificationStats } from '@/hooks/queries/notifications';
+import { useNotificationVirtualization } from '@/hooks/notifications/useNotificationVirtualization';
 
 type BaseButtonProps = {
 	children: ReactNode;
@@ -14,12 +15,44 @@ type BaseButtonProps = {
 
 const NotificationBell = ({
 	label,
-	children: notifications,
+	children,
 	show,
 	empty,
 	toggle,
+	onEndReached,
 }: BaseButtonProps) => {
 	const { data: stats } = useGetNotificationStats();
+
+	const notifications = Children.toArray(children);
+	const { virtualizer, parentRef } = useNotificationVirtualization(
+		notifications.length,
+		onEndReached,
+	);
+
+	const list = (
+		<ul
+			style={{
+				height: `${virtualizer.getTotalSize()}px`,
+				position: 'relative',
+			}}
+		>
+			{virtualizer.getVirtualItems().map((virtualRow) => (
+				<li
+					key={virtualRow.key}
+					ref={virtualizer.measureElement}
+					style={{
+						position: 'absolute',
+						top: 0,
+						left: 0,
+						width: '100%',
+						transform: `translateY(${virtualRow.start}px)`,
+					}}
+				>
+					{notifications?.[virtualRow.index]}
+				</li>
+			))}
+		</ul>
+	);
 
 	return (
 		<div
@@ -49,9 +82,12 @@ const NotificationBell = ({
 					{empty ? (
 						<div className='relative flex flex-col justify-center items-center text-white py-40 gap-3 w-[85%] border-b border-purple-500 last:border-none rounded transition-all duration-20' />
 					) : (
-						<ul className='relative w-full flex flex-col justify-center items-center text-white px-2'>
-							{notifications}
-						</ul>
+						<div
+							ref={parentRef}
+							className='relative w-full px-2 max-h-[400px] overflow-y-auto scrollbar-hide'
+						>
+							{list}
+						</div>
 					)}
 				</div>
 			)}
