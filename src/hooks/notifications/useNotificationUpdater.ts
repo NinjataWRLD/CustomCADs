@@ -82,7 +82,7 @@ export const useNotificationUpdater = ({
 		}
 	};
 
-	useNotificationsHub(async (notification) => {
+	useNotificationsHub('ReceiveNew', async (notification) => {
 		await setAllQueryData(notification);
 		await setStatsQueryData();
 		await updateNotificationsQueries();
