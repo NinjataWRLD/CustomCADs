@@ -1,9 +1,10 @@
 import z from 'zod';
 import { createFileRoute } from '@tanstack/react-router';
 import * as shipmentsApi from '@/api/delivery/shipments';
+import Shipments from '@/app/private/customer/shipments/all';
 
 export const Route = createFileRoute('/(private)/_customer/shipments/')({
-	component: () => {},
+	component: Shipments,
 	validateSearch: z.object({
 		sortingType: z.string().optional(),
 		sortingDirection: z.string().optional(),

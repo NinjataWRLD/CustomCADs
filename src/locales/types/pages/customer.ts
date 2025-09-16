@@ -36,3 +36,16 @@ export type PagesCustomerCartItem = {
 	'delivery-option-1': string;
 	'delivery-option-2': string;
 };
+
+export type PagesCustomerShipments = {
+	title: string;
+	'item-title': string;
+	country: string;
+	city: string;
+	street: string;
+	'requested-at': string;
+	'popup-title': string;
+	'date-time': string;
+	message: string;
+	place: string;
+};
