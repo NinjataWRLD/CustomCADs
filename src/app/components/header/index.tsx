@@ -9,9 +9,10 @@ import {
 import { useAuthStore } from '@/hooks/stores/useAuthStore';
 import { useCartContext } from '@/hooks/contexts/useCartContext';
 import { useHeaderTranslation } from '@/hooks/locales/components/layout';
-import SettingsButton from './settings';
 import BaseButton from './base-button';
+import SettingsButton from './settings';
 import Language from './language';
+import NotificationsButton from './notifications';
 
 const title = 'CustomCADs';
 const Header = () => {
@@ -63,7 +64,11 @@ const Header = () => {
 			</div>
 			<div className='flex items-center gap-8 mr-8'>
 				{!is.guest ? (
-					<SettingsButton />
+					<>
+						<NotificationsButton />
+						<span>|</span>
+						<SettingsButton />
+					</>
 				) : (
 					<>
 						<BaseButton

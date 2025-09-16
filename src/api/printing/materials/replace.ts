@@ -6,8 +6,6 @@ export type Request = {
 	file: UploadRequest;
 };
 
-export type Response = {
-	presignedUrl: string;
-};
+export type Response = string;
 
 export const url = () => `${MATERIALS_BASE_PATH}/presignedUrls/replace`;

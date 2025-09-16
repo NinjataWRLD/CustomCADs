@@ -110,10 +110,7 @@ const Home = () => {
 						<h1 className='text-center text-4xl text-white title-text-shadow mb-[4%]'>
 							{tHome('title_popular')}
 						</h1>
-						<PopularProducts
-							total={products.count}
-							products={products.items}
-						/>
+						<PopularProducts products={products.items} />
 					</section>
 
 					<hr />
