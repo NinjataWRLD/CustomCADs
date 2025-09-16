@@ -1,29 +1,32 @@
+import { usePagination } from '@/hooks/usePagination';
 import Button from './button';
 import Num from './num';
+import { useEffect } from 'react';
 
 type PaginationProps = {
 	total: number;
-	limit: number;
-	page: number;
-	onPageChange: (newPage: number) => void;
+	defaultLimit: number;
+	navigate: (pagination: { page: number; limit: number }) => void;
 };
 
-const Pagination = ({ total, limit, page, onPageChange }: PaginationProps) => {
+const Pagination = ({ total, defaultLimit, navigate }: PaginationProps) => {
 	if (!total) return;
 
+	const { page, limit, handlePageChange } = usePagination(
+		total,
+		defaultLimit,
+	);
 	const lastPage = Math.ceil(total / limit);
 
-	const handleBeginning = () => {
-		onPageChange(1);
-	};
-	const handlePrevious = () => {
-		onPageChange(page - 1);
-	};
-	const handleNext = () => {
-		onPageChange(page + 1);
-	};
-	const handleEnd = () => {
-		onPageChange(lastPage);
+	useEffect(() => {
+		navigate({ page, limit });
+	}, [page, limit]);
+
+	const handle = {
+		beginning: () => handlePageChange(1),
+		previous: () => handlePageChange(page - 1),
+		next: () => handlePageChange(page + 1),
+		end: () => handlePageChange(lastPage),
 	};
 
 	const renderNums = () => {
@@ -33,7 +36,7 @@ const Pagination = ({ total, limit, page, onPageChange }: PaginationProps) => {
 				<Num
 					key={i}
 					num={i}
-					handleClick={onPageChange}
+					handleClick={handlePageChange}
 					active={i === page}
 				/>,
 			);
@@ -46,24 +49,24 @@ const Pagination = ({ total, limit, page, onPageChange }: PaginationProps) => {
 			<Button
 				direction='prev'
 				disabled={page === 1}
-				handleClick={handleBeginning}
+				handleClick={handle.beginning}
 				duplicate
 			/>
 			<Button
 				direction='prev'
 				disabled={page === 1}
-				handleClick={handlePrevious}
+				handleClick={handle.previous}
 			/>
 			{renderNums()}
 			<Button
 				direction='next'
 				disabled={page === lastPage}
-				handleClick={handleNext}
+				handleClick={handle.next}
 			/>
 			<Button
 				direction='next'
 				disabled={page === lastPage}
-				handleClick={handleEnd}
+				handleClick={handle.end}
 				duplicate
 			/>
 		</div>

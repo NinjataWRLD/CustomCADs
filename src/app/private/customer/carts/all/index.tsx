@@ -1,49 +1,19 @@
-import { useEffect, useState } from 'react';
 import { Route } from '@/routes/(private)/_customer/carts';
-import { usePagination } from '@/hooks/usePagination';
-import {
-	useGetPurchasedCartsPaymentStatuses,
-	useGetPurchasedCartsSortings,
-} from '@/hooks/queries/purchased-carts';
 import { usePurchasedCartsTranslation } from '@/hooks/locales/pages/customer';
+import { useNotFoundTranslation } from '@/hooks/locales/common/messages';
 import Transition from '@/app/components/transition';
 import Pagination from '@/app/components/pagination';
-import Sortings from '@/app/components/search/sortings';
-import Statuses from '@/app/components/search/statuses';
+import { useCartsDropdowns } from './hooks/useCartsDropdowns';
 import Cart from './cart';
 
-const GALLERY_ITEMS_PER_PAGE = 12;
+const CARTS_ITEMS_PER_PAGE = 12;
 const PurchasedCarts = () => {
 	const { carts } = Route.useLoaderData();
 	const navigate = Route.useNavigate();
-	const search = Route.useSearch();
 
-	const [total, setTotal] = useState(0);
-	const { page, limit, handlePageChange } = usePagination(
-		total,
-		search.limit ?? GALLERY_ITEMS_PER_PAGE,
-	);
-
+	const dropdowns = useCartsDropdowns();
 	const tCarts = usePurchasedCartsTranslation();
-	const sortings = useGetPurchasedCartsSortings();
-	const statuses = useGetPurchasedCartsPaymentStatuses();
-
-	const [dropdown, setDropdown] = useState<'sorting' | 'payment-statuses'>();
-	useEffect(() => {
-		navigate({
-			search: (prev) => ({
-				...prev,
-				page,
-				limit,
-			}),
-		});
-	}, [page, limit]);
-
-	useEffect(() => {
-		if (carts.count) {
-			setTotal(carts.count);
-		}
-	}, [carts]);
+	const tNotFound = useNotFoundTranslation();
 
 	return (
 		<Transition>
@@ -52,53 +22,35 @@ const PurchasedCarts = () => {
 					{tCarts('title')}
 				</h1>
 				<div className='relative flex justify-center w-full max-w-[1200px] gap-[30px] p-5'>
-					<Statuses
-						fetch={statuses}
-						getStatus={() => search.paymentStatus}
-						updateStatus={(paymentStatus) => {
-							navigate({
-								search: (prev) => ({
-									...prev,
-									paymentStatus: paymentStatus,
-								}),
-							});
-						}}
-						isActive={dropdown === 'payment-statuses'}
-						setActive={(active) =>
-							setDropdown(active ? 'payment-statuses' : undefined)
-						}
-					/>
-					<Sortings
-						fetch={sortings}
-						getSorting={() => ({
-							type: search.sortingType,
-							direction: search.sortingDirection,
-						})}
-						updateSorting={({ type, direction }) => {
-							navigate({
-								search: (prev) => ({
-									...prev,
-									sortingType: type ?? prev.sortingType,
-									sortingDirection: direction,
-								}),
-							});
-						}}
-						isActive={dropdown === 'sorting'}
-						setActive={(active) =>
-							setDropdown(active ? 'sorting' : undefined)
-						}
-					/>
+					{<dropdowns.Statuses />}
+					{<dropdowns.Sortings />}
 				</div>
 				<div className='w-full h-3/5 gap-5 flex flex-col items-center justify-start mb-5'>
-					{carts.items.map((cart) => (
-						<Cart key={cart.id} id={cart.id} navigate={navigate} />
-					))}
+					{carts.items.length ? (
+						carts.items.map((cart) => (
+							<Cart
+								key={cart.id}
+								id={cart.id}
+								navigate={navigate}
+							/>
+						))
+					) : (
+						<div className='min-h-[60dvh] flex items-center text-white text-2xl text-shadow-custom'>
+							{tNotFound('no-products')}
+						</div>
+					)}
 				</div>
 				<Pagination
-					limit={limit}
-					page={page}
-					total={total}
-					onPageChange={handlePageChange}
+					total={carts.count}
+					defaultLimit={CARTS_ITEMS_PER_PAGE}
+					navigate={(pagination) =>
+						navigate({
+							search: (prev) => ({
+								...prev,
+								...pagination,
+							}),
+						})
+					}
 				/>
 			</div>
 		</Transition>

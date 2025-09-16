@@ -1,50 +1,17 @@
-import { useState, useEffect } from 'react';
 import { Route } from '@/routes/_public/gallery';
-import { usePagination } from '@/hooks/usePagination';
-import {
-	usePlaceholdersTranslation,
-	useNotFoundTranslation,
-} from '@/hooks/locales/common/messages';
-import { useGetProductSortings } from '@/hooks/queries/products/gallery';
+import { useNotFoundTranslation } from '@/hooks/locales/common/messages';
 import Transition from '@/app/components/transition';
-import Categories from '@/app/components/search/categories';
-import Searchbar from '@/app/components/search/searchbar';
-import Sortings from '@/app/components/search/sortings';
 import Pagination from '@/app/components/pagination';
+import { useGalleryDropdowns } from './hooks/useGalleryDropdowns';
 import Item from './item';
 
 const GALLERY_ITEMS_PER_PAGE = 12;
 const Gallery = () => {
-	const tPlaceholders = usePlaceholdersTranslation();
-	const tNotFound = useNotFoundTranslation();
-
 	const { gallery: products } = Route.useLoaderData();
 	const navigate = Route.useNavigate();
-	const search = Route.useSearch();
 
-	const [total, setTotal] = useState(0);
-	const { page, limit, handlePageChange } = usePagination(
-		total,
-		search.limit ?? GALLERY_ITEMS_PER_PAGE,
-	);
-	const sortings = useGetProductSortings();
-
-	const [dropdown, setDropdown] = useState<'categories' | 'sorting'>();
-	useEffect(() => {
-		navigate({
-			search: (prev) => ({
-				...prev,
-				page,
-				limit,
-			}),
-		});
-	}, [page, limit]);
-
-	useEffect(() => {
-		if (products.count) {
-			setTotal(products.count);
-		}
-	}, [products]);
+	const dropdowns = useGalleryDropdowns();
+	const tNotFound = useNotFoundTranslation();
 
 	return (
 		<Transition>
@@ -56,53 +23,9 @@ const Gallery = () => {
 				}}
 			>
 				<div className='relative flex justify-center w-full max-w-[1200px] gap-[30px] p-5'>
-					<Categories
-						getCategory={() => search.categoryName}
-						updateCategory={(category) => {
-							navigate({
-								search: (prev) => ({
-									...prev,
-									categoryName: category?.name,
-								}),
-							});
-						}}
-						isActive={dropdown === 'categories'}
-						setActive={(active) =>
-							setDropdown(active ? 'categories' : undefined)
-						}
-					/>
-					<Searchbar
-						placeholder={tPlaceholders('search-products')}
-						getName={() => search.name}
-						updateName={(name) => {
-							navigate({
-								search: (prev) => ({
-									...prev,
-									name: name,
-								}),
-							});
-						}}
-					/>
-					<Sortings
-						fetch={sortings}
-						getSorting={() => ({
-							type: search.sortingType,
-							direction: search.sortingDirection,
-						})}
-						updateSorting={({ type, direction }) => {
-							navigate({
-								search: (prev) => ({
-									...prev,
-									sortingType: type ?? prev.sortingType,
-									sortingDirection: direction,
-								}),
-							});
-						}}
-						isActive={dropdown === 'sorting'}
-						setActive={(active) =>
-							setDropdown(active ? 'sorting' : undefined)
-						}
-					/>
+					{<dropdowns.Categories />}
+					{<dropdowns.Searchbar />}
+					{<dropdowns.Sortings />}
 				</div>
 				{products.items.length ? (
 					<div className='w-4/5 flex flex-wrap justify-center gap-y-[100px] gap-x-[70px] p-5'>
@@ -122,10 +45,16 @@ const Gallery = () => {
 				)}
 				<div className='flex items-center justify-center'>
 					<Pagination
-						total={products.count ?? 0}
-						limit={limit}
-						page={page}
-						onPageChange={handlePageChange}
+						total={products.count}
+						defaultLimit={GALLERY_ITEMS_PER_PAGE}
+						navigate={(pagination) =>
+							navigate({
+								search: (prev) => ({
+									...prev,
+									...pagination,
+								}),
+							})
+						}
 					/>
 				</div>
 			</section>
