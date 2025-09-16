@@ -6,15 +6,15 @@ export const usePopup = () => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	const open = () => {
-		setWasOpened(true);
+		if (!wasOpened) setWasOpened(true);
 		setIsOpen(true);
 	};
 	const close = () => {
-		setWasOpened(true);
+		if (!wasOpened) setWasOpened(true);
 		setIsOpen(false);
 	};
 	const toggle = () => {
-		setWasOpened(true);
+		if (!wasOpened) setWasOpened(true);
 		setIsOpen((prev) => !prev);
 	};
 
