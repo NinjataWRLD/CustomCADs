@@ -1,5 +1,5 @@
 import { useStore } from '@tanstack/react-store';
-import { useDebounce } from '@/hooks/useDebounce';
+import { useThrottle } from '@/hooks/useThrottle';
 import { useCalculateActiveCartShipment } from '@/hooks/queries/active-carts';
 import { usePlaceholdersTranslation } from '@/hooks/locales/common/messages';
 import { useLabelsTranslation } from '@/hooks/locales/components/forms';
@@ -23,11 +23,11 @@ export const useFields = (onSubmit: (values: Fields) => void) => {
 		},
 		street: () => form.setFieldValue('street', ''),
 	};
-	const debounced = useDebounce({ country, city, street }, 250);
+	const throttled = useThrottle({ country, city, street }, 500);
 
 	const { data: calculations } = useCalculateActiveCartShipment(
-		debounced,
-		!!city && !!country && !!street,
+		throttled,
+		!!throttled.city && !!throttled.country && !!throttled.street,
 	);
 
 	const tPlaceholders = usePlaceholdersTranslation();
