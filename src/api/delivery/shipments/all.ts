@@ -1,4 +1,4 @@
-import { Address, SHIPMENTS_BASE_PATH } from '@/api/delivery/common';
+import { Address, Info, SHIPMENTS_BASE_PATH } from '@/api/delivery/common';
 import { objectToSearchParams } from '@/utils/api';
 
 export type Request = {
@@ -10,8 +10,9 @@ export type Request = {
 
 export type Response = {
 	id: string;
-	buyerName: string;
 	requestedAt: string;
+	status: string;
+	info: Info;
 	address: Address;
 };
 
