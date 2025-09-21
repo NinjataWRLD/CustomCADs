@@ -1,16 +1,25 @@
 import { useMutation } from '@tanstack/react-query';
+import { Request as SetCategory } from '@/api/customs/customs/designer/category';
 import { Request as Status } from '@/api/customs/customs/designer/status';
 import { Request as Finish } from '@/api/customs/customs/designer/finish';
 import * as api from '@/api/customs/customs/designer';
 
 export const keys = {
 	base: ['customs', 'designer'] as const,
+	category: () => [...keys.base, 'set-category'] as const,
 	accept: () => [...keys.base, 'accept'] as const,
 	begin: () => [...keys.base, 'begin'] as const,
 	cancel: () => [...keys.base, 'cancel'] as const,
 	report: () => [...keys.base, 'report'] as const,
 	finish: () => [...keys.base, 'finish'] as const,
 };
+
+export const useSetCategoryCustom = () =>
+	useMutation({
+		mutationKey: keys.category(),
+		mutationFn: async (params: SetCategory) =>
+			(await api.setCategory(params)).data,
+	});
 
 export const useAcceptCustom = () =>
 	useMutation({

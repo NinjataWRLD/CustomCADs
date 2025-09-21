@@ -1,9 +1,10 @@
-import { CUSTOMS_DESIGNER_BASE_PATH } from '@/api/customs/common';
+import { CUSTOMS_DESIGNER_BASE_PATH, CustomStatus } from '@/api/customs/common';
 import { objectToSearchParams } from '@/utils/api';
 
 export type Request = {
-	status?: 'pending' | 'accepted' | 'begun' | 'finished' | 'reported';
 	forDelivery?: boolean;
+	status?: CustomStatus;
+	categoryId?: number;
 	name?: string;
 	sortingType?: string;
 	sortingDirection?: string;
@@ -14,9 +15,11 @@ export type Request = {
 export type Response = {
 	id: string;
 	name: string;
+	status: CustomStatus;
 	orderedAt: string;
-	buyerName: string;
 	forDelivery: boolean;
+	buyerName: string;
+	categoryName?: string;
 };
 
 export const url = (req: Request) =>

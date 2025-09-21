@@ -1,11 +1,13 @@
+import { CUSTOMS_ADMIN_BASE_PATH, CustomStatus } from '@/api/customs/common';
 import { objectToSearchParams } from '@/utils/api';
-import { CUSTOMS_CUSTOMER_BASE_PATH, CustomStatus } from '@/api/customs/common';
 
 export type Request = {
-	delivery?: boolean;
-	status?: CustomStatus;
-	categoryId?: number;
+	forDelivery?: boolean;
 	name?: string;
+	status?: CustomStatus;
+	customerId?: string;
+	designerId?: string;
+	categoryId?: number;
 	sortingType?: string;
 	sortingDirection?: string;
 	page: number;
@@ -18,9 +20,10 @@ export type Response = {
 	orderedAt: string;
 	status: CustomStatus;
 	forDelivery: boolean;
+	buyerName: string;
 	designerName?: string;
 	categoryName?: string;
 };
 
 export const url = (req: Request) =>
-	`${CUSTOMS_CUSTOMER_BASE_PATH}?${objectToSearchParams(req)}`;
+	`${CUSTOMS_ADMIN_BASE_PATH}?${objectToSearchParams(req)}`;
