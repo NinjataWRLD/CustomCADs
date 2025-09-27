@@ -2,6 +2,7 @@ import { axios } from '@/api/axios';
 import { Result } from '@/api/common/result';
 import * as allResources from './all';
 import * as singleResources from './single';
+import * as categoryResources from './category';
 import * as statusResources from './status';
 import * as finishResources from './finish';
 import * as uploadResources from './upload';
@@ -11,6 +12,9 @@ export const all = async (req: allResources.Request) =>
 
 export const single = async (req: singleResources.Request) =>
 	await axios.get<singleResources.Response>(singleResources.url(req));
+
+export const setCategory = async (req: categoryResources.Request) =>
+	await axios.patch(categoryResources.url(), req);
 
 export const report = async (req: statusResources.Request) =>
 	await axios.patch(statusResources.url('report'), req);

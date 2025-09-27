@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { useProductTranslation } from '@/hooks/locales/pages/public';
 import { useCartUpdates } from '@/hooks/contexts/useCartUpdates';
+import Blur from '@/app/components/background/blur';
 
 type AddDetailsProps = {
 	id: string;
@@ -22,7 +23,7 @@ const AddToCartPopup = ({
 	const navigate = useNavigate();
 
 	const { addItem } = useCartUpdates();
-	const toggleForDelivery = () => {
+	const togglePopup = () => {
 		setShow((prev) => !prev);
 	};
 
@@ -40,9 +41,7 @@ const AddToCartPopup = ({
 
 	return (
 		<>
-			{show && (
-				<div className='fixed w-full h-full backdrop-blur-[5px] z-[40] left-0 top-0 bg-black/50'></div>
-			)}
+			{show && <Blur />}
 			<div
 				className={`fixed text-white bg-black shadow-[0_4px_8px_rgba(0,0,0,0.2),0_0_20px_rgba(246,7,246,0.629)] rounded-lg p-10 z-50 text-center w-1/2 h-2/5 flex flex-col gap-5 justify-center items-center border-2 border-purple-800/20 transition-all duration-400 ease-in-out ${
 					show
@@ -55,7 +54,7 @@ const AddToCartPopup = ({
 			>
 				<div
 					className='absolute right-5 top-5 text-2xl cursor-pointer transition-colors duration-300 hover:text-pink-300/50'
-					onClick={toggleForDelivery}
+					onClick={togglePopup}
 				>
 					<FontAwesomeIcon icon={faTimes} />
 				</div>

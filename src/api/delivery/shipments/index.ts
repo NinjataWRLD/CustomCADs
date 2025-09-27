@@ -1,4 +1,5 @@
 import { axios } from '@/api/axios';
+import { Result } from '@/api/common/result';
 import * as allResources from './all';
 import * as sortingsResources from './sortings';
 import * as cancelResources from './cancel';
@@ -6,7 +7,7 @@ import * as trackResources from './track';
 import * as waybillResources from './waybill';
 
 export const all = async (req: allResources.Request) =>
-	await axios.get<allResources.Response>(allResources.url(req));
+	await axios.get<Result<allResources.Response>>(allResources.url(req));
 
 export const sortings = async () =>
 	await axios.get<sortingsResources.Response>(sortingsResources.url());

@@ -4,6 +4,12 @@ export type Address = {
 	street: string;
 };
 
+export type Info = {
+	count: number;
+	weight: number;
+	recipient: string;
+};
+
 export type Contact = {
 	phone: string;
 	email: string;

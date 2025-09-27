@@ -3,6 +3,7 @@ import {
 	CompletedCustomDto,
 	FinishedCustomDto,
 	CUSTOMS_CUSTOMER_BASE_PATH,
+	CustomCategory,
 } from '@/api/customs/common';
 
 export type Request = {
@@ -16,6 +17,7 @@ export type Response = {
 	orderedAt: string;
 	status: string;
 	forDelivery: boolean;
+	category?: CustomCategory;
 	accepted?: AcceptedCustomDto;
 	finished?: FinishedCustomDto;
 	completed?: CompletedCustomDto;

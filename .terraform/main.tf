@@ -8,5 +8,15 @@ terraform {
 }
 
 provider "aws" {
-  region = var.region
+  region = local.region
+}
+
+data "terraform_remote_state" "backend" {
+  backend = "s3"
+
+  config = {
+    bucket = "customcads-terraform-common"
+    key    = "terraform.tfstate"
+    region = local.region
+  }
 }

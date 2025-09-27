@@ -1,9 +1,10 @@
 import { objectToSearchParams } from '@/utils/api';
-import { CUSTOMS_CUSTOMER_BASE_PATH } from '@/api/customs/common';
+import { CUSTOMS_CUSTOMER_BASE_PATH, CustomStatus } from '@/api/customs/common';
 
 export type Request = {
 	delivery?: boolean;
-	status?: string;
+	status?: CustomStatus;
+	categoryId?: number;
 	name?: string;
 	sortingType?: string;
 	sortingDirection?: string;
@@ -15,8 +16,10 @@ export type Response = {
 	id: string;
 	name: string;
 	orderedAt: string;
-	status: string;
+	status: CustomStatus;
 	forDelivery: boolean;
+	designerName?: string;
+	categoryName?: string;
 };
 
 export const url = (req: Request) =>

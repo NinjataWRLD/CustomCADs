@@ -1,29 +1,23 @@
 import { ReactNode } from 'react';
-import { Link } from '@tanstack/react-router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { Link, LinkProps } from '@tanstack/react-router';
 
 type BaseButtonProps = {
 	children?: ReactNode;
+	link: LinkProps;
 	label: string;
-	link: string;
 	icon: IconDefinition;
 	replace?: boolean;
 };
 
-const BaseButton = ({
-	children,
-	label,
-	link,
-	icon,
-	replace = false,
-}: BaseButtonProps) => {
+const BaseButton = ({ children, link, label, icon }: BaseButtonProps) => {
 	return (
 		<div
 			className='relative inline-block transition-all duration-100 ease-linear group'
 			data-tooltip={label}
 		>
-			<Link to={link} replace={replace}>
+			<Link {...link}>
 				<FontAwesomeIcon
 					icon={icon}
 					size='2x'
