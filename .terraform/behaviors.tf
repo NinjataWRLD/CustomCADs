@@ -4,7 +4,7 @@ resource "aws_cloudfront_response_headers_policy" "customcads_security" {
 
   security_headers_config {
     content_security_policy {
-      content_security_policy = "default-src 'self'; script-src 'self' https://apis.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; object-src 'none'; frame-ancestors 'none'; connect-src 'self' https://api.customcads.com https://customcads-production-bucket.s3.us-east-1.amazonaws.com blob:; img-src 'self' https://customcads-production-bucket.s3.us-east-1.amazonaws.com https://customcads-staging-bucket.s3.us-east-1.amazonaws.com blob:;"
+      content_security_policy = "default-src 'self'; script-src 'self' https://apis.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; object-src 'none'; frame-ancestors 'none'; connect-src 'self' https://api.customcads.com https://staging.api.customcads.com https://customcads-production-bucket.s3.us-east-1.amazonaws.com blob:; img-src 'self' https://customcads-production-bucket.s3.us-east-1.amazonaws.com https://customcads-staging-bucket.s3.us-east-1.amazonaws.com blob:;"
       override                = true
     }
     content_type_options {
