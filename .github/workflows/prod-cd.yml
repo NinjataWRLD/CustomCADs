@@ -7,8 +7,8 @@ jobs:
   build-deploy:
     runs-on: ubuntu-latest
     env:
-      VITE_API_URL: ${{ secrets.VITE_API_URL }}
-      VITE_API_VERSION: ${{ secrets.VITE_API_VERSION }}
+      VITE_API_URL: ${{ secrets.VITE_PROD_API_URL }}
+      VITE_API_VERSION: ${{ secrets.VITE_PROD_API_VERSION }}
       VITE_STRIPE_PUBLISHABLE_KEY: ${{ secrets.VITE_STRIPE_PUBLISHABLE_KEY }}
     steps:
       - uses: actions/checkout@v4
