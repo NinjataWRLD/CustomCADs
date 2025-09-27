@@ -29,7 +29,7 @@ const Language = () => {
 				ref={langRef}
 				id='language-icon-wrapper'
 				className='relative inline-block transition-all duration-100 ease-linear group'
-				data-tooltip={tHeader('icon-5')}
+				data-tooltip={tHeader('language')}
 			>
 				<div onClick={openMenu}>
 					<FontAwesomeIcon
