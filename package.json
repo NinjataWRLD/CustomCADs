@@ -44,8 +44,10 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
     "@tailwindcss/vite": "^4.1.11",
+    "@tanstack/devtools-vite": "^0.3.3",
     "@tanstack/eslint-plugin-query": "^5.83.1",
     "@tanstack/eslint-plugin-router": "^1.130.12",
+    "@tanstack/react-devtools": "^0.7.0",
     "@tanstack/react-query-devtools": "^5.84.1",
     "@tanstack/react-router-devtools": "^1.130.13",
     "@tanstack/router-plugin": "^1.130.15",
