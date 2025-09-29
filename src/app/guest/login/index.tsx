@@ -1,9 +1,11 @@
 import { useEffect } from 'react';
 import { Link } from '@tanstack/react-router';
+import * as identitySSO from '@/api/identity/identity/sso';
 import { useLoginTranslation } from '@/hooks/locales/pages/guest';
 import Button from '@/app/components/button';
 import Border from '@/app/components/border';
 import Transition from '@/app/components/transition';
+import SSOGoogle from '@/app/components/sso/google';
 import { useFields } from './hooks/useFields';
 
 const Login = () => {
@@ -34,7 +36,7 @@ const Login = () => {
 		<Transition>
 			<form
 				onSubmit={handleSubmit}
-				className='h-[100dvh] flex justify-center items-center text-white'
+				className='h-[110dvh] flex justify-center items-center text-white'
 			>
 				<div className='form-hover-heading relative flex flex-col justify-center items-center w-2/5 p-12 gap-8 mt-10'>
 					<Border />
@@ -52,8 +54,14 @@ const Login = () => {
 
 					{fields.RememberMe}
 
-					<div>
+					<div className='flex flex-col gap-8'>
 						<Button type='submit' text={tLogin('btn')} />
+						<SSOGoogle
+							link={identitySSO.url({
+								provider: 'Google',
+								redirectUrl: window.location.origin,
+							})}
+						/>
 					</div>
 
 					<p>

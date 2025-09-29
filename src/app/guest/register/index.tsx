@@ -1,10 +1,12 @@
 import { Link } from '@tanstack/react-router';
 import { AppError } from '@/types/errors';
 import { Route } from '@/routes/_guest/register/$role';
+import * as identitySSO from '@/api/identity/identity/sso';
 import { useRegisterTranslation } from '@/hooks/locales/pages/guest';
 import Button from '@/app/components/button';
 import Border from '@/app/components/border';
 import Transition from '@/app/components/transition';
+import SSOGoogle from '@/app/components/sso/google';
 import Popup from './popup';
 import { useFields } from './hooks/useFields';
 
@@ -25,7 +27,7 @@ const Register = () => {
 
 	return (
 		<Transition>
-			<div className='relative h-[100dvh] flex justify-center items-center text-white'>
+			<div className='relative h-[120dvh] flex justify-center items-center text-white'>
 				<form
 					onSubmit={handleSubmit}
 					className='form-hover-heading relative flex flex-col justify-center items-center w-1/2 px-12 py-3 mt-3'
@@ -61,8 +63,15 @@ const Register = () => {
 						{fields.ConfirmPassword}
 					</div>
 
-					<div className='my-[30px] mx-5'>
+					<div className='my-[30px] mx-5 flex flex-col gap-8'>
 						<Button type='submit' text={tRegister('btn')} />
+						<SSOGoogle
+							link={identitySSO.url({
+								provider: 'Google',
+								redirectUrl: window.location.origin,
+								role: role,
+							})}
+						/>
 					</div>
 
 					{isSuccess && <Popup username={username} />}
