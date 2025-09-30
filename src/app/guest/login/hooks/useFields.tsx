@@ -7,7 +7,7 @@ import Checkbox from '@/app/components/fields/checkbox';
 import { useForm } from './useForm';
 
 export const useFields = () => {
-	const { form, handleSubmit } = useForm();
+	const { form, error, handleSubmit } = useForm();
 	const tPlaceholders = usePlaceholdersTranslation();
 	const tLabels = useLabelsTranslation();
 
@@ -68,5 +68,5 @@ export const useFields = () => {
 		),
 	};
 
-	return { handleSubmit, fields };
+	return { handleSubmit, fields, error };
 };

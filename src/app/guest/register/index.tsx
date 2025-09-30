@@ -5,12 +5,13 @@ import { useRegisterTranslation } from '@/hooks/locales/pages/guest';
 import Button from '@/app/components/button';
 import Border from '@/app/components/border';
 import Transition from '@/app/components/transition';
+import FormError from '@/app/components/fields/error';
 import Popup from './popup';
 import { useFields } from './hooks/useFields';
 
 const Register = () => {
 	const { role } = Route.useParams();
-	const { handleSubmit, fields, username, isSuccess } = useFields(
+	const { handleSubmit, fields, username, isSuccess, error } = useFields(
 		role === 'customer' ? 'Customer' : 'Contributor',
 	);
 
@@ -64,6 +65,8 @@ const Register = () => {
 					<div className='my-[30px] mx-5'>
 						<Button type='submit' text={tRegister('btn')} />
 					</div>
+
+					<FormError error={error} />
 
 					{isSuccess && <Popup username={username} />}
 					<p>

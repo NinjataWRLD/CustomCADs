@@ -3,6 +3,7 @@ import { useForm as useTanStackForm } from '@tanstack/react-form';
 import { useRegister } from '@/hooks/mutations/identity';
 import { useForceLocaleRefresh } from '@/hooks/locales/useForceLocaleRefresh';
 import { useSyncCarts } from '@/hooks/contexts/useSyncCarts';
+import { extractError } from '@/utils/form';
 import { useValidation } from './useValidation';
 
 type Fields = {
@@ -26,7 +27,7 @@ export const useForm = (role: 'Customer' | 'Contributor') => {
 	const schema = useValidation();
 	useSyncCarts();
 
-	const { isSuccess, mutateAsync: register } = useRegister();
+	const { isSuccess, mutateAsync: register, error } = useRegister();
 	const form = useTanStackForm({
 		defaultValues: defaultValues,
 		onSubmit: async ({ value }) => {
@@ -48,5 +49,6 @@ export const useForm = (role: 'Customer' | 'Contributor') => {
 		form,
 		handleSubmit,
 		isSuccess,
+		error: extractError(error as any)
 	};
 };

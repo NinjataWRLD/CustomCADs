@@ -5,6 +5,7 @@ import { useLogin } from '@/hooks/mutations/identity';
 import { useForceLocaleRefresh } from '@/hooks/locales/useForceLocaleRefresh';
 import { useSyncCarts } from '@/hooks/contexts/useSyncCarts';
 import { useUpdateAuthz } from '@/hooks/stores/useUpdateAuthz';
+import { extractError } from '@/utils/form';
 import { useValidation } from './useValidation';
 
 type Fields = {
@@ -22,7 +23,7 @@ export const useForm = () => {
 	const schema = useValidation();
 	const navigate = useNavigate();
 
-	const { mutateAsync: login } = useLogin();
+	const { error, mutateAsync: login } = useLogin();
 	const updateAuthz = useUpdateAuthz();
 
 	useSyncCarts();
@@ -50,5 +51,6 @@ export const useForm = () => {
 	return {
 		form,
 		handleSubmit,
+		error: extractError(error as any)
 	};
 };

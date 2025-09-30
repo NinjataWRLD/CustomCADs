@@ -4,10 +4,11 @@ import { useLoginTranslation } from '@/hooks/locales/pages/guest';
 import Button from '@/app/components/button';
 import Border from '@/app/components/border';
 import Transition from '@/app/components/transition';
+import FormError from '@/app/components/fields/error';
 import { useFields } from './hooks/useFields';
 
 const Login = () => {
-	const { handleSubmit, fields } = useFields();
+	const { handleSubmit, fields, error } = useFields();
 	const tLogin = useLoginTranslation();
 
 	useEffect(() => {
@@ -55,6 +56,8 @@ const Login = () => {
 					<div>
 						<Button type='submit' text={tLogin('btn')} />
 					</div>
+
+					<FormError error={error} />
 
 					<p>
 						{tLogin('register-message')}

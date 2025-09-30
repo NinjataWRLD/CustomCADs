@@ -5,12 +5,13 @@ import { Route } from '@/routes/_guest/reset-password';
 import Transition from '@/app/components/transition';
 import Button from '@/app/components/button';
 import Border from '@/app/components/border';
+import FormError from '@/app/components/fields/error';
 import { useFields } from './hooks/useFields';
 
 const ResetPassword = () => {
 	const tResetPassword = useResetPasswordTranslation();
 	const search = Route.useSearch();
-	const { handleSubmit, fields } = useFields(search);
+	const { handleSubmit, fields, error } = useFields(search);
 
 	useEffect(() => {
 		const styleEl = document.createElement('style');
@@ -61,6 +62,9 @@ const ResetPassword = () => {
 					<div className='flex flex-col justify-center items-center gap-[10px] mt-[10px]'>
 						<Button type='submit' text={tResetPassword('button')} />
 					</div>
+
+					<FormError error={error} />
+
 					<div className='flex flex-col mt-5 gap-[1.2rem]'>
 						<Link
 							to='/login'

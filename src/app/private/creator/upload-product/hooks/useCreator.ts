@@ -31,7 +31,7 @@ export const useCreator = (
 	const { idempotencyKeys } = useIdempotencyKeys(['create'] as const);
 	const { current: currency } = useCurrencyStore();
 
-	const { mutateAsync: create } = useCreateProduct();
+	const { mutateAsync: create, error } = useCreateProduct();
 	const { mutateAsync: setCadCoords } = useSetProductCadCoords();
 
 	useEffect(() => {
@@ -82,5 +82,5 @@ export const useCreator = (
 		}
 	}, [id]);
 
-	return ref;
+	return { ref, error };
 };

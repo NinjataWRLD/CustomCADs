@@ -1,12 +1,13 @@
 import { useEffect } from 'react';
+import { useUploadProductTranslation } from '@/hooks/locales/pages/creator';
 import Transition from '@/app/components/transition';
-import { useFields } from './hooks/useFields';
 import Button from '@/app/components/button';
 import Border from '@/app/components/border';
-import { useUploadProductTranslation } from '@/hooks/locales/pages/creator';
+import FormError from '@/app/components/fields/error';
+import { useFields } from './hooks/useFields';
 
 const UploadProduct = () => {
-	const { ref, cadSet, handleSubmit, fields } = useFields();
+	const { ref, cadSet, handleSubmit, fields, error } = useFields();
 	const tUploadProduct = useUploadProductTranslation();
 
 	useEffect(() => {
@@ -63,6 +64,8 @@ const UploadProduct = () => {
 					<div className='mt-6'>
 						<Button type='submit' text={tUploadProduct('btn')} />
 					</div>
+
+					<FormError error={error} />
 				</form>
 				<div
 					ref={ref}

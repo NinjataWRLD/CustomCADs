@@ -2,6 +2,7 @@ import { FormEvent, useState } from 'react';
 import { useForm as useTanStackForm } from '@tanstack/react-form';
 import { useForgotPassword } from '@/hooks/mutations/identity';
 import { useForceLocaleRefresh } from '@/hooks/locales/useForceLocaleRefresh';
+import { extractError } from '@/utils/form';
 import { useValidation } from './useValidation';
 
 type Fields = {
@@ -15,7 +16,7 @@ export const useForm = () => {
 	const [email, setEmail] = useState('');
 	const schema = useValidation();
 
-	const { mutateAsync } = useForgotPassword();
+	const { error, mutateAsync } = useForgotPassword();
 
 	const form = useTanStackForm({
 		defaultValues: defaultValues,
@@ -38,5 +39,6 @@ export const useForm = () => {
 		form,
 		sendEmail: async () => await mutateAsync({ email }),
 		handleSubmit,
+		error: extractError(error as any)
 	};
 };

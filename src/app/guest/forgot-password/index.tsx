@@ -5,12 +5,18 @@ import { useFields } from './hooks/useFields';
 import Transition from '@/app/components/transition';
 import Button from '@/app/components/button';
 import Border from '@/app/components/border';
+import FormError from '@/app/components/fields/error';
 
 const ForgotPassword = () => {
 	const [showMessage, setShowMessage] = useState(false);
 	const tForgotPassword = useForgotPasswordTranslation();
 
-	const { sendEmail, handleSubmit: handleFormSubmit, fields } = useFields();
+	const {
+		sendEmail,
+		handleSubmit: handleFormSubmit,
+		fields,
+		error,
+	} = useFields();
 
 	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		handleFormSubmit(e);
@@ -70,6 +76,7 @@ const ForgotPassword = () => {
 							type='submit'
 							text={tForgotPassword('button')}
 						/>
+						<FormError error={error} />
 						<div
 							className={`flex flex-col justify-center items-center opacity-0 max-h-0 overflow-hidden transition-all duration-300 ease-in-out ${showMessage ? 'opacity-100 max-h-[100px]' : ''}`}
 						>
