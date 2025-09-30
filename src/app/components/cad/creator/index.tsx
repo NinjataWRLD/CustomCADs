@@ -10,7 +10,8 @@ const CreatorCad = ({ product }: { product: Product }) => {
 	const { data: cadInfo } = useDownloadProductCad({ id: product.id });
 
 	const cad = useGenerateBlobUrl(cadInfo);
-	if (!cadInfo || !cad.blobUrl) return <Loader progress={cad.progress} />;
+	if (!cadInfo || !cad.blobUrl)
+		return <Loader progress={cad.progress} isCad />;
 
 	return (
 		<div className='h-full w-full'>

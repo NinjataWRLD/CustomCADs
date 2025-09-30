@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { UseQueryResult } from '@tanstack/react-query';
-import Loader from '@/app/components/state/loading';
 import ErrorPage from '@/app/components/state/error';
 
 type StatusesProps = {
@@ -20,7 +19,7 @@ const Statuses = ({
 	isActive,
 	setActive,
 }: StatusesProps) => {
-	const { data: statuses, isLoading, isError } = fetch;
+	const { data: statuses, isError } = fetch;
 
 	const statusParam = getStatus();
 
@@ -36,10 +35,6 @@ const Statuses = ({
 			setStatus(all);
 		}
 	}, [all, statusParam]);
-
-	if (isLoading) {
-		return <Loader />;
-	}
 
 	if (isError || !statuses) {
 		return <ErrorPage status={400} />;
