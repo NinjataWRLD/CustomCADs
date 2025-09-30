@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Route } from '@/routes/(private)/_customer/carts';
 import { usePurchasedCartsTranslation } from '@/hooks/locales/pages/customer';
 import { useNotFoundTranslation } from '@/hooks/locales/common/messages';
@@ -15,9 +16,32 @@ const PurchasedCarts = () => {
 	const tCarts = usePurchasedCartsTranslation();
 	const tNotFound = useNotFoundTranslation();
 
+	useEffect(() => {
+		const styleEl = document.createElement('style');
+		styleEl.textContent = `
+		  .carts::-webkit-scrollbar {
+    		  width: 8px;
+		   }
+
+		  .carts::-webkit-scrollbar-thumb {
+    		  background-color: #888;
+    		  border-radius: 10px;
+		   }
+
+		  .carts > * {
+    		  flex: 0 0 auto;
+		   }
+		`;
+		document.head.appendChild(styleEl);
+
+		return () => {
+			document.head.removeChild(styleEl);
+		};
+	}, []);
+
 	return (
 		<Transition>
-			<div className='relative h-screen flex flex-col justify-center items-center text-[white]'>
+			<div className='relative h-screen flex flex-col justify-center items-center text-[white] overflow-hidden'>
 				<h1 className='text-[2.2rem] title-text-shadow'>
 					{tCarts('title')}
 				</h1>
@@ -25,7 +49,14 @@ const PurchasedCarts = () => {
 					{<dropdowns.Statuses />}
 					{<dropdowns.Sortings />}
 				</div>
-				<div className='w-full h-3/5 gap-5 flex flex-col items-center justify-start mb-5'>
+				<div
+					className='carts w-full h-3/5 gap-5 flex flex-col items-center justify-start mb-5'
+					style={{
+						overflowY: carts && carts.count > 2 ? 'auto' : 'unset',
+						scrollbarWidth: 'thin',
+						scrollbarColor: '#aaa transparent',
+					}}
+				>
 					{carts.items.length ? (
 						carts.items.map((cart) => (
 							<Cart

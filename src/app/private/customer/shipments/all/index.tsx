@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Route } from '@/routes/(private)/_customer/shipments';
 import { useShipmentsTranslation } from '@/hooks/locales/pages/customer';
 import { useNotFoundTranslation } from '@/hooks/locales/common/messages';
@@ -16,12 +17,43 @@ const Shipments = () => {
 	const tShipments = useShipmentsTranslation();
 	const tNotFound = useNotFoundTranslation();
 
+	useEffect(() => {
+		const styleEl = document.createElement('style');
+		styleEl.textContent = `
+			  .shipments::-webkit-scrollbar {
+				  width: 8px;
+			   }
+	
+			  .shipments::-webkit-scrollbar-thumb {
+				  background-color: #888;
+				  border-radius: 10px;
+			   }
+	
+			  .shipments > * {
+				  flex: 0 0 auto;
+			   }
+			`;
+		document.head.appendChild(styleEl);
+
+		return () => {
+			document.head.removeChild(styleEl);
+		};
+	}, []);
+
 	return (
 		<Transition>
 			<div className={styles.container}>
 				<h1>{tShipments('title')}</h1>
 				<div className={styles.sorting}>{<dropdowns.Sortings />}</div>
-				<div className={styles.shipments}>
+				<div
+					className={styles.shipments}
+					style={{
+						overflowY:
+							shipments && shipments.count > 2 ? 'auto' : 'unset',
+						scrollbarWidth: 'thin',
+						scrollbarColor: '#aaa transparent',
+					}}
+				>
 					{shipments.items.length ? (
 						shipments.items.map((shipment) => (
 							<ShipmentItem
