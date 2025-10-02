@@ -6,10 +6,8 @@ export type Request = {
 	description: string;
 	categoryId: number;
 	price: number;
-	imageKey: string;
-	imageContentType: string;
-	cadKey: string;
-	cadContentType: string;
+	image?: { key: string; contentType: string };
+	cad?: { key: string; contentType: string; volume: number };
 };
 
 export const url = () => `${CREATOR_BASE_PATH}`;

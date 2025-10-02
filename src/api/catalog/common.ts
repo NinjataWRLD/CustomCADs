@@ -11,3 +11,4 @@ const PRODUCT_BASE_PATH = '/products';
 export const GALLERY_BASE_PATH = `${PRODUCT_BASE_PATH}/gallery`;
 export const CREATOR_BASE_PATH = `${PRODUCT_BASE_PATH}/creator`;
 export const DESIGNER_BASE_PATH = `${PRODUCT_BASE_PATH}/designer`;
+export const ADMIN_BASE_PATH = `${PRODUCT_BASE_PATH}/admin`;
