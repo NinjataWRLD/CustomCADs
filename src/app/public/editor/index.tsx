@@ -8,7 +8,6 @@ import { useCartItemManager } from '@/hooks/cart-items/useCartItemManager';
 import { useEditorStore } from '@/hooks/stores/useEditorStore';
 import { useCartUpdates } from '@/hooks/contexts/useCartUpdates';
 import { useEditCustomization } from '@/hooks/mutations/customizations';
-import Transition from '@/app/components/transition';
 import Button from '@/app/components/button';
 import Cad from '@/app/components/cad';
 import Loader from '@/app/components/state/loading';
@@ -74,49 +73,47 @@ const Editor = () => {
 	};
 
 	return (
-		<Transition>
-			<div className='h-screen relative flex justify-between'>
-				<div className='w-[25%] p-5 bg-[hsla(228,21%,14%,0.77)] rounded-lg shadow-md flex flex-col justify-center gap-2.5 overflow-y-auto border-r-2 border-r-purple-500/60'>
-					<div>
-						<Menu
-							title={tEditor('title-1')}
-							description={tEditor('description-1')}
-						>
-							<Looks id={product.id} />
-						</Menu>
-					</div>
-
-					<div className='w-full flex justify-center gap-12 mt-8'>
-						<Button
-							type='button'
-							text={tEditor('reset')}
-							onClick={reset}
-						/>
-					</div>
+		<div className='h-screen relative flex justify-between'>
+			<div className='w-[25%] p-5 bg-[hsla(228,21%,14%,0.77)] rounded-lg shadow-md flex flex-col justify-center gap-2.5 overflow-y-auto border-r-2 border-r-purple-500/60'>
+				<div>
+					<Menu
+						title={tEditor('title-1')}
+						description={tEditor('description-1')}
+					>
+						<Looks id={product.id} />
+					</Menu>
 				</div>
-				<div className='flex-1'>
-					<Cad type='editor' id={product.id} />
-				</div>
-				<div className='w-[25%] p-5 bg-[hsla(228,21%,14%,0.77)] rounded-lg shadow-md flex flex-col justify-center gap-2.5 overflow-y-auto border-l-2 border-l-purple-500/60'>
-					<div>
-						<Menu
-							title={tEditor('title-2')}
-							description={tEditor('description-2')}
-						>
-							<Calculations id={product.id} volume={volume} />
-						</Menu>
-					</div>
 
-					<div className='w-full flex justify-center gap-12 mt-8'>
-						<Button
-							type='button'
-							text={tEditor('save')}
-							onClick={save}
-						/>
-					</div>
+				<div className='w-full flex justify-center gap-12 mt-8'>
+					<Button
+						type='button'
+						text={tEditor('reset')}
+						onClick={reset}
+					/>
 				</div>
 			</div>
-		</Transition>
+			<div className='flex-1'>
+				<Cad type='editor' id={product.id} />
+			</div>
+			<div className='w-[25%] p-5 bg-[hsla(228,21%,14%,0.77)] rounded-lg shadow-md flex flex-col justify-center gap-2.5 overflow-y-auto border-l-2 border-l-purple-500/60'>
+				<div>
+					<Menu
+						title={tEditor('title-2')}
+						description={tEditor('description-2')}
+					>
+						<Calculations id={product.id} volume={volume} />
+					</Menu>
+				</div>
+
+				<div className='w-full flex justify-center gap-12 mt-8'>
+					<Button
+						type='button'
+						text={tEditor('save')}
+						onClick={save}
+					/>
+				</div>
+			</div>
+		</div>
 	);
 };
 

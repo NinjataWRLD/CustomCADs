@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Route } from '@/routes/_public/account';
 import { useMyAccountTranslation } from '@/hooks/locales/pages/public';
-import Transition from '@/app/components/transition';
 import * as dateTime from '@/utils/date-time';
 import Tab from './tab';
 import AboutMe from './about-me';
@@ -55,40 +54,38 @@ const Account = () => {
 	};
 
 	return (
-		<Transition>
-			<div className='relative h-screen flex justify-center items-center flex-col text-[white]'>
-				<h1 className='text-[2rem] title-text-shadow'>
-					{tMyAccount('title')}
-				</h1>
-				<div className='relative w-4/5 h-[70%] flex rounded-[20px]'>
-					<div className='w-[25%] h-full bg-transparent text-[1.3rem] flex flex-col gap-[30px] border-0 border-r-[3px] border-r-[#9000ff] border-solid'>
-						<Tab
-							text={tMyAccount('about-me')}
-							isActive={tab === 'about-me'}
-							onClick={() => setTab('about-me')}
-						/>
-						<Tab
-							text={tMyAccount('settings')}
-							isActive={tab === 'settings'}
-							onClick={() => setTab('settings')}
-						/>
-						<Tab
-							text={tMyAccount('security')}
-							isActive={tab === 'security'}
-							onClick={() => setTab('security')}
-						/>
-						<Tab
-							text={tMyAccount('my-data')}
-							isActive={tab === 'my-data'}
-							onClick={() => setTab('my-data')}
-						/>
-					</div>
-					<div className='relative w-4/5 h-[90%] flex flex-col bg-[hsl(228,21%,14%)] p-[30px] rounded-[20px];'>
-						{renderSection()}
-					</div>
+		<div className='relative h-screen flex justify-center items-center flex-col text-[white]'>
+			<h1 className='text-[2rem] title-text-shadow'>
+				{tMyAccount('title')}
+			</h1>
+			<div className='relative w-4/5 h-[70%] flex rounded-[20px]'>
+				<div className='w-[25%] h-full bg-transparent text-[1.3rem] flex flex-col gap-[30px] border-0 border-r-[3px] border-r-[#9000ff] border-solid'>
+					<Tab
+						text={tMyAccount('about-me')}
+						isActive={tab === 'about-me'}
+						onClick={() => setTab('about-me')}
+					/>
+					<Tab
+						text={tMyAccount('settings')}
+						isActive={tab === 'settings'}
+						onClick={() => setTab('settings')}
+					/>
+					<Tab
+						text={tMyAccount('security')}
+						isActive={tab === 'security'}
+						onClick={() => setTab('security')}
+					/>
+					<Tab
+						text={tMyAccount('my-data')}
+						isActive={tab === 'my-data'}
+						onClick={() => setTab('my-data')}
+					/>
+				</div>
+				<div className='relative w-4/5 h-[90%] flex flex-col bg-[hsl(228,21%,14%)] p-[30px] rounded-[20px];'>
+					{renderSection()}
 				</div>
 			</div>
-		</Transition>
+		</div>
 	);
 };
 
