@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useUploadProductTranslation } from '@/hooks/locales/pages/creator';
 import Transition from '@/app/components/transition';
 import Button from '@/app/components/button';
@@ -9,25 +8,6 @@ import { useFields } from './hooks/useFields';
 const UploadProduct = () => {
 	const { ref, cadSet, handleSubmit, fields, error } = useFields();
 	const tUploadProduct = useUploadProductTranslation();
-
-	useEffect(() => {
-		const styleEl = document.createElement('style');
-		styleEl.textContent = `
-      .upload-form:hover .title-text-shadow {
-        color: #fff;
-        text-shadow:
-          0 0 10px rgba(138, 43, 226, 0.8),
-          0 0 20px rgba(138, 43, 226, 0.6),
-          0 0 30px rgba(186, 85, 211, 0.7),
-          0 0 40px rgba(186, 85, 211, 0.5);
-      }
-    `;
-		document.head.appendChild(styleEl);
-
-		return () => {
-			document.head.removeChild(styleEl);
-		};
-	}, []);
 
 	return (
 		<Transition>

@@ -138,6 +138,44 @@ textarea.invalid {
     filter: blur(30px);
 }
 
+.form-hover-heading:hover h1 {
+    color: rgba(255, 255, 255, 0.9);
+    text-shadow:
+        0 0 10px rgba(138, 43, 226, 0.8),
+        0 0 20px rgba(138, 43, 226, 0.6),
+        0 0 30px rgba(186, 85, 211, 0.7),
+        0 0 40px rgba(186, 85, 211, 0.5);
+    transition: text-shadow 0.3s linear;
+}
+
+.upload-form:hover .title-text-shadow {
+    color: #fff;
+    text-shadow:
+        0 0 10px rgba(138, 43, 226, 0.8),
+        0 0 20px rgba(138, 43, 226, 0.6),
+        0 0 30px rgba(186, 85, 211, 0.7),
+        0 0 40px rgba(186, 85, 211, 0.5);
+}
+
+.carts::-webkit-scrollbar,
+.shipments::-webkit-scrollbar,
+.purchases::-webkit-scrollbar {
+    width: 8px;
+}
+
+.carts::-webkit-scrollbar-thumb,
+.shipments::-webkit-scrollbar-thumb,
+.purchases::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 10px;
+}
+
+.carts > *,
+.shipments > *,
+.purchases > * {
+    flex: 0 0 auto;
+}
+
 @keyframes loader-animate {
     0% {
         opacity: 0.3;
@@ -233,6 +271,29 @@ textarea.invalid {
 }
 .fade-in {
     animation: fadeIn 0.5s ease-out forwards;
+}
+
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    10% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    90% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
+
+.fadeInOutAnimation {
+    animation: fadeInOut 3s ease-in-out forwards;
 }
 
 @keyframes spinning {

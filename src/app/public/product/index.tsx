@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useCanGoBack } from '@tanstack/react-router';
 import { Route } from '@/routes/_public/gallery/$id';
 import { useAuthStore } from '@/hooks/stores/useAuthStore';
@@ -29,26 +29,6 @@ const Product = () => {
 
 	const price = useMoney(product.price);
 	const [showPopupMessage, setShowPopupMessage] = useState(false);
-
-	useEffect(() => {
-		const style = document.createElement('style');
-		style.innerHTML = `
-      @keyframes fadeInOut {
-        0% { opacity: 0; transform: translateY(-20px); }
-        10% { opacity: 1; transform: translateY(0); }
-        90% { opacity: 1; transform: translateY(0); }
-        100% { opacity: 0; transform: translateY(-20px); }
-      }
-      .fadeInOutAnimation {
-        animation: fadeInOut 3s ease-in-out forwards;
-      }
-    `;
-		document.head.appendChild(style);
-
-		return () => {
-			document.head.removeChild(style);
-		};
-	}, []);
 
 	const flashPopupMessage = () => {
 		setShowPopupMessage(true);

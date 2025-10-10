@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { Link } from '@tanstack/react-router';
 import { useResetPasswordTranslation } from '@/hooks/locales/pages/guest';
 import { Route } from '@/routes/_guest/reset-password';
@@ -12,30 +11,6 @@ const ResetPassword = () => {
 	const tResetPassword = useResetPasswordTranslation();
 	const search = Route.useSearch();
 	const { handleSubmit, fields, error } = useFields(search);
-
-	useEffect(() => {
-		const styleEl = document.createElement('style');
-		styleEl.textContent = `
-      .title-text-shadow {
-        text-shadow:
-          2px 2px 5px rgba(106, 13, 173, 0.7),
-          -2px -2px 5px rgba(160, 32, 240, 0.6),
-          0px 0px 15px rgba(75, 0, 130, 0.5);
-      }
-
-      .subtitle-text-shadow {
-        text-shadow:
-          3px 3px 0px black,
-          -1px -1px 0px black,
-          1px 1px 2px rgba(0, 0, 0, 0.7);
-      }
-    `;
-		document.head.appendChild(styleEl);
-
-		return () => {
-			document.head.removeChild(styleEl);
-		};
-	}, []);
 
 	return (
 		<Transition>

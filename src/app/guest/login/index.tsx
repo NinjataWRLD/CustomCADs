@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { Link } from '@tanstack/react-router';
 import { useLoginTranslation } from '@/hooks/locales/pages/guest';
 import Button from '@/app/components/button';
@@ -10,26 +9,6 @@ import { useFields } from './hooks/useFields';
 const Login = () => {
 	const { handleSubmit, fields, error } = useFields();
 	const tLogin = useLoginTranslation();
-
-	useEffect(() => {
-		const styleEl = document.createElement('style');
-		styleEl.textContent = `
-      .form-hover-heading:hover h1 {
-        color: rgba(255, 255, 255, 0.9);
-        text-shadow:
-          0 0 10px rgba(138, 43, 226, 0.8),
-          0 0 20px rgba(138, 43, 226, 0.6),
-          0 0 30px rgba(186, 85, 211, 0.7),
-          0 0 40px rgba(186, 85, 211, 0.5);
-        transition: text-shadow 0.3s linear;
-      }
-    `;
-		document.head.appendChild(styleEl);
-
-		return () => {
-			document.head.removeChild(styleEl);
-		};
-	}, []);
 
 	return (
 		<Transition>

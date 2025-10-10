@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
 	faApplePay,
@@ -17,29 +16,6 @@ import CartItem from './item';
 const Cart = () => {
 	const { items } = useCartContext();
 	const tCart = useCartTranslation();
-
-	useEffect(() => {
-		const styleEl = document.createElement('style');
-		styleEl.textContent = `
-		  .purchases::-webkit-scrollbar {
-    		  width: 8px;
-		   }
-
-		  .purchases::-webkit-scrollbar-thumb {
-    		  background-color: #888;
-    		  border-radius: 10px;
-		   }
-
-		  .purchases > * {
-    		  flex: 0 0 auto;
-		   }
-		`;
-		document.head.appendChild(styleEl);
-
-		return () => {
-			document.head.removeChild(styleEl);
-		};
-	}, []);
 
 	const [prices, setPrice] = useMoneyManager();
 	const [costs, setCost] = useMoneyManager();

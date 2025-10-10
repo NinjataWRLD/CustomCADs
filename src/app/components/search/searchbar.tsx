@@ -29,7 +29,6 @@ const Searchbar = ({ placeholder, getName, updateName }: SearchbarProps) => {
 
 	const isActive = isHovered || isPermanentHovered;
 
-	// Handle placeholder visibility: Show when hovered or focused and input is expanded, hide when focused
 	useEffect(() => {
 		if (isActive && !name && !isFocused) {
 			setShowPlaceholder(true);
