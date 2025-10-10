@@ -5,7 +5,6 @@ import { useNotFoundTranslation } from '@/hooks/locales/common/messages';
 import Transition from '@/app/components/transition';
 import Pagination from '@/app/components/pagination';
 import ShipmentItem from './item';
-import styles from './styles.module.css';
 import { useShipmentsDropdowns } from './hooks/useShipmentsDropdowns';
 
 const SHIPMENTS_PER_PAGE = 6;
@@ -23,12 +22,12 @@ const Shipments = () => {
 			  .shipments::-webkit-scrollbar {
 				  width: 8px;
 			   }
-	
+
 			  .shipments::-webkit-scrollbar-thumb {
 				  background-color: #888;
 				  border-radius: 10px;
 			   }
-	
+
 			  .shipments > * {
 				  flex: 0 0 auto;
 			   }
@@ -42,11 +41,15 @@ const Shipments = () => {
 
 	return (
 		<Transition>
-			<div className={styles.container}>
-				<h1>{tShipments('title')}</h1>
-				<div className={styles.sorting}>{<dropdowns.Sortings />}</div>
+			<div className='relative h-screen flex flex-col justify-center items-center text-[white]'>
+				<h1 className='title-text-shadow text-[2.5rem] capitalize'>
+					{tShipments('title')}
+				</h1>
+				<div className='relative w-full h-[10%] flex justify-center'>
+					{<dropdowns.Sortings />}
+				</div>
 				<div
-					className={styles.shipments}
+					className='w-full h-3/5 flex flex-col items-center gap-5'
 					style={{
 						overflowY:
 							shipments && shipments.count > 2 ? 'auto' : 'unset',
