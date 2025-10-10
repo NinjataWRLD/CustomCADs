@@ -14,7 +14,7 @@ const GalleryCad = ({ product }: { product: Product }) => {
 	return (
 		<div className='relative h-full w-full'>
 			{!cadInfo || !cad.blobUrl ? (
-				<Loader progress={cad.progress} />
+				<Loader progress={cad.progress} isCad />
 			) : (
 				<GalleryThreeJS
 					file={{

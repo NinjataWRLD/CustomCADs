@@ -5,6 +5,7 @@ import { useForceLocaleRefresh } from '@/hooks/locales/useForceLocaleRefresh';
 import { FileData } from '@/types/files';
 import { useValidation } from './useValidation';
 import { uploadFiles } from '@/utils/uploader';
+import { extractError } from '@/utils/form';
 import { useCreator } from './useCreator';
 
 type Fields = {
@@ -32,7 +33,7 @@ export const useForm = () => {
 
 	const [files, setFiles] = useState<{ image: FileData; cad: FileData }>();
 	const [cad, setCad] = useState<File | null>(null);
-	const ref = useCreator(cad, files, value, () =>
+	const { ref, error } = useCreator(cad, files, value, () =>
 		navigate({ to: '/gallery' }),
 	);
 
@@ -62,5 +63,6 @@ export const useForm = () => {
 		cadSet: !!cad,
 		setCad,
 		ref,
+		error: extractError(error),
 	};
 };

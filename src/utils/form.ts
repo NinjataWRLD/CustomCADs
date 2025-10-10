@@ -14,3 +14,5 @@ export const equalityHelper = () => {
 };
 
 export const fileHelper = (file: File) => file.size > 0;
+
+export const extractError = (error: any) => error?.response?.data?.detail as string;

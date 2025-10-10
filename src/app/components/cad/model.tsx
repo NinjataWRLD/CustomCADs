@@ -11,7 +11,7 @@ type ModelProps = {
 const Model = ({ threejs: { ref, progress } }: ModelProps) => {
 	return (
 		<>
-			{progress < 1 && <Loader progress={progress} />}
+			{progress < 1 && <Loader progress={progress} isCad />}
 			<div ref={ref} className='h-full w-full' />
 		</>
 	);

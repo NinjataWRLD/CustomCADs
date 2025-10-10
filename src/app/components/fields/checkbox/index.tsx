@@ -1,16 +1,22 @@
-import { ChangeEventHandler, CSSProperties } from 'react';
+import { ChangeEventHandler } from 'react';
 
 type CheckboxProps = {
 	id: string;
 	label: string;
 	checked: boolean;
 	onClick: ChangeEventHandler<HTMLInputElement>;
-	style?: CSSProperties;
+	className?: string;
 };
 
-const Checkbox = ({ id, label, checked, onClick, style }: CheckboxProps) => {
+const Checkbox = ({
+	id,
+	label,
+	checked,
+	onClick,
+	className,
+}: CheckboxProps) => {
 	return (
-		<div className='w-[85%] flex justify-center' style={style}>
+		<div className={`w-[85%] flex justify-center ${className}`}>
 			<input
 				id={id}
 				type='checkbox'

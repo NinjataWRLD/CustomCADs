@@ -8,7 +8,7 @@ import * as money from '@/utils/money';
 import { useForm } from './useForm';
 
 export const useFields = () => {
-	const { form, handleSubmit, setCad, cadSet, ref } = useForm();
+	const { form, handleSubmit, setCad, cadSet, ref, error } = useForm();
 	const { data: categories } = useGetCategories();
 
 	const { current: currency } = useCurrencyStore();
@@ -96,5 +96,5 @@ export const useFields = () => {
 		),
 	};
 
-	return { ref, cadSet, handleSubmit, fields };
+	return { ref, cadSet, handleSubmit, fields, error };
 };

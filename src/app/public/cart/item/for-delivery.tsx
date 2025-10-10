@@ -55,7 +55,7 @@ const CartItemForDelivery = ({ item, addTo, reset }: CartItemProps) => {
 		if (customization) addTo.cost(customization.cost * item.quantity);
 	}, [customization]);
 
-	if (!product || !customization) return <Loader />;
+	if (!product || !customization) return <Loader />; // TODO: fix placement (low priority dw)
 
 	const remove = async () => {
 		addTo.price(-1 * product.price * item.quantity);

@@ -18,7 +18,7 @@ const CartCad = (props: CartCadProps) => {
 
 	const determineThreeJS = () => {
 		if (!cadInfo || !cad.blobUrl) {
-			return <Loader progress={cad.progress} />;
+			return <Loader progress={cad.progress} isCad />;
 		}
 
 		const file = {

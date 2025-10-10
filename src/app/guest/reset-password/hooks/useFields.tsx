@@ -9,7 +9,7 @@ type Props = {
 };
 
 export const useFields = ({ email, token }: Props) => {
-	const { form, handleSubmit } = useForm(email, token);
+	const { form, handleSubmit, error } = useForm(email, token);
 	const tPlaceholders = usePlaceholdersTranslation();
 	const tLabels = useLabelsTranslation();
 
@@ -38,5 +38,5 @@ export const useFields = ({ email, token }: Props) => {
 		),
 	};
 
-	return { handleSubmit, fields };
+	return { handleSubmit, fields, error };
 };

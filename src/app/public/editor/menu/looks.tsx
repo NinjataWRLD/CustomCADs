@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { useGetMaterials } from '@/hooks/queries/materials';
 import { useEditorTranslation } from '@/hooks/locales/pages/public';
 import { useOthersTranslation } from '@/hooks/locales/common/others';
@@ -17,37 +16,10 @@ const Looks = ({ id }: LooksProps) => {
 	const tOthers = useOthersTranslation();
 	const tEditor = useEditorTranslation();
 
-	const [fadeIn, setFadeIn] = useState(false);
-
-	useEffect(() => {
-		const styleEl = document.createElement('style');
-		styleEl.textContent = `
-		  .fade-in {
-				opacity: 0;
-				transform: translateY(100px);
-				animation: fadeIn 0.5s ease-in-out forwards;
-			}
-
-			@keyframes fadeIn {
-				to {
-					opacity: 1;
-					transform: translateY(0);
-				}
-			}
-		`;
-		document.head.appendChild(styleEl);
-
-		setFadeIn(true);
-
-		return () => {
-			document.head.removeChild(styleEl);
-		};
-	}, []);
-
 	if (!materials) return <Loader />;
 	return (
 		<div
-			className={`py-2.5 px-4 bg-blue-200 rounded-b-lg border-2 border-t-0 border-purple-500 mb-2.5 opacity-0 ${fadeIn ? 'fade-in' : ''}`}
+			className={`py-2.5 px-4 bg-blue-200 rounded-b-lg border-2 border-t-0 border-purple-500 mb-2.5 opacity-0 fade-in`}
 		>
 			{materials.map(({ id: mId, name: mName, density: mDensity }) => (
 				<div

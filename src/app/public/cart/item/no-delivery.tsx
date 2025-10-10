@@ -44,7 +44,7 @@ const CartItemWithoutDelivery = ({
 
 	const price = useMoney(product?.price ?? 0);
 	if (!product) {
-		return <Loader />;
+		return <Loader />; // TODO: fix placement (low priority dw)
 	}
 
 	const remove = () => {
