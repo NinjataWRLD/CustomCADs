@@ -14,7 +14,7 @@ const animations = {
 const Transition = ({ children }: AnimatedProps) => {
 	return (
 		<motion.div
-			style={{ position: 'relative', overflow: 'hidden' }}
+			className='relative overflow-hidden'
 			variants={animations}
 			initial='initial'
 			animate='animate'

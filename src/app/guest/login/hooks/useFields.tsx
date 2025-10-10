@@ -59,7 +59,7 @@ export const useFields = () => {
 								onClick={(e) =>
 									field.handleChange(e.target.checked)
 								}
-								style={{ marginRight: 120 }}
+								className='mr-[120px]'
 							/>
 						}
 					/>
