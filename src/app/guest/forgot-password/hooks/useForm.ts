@@ -39,6 +39,6 @@ export const useForm = () => {
 		form,
 		sendEmail: async () => await mutateAsync({ email }),
 		handleSubmit,
-		error: extractError(error as any)
+		error: extractError(error as unknown),
 	};
 };

@@ -42,6 +42,6 @@ export const useForm = (email: string, token: string) => {
 	return {
 		form,
 		handleSubmit,
-		error: extractError(error as any)
+		error: extractError(error as unknown),
 	};
 };

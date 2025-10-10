@@ -49,6 +49,6 @@ export const useForm = (role: 'Customer' | 'Contributor') => {
 		form,
 		handleSubmit,
 		isSuccess,
-		error: extractError(error as any)
+		error: extractError(error as unknown),
 	};
 };
