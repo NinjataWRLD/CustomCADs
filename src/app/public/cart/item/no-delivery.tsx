@@ -2,11 +2,8 @@ import { useEffect } from 'react';
 import { useNavigate } from '@tanstack/react-router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
-import { AppError } from '@/types/errors';
-import {
-	useGetProduct,
-	useDownloadProductImage,
-} from '@/hooks/queries/products/gallery';
+import { useGetProduct } from '@/hooks/queries/products/gallery';
+import { useDownloadImageUrl } from '@/hooks/queries/images';
 import { useCartUpdates } from '@/hooks/contexts/useCartUpdates';
 import { useCartTranslation } from '@/hooks/locales/pages/public';
 import { useMoney } from '@/hooks/money/useMoney';
@@ -29,13 +26,17 @@ const CartItemWithoutDelivery = ({
 	const navigate = useNavigate();
 	const tCart = useCartTranslation();
 
-	const { removeItem } = useCartUpdates();
-	const { data: image, isError: isFileError } = useDownloadProductImage({
-		id: item.productId,
-	});
-
-	const { data: product, isError } = useGetProduct({ id: item.productId });
+	const { data: product } = useGetProduct({ id: item.productId });
 	const isPrintable = product?.tags.includes('Printable');
+
+	const { removeItem } = useCartUpdates();
+	const { data: image } = useDownloadImageUrl(
+		{
+			id: product?.imageId!,
+			relationType: 'Product',
+		},
+		!!product,
+	);
 
 	useEffect(() => {
 		resetPrice();
@@ -57,14 +58,6 @@ const CartItemWithoutDelivery = ({
 			to: '/editor/$id',
 			params: { id: item.productId },
 		});
-
-	if (isError || isFileError) {
-		throw new AppError({
-			title: 'Server fetching error',
-			message: 'There was an error while fetching data from the server.',
-			tip: 'Please wait a few seconds, then refresh.',
-		});
-	}
 
 	return (
 		<div className='flex flex-col w-[90%] bg-[hsla(267,42%,10%,0.79)] overflow-hidden shadow-[0_4px_6px_rgba(0,0,0,0.1)] gap-4 relative p-[0.3rem] rounded-[1rem]'>

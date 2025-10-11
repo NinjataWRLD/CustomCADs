@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Coordinates } from '@/api/catalog/common';
+import { Coordinates } from '@/api/files/common';
 import { useThreeJS } from '@/hooks/threejs/useThreeJS';
 import Model from '../model';
 

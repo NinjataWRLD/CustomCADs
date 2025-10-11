@@ -19,7 +19,7 @@ import Calculations from './menu/calculations';
 
 const Editor = () => {
 	const navigate = useNavigate();
-	const { product } = Route.useLoaderData();
+	const { product, cad } = Route.useLoaderData();
 
 	const tEditor = useEditorTranslation();
 	const store = useEditorStore(product.id);
@@ -32,11 +32,7 @@ const Editor = () => {
 	if (error) throw error;
 	if (!customization) return <Loader />;
 
-	const volume = calculate3D.volumeMm3(
-		product.volume,
-		store.scale,
-		store.size,
-	);
+	const volume = calculate3D.volumeMm3(cad.volume, store.scale, store.size);
 
 	const reset = () => resetStore(product.id);
 	const save = () => {

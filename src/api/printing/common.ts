@@ -3,6 +3,7 @@ export type MaterialResponse = {
 	name: string;
 	density: number;
 	cost: number;
+	textureId: string;
 };
 
 export type CustomizationResponse = {

@@ -6,7 +6,7 @@ import Border from '@/app/components/border';
 import { useUploadProductTranslation } from '@/hooks/locales/pages/creator';
 
 const UploadProduct = () => {
-	const { ref, cadSet, handleSubmit, fields } = useFields();
+	const { ref, isCadProvided, handleSubmit, fields } = useFields();
 	const tUploadProduct = useUploadProductTranslation();
 
 	useEffect(() => {
@@ -67,7 +67,7 @@ const UploadProduct = () => {
 				<div
 					ref={ref}
 					className={
-						cadSet
+						isCadProvided
 							? 'w-1/4 h-4/5 bg-gray-900/50 backdrop-blur-sm rounded-xl border-2 border-purple-500/50 shadow-lg shadow-purple-500/30 overflow-hidden flex justify-center items-center p-4 ml-8 transition-all duration-300'
 							: 'hidden'
 					}

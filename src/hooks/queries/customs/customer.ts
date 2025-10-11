@@ -3,7 +3,6 @@ import { Request as All } from '@/api/customs/customs/customer/all';
 import { Request as Recent } from '@/api/customs/customs/customer/recent';
 import { Request as Single } from '@/api/customs/customs/customer/single';
 import { Request as Calculate } from '@/api/customs/customs/customer/calculate-shipment';
-import { Request as Download } from '@/api/customs/customs/customer/download';
 import * as api from '@/api/customs/customs/customer';
 
 export const keys = {
@@ -16,8 +15,6 @@ export const keys = {
 	paymentStatuses: () => [...keys.base, 'payment-statuses'] as const,
 	calculateShipment: (params: Calculate) =>
 		[...keys.base, 'calculate-shipment', params] as const,
-	download: (params: Download) =>
-		[...keys.base, 'download-cad', params] as const,
 };
 
 export const useGetCustoms = (params: All, enabled?: boolean) =>
@@ -69,12 +66,5 @@ export const useCalculateCustomShipment = (
 	useQuery({
 		queryKey: keys.calculateShipment(params),
 		queryFn: async () => (await api.calculateShipment(params)).data,
-		enabled,
-	});
-
-export const useDownloadCustomCad = (params: Download, enabled?: boolean) =>
-	useQuery({
-		queryKey: keys.download(params),
-		queryFn: async () => (await api.download(params)).data,
 		enabled,
 	});

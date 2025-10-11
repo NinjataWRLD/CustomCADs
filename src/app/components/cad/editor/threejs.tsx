@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
-import { Coordinates } from '@/api/catalog/common';
+import { Coordinates } from '@/api/files/common';
 import { useThreeJS } from '@/hooks/threejs/useThreeJS';
 import { useUpdateThreeJS } from '@/hooks/threejs/useUpdateThreeJS';
 import * as calculate3D from '@/utils/calculate-3D';

@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { usePlaceholdersTranslation } from '@/hooks/locales/common/messages';
 import { useLabelsTranslation } from '@/hooks/locales/components/forms';
 import { useGetCategories } from '@/hooks/queries/categories';
@@ -8,7 +9,8 @@ import * as money from '@/utils/money';
 import { useForm } from './useForm';
 
 export const useFields = () => {
-	const { form, handleSubmit, setCad, cadSet, ref } = useForm();
+	const [isCadProvided, setIsCadProvided] = useState<boolean>(false);
+	const { form, handleSubmit, ref } = useForm();
 	const { data: categories } = useGetCategories();
 
 	const { current: currency } = useCurrencyStore();
@@ -83,18 +85,22 @@ export const useFields = () => {
 			</form.Field>
 		),
 		Cad: (
-			<form.Field name='cad'>
+			<form.Field
+				name='cad'
+				listeners={{
+					onChange: () => setIsCadProvided(true),
+				}}
+			>
 				{(api) => (
 					<FileField
 						api={api}
 						label={tLabels('cad')}
 						accept='.glb,.stl'
-						onChange={(e) => setCad(e.target.files?.[0] ?? null)}
 					/>
 				)}
 			</form.Field>
 		),
 	};
 
-	return { ref, cadSet, handleSubmit, fields };
+	return { ref, isCadProvided, handleSubmit, fields };
 };

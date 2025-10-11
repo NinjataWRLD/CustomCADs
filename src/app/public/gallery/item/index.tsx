@@ -2,21 +2,17 @@ import { Link } from '@tanstack/react-router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { Response as Product } from '@/api/catalog/products/gallery/all';
-import { useDownloadProductImage } from '@/hooks/queries/products/gallery';
-import Loader from '@/app/components/state/loading';
+import { useDownloadImageUrl } from '@/hooks/queries/images';
 
 type ItemProps = {
 	product: Product;
 };
 
 const Item = ({ product }: ItemProps) => {
-	const { data: image, isLoading } = useDownloadProductImage({
-		id: product.id,
+	const { data: image } = useDownloadImageUrl({
+		id: product.imageId,
+		relationType: 'Product',
 	});
-
-	if (isLoading) {
-		return <Loader />;
-	}
 
 	return (
 		<Link

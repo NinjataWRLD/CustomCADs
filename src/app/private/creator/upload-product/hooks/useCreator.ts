@@ -1,38 +1,40 @@
 import { useEffect, useState } from 'react';
 import * as exchangeRates from '@/api/common/exchange-rates';
 import { useIdempotencyKeys } from '@/hooks/useIdempotencyKeys';
-import {
-	useCreateProduct,
-	useSetProductCadCoords,
-} from '@/hooks/mutations/products/creator';
+import { useCreateProduct } from '@/hooks/mutations/products/creator';
+import { useCreateCad, useSetCadCoords } from '@/hooks/mutations/cads';
+import { useCreateImage } from '@/hooks/mutations/image';
 import { useCalculateVolume } from '@/hooks/threejs/useCalculateVolume';
 import { useCurrencyStore } from '@/hooks/stores/useCurrencyStore';
 import { FileData } from '@/types/files';
 import * as money from '@/utils/money';
 
-type Files = { image: FileData; cad: FileData };
-
 type ProductData = {
 	name: string;
 	description: string;
-	price: number;
 	categoryId: number;
+	price: number;
+	image: File | null;
+	cad: File | null;
 };
 
 export const useCreator = (
-	cad: File | null,
-	files?: Files,
+	files?: { image: FileData; cad: FileData },
 	data?: ProductData,
 	callback?: VoidFunction,
 ) => {
 	const [id, setId] = useState<string>();
+	const cad = data?.cad ?? null;
 	const { volume: cadVolume, ref, getCoords } = useCalculateVolume(cad);
 
 	const { idempotencyKeys } = useIdempotencyKeys(['create'] as const);
 	const { current: currency } = useCurrencyStore();
 
-	const { mutateAsync: create } = useCreateProduct();
-	const { mutateAsync: setCadCoords } = useSetProductCadCoords();
+	const { mutateAsync: createCad } = useCreateCad();
+	const { mutateAsync: createImage } = useCreateImage();
+
+	const { mutateAsync: createProduct } = useCreateProduct();
+	const { mutateAsync: setCadCoords } = useSetCadCoords();
 
 	useEffect(() => {
 		if (files && data && cadVolume) {
@@ -44,17 +46,24 @@ export const useCreator = (
 					rates,
 				});
 
-				const { id } = await create({
+				const { id: imageId } = await createImage({
+					generatedKey: files.image.key,
+					contentType: files.image.type,
+				});
+				const { id: cadId } = await createCad({
+					generatedKey: files.cad.key,
+					contentType: files.cad.type,
+					volume: cadVolume,
+				});
+
+				const { id } = await createProduct({
 					idempotencyKey: idempotencyKeys.create,
 					name: data.name,
 					description: data.description,
 					categoryId: data.categoryId,
 					price: price,
-					imageKey: files.image.key,
-					imageContentType: files.image.type,
-					cadKey: files.cad.key,
-					cadContentType: files.cad.type,
-					cadVolume: cadVolume,
+					imageId: imageId,
+					cadId: cadId,
 				});
 				setId(id);
 			};
@@ -68,13 +77,8 @@ export const useCreator = (
 			const handleCoords = async () => {
 				await setCadCoords({
 					id: id,
-					type: 'cam',
-					coordinates: coords.cam,
-				});
-				await setCadCoords({
-					id: id,
-					type: 'pan',
-					coordinates: coords.pan,
+					camCoordinates: coords.cam,
+					panCoordinates: coords.pan,
 				});
 				if (callback) callback();
 			};

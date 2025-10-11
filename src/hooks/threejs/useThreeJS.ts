@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Cad } from '@/types/threejs';
-import { Coordinates } from '@/api/catalog/common';
+import { Coordinates } from '@/api/files/common';
 import { initThreeJS } from '@/utils/init-three-js';
 import { clearScene } from '@/utils/cad';
 import * as loader from '@/utils/loader';

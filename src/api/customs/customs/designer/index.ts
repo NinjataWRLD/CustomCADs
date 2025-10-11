@@ -5,7 +5,6 @@ import * as singleResources from './single';
 import * as categoryResources from './category';
 import * as statusResources from './status';
 import * as finishResources from './finish';
-import * as uploadResources from './upload';
 
 export const all = async (req: allResources.Request) =>
 	await axios.get<Result<allResources.Response>>(allResources.url(req));
@@ -30,6 +29,3 @@ export const begin = async (req: statusResources.Request) =>
 
 export const finish = async (req: finishResources.Request) =>
 	await axios.patch(finishResources.url(), req);
-
-export const uploadCad = async (req: uploadResources.Request) =>
-	await axios.post(uploadResources.url(), req);

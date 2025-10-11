@@ -6,11 +6,8 @@ export type Request = {
 	description: string;
 	categoryId: number;
 	price: number;
-	imageKey: string;
-	imageContentType: string;
-	cadKey: string;
-	cadContentType: string;
-	cadVolume: number;
+	imageId: string;
+	cadId: string;
 } & headers.IdempotencyKey;
 
 export type Response = {
@@ -22,6 +19,8 @@ export type Response = {
 	price: number;
 	status: string;
 	category: CategoryDto;
+	imageId: string;
+	cadId: string;
 };
 
 export const url = () => `${CREATOR_BASE_PATH}`;

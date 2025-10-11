@@ -1,6 +1,4 @@
 export type Counts = { purchases: number; views: number };
-export type Coordinates = { x: number; y: number; z: number };
-
 export type CategoryDto = { id: number; name: string };
 export type CategoryResponse = CategoryDto & { description: string };
 
