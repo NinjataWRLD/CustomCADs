@@ -7,7 +7,6 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { SortingDirection } from '@/types/sorting';
-import Loader from '@/app/components/state/loading';
 import ErrorPage from '@/app/components/state/error';
 
 type SortingsProps = {
@@ -25,7 +24,7 @@ const Sortings = ({
 	setActive,
 	fetch,
 }: SortingsProps) => {
-	const { data: sortings, isLoading, isError } = fetch;
+	const { data: sortings, isError } = fetch;
 
 	const { type: sortingParam, direction: directionParam } = getSorting();
 	const initial = 'Sort By';
@@ -77,10 +76,6 @@ const Sortings = ({
 		updateSorting({ type: name });
 		setActive(false);
 	};
-
-	if (isLoading) {
-		return <Loader />;
-	}
 
 	if (isError || !sortings) {
 		return <ErrorPage status={400} />;

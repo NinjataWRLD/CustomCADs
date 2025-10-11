@@ -14,3 +14,7 @@ export const equalityHelper = () => {
 };
 
 export const fileHelper = (file: File) => file.size > 0;
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const extractError = (error: any) =>
+	error?.response?.data?.detail as string;

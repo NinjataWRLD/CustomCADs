@@ -9,7 +9,7 @@ const CreatorCad = ({ product }: { product: Product }) => {
 	const { data: cad } = useGetCad({ id: product.cadId });
 	const { blobUrl, progress } = useCadBlobUrl(product.cadId, 'Product');
 
-	if (!cad || !blobUrl) return <Loader progress={progress} />;
+	if (!cad || !blobUrl) return <Loader progress={progress} isCad />;
 
 	return (
 		<div className='h-full w-full'>

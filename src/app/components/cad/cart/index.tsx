@@ -22,7 +22,7 @@ const CartCad = (props: CartCadProps) => {
 
 	const determineThreeJS = () => {
 		if (!cad || !blobUrl) {
-			return <Loader progress={progress} />;
+			return <Loader progress={progress} isCad />;
 		}
 
 		const file = {

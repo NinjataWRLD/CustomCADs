@@ -4,7 +4,7 @@ import Field from '@/app/components/fields';
 import { useForm } from './useForm';
 
 export const useFields = () => {
-	const { form, sendEmail, handleSubmit } = useForm();
+	const { form, sendEmail, handleSubmit, error } = useForm();
 	const tPlaceholders = usePlaceholdersTranslation();
 	const tLabels = useLabelsTranslation();
 
@@ -23,5 +23,5 @@ export const useFields = () => {
 			</form.Field>
 		),
 	};
-	return { handleSubmit, sendEmail, fields };
+	return { handleSubmit, sendEmail, fields, error };
 };

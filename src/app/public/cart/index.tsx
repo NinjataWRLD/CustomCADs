@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
 	faApplePay,
@@ -10,36 +9,12 @@ import { useMoneyManager } from '@/hooks/money/useMoneyManager';
 import { useCartTranslation } from '@/hooks/locales/pages/public';
 import { useCartContext } from '@/hooks/contexts/useCartContext';
 import { useMoney } from '@/hooks/money/useMoney';
-import Transition from '@/app/components/transition';
 import CustomLink from '@/app/components/link';
 import CartItem from './item';
 
 const Cart = () => {
 	const { items } = useCartContext();
 	const tCart = useCartTranslation();
-
-	useEffect(() => {
-		const styleEl = document.createElement('style');
-		styleEl.textContent = `
-		  .purchases::-webkit-scrollbar {
-    		  width: 8px;
-		   }
-
-		  .purchases::-webkit-scrollbar-thumb {
-    		  background-color: #888;
-    		  border-radius: 10px;
-		   }
-
-		  .purchases > * {
-    		  flex: 0 0 auto;
-		   }
-		`;
-		document.head.appendChild(styleEl);
-
-		return () => {
-			document.head.removeChild(styleEl);
-		};
-	}, []);
 
 	const [prices, setPrice] = useMoneyManager();
 	const [costs, setCost] = useMoneyManager();
@@ -66,7 +41,7 @@ const Cart = () => {
 	const print = useMoney(sum.product.print + sum.customization.print);
 
 	return (
-		<Transition>
+		<>
 			<div className='relative h-[100dvh] flex flex-col justify-center text-white overflow-hidden'>
 				<h1 className='text-[2.3rem] ml-[10%] title-text-shadow'>
 					{tCart('title')}
@@ -126,7 +101,7 @@ const Cart = () => {
 					<FontAwesomeIcon icon={faApplePay} />
 				</div>
 			</div>
-		</Transition>
+		</>
 	);
 };
 

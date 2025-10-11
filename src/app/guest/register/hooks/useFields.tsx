@@ -6,7 +6,7 @@ import Password from '@/app/components/fields/password';
 import { useForm } from './useForm';
 
 export const useFields = (role: 'Customer' | 'Contributor') => {
-	const { form, handleSubmit, isSuccess } = useForm(role);
+	const { form, handleSubmit, isSuccess, error } = useForm(role);
 	const [username, setUsername] = useState<string | null>(null);
 
 	const tPlaceholders = usePlaceholdersTranslation();
@@ -92,5 +92,5 @@ export const useFields = (role: 'Customer' | 'Contributor') => {
 		),
 	};
 
-	return { handleSubmit, fields, username, isSuccess };
+	return { handleSubmit, fields, username, isSuccess, error };
 };

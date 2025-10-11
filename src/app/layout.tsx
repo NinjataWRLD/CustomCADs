@@ -5,6 +5,7 @@ import { useLanguages } from '@/hooks/locales/useLanguages';
 import Header from './components/header';
 import Footer from './components/footer';
 import Gradient from './components/gradient';
+import Transition from './components/transition';
 
 const Layout = () => {
 	useAuth();
@@ -15,7 +16,9 @@ const Layout = () => {
 			<Header />
 			<Gradient />
 			<main>
-				<Outlet />
+				<Transition>
+					<Outlet />
+				</Transition>
 			</main>
 			<Footer />
 		</CartProvider>

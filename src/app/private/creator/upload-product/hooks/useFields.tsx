@@ -10,7 +10,7 @@ import { useForm } from './useForm';
 
 export const useFields = () => {
 	const [isCadProvided, setIsCadProvided] = useState<boolean>(false);
-	const { form, handleSubmit, ref } = useForm();
+	const { form, handleSubmit, ref, error } = useForm();
 	const { data: categories } = useGetCategories();
 
 	const { current: currency } = useCurrencyStore();
@@ -102,5 +102,5 @@ export const useFields = () => {
 		),
 	};
 
-	return { ref, isCadProvided, handleSubmit, fields };
+	return { ref, isCadProvided, handleSubmit, fields, error };
 };

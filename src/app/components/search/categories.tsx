@@ -3,7 +3,6 @@ import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { CategoryResponse } from '@/api/catalog/common';
 import { useGetCategories } from '@/hooks/queries/categories';
-import Loader from '@/app/components/state/loading';
 import ErrorPage from '@/app/components/state/error';
 
 type CategoriesProps = {
@@ -19,7 +18,7 @@ const Categories = ({
 	isActive,
 	setActive,
 }: CategoriesProps) => {
-	const { data: categories, isLoading, isError } = useGetCategories();
+	const { data: categories, isError } = useGetCategories();
 
 	const categoryParam = getCategory();
 
@@ -41,10 +40,6 @@ const Categories = ({
 			setCategory(all);
 		}
 	}, [all, categoryParam]);
-
-	if (isLoading) {
-		return <Loader />;
-	}
 
 	if (isError || !categories) {
 		return <ErrorPage status={400} />;

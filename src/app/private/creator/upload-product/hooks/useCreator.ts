@@ -33,7 +33,7 @@ export const useCreator = (
 	const { mutateAsync: createCad } = useCreateCad();
 	const { mutateAsync: createImage } = useCreateImage();
 
-	const { mutateAsync: createProduct } = useCreateProduct();
+	const { mutateAsync: createProduct, error } = useCreateProduct();
 	const { mutateAsync: setCadCoords } = useSetCadCoords();
 
 	useEffect(() => {
@@ -86,5 +86,5 @@ export const useCreator = (
 		}
 	}, [id]);
 
-	return ref;
+	return { ref, error };
 };

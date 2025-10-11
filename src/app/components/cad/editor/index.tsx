@@ -21,7 +21,7 @@ const EditorCad = ({ id }: EditorCadProps) => {
 
 	const textureBlobUrls = useTextures(true);
 	if (!product || !cad || !blobUrl || !textureBlobUrls[materialId]) {
-		return <Loader progress={progress} />;
+		return <Loader progress={progress} isCad />;
 	}
 
 	return (

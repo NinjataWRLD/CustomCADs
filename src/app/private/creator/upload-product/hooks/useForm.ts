@@ -2,9 +2,10 @@ import { FormEvent, useState } from 'react';
 import { useNavigate } from '@tanstack/react-router';
 import { useForm as useTanStackForm } from '@tanstack/react-form';
 import { useForceLocaleRefresh } from '@/hooks/locales/useForceLocaleRefresh';
+import { useFilesUploader } from '@/hooks/useFilesUploader';
 import { FileData } from '@/types/files';
 import { useValidation } from './useValidation';
-import { useFilesUploader } from '@/hooks/useFilesUploader';
+import { extractError } from '@/utils/form';
 import { useCreator } from './useCreator';
 
 type Fields = {
@@ -31,7 +32,9 @@ export const useForm = () => {
 	const [value, setValue] = useState<Fields>();
 	const [files, setFiles] = useState<{ image: FileData; cad: FileData }>();
 
-	const ref = useCreator(files, value, () => navigate({ to: '/gallery' }));
+	const { ref, error } = useCreator(files, value, () =>
+		navigate({ to: '/gallery' }),
+	);
 	useFilesUploader(value, setFiles);
 
 	const form = useTanStackForm({
@@ -47,5 +50,5 @@ export const useForm = () => {
 		form.handleSubmit();
 	};
 
-	return { form, handleSubmit, ref };
+	return { form, handleSubmit, ref, error: extractError(error) };
 };
