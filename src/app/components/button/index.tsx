@@ -1,9 +1,15 @@
-type ButtonProps = {
-	type: 'button' | 'submit';
-	text: string;
-	disabled?: boolean;
-	onClick?: (event: React.MouseEvent<HTMLElement>) => void;
-};
+import { FormEvent, MouseEvent } from 'react';
+
+type ButtonProps = { text: string; disabled?: boolean } & (
+	| {
+			type: 'button';
+			onClick?: (event: MouseEvent<HTMLElement>) => void;
+	  }
+	| {
+			type: 'submit';
+			onClick?: (event: FormEvent<HTMLButtonElement>) => void;
+	  }
+);
 
 const Button = ({ text, type, disabled, onClick }: ButtonProps) => {
 	switch (type) {

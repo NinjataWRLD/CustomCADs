@@ -29,7 +29,7 @@ export const useForm = () => {
 	const schema = useValidation();
 	const navigate = useNavigate();
 
-	const [value, setValue] = useState<Fields>();
+	const [value, setValue] = useState<Fields>(defaultValues);
 	const [files, setFiles] = useState<{ image: FileData; cad: FileData }>();
 
 	const { ref, error } = useCreator(files, value, () =>
@@ -50,5 +50,13 @@ export const useForm = () => {
 		form.handleSubmit();
 	};
 
-	return { form, handleSubmit, ref, error: extractError(error) };
+	return {
+		form,
+		handleSubmit,
+		ref,
+		error: extractError(error),
+		setCad: (cad: File | null) => setValue((prev) => ({ ...prev, cad })),
+		setImage: (image: File | null) =>
+			setValue((prev) => ({ ...prev, image })),
+	};
 };

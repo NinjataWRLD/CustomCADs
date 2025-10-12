@@ -10,7 +10,7 @@ import { useForm } from './useForm';
 
 export const useFields = () => {
 	const [isCadProvided, setIsCadProvided] = useState<boolean>(false);
-	const { form, handleSubmit, ref, error } = useForm();
+	const { form, handleSubmit, setCad, setImage, ref, error } = useForm();
 	const { data: categories } = useGetCategories();
 
 	const { current: currency } = useCurrencyStore();
@@ -74,7 +74,14 @@ export const useFields = () => {
 			</form.Field>
 		),
 		Image: (
-			<form.Field name='image'>
+			<form.Field
+				name='image'
+				listeners={{
+					onChange: ({ value: image }) => {
+						setImage(image);
+					},
+				}}
+			>
 				{(api) => (
 					<FileField
 						api={api}
@@ -88,7 +95,10 @@ export const useFields = () => {
 			<form.Field
 				name='cad'
 				listeners={{
-					onChange: () => setIsCadProvided(true),
+					onChange: ({ value: cad }) => {
+						setCad(cad);
+						setIsCadProvided(true);
+					},
 				}}
 			>
 				{(api) => (
@@ -102,5 +112,11 @@ export const useFields = () => {
 		),
 	};
 
-	return { ref, isCadProvided, handleSubmit, fields, error };
+	return {
+		ref,
+		isCadProvided,
+		handleSubmit,
+		fields,
+		error,
+	};
 };

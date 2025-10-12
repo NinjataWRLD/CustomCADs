@@ -11,7 +11,7 @@ import CustomLink from '@/app/components/link';
 import BackButton from '@/app/components/link/back-button';
 import Cad from '@/app/components/cad';
 import * as dateTime from '@/utils/date-time';
-import AddToCartPopup from './add-to-cart-popup';
+import Popup from './popup';
 
 const Product = () => {
 	const canGoBack = useCanGoBack();
@@ -138,7 +138,7 @@ const Product = () => {
 				</div>
 			</div>
 
-			<AddToCartPopup
+			<Popup
 				id={product.id}
 				show={showPopup}
 				setShow={setShowPopup}

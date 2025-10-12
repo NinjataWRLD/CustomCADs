@@ -6,19 +6,14 @@ import { useProductTranslation } from '@/hooks/locales/pages/public';
 import { useCartUpdates } from '@/hooks/contexts/useCartUpdates';
 import Blur from '@/app/components/background/blur';
 
-type AddDetailsProps = {
+type PopupProps = {
 	id: string;
 	show: boolean;
 	setShow: Dispatch<SetStateAction<boolean>>;
 	flashMessage: VoidFunction;
 };
 
-const AddToCartPopup = ({
-	id,
-	show,
-	setShow,
-	flashMessage,
-}: AddDetailsProps) => {
+const Popup = ({ id, show, setShow, flashMessage }: PopupProps) => {
 	const tProduct = useProductTranslation();
 	const navigate = useNavigate();
 
@@ -84,4 +79,4 @@ const AddToCartPopup = ({
 	);
 };
 
-export default AddToCartPopup;
+export default Popup;

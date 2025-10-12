@@ -6,7 +6,7 @@ import { FileData } from '@/types/files';
 import { useEffect } from 'react';
 
 export const useFilesUploader = (
-	data?: {
+	data: {
 		name: string;
 		image: File | null;
 		cad: File | null;
@@ -17,7 +17,7 @@ export const useFilesUploader = (
 	const { mutateAsync: uploadCad } = useUploadCadUrl();
 
 	useEffect(() => {
-		if (data) {
+		if (data.name && data.image && data.cad) {
 			const upload = async (
 				image: File | null,
 				cad: File | null,
