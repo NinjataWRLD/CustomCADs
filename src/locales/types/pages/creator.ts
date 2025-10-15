@@ -1,4 +1,8 @@
 export type PagesCreatorUploadProduct = {
 	title: string;
-	btn: string;
+	preview: string;
+	hint: string;
+	previous: string;
+	next: string;
+	submit: string;
 };

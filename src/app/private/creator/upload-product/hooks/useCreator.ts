@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import * as exchangeRates from '@/api/common/exchange-rates';
+import { useGetExchangeRates } from '@/hooks/queries/common';
 import { useIdempotencyKeys } from '@/hooks/useIdempotencyKeys';
 import { useCreateProduct } from '@/hooks/mutations/products/creator';
 import { useCreateCad, useSetCadCoords } from '@/hooks/mutations/cads';
@@ -23,9 +23,11 @@ export const useCreator = (
 	data?: ProductData,
 	callback?: VoidFunction,
 ) => {
-	const [id, setId] = useState<string>();
+	const [cadId, setCadId] = useState<string>();
 	const cad = data?.cad ?? null;
-	const { volume: cadVolume, ref, getCoords } = useCalculateVolume(cad);
+
+	const { refetch: exchangeRates } = useGetExchangeRates(false);
+	const { volume: cadVolume, ...calculator } = useCalculateVolume(cad);
 
 	const { idempotencyKeys } = useIdempotencyKeys(['create'] as const);
 	const { current: currency } = useCurrencyStore();
@@ -39,7 +41,7 @@ export const useCreator = (
 	useEffect(() => {
 		if (files && data && cadVolume) {
 			const handleCreate = async () => {
-				const { data: rates } = await exchangeRates.all();
+				const { data: rates } = await exchangeRates();
 				const { money: price } = money.toBase({
 					money: data.price,
 					from: currency,
@@ -55,8 +57,9 @@ export const useCreator = (
 					contentType: files.cad.type,
 					volume: cadVolume,
 				});
+				setCadId(cadId);
 
-				const { id } = await createProduct({
+				await createProduct({
 					idempotencyKey: idempotencyKeys.create,
 					name: data.name,
 					description: data.description,
@@ -65,18 +68,17 @@ export const useCreator = (
 					imageId: imageId,
 					cadId: cadId,
 				});
-				setId(id);
 			};
 			handleCreate();
 		}
 	}, [files, data, cadVolume]);
 
 	useEffect(() => {
-		const coords = getCoords();
-		if (id && coords) {
+		const coords = calculator.getCoords();
+		if (cadId && coords) {
 			const handleCoords = async () => {
 				await setCadCoords({
-					id: id,
+					id: cadId,
 					camCoordinates: coords.cam,
 					panCoordinates: coords.pan,
 				});
@@ -84,7 +86,7 @@ export const useCreator = (
 			};
 			handleCoords();
 		}
-	}, [id]);
+	}, [cadId]);
 
-	return { ref, error };
+	return { ref: calculator.ref, progress: calculator.progress, error };
 };

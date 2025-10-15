@@ -32,7 +32,7 @@ export const useForm = () => {
 	const [value, setValue] = useState<Fields>(defaultValues);
 	const [files, setFiles] = useState<{ image: FileData; cad: FileData }>();
 
-	const { ref, error } = useCreator(files, value, () =>
+	const { ref, progress, error } = useCreator(files, value, () =>
 		navigate({ to: '/gallery' }),
 	);
 	useFilesUploader(value, setFiles);
@@ -44,7 +44,7 @@ export const useForm = () => {
 	});
 	useForceLocaleRefresh(() => form.validate('change'));
 
-	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+	const handleSubmit = (e: FormEvent<HTMLButtonElement>) => {
 		e.preventDefault();
 		e.stopPropagation();
 		form.handleSubmit();
@@ -54,6 +54,7 @@ export const useForm = () => {
 		form,
 		handleSubmit,
 		ref,
+		cadRenderProgress: progress,
 		error: extractError(error),
 		setCad: (cad: File | null) => setValue((prev) => ({ ...prev, cad })),
 		setImage: (image: File | null) =>
