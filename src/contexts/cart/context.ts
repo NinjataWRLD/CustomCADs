@@ -7,7 +7,7 @@ export type CartState = {
 	dispatch: Dispatch<CartAction>;
 };
 export const defaultValues: CartState = {
-	items: [],
+	items: null,
 	dispatch: () => {},
 };
 
