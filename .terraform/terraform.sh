@@ -18,10 +18,12 @@ esac
 
 targets=(
   aws_cloudfront_distribution.customcads_"$ENVIRONMENT"
+  aws_cloudfront_origin_access_control.customcads_"$ENVIRONMENT"_bucket_oac
   aws_s3_bucket_policy.customcads_"$ENVIRONMENT"_bucket_policy
   aws_s3_bucket_ownership_controls.customcads_"$ENVIRONMENT"_bucket_ownership
-  aws_cloudfront_origin_access_control.customcads_"$ENVIRONMENT"_bucket_oac
   aws_s3_bucket_public_access_block.customcads_"$ENVIRONMENT"_access
+  aws_cloudfront_origin_access_control.customcads_"$ENVIRONMENT"_oac
+  aws_s3_bucket" "customcads_"$ENVIRONMENT"_bucket
 )
 
 terraform "$OPERATION" "${targets[@]/#/-target=}"
