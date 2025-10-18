@@ -92,7 +92,11 @@ const Cart = () => {
 						})}
 					</p>
 				</h2>
-				<CustomLink to='/carts/purchase' text={tCart('buy')} />
+				{items?.length ? (
+					<CustomLink to='/carts/purchase' text={tCart('buy')} />
+				) : (
+					<></>
+				)}
 				<hr />
 				<div className='flex gap-[30px] w-full justify-center items-center h-[10%] text-white text-[2rem]'>
 					<FontAwesomeIcon icon={faCcVisa} />
