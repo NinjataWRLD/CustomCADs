@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { Coordinates } from '@/api/catalog/common';
+import { Coordinates } from '@/api/files/common';
 import { clearScene } from './cad';
 
 const init = {

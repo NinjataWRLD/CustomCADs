@@ -5,10 +5,21 @@ import { useCurrencyStore } from '@/hooks/stores/useCurrencyStore';
 import Field from '@/app/components/fields';
 import FileField from '@/app/components/fields/file';
 import * as money from '@/utils/money';
+import { doFieldsHaveErrors } from '@/utils/form';
 import { useForm } from './useForm';
 
-export const useFields = () => {
-	const { form, handleSubmit, setCad, cadSet, ref, error } = useForm();
+export const useFields = (options?: {
+	onUpload: { cad?: VoidFunction; image?: VoidFunction };
+}) => {
+	const {
+		form,
+		handleSubmit,
+		setCad,
+		setImage,
+		ref,
+		cadRenderProgress,
+		error,
+	} = useForm();
 	const { data: categories } = useGetCategories();
 
 	const { current: currency } = useCurrencyStore();
@@ -72,7 +83,17 @@ export const useFields = () => {
 			</form.Field>
 		),
 		Image: (
-			<form.Field name='image'>
+			<form.Field
+				name='image'
+				listeners={{
+					onChange: ({ value: image }) => {
+						setImage(image);
+						if (image) {
+							options?.onUpload.image?.();
+						}
+					},
+				}}
+			>
 				{(api) => (
 					<FileField
 						api={api}
@@ -83,18 +104,58 @@ export const useFields = () => {
 			</form.Field>
 		),
 		Cad: (
-			<form.Field name='cad'>
+			<form.Field
+				name='cad'
+				listeners={{
+					onChange: ({ value: cad }) => {
+						setCad(cad);
+						if (cad) {
+							options?.onUpload.cad?.();
+						}
+					},
+				}}
+			>
 				{(api) => (
 					<FileField
 						api={api}
 						label={tLabels('cad')}
 						accept='.glb,.stl'
-						onChange={(e) => setCad(e.target.files?.[0] ?? null)}
 					/>
 				)}
 			</form.Field>
 		),
 	};
 
-	return { ref, cadSet, handleSubmit, fields, error };
+	const { evaluateFields } = doFieldsHaveErrors<
+		typeof form.store.state.values
+	>(
+		(field) => form.getAllErrors().fields[field],
+		(field) =>
+			form.setFieldMeta(field, (field) => ({
+				...field,
+				isBlurred: true,
+				isTouched: true,
+			})),
+	);
+
+	return {
+		ref,
+		files: {
+			cad: !!form.getFieldValue('cad')
+				? URL.createObjectURL(form.getFieldValue('cad')!)
+				: undefined,
+			image: !!form.getFieldValue('image')
+				? URL.createObjectURL(form.getFieldValue('image')!)
+				: undefined,
+		},
+		validate: {
+			metadata: () =>
+				!evaluateFields(['name', 'categoryId', 'price', 'description']),
+			files: () => !evaluateFields(['image', 'cad']),
+		},
+		handleSubmit,
+		cadRenderProgress,
+		fields,
+		error,
+	};
 };

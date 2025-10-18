@@ -1,8 +1,9 @@
 import { isAxiosError } from 'axios';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { createRootRouteWithContext } from '@tanstack/react-router';
-import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { TanStackDevtools } from '@tanstack/react-devtools';
+import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools';
+import { ReactQueryDevtoolsPanel } from '@tanstack/react-query-devtools';
 import { AppError } from '@/types/errors';
 import Layout from '@/app/layout';
 import ErrorPage from '@/app/components/state/error';
@@ -21,14 +22,27 @@ const RootComponent = () => {
 		<>
 			<QueryClientProvider client={queryClient}>
 				<Layout />
-				<ReactQueryDevtools
-					initialIsOpen={false}
-					buttonPosition='bottom-right'
-					position='right'
-				/>
-				<TanStackRouterDevtools
-					initialIsOpen={false}
-					position='bottom-left'
+				<TanStackDevtools
+					config={{
+						defaultOpen: false,
+						hideUntilHover: true,
+						openHotkey: ['Shift', 'A'],
+						panelLocation: 'bottom',
+						position: 'bottom-left',
+						theme: 'dark',
+						triggerImage:
+							'https://tanstack.com/images/logos/logo-color-100.png',
+					}}
+					plugins={[
+						{
+							name: 'TanStack Query',
+							render: <ReactQueryDevtoolsPanel />,
+						},
+						{
+							name: 'TanStack Router',
+							render: <TanStackRouterDevtoolsPanel />,
+						},
+					]}
 				/>
 			</QueryClientProvider>
 		</>

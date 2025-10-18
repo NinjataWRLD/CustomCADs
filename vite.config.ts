@@ -1,6 +1,6 @@
 /// <reference types="vitest/config" />
 import { defineConfig, UserConfig } from 'vite';
-import { TanStackRouterVite } from '@tanstack/router-plugin/vite';
+import { devtools as tanstackDevTools } from '@tanstack/devtools-vite';
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
@@ -9,11 +9,7 @@ import child_process from 'child_process';
 import { env } from 'process';
 
 let config: UserConfig = {
-	plugins: [
-		TanStackRouterVite({ target: 'react', autoCodeSplitting: true }),
-		react(),
-		tailwindcss(),
-	],
+	plugins: [react(), tailwindcss(), tanstackDevTools()],
 	resolve: {
 		alias: {
 			'@': path.resolve(__dirname, './src'),

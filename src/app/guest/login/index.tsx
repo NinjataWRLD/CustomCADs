@@ -1,8 +1,10 @@
 import { Link } from '@tanstack/react-router';
+import * as identitySSO from '@/api/identity/identity/sso';
 import { useLoginTranslation } from '@/hooks/locales/pages/guest';
 import Button from '@/app/components/button';
 import Border from '@/app/components/border';
 import FormError from '@/app/components/fields/error';
+import SSOGoogle from '@/app/components/sso/google';
 import { useFields } from './hooks/useFields';
 
 const Login = () => {
@@ -12,7 +14,7 @@ const Login = () => {
 	return (
 		<form
 			onSubmit={handleSubmit}
-			className='h-[100dvh] flex justify-center items-center text-white'
+			className='h-[120dvh] flex justify-center items-center text-white'
 		>
 			<div className='form-hover-heading relative flex flex-col justify-center items-center w-2/5 p-12 gap-8 mt-10'>
 				<Border />
@@ -30,12 +32,17 @@ const Login = () => {
 
 				{fields.RememberMe}
 
-				<div>
+				<div className='flex flex-col gap-8'>
 					<Button type='submit' text={tLogin('btn')} />
+					<SSOGoogle
+						link={identitySSO.url({
+							provider: 'Google',
+							redirectUrl: window.location.origin,
+						})}
+					/>
 				</div>
 
 				<FormError error={error} />
-
 				<p>
 					{tLogin('register-message')}
 					<Link

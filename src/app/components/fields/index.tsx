@@ -53,81 +53,78 @@ const Field = (props: FieldProps) => {
 
 	if (value === undefined) return null;
 
-	const handleChange = (value: string) =>
-		api.handleChange(format ? format(value) : value);
-
 	const dirty = props.showErrorWhenDirty ? meta.isDirty : true;
 	const showError = meta.isBlurred && meta.isTouched && dirty;
 	const hasError = !!meta.errors.length;
 
-	const baseInputClass = `w-full p-2.5
-						border-2 rounded-[10px] outline-none
+	const getInput = () => {
+		const baseInputClass = `w-full p-2.5
+						border-2 rounded-xl outline-none
 						transition-colors duration-300
 						focus:border-purple-500 focus:shadow-white/60
 						font-['Ubuntu'] text-base border-gray-500
 						focus:outline-none focus:ring focus:ring-purple-300`;
 
-	let input;
-	switch (props.tag) {
-		case 'input':
-			input = (
-				<input
-					type={props.type}
-					id={name}
-					name={name}
-					value={value}
-					onBlur={handleBlur}
-					onChange={(e) => handleChange(e.target.value)}
-					placeholder={props.placeholder}
-					className={`${baseInputClass} ${getErrorClass(showError && hasError)}`}
-				/>
-			);
-			break;
-		case 'textarea':
-			input = (
-				<textarea
-					id={name}
-					name={name}
-					value={value}
-					onBlur={handleBlur}
-					onChange={(e) => handleChange(e.target.value)}
-					placeholder={props.placeholder}
-					className={`${baseInputClass} ${getErrorClass(showError && hasError)} resize-none`}
-				/>
-			);
-			break;
-		case 'select':
-			input = (
-				<StyledSelect
-					id={name}
-					name={name}
-					value={String(value)}
-					onChange={handleChange}
-					onBlur={handleBlur}
-					hasError={showError && hasError}
-					options={props.options}
-				/>
-			);
-			break;
-		case 'custom':
-			input = props.field;
-			break;
-		default:
-			break;
-	}
+		const handleChange = (value: string) =>
+			api.handleChange(format ? format(value) : value);
+
+		switch (props.tag) {
+			case 'input':
+				return (
+					<input
+						type={props.type}
+						id={name}
+						name={name}
+						value={value}
+						onBlur={handleBlur}
+						onChange={(e) => handleChange(e.target.value)}
+						placeholder={props.placeholder}
+						className={`${baseInputClass} ${getErrorClass(showError && hasError)}`}
+					/>
+				);
+			case 'textarea':
+				return (
+					<textarea
+						id={name}
+						name={name}
+						value={value}
+						onBlur={handleBlur}
+						onChange={(e) => handleChange(e.target.value)}
+						placeholder={props.placeholder}
+						className={`${baseInputClass} ${getErrorClass(showError && hasError)}`}
+					/>
+				);
+			case 'select':
+				return (
+					<StyledSelect
+						id={name}
+						name={name}
+						value={String(value)}
+						onChange={handleChange}
+						onBlur={handleBlur}
+						hasError={showError && hasError}
+						options={props.options}
+					/>
+				);
+			case 'custom':
+				return props.field;
+			default:
+				return <></>;
+		}
+	};
 
 	return (
-		<>
+		<div className='w-full flex flex-col justify-center items-center gap-2'>
 			<label className='block mb-1 font-medium'>{label}</label>
 			<div className='relative w-full'>
-				{input}
+				{getInput()}
 				{showError && hasError && (
 					<small className='absolute top-full right-0 text-red-500 text-[0.85rem] mt-0.5 whitespace-nowrap'>
 						{meta.errors[0].message}
 					</small>
 				)}
 			</div>
-		</>
+		</div>
 	);
 };
 

@@ -6,6 +6,7 @@ import {
 	faTools,
 	faShoppingBag,
 	faTruck,
+	faUpload,
 } from '@fortawesome/free-solid-svg-icons';
 import { useAuthStore } from '@/hooks/stores/useAuthStore';
 import { useCartContext } from '@/hooks/contexts/useCartContext';
@@ -76,6 +77,17 @@ const Header = () => {
 								label={tHeader('shipments')}
 								link={{ to: '/shipments' }}
 								icon={faTruck}
+							/>
+						</>
+					)}
+					{is.creator && (
+						<>
+							<span>|</span>
+							<BaseButton
+								key='upload-product'
+								label={tHeader('upload-product')}
+								link={{ to: '/upload-product' }}
+								icon={faUpload}
 							/>
 						</>
 					)}

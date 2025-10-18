@@ -1,59 +1,120 @@
+import { useState } from 'react';
 import { useUploadProductTranslation } from '@/hooks/locales/pages/creator';
-import Button from '@/app/components/button';
-import Border from '@/app/components/border';
-import FormError from '@/app/components/fields/error';
+import MultiStepForm from '@/app/components/form/multi-step';
+import Loader from '@/app/components/state/loading';
 import { useFields } from './hooks/useFields';
+import UploadProductMetadata from './metadata';
+import UploadProductFiles from './files';
+import Popup from './popup';
 
 const UploadProduct = () => {
-	const { ref, cadSet, handleSubmit, fields, error } = useFields();
+	type Popup = 'image' | 'cad';
+	const [popup, setPopup] = useState<Popup | null>(null);
+
+	const {
+		ref,
+		files,
+		validate,
+		handleSubmit,
+		fields,
+		cadRenderProgress,
+		error,
+	} = useFields({
+		onUpload: {
+			cad: () => setPopup('cad'),
+			image: () => setPopup('image'),
+		},
+	});
 	const tUploadProduct = useUploadProductTranslation();
 
 	return (
-		<div className='h-[110dvh] flex justify-center items-center text-white'>
-			<form
-				onSubmit={handleSubmit}
-				className='relative upload-form w-1/2 flex flex-col justify-center items-center p-12 gap-4 mb-3'
-			>
-				<Border />
-				<h1 className='title-text-shadow transition-all duration-300'>
-					{tUploadProduct('title')}
-				</h1>
-
-				<div className='w-3/4 flex flex-col gap-[10px] mb-5'>
-					{fields.Name}
-				</div>
-
-				<div className='w-3/4 flex justify-between gap-[10px] mb-5'>
-					{fields.Category}
-					{fields.Price}
-				</div>
-
-				<div className='w-3/4 flex flex-col gap-[10px] mb-5'>
-					<div className='description-field-wrapper w-full'>
-						{fields.Description}
-					</div>
-				</div>
-
-				<div className='w-3/4 flex justify-between gap-[10px] mb-5'>
-					<div className='w-1/2 pr-1'>{fields.Image}</div>
-					<div className='w-1/2 pl-1'>{fields.Cad}</div>
-				</div>
-
-				<div className='mt-6'>
-					<Button type='submit' text={tUploadProduct('btn')} />
-				</div>
-
-				<FormError error={error} />
-			</form>
-			<div
-				ref={ref}
-				className={
-					cadSet
-						? 'w-1/4 h-4/5 bg-gray-900/50 backdrop-blur-sm rounded-xl border-2 border-purple-500/50 shadow-lg shadow-purple-500/30 overflow-hidden flex justify-center items-center p-4 ml-8 transition-all duration-300'
-						: 'hidden'
-				}
-			/>
-		</div>
+		<MultiStepForm
+			onSubmit={handleSubmit}
+			steps={[
+				{
+					validate: validate.files,
+					form: (
+						<>
+							<UploadProductFiles error={error}>
+								<div className='flex justify-between gap-20 mb-5'>
+									<div className='w-1/2 pr-1 flex flex-col items-center gap-4'>
+										{fields.Image}
+										{files.image && (
+											<span
+												onClick={() =>
+													setPopup('image')
+												}
+												className='w-1/3 text-center px-4 py-3 rounded-xl text-white bg-[hsla(271,42%,54%,0.358)] cursor-pointer hover:opacity-80 ease-in duration-150'
+											>
+												{tUploadProduct('preview')}
+											</span>
+										)}
+									</div>
+									<div className='w-1/2 pl-1 flex flex-col items-center gap-4'>
+										{fields.Cad}
+										{files.cad && (
+											<span
+												onClick={() => setPopup('cad')}
+												className='w-1/3 text-center px-4 py-3 rounded-xl text-white bg-[hsla(271,42%,54%,0.358)] cursor-pointer hover:opacity-80 ease-in duration-150'
+											>
+												{tUploadProduct('preview')}
+											</span>
+										)}
+									</div>
+								</div>
+							</UploadProductFiles>
+							<Popup
+								type='image'
+								isActive={popup === 'image'}
+								hide={() => setPopup(null)}
+							>
+								<img
+									src={files.image}
+									className='max-w-96 max-h-96 rounded-2xl'
+								/>
+							</Popup>
+							<Popup
+								type='cad'
+								isActive={popup === 'cad'}
+								hide={() => setPopup(null)}
+							>
+								<div className='w-full h-full flex flex-col justify-center items-center rounded-2xl'>
+									{cadRenderProgress < 1 && (
+										<Loader
+											progress={cadRenderProgress}
+											isCad
+										/>
+									)}
+									<div
+										ref={ref}
+										className='w-full h-full backdrop-blur-sm rounded-xl overflow-hidden flex justify-center items-center transition-all duration-300'
+									/>
+								</div>
+							</Popup>
+						</>
+					),
+				},
+				{
+					validate: validate.metadata,
+					form: (
+						<UploadProductMetadata error={error}>
+							<div className='w-3/4 flex flex-col gap-10 mb-5'>
+								{fields.Name}
+							</div>
+							<div className='w-3/4 flex justify-between gap-10 mb-5'>
+								{fields.Category}
+								{fields.Price}
+							</div>
+							<div className='w-3/4 flex flex-col gap-10 mb-5'>
+								<div className='description-field-wrapper w-full'>
+									{fields.Description}
+								</div>
+							</div>
+						</UploadProductMetadata>
+					),
+				},
+			]}
+		/>
 	);
 };
 

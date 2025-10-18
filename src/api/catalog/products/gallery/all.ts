@@ -17,6 +17,7 @@ export type Response = {
 	tags: string[];
 	category: string;
 	views: number;
+	imageId: string;
 };
 
 export const url = (req: Request) =>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { downloadTexture } from '@/api/printing/materials';
+import * as imagesApi from '@/api/files/images';
 import { useGetMaterials } from '@/hooks/queries/materials';
 import { fetchFile } from '@/utils/file';
 
@@ -17,14 +17,11 @@ export const useTextures = (enabled?: boolean) => {
 		if (data) {
 			const fetchTextures = async () => {
 				const materials = data.map(async (x) => {
-					const { data: texture } = await downloadTexture({
-						id: x.id,
+					const { data: presigned } = await imagesApi.downloadUrl({
+						id: x.textureId,
+						relationType: 'Material',
 					});
-
-					const { response } = await fetchFile(
-						texture.presignedUrl,
-						texture.contentType,
-					);
+					const { response } = await fetchFile(presigned);
 
 					return {
 						id: x.id,

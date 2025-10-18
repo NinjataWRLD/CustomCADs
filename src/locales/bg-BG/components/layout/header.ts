@@ -5,6 +5,7 @@ export default {
 	settings: 'Настройки',
 	carts: 'Колички',
 	shipments: 'Пратки',
+	'upload-product': 'Качи Продукт',
 	account: 'Акаунт',
 	notifications: 'Известия',
 	logout: 'Излез',

@@ -1,9 +1,10 @@
-import { useDownloadPurchasedCartItemCad } from '@/hooks/queries/purchased-carts';
-import { useGenerateBlobUrl } from '@/hooks/useGenerateBlobUrl';
+import { useGetPurchasedCart } from '@/hooks/queries/purchased-carts';
+import { useCadBlobUrl } from '@/hooks/useCadBlobUrl';
+import { useGetCad } from '@/hooks/queries/cads';
 import { getCadType } from '@/utils/get-cad-type';
-import CartThreeJS from './threejs';
 import { useTextures } from '@/hooks/threejs/useTextures';
 import Loader from '@/app/components/state/loading';
+import CartThreeJS from './threejs';
 
 type Customization = { materialId: number; color?: string };
 type CartCadProps = { id: string; productId: string } & (
@@ -12,25 +13,28 @@ type CartCadProps = { id: string; productId: string } & (
 );
 
 const CartCad = (props: CartCadProps) => {
-	const { data: cadInfo } = useDownloadPurchasedCartItemCad(props);
-	const cad = useGenerateBlobUrl(cadInfo);
+	const { data: cart } = useGetPurchasedCart({ id: props.id });
+	const item = cart?.items.find((x) => x.productId === props.productId);
+
+	const { data: cad } = useGetCad({ id: item?.cadId! }, !!item);
+	const { blobUrl, progress } = useCadBlobUrl(item?.cadId, 'PurchasedCart');
 	const textureBlobUrls = useTextures(props.forDelivery);
 
 	const determineThreeJS = () => {
-		if (!cadInfo || !cad.blobUrl) {
-			return <Loader progress={cad.progress} isCad />;
+		if (!cad || !blobUrl) {
+			return <Loader progress={progress} isCad />;
 		}
 
 		const file = {
-			url: cad.blobUrl,
-			type: getCadType(cadInfo.contentType),
+			url: blobUrl,
+			type: getCadType(cad.contentType),
 		};
 		if (!props.forDelivery) {
 			return (
 				<CartThreeJS
 					file={file}
-					cam={cadInfo.camCoordinates}
-					pan={cadInfo.panCoordinates}
+					cam={cad.camCoordinates}
+					pan={cad.panCoordinates}
 				/>
 			);
 		}
@@ -43,8 +47,8 @@ const CartCad = (props: CartCadProps) => {
 			<CartThreeJS
 				customization={customization}
 				file={file}
-				cam={cadInfo.camCoordinates}
-				pan={cadInfo.panCoordinates}
+				cam={cad.camCoordinates}
+				pan={cad.panCoordinates}
 			/>
 		);
 	};

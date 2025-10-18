@@ -1,7 +1,7 @@
 import { useNavigate } from '@tanstack/react-router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
-import { useDownloadProductImage } from '@/hooks/queries/products/gallery';
+import { useDownloadImageUrl } from '@/hooks/queries/images';
 
 type ItemProps = {
 	product: {
@@ -9,12 +9,16 @@ type ItemProps = {
 		name: string;
 		views: number;
 		category: string;
+		imageId: string;
 	};
 };
 
 const Item = ({ product }: ItemProps) => {
 	const navigate = useNavigate();
-	const { data: image } = useDownloadProductImage({ id: product.id });
+	const { data: image } = useDownloadImageUrl({
+		id: product.imageId,
+		relationType: 'Product',
+	});
 
 	const handleDetailsClick = () => {
 		navigate({ to: '/gallery/$id', params: { id: product.id } });

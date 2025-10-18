@@ -18,12 +18,12 @@ export const useCalculateVolume = (file: File | null) => {
 		};
 	}, [file]);
 
-	const { instance, ref } = useThreeJS(
+	const { instance, progress, ref } = useThreeJS(
 		blobUrl ?? '',
 		file ? getCadType(getCadContentType(file)) : '',
 		{ cam: emptyCoords, pan: emptyCoords },
 		(cad) => setVolume(calculateCadVolume(cad)),
 	);
 
-	return { volume, ref, getCoords: () => instance?.getCoords() };
+	return { volume, ref, progress, getCoords: () => instance?.getCoords() };
 };

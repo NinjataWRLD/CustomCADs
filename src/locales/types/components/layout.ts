@@ -12,6 +12,7 @@ export type ComponentsLayoutHeader = {
 	settings: string;
 	carts: string;
 	shipments: string;
+	'upload-product': string;
 	account: string;
 	notifications: string;
 	logout: string;

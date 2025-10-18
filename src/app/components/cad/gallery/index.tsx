@@ -1,28 +1,26 @@
 import { Response as Product } from '@/api/catalog/products/gallery/single';
-import { useGenerateBlobUrl } from '@/hooks/useGenerateBlobUrl';
-import { useDownloadProductCad } from '@/hooks/queries/products/gallery';
+import { useCadBlobUrl } from '@/hooks/useCadBlobUrl';
+import { useGetCad } from '@/hooks/queries/cads';
 import { getCadType } from '@/utils/get-cad-type';
 import GalleryThreeJS from './threejs';
 import Loader from '@/app/components/state/loading';
 
 const GalleryCad = ({ product }: { product: Product }) => {
-	const { camCoordinates: cam, panCoordinates: pan } = product;
-	const { data: cadInfo } = useDownloadProductCad({ id: product.id });
-
-	const cad = useGenerateBlobUrl(cadInfo);
+	const { data: cad } = useGetCad({ id: product.cadId });
+	const { blobUrl, progress } = useCadBlobUrl(product.cadId, 'Product');
 
 	return (
 		<div className='relative h-full w-full'>
-			{!cadInfo || !cad.blobUrl ? (
-				<Loader progress={cad.progress} isCad />
+			{!cad || !blobUrl ? (
+				<Loader progress={progress} isCad />
 			) : (
 				<GalleryThreeJS
 					file={{
-						url: cad.blobUrl,
-						type: getCadType(cadInfo.contentType),
+						url: blobUrl,
+						type: getCadType(cad.contentType),
 					}}
-					cam={cam}
-					pan={pan}
+					cam={cad.camCoordinates}
+					pan={cad.panCoordinates}
 				/>
 			)}
 		</div>

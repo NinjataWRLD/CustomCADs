@@ -11,7 +11,6 @@ import * as deleteResources from './delete';
 import * as purchaseResources from './purchase';
 import * as caluclateResources from './calculate-shipment';
 import * as purchaseWithDeliveryResources from './purchase-delivery';
-import * as downloadResources from './download';
 
 export const create = async (req: createResources.Request) =>
 	await axios.post<createResources.Response>(
@@ -35,9 +34,6 @@ export const purchaseWithDelivery = async (
 		req,
 		config({ idempotencyKey: req.idempotencyKey }),
 	);
-
-export const download = async (req: downloadResources.Request) =>
-	await axios.post<downloadResources.Response>(downloadResources.url(), req);
 
 export const stats = async () =>
 	await axios.get<statsResources.Response>(statsResources.url());

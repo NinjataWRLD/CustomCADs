@@ -11,4 +11,5 @@ export default {
 	weight: 'Weight',
 	cost: 'Cost',
 	unrecommended: 'Not Recommended',
+	'google-sso': 'Sign in with Google',
 } satisfies CommonOthers;

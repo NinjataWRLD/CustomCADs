@@ -1,27 +1,25 @@
 import { Response as Product } from '@/api/catalog/products/gallery/single';
-import { useDownloadProductCad } from '@/hooks/queries/products/gallery';
-import { useGenerateBlobUrl } from '@/hooks/useGenerateBlobUrl';
+import { useCadBlobUrl } from '@/hooks/useCadBlobUrl';
+import { useGetCad } from '@/hooks/queries/cads';
 import { getCadType } from '@/utils/get-cad-type';
-import CreatorThreeJS from './threejs';
 import Loader from '@/app/components/state/loading';
+import CreatorThreeJS from './threejs';
 
 const CreatorCad = ({ product }: { product: Product }) => {
-	const { camCoordinates: cam, panCoordinates: pan } = product;
-	const { data: cadInfo } = useDownloadProductCad({ id: product.id });
+	const { data: cad } = useGetCad({ id: product.cadId });
+	const { blobUrl, progress } = useCadBlobUrl(product.cadId, 'Product');
 
-	const cad = useGenerateBlobUrl(cadInfo);
-	if (!cadInfo || !cad.blobUrl)
-		return <Loader progress={cad.progress} isCad />;
+	if (!cad || !blobUrl) return <Loader progress={progress} isCad />;
 
 	return (
 		<div className='h-full w-full'>
 			<CreatorThreeJS
 				file={{
-					url: cad.blobUrl,
-					type: getCadType(cadInfo.contentType),
+					url: blobUrl,
+					type: getCadType(cad.contentType),
 				}}
-				cam={cam}
-				pan={pan}
+				cam={cad.camCoordinates}
+				pan={cad.panCoordinates}
 			/>
 		</div>
 	);

@@ -27,7 +27,7 @@ describe('Fetch File utility tests', () => {
 	it.each(cases)('makes proper call to fetch', async (file) => {
 		// Arrange
 		// Act
-		await fetchFile(file.url, CONTENT_TYPE);
+		await fetchFile({ presignedUrl: file.url, contentType: CONTENT_TYPE });
 
 		// Assert
 		expect(global.fetch).toHaveBeenCalledWith(file.url, {
@@ -40,7 +40,10 @@ describe('Fetch File utility tests', () => {
 	it.each(cases)('returns result when fetch is successful', async (file) => {
 		// Arrange
 		// Act
-		const result = await fetchFile(file.url, CONTENT_TYPE);
+		const result = await fetchFile({
+			presignedUrl: file.url,
+			contentType: CONTENT_TYPE,
+		});
 
 		// Assert
 		expect(result.length).toEqual(mockResult.length);
@@ -55,9 +58,12 @@ describe('Fetch File utility tests', () => {
 			global.fetch = vi.fn().mockRejectedValueOnce(error);
 
 			// Act + Assert
-			await expect(fetchFile(file.url, CONTENT_TYPE)).rejects.toThrow(
-				error.message,
-			);
+			await expect(
+				fetchFile({
+					presignedUrl: file.url,
+					contentType: CONTENT_TYPE,
+				}),
+			).rejects.toThrow(error.message);
 		},
 	);
 
@@ -73,9 +79,12 @@ describe('Fetch File utility tests', () => {
 			});
 
 			// Act + Arrange
-			await expect(fetchFile(file.url, CONTENT_TYPE)).rejects.toThrow(
-				'Network response was not ok: 404 Not Found',
-			);
+			await expect(
+				fetchFile({
+					presignedUrl: file.url,
+					contentType: CONTENT_TYPE,
+				}),
+			).rejects.toThrow('Network response was not ok: 404 Not Found');
 		},
 	);
 });

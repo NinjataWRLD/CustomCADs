@@ -9,4 +9,5 @@ export type CommonOthers = {
 	weight: string;
 	cost: string;
 	unrecommended: string;
+	'google-sso': string;
 };

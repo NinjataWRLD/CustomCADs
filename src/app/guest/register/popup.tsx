@@ -1,8 +1,8 @@
-import { useRegisterTranslation } from '@/hooks/locales/pages/guest';
 import { Link } from '@tanstack/react-router';
+import { useRegisterTranslation } from '@/hooks/locales/pages/guest';
 
-type MessagesProps = { username: string | null };
-const Popup = ({ username }: MessagesProps) => {
+type PopupProps = { username: string | null };
+const Popup = ({ username }: PopupProps) => {
 	const tRegister = useRegisterTranslation();
 
 	return (

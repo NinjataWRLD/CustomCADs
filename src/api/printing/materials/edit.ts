@@ -5,8 +5,6 @@ export type Request = {
 	name: string;
 	density: number;
 	cost: number;
-	textureKey?: string;
-	textureContentType?: string;
 };
 
 export const url = () => `${MATERIALS_BASE_PATH}`;

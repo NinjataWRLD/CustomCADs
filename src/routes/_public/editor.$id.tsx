@@ -2,6 +2,7 @@ import Cookies from 'js-cookie';
 import { createFileRoute, redirect } from '@tanstack/react-router';
 import { AppError } from '@/types/errors';
 import * as galleryApi from '@/api/catalog/products/gallery';
+import * as cadsApi from '@/api/files/cads';
 import Editor from '@/app/public/editor';
 import * as auth from '@/utils/auth';
 
@@ -24,6 +25,8 @@ export const Route = createFileRoute('/_public/editor/$id')({
 				tip: 'Please go back to the Gallery or your Cart and avoid such actions.',
 			});
 
-		return { product };
+		const { data: cad } = await cadsApi.single({ id: product.cadId });
+
+		return { product, cad };
 	},
 });

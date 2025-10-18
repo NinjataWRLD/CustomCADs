@@ -31,7 +31,7 @@ const FileField = ({ api, label, accept, onChange }: FileFieldProps) => {
 						api.handleChange(file);
 						if (onChange) onChange(e);
 					}}
-					className={`${getErrorClass(showError && hasError)} border border-gray-300 p-4 hover:border-[#888] hover:cursor-pointer`}
+					className={`${getErrorClass(showError && hasError)} border border-gray-300 rounded-xl px-4 py-5 hover:border-[#888] hover:cursor-pointer`}
 				/>
 			}
 			showErrorWhenDirty

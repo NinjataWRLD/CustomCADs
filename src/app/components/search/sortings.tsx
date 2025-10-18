@@ -22,10 +22,8 @@ const Sortings = ({
 	updateSorting,
 	isActive,
 	setActive,
-	fetch,
+	fetch: { data: sortings, isError },
 }: SortingsProps) => {
-	const { data: sortings, isError } = fetch;
-
 	const { type: sortingParam, direction: directionParam } = getSorting();
 	const initial = 'Sort By';
 

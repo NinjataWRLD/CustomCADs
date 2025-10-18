@@ -1,10 +1,8 @@
 import { setCost, setSize, setWeight } from '@/stores/editor-store';
-import { useGenerateBlobUrl } from '@/hooks/useGenerateBlobUrl';
+import { useCadBlobUrl } from '@/hooks/useCadBlobUrl';
+import { useGetCad } from '@/hooks/queries/cads';
 import { useEditorStore } from '@/hooks/stores/useEditorStore';
-import {
-	useGetProduct,
-	useDownloadProductCad,
-} from '@/hooks/queries/products/gallery';
+import { useGetProduct } from '@/hooks/queries/products/gallery';
 import { useTextures } from '@/hooks/threejs/useTextures';
 import Loader from '@/app/components/state/loading';
 import { getCadType } from '@/utils/get-cad-type';
@@ -15,30 +13,29 @@ type EditorCadProps = {
 };
 
 const EditorCad = ({ id }: EditorCadProps) => {
-	const { data: cadInfo } = useDownloadProductCad({ id: id });
-	const cad = useGenerateBlobUrl(cadInfo);
-
 	const { data: product } = useGetProduct({ id: id });
 	const { materialId, color, scale, size, infill } = useEditorStore(id);
 
+	const { data: cad } = useGetCad({ id: product?.cadId! }, !!product);
+	const { blobUrl, progress } = useCadBlobUrl(product?.cadId!, 'Product');
+
 	const textureBlobUrls = useTextures(true);
-	if (!product || !cadInfo || !cad.blobUrl || !textureBlobUrls[materialId]) {
-		return <Loader progress={cad.progress} isCad />;
+	if (!product || !cad || !blobUrl || !textureBlobUrls[materialId]) {
+		return <Loader progress={progress} isCad />;
 	}
-	const { camCoordinates: cam, panCoordinates: pan } = product;
 
 	return (
 		<div className='h-full w-full'>
 			<EditorThreeJS
 				file={{
-					url: cad.blobUrl,
-					type: getCadType(cadInfo.contentType),
+					url: blobUrl,
+					type: getCadType(cad.contentType),
 				}}
-				coords={{ cam, pan }}
+				coords={{ cam: cad.camCoordinates, pan: cad.panCoordinates }}
 				state={{
 					color: color ?? undefined,
 					texture: textureBlobUrls[materialId].blobUrl,
-					volume: product.volume,
+					volume: cad.volume,
 					density: textureBlobUrls[materialId].density,
 					euroPerKg: textureBlobUrls[materialId].euroPerKg,
 					infill: infill,

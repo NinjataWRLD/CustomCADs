@@ -1,6 +1,5 @@
 import { axios } from '@/api/axios';
 import { Result } from '@/api/common/result';
-import * as downloadResources from './download';
 import * as allResources from './all';
 import * as singleResources from './single';
 import * as sortingsResources from './sortings';
@@ -23,6 +22,3 @@ export const paymentStatuses = async () =>
 
 export const stats = async () =>
 	await axios.get<statsResources.Response>(statsResources.url());
-
-export const download = async (req: downloadResources.Request) =>
-	await axios.post<downloadResources.Response>(downloadResources.url(), req);

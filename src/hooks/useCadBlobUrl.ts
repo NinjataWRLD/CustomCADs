@@ -1,8 +1,13 @@
 import { useEffect, useState } from 'react';
-import { DownloadResponse } from '@/api/common/files';
+import { DownloadRequest } from '@/api/files/presigned';
+import { useDownloadCadUrl } from '@/hooks/mutations/cads';
 import { fetchFile } from '@/utils/file';
 
-export const useGenerateBlobUrl = (download?: DownloadResponse) => {
+export const useCadBlobUrl = (
+	cadId: DownloadRequest['id'] | undefined,
+	relationType: DownloadRequest['relationType'],
+) => {
+	const { mutateAsync: downloadUrl } = useDownloadCadUrl();
 	const [blobUrl, setBlobUrl] = useState<string | null>(null);
 	const [progress, setProgress] = useState(0);
 
@@ -11,15 +16,12 @@ export const useGenerateBlobUrl = (download?: DownloadResponse) => {
 	};
 
 	useEffect(() => {
-		const getFile = async () => {
-			revokeUrl(blobUrl);
-
-			if (download) {
-				const { presignedUrl, contentType } = download;
+		if (cadId) {
+			const getFile = async () => {
+				revokeUrl(blobUrl);
 
 				const { length, response } = await fetchFile(
-					presignedUrl,
-					contentType,
+					await downloadUrl({ id: cadId, relationType }),
 				);
 
 				const reader = response.body?.getReader()!;
@@ -34,9 +36,9 @@ export const useGenerateBlobUrl = (download?: DownloadResponse) => {
 
 				const blob = new Blob(parts);
 				setBlobUrl(URL.createObjectURL(blob));
-			}
-		};
-		getFile();
+			};
+			getFile();
+		}
 
 		return () => {
 			setBlobUrl((prevBlobUrl) => {
@@ -44,7 +46,7 @@ export const useGenerateBlobUrl = (download?: DownloadResponse) => {
 				return null;
 			});
 		};
-	}, [download]);
+	}, [cadId, relationType]);
 
 	return { blobUrl, progress };
 };

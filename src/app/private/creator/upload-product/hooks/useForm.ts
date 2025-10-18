@@ -1,10 +1,10 @@
-import { FormEvent, useEffect, useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { useNavigate } from '@tanstack/react-router';
 import { useForm as useTanStackForm } from '@tanstack/react-form';
 import { useForceLocaleRefresh } from '@/hooks/locales/useForceLocaleRefresh';
+import { useFilesUploader } from '@/hooks/useFilesUploader';
 import { FileData } from '@/types/files';
 import { useValidation } from './useValidation';
-import { uploadFiles } from '@/utils/uploader';
 import { extractError } from '@/utils/form';
 import { useCreator } from './useCreator';
 
@@ -29,20 +29,13 @@ export const useForm = () => {
 	const schema = useValidation();
 	const navigate = useNavigate();
 
-	const [value, setValue] = useState<Fields>();
-
+	const [value, setValue] = useState<Fields>(defaultValues);
 	const [files, setFiles] = useState<{ image: FileData; cad: FileData }>();
-	const [cad, setCad] = useState<File | null>(null);
-	const { ref, error } = useCreator(cad, files, value, () =>
+
+	const { ref, progress, error } = useCreator(files, value, () =>
 		navigate({ to: '/gallery' }),
 	);
-
-	useEffect(() => {
-		if (value) {
-			const { name, image, cad } = value;
-			uploadFiles(name, image, cad, setFiles);
-		}
-	}, [value]);
+	useFilesUploader(value, setFiles);
 
 	const form = useTanStackForm({
 		defaultValues: defaultValues,
@@ -51,7 +44,7 @@ export const useForm = () => {
 	});
 	useForceLocaleRefresh(() => form.validate('change'));
 
-	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+	const handleSubmit = (e: FormEvent<HTMLButtonElement>) => {
 		e.preventDefault();
 		e.stopPropagation();
 		form.handleSubmit();
@@ -60,9 +53,11 @@ export const useForm = () => {
 	return {
 		form,
 		handleSubmit,
-		cadSet: !!cad,
-		setCad,
 		ref,
+		cadRenderProgress: progress,
 		error: extractError(error),
+		setCad: (cad: File | null) => setValue((prev) => ({ ...prev, cad })),
+		setImage: (image: File | null) =>
+			setValue((prev) => ({ ...prev, image })),
 	};
 };

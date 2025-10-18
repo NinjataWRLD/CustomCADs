@@ -5,6 +5,7 @@ export default {
 	settings: 'Settings',
 	carts: 'Carts',
 	shipments: 'Shipments',
+	'upload-product': 'Upload Product',
 	account: 'Account',
 	notifications: 'Notifications',
 	logout: 'Log Out',

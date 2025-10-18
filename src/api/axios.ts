@@ -39,7 +39,7 @@ instance.interceptors.response.use(
 
 			const config = refreshCsrf(error.config);
 			return await axios.default(config);
-		} catch (error) {
+		} catch {
 			return Promise.reject(error);
 		}
 	},

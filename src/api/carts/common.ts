@@ -12,9 +12,10 @@ export type PurchasedCartItem = {
 	addedAt: string;
 	price: number;
 	cost: number;
-	customizationId?: string;
 	productId: string;
 	cartId: string;
+	cadId: string;
+	customizationId?: string;
 };
 
 export const ACTIVE_CART_BASE_PATH = '/carts/active';

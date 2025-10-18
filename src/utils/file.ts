@@ -1,7 +1,10 @@
-export const fetchFile = async (url: string, contentType: string) => {
-	const response = await fetch(url, {
+export const fetchFile = async (params: {
+	presignedUrl: string;
+	contentType: string;
+}) => {
+	const response = await fetch(params.presignedUrl, {
 		headers: {
-			'Content-Type': contentType,
+			'Content-Type': params.contentType,
 		},
 	});
 

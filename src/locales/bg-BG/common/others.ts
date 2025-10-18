@@ -11,4 +11,5 @@ export default {
 	weight: 'Тежест',
 	cost: 'Цена',
 	unrecommended: 'Непрепоръчително',
+	'google-sso': 'Влезте с Гугъл',
 } satisfies CommonOthers;
